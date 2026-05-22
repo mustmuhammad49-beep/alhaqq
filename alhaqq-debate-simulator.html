@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Haqq · Debate Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #8a6f2e;
+    --ink: #0d0d0f;
+    --ink-2: #1a1a1f;
+    --ink-3: #242430;
+    --text-main: #f0ead8;
+    --text-dim: #a89f8a;
+    --accent: #2a7a5a;
+    --accent-light: #3da876;
+    --red: #c97a7a;
+    --border: rgba(201,168,76,0.2);
+    --border-strong: rgba(201,168,76,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--text-main);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 50%, rgba(201,168,76,0.04) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 20%, rgba(42,122,90,0.03) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    background: rgba(13,13,15,0.98);
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .logo-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+
+  .logo-latin {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .back-link {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.9rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .back-link:hover { color: var(--gold); border-color: var(--border-strong); }
+
+  /* Usage warning bar */
+  .usage-warning {
+    display: none;
+    background: rgba(201,122,122,0.08);
+    border: 1px solid rgba(201,122,122,0.3);
+    border-left: 4px solid var(--red);
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 1px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    text-align: center;
+  }
+
+  .usage-warning.visible { display: block; }
+
+  .header-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border-strong);
+    padding: 0.4rem 1rem;
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 4rem 2rem 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.1s;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.2s;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.3s;
+  }
+
+  /* ── SETUP PANEL ── */
+  .setup-panel {
+    position: relative;
+    z-index: 5;
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.4s;
+  }
+
+  .setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .setup-card {
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+  }
+
+  .setup-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+
+  .setup-select {
+    width: 100%;
+    background: var(--ink);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    padding: 0.7rem 0.9rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a6f2e' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    padding-right: 2rem;
+  }
+
+  .setup-select:focus { border-color: var(--border-strong); }
+  .setup-select option { background: var(--ink-2); }
+
+  /* ── ARENA ── */
+  .arena {
+    position: relative;
+    z-index: 5;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Chat messages */
+  .messages {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-bottom: 1rem;
+  }
+
+  .message {
+    padding: 1.4rem 1.8rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: msgIn 0.35s ease forwards;
+  }
+
+  @keyframes msgIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .message-opponent {
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--red);
+  }
+
+  .message-you {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+  }
+
+  .message-system {
+    background: rgba(42,122,90,0.06);
+    border: 1px solid rgba(42,122,90,0.2);
+    border-left: 4px solid var(--accent);
+    text-align: center;
+  }
+
+  .msg-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .msg-label-opponent { color: var(--red); }
+  .msg-label-you { color: var(--gold); }
+  .msg-label-system { color: var(--accent-light); justify-content: center; }
+
+  .msg-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .msg-dot-opponent { background: var(--red); }
+  .msg-dot-you { background: var(--gold); }
+  .msg-dot-system { background: var(--accent-light); }
+
+  .msg-text {
+    font-family: 'Lora', serif;
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-main);
+  }
+
+  .msg-text-system {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--accent-light);
+    line-height: 1.7;
+  }
+
+  /* Rebuttal breakdown sections */
+  .rebuttal-block {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .rebuttal-section {
+    margin-bottom: 1rem;
+  }
+
+  .rebuttal-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  .tag-misconception { color: #c9b87a; border: 1px solid rgba(201,184,122,0.3); background: rgba(201,184,122,0.05); }
+  .tag-logic { color: var(--gold); border: 1px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
+  .tag-verse { color: var(--accent-light); border: 1px solid rgba(61,168,118,0.3); background: rgba(61,168,118,0.05); }
+  .tag-closer { color: #c97a7a; border: 1px solid rgba(201,122,122,0.3); background: rgba(201,122,122,0.05); }
+
+  .rebuttal-text {
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-main);
+  }
+
+  .verse-inline {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 0.8rem 1rem;
+    margin: 0.6rem 0;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .verse-ref-inline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* Typing indicator */
+  .typing-indicator {
+    display: none;
+    padding: 1rem 1.8rem;
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .typing-indicator.visible { display: flex; }
+
+  .typing-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .typing-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .typing-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: typingBounce 1.2s ease-in-out infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* Input area */
+  .input-area {
+    background: var(--ink-2);
+    border: 1px solid var(--border-strong);
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .input-top {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-end;
+  }
+
+  .input-field {
+    flex: 1;
+    background: var(--ink);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+    outline: none;
+    resize: none;
+    min-height: 60px;
+    max-height: 140px;
+    line-height: 1.6;
+    transition: border-color 0.2s;
+  }
+
+  .input-field:focus { border-color: var(--border-strong); }
+  .input-field::placeholder { color: var(--text-dim); font-style: italic; }
+
+  .send-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.4rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+    white-space: nowrap;
+    align-self: flex-end;
+    height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .send-btn:hover { background: var(--gold-light); }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .input-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .input-hint {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .quick-attacks {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .quick-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--gold-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .quick-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Score panel */
+  .score-panel {
+    display: none;
+    background: var(--ink-2);
+    border: 1px solid var(--border-strong);
+    padding: 1.5rem 1.8rem;
+    margin-top: 1rem;
+    animation: msgIn 0.4s ease forwards;
+  }
+
+  .score-panel.visible { display: block; }
+
+  .score-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .score-item-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.3rem;
+  }
+
+  .score-item-value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .reset-btn {
+    width: 100%;
+    margin-top: 1.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.8rem;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .reset-btn:hover { background: var(--gold); color: var(--ink); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .setup-grid { grid-template-columns: 1fr; }
+    .score-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+    .header-badge { display: none; }
+    .quick-attacks { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="back-link" href="/index.html">← Back to Database</a>
+    <a class="logo" href="/index.html">
+      <span class="logo-arabic">الحق</span>
+      <span class="logo-latin">Al-Haqq · Debate Simulator</span>
+    </a>
+    <div class="header-badge">⚔ Training Arena · Subscribers Only</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Sharpen Your Arguments Before You Face The Camera</p>
+  <h1>The <span>Debate</span> Simulator</h1>
+  <p>Type any argument thrown at you. Receive a Quran-only rebuttal, structured and battle-tested — ready for video, live debate, or comment sections.</p>
+</div>
+
+<!-- SETUP -->
+<div class="setup-panel">
+  <div class="setup-grid">
+    <div class="setup-card">
+      <label class="setup-label">◈ Opponent Type</label>
+      <select class="setup-select" id="opponentType">
+        <option value="christian">Christian Missionary</option>
+        <option value="atheist">Atheist / Ex-Muslim</option>
+        <option value="sunni">Sunni Scholar Challenge</option>
+        <option value="orientalist">Orientalist Academic</option>
+        <option value="general">General Sceptic</option>
+      </select>
+    </div>
+    <div class="setup-card">
+      <label class="setup-label">◈ Rebuttal Style</label>
+      <select class="setup-select" id="rebuttalStyle">
+        <option value="structured">Structured — Point by Point</option>
+        <option value="sharp">Sharp — Precision Strike</option>
+        <option value="video">Video Script — Camera Ready</option>
+        <option value="calm">Calm & Scholarly</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ARENA -->
+<div class="arena">
+
+  <!-- Messages -->
+  <div class="messages" id="messages">
+    <div class="message message-system">
+      <div class="msg-label msg-label-system">
+        <div class="msg-dot msg-dot-system"></div>
+        Al-Haqq Simulator Ready
+      </div>
+      <div class="msg-text-system">
+        Select your opponent type and rebuttal style above — then type their argument below. The simulator will return a Quran-only rebuttal structured for real debate. Every response is grounded exclusively in the words of Allah.
+      </div>
+    </div>
+  </div>
+
+  <!-- Typing indicator -->
+  <div class="typing-indicator" id="typingIndicator">
+    <div class="typing-label">◈ Building Rebuttal</div>
+    <div class="typing-dots">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+  </div>
+
+  <!-- Score panel -->
+  <div class="score-panel" id="scorePanel">
+    <div class="score-title">◈ Session Summary</div>
+    <div class="score-grid">
+      <div>
+        <div class="score-item-label">Arguments Faced</div>
+        <div class="score-item-value" id="scoreCount">0</div>
+      </div>
+      <div>
+        <div class="score-item-label">Verses Deployed</div>
+        <div class="score-item-value" id="scoreVerses">0</div>
+      </div>
+      <div>
+        <div class="score-item-label">Topics Covered</div>
+        <div class="score-item-value" id="scoreTopics">0</div>
+      </div>
+    </div>
+    <button class="reset-btn" onclick="resetSession()">↺ Start New Session</button>
+  </div>
+
+  <!-- Input -->
+  <div class="input-area">
+    <div class="input-top">
+      <textarea
+        class="input-field"
+        id="argumentInput"
+        placeholder="Type the argument thrown at you — e.g. 'The Quran says Allah prays, which proves Islam is incoherent' or 'Muhammad was a warlord'..."
+        onkeydown="handleKey(event)"
+      ></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendArgument()">⚔ Rebut</button>
+    </div>
+    <div class="input-bottom">
+      <span class="input-hint">Enter to send · Shift+Enter for new line · <span id="usageBadge" style="color:var(--text-dim);"></span></span>
+      <div class="quick-attacks">
+        <button class="quick-btn" onclick="quickLoad('The Quran has contradictions — Allah says He forgives all sins but also punishes disbelievers forever')">Contradictions</button>
+        <button class="quick-btn" onclick="quickLoad('Islam was spread by the sword — the Quran itself calls for violence against non-believers')">Spread by sword</button>
+        <button class="quick-btn" onclick="quickLoad('The Quran borrowed stories from the Bible and Torah — Muhammad copied from Jewish and Christian sources')">Borrowed stories</button>
+        <button class="quick-btn" onclick="quickLoad('Why would Allah need to be worshipped? A perfect God needs nothing — worship is beneath a true deity')">Allah needs worship</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let sessionCount = 0;
+let sessionVerses = 0;
+let sessionTopics = new Set();
+let isLoading = false;
+let conversationHistory = [];
+
+// ── USAGE LIMITER ──
+const DAILY_LIMIT = 15; // max rebuttals per subscriber per day
+const LIMIT_KEY = 'alhaqq_usage';
+
+function getTodayKey() {
+  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+}
+
+function getUsageToday() {
+  try {
+    const raw = localStorage.getItem(LIMIT_KEY);
+    if (!raw) return 0;
+    const data = JSON.parse(raw);
+    return data.date === getTodayKey() ? (data.count || 0) : 0;
+  } catch { return 0; }
+}
+
+function incrementUsage() {
+  const count = getUsageToday() + 1;
+  localStorage.setItem(LIMIT_KEY, JSON.stringify({ date: getTodayKey(), count }));
+  updateUsageBadge();
+}
+
+function updateUsageBadge() {
+  const used = getUsageToday();
+  const remaining = Math.max(0, DAILY_LIMIT - used);
+  const badge = document.getElementById('usageBadge');
+  if (!badge) return;
+  badge.textContent = `${remaining} rebuttals remaining today`;
+  badge.style.color = remaining <= 3 ? 'var(--red)' : remaining <= 7 ? 'var(--gold)' : 'var(--text-dim)';
+}
+
+function isLimitReached() {
+  return getUsageToday() >= DAILY_LIMIT;
+}
+// ── END USAGE LIMITER ──
+
+const SYSTEM_PROMPT = `You are the Al-Haqq Debate Simulator — a Quran-only rebuttal engine for Muslim content creators.
+
+RULES:
+1. Refute using the Quran ALONE. No Hadith. No secondary sources.
+2. Never imply shirk or divine qualities for humans.
+3. Sharp, precise, classy. No profanity.
+4. Attack the strongest version of the argument.
+
+CRITICAL: Return ONLY a raw JSON object. No markdown. No backticks. No preamble. Start with { and end with }.
+
+{"misconception":"1-2 sentences on what they misunderstand","rebuttal":"concise Quranic dismantling in 3-4 sentences","verses":[{"arabic":"Arabic text","translation":"English translation","ref":"Surah Name X:Y","application":"one sentence how this destroys the argument"}],"closer":"one sharp closing line","topics":["topic1"]}
+
+Keep total response under 500 words. Use maximum 2 verses.`;
+
+function buildUserPrompt(argument, opponentType, style) {
+  const opponentLabels = {
+    christian: 'Christian Missionary',
+    atheist: 'Atheist or Ex-Muslim',
+    sunni: 'Sunni Scholar',
+    orientalist: 'Orientalist Academic',
+    general: 'General Sceptic'
+  };
+
+  const styleInstructions = {
+    structured: 'Structure the rebuttal as a clear point-by-point breakdown. Each point should be a complete argument on its own.',
+    sharp: 'Be precise and surgical. One clean argument, no padding, maximum impact per sentence.',
+    video: 'Write the rebuttal as if speaking directly to camera — natural spoken rhythm, strong opener, punchy closer. Teleprompter-ready.',
+    calm: 'Maintain a scholarly, measured tone throughout. Authoritative but never aggressive.'
+  };
+
+  return `Opponent type: ${opponentLabels[opponentType]}
+Rebuttal style: ${styleInstructions[style]}
+
+Their argument: "${argument}"
+
+Provide the Quran-only rebuttal in the exact JSON format specified.`;
+}
+
+async function sendArgument() {
+  if (isLoading) return;
+
+  // Check daily limit
+  if (isLimitReached()) {
+    addSystemMessage(`You have reached your daily limit of ${DAILY_LIMIT} rebuttals. Your limit resets at midnight. This protects fair access for all subscribers. JazakAllah Khayran.`);
+    return;
+  }
+
+  const input = document.getElementById('argumentInput');
+  const argument = input.value.trim();
+  if (!argument) return;
+
+  const opponentType = document.getElementById('opponentType').value;
+  const style = document.getElementById('rebuttalStyle').value;
+
+  // Add opponent message
+  addMessage('opponent', argument, opponentType);
+  input.value = '';
+  input.style.height = 'auto';
+
+  // Add to conversation history
+  conversationHistory.push({ role: 'user', content: buildUserPrompt(argument, opponentType, style) });
+
+  // Show typing
+  setLoading(true);
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': 'YOUR_ANTHROPIC_API_KEY_HERE', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1500,
+        system: SYSTEM_PROMPT,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    const rawText = data.content?.find(b => b.type === 'text')?.text || '';
+
+    let parsed;
+    try {
+      const clean = rawText.replace(/```json|```/g, '').trim();
+      parsed = JSON.parse(clean);
+    } catch {
+      addSystemMessage('The simulator encountered an issue parsing the response. Please try again.');
+      setLoading(false);
+      return;
+    }
+
+    // Add assistant response to history
+    conversationHistory.push({ role: 'assistant', content: rawText });
+
+    // Render rebuttal
+    addRebuttal(parsed);
+
+    // Update session stats
+    sessionCount++;
+    sessionVerses += (parsed.verses?.length || 0);
+    (parsed.topics || []).forEach(t => sessionTopics.add(t));
+    incrementUsage();
+    updateScore();
+
+  } catch (err) {
+    addSystemMessage('Connection issue. Check your internet and try again.');
+  }
+
+  setLoading(false);
+}
+
+function addMessage(type, text, opponentType) {
+  const messages = document.getElementById('messages');
+  const div = document.createElement('div');
+
+  const opponentLabels = {
+    christian: 'Christian Missionary',
+    atheist: 'Atheist / Ex-Muslim',
+    sunni: 'Sunni Scholar',
+    orientalist: 'Orientalist',
+    general: 'Sceptic'
+  };
+
+  if (type === 'opponent') {
+    div.className = 'message message-opponent';
+    div.innerHTML = `
+      <div class="msg-label msg-label-opponent">
+        <div class="msg-dot msg-dot-opponent"></div>
+        ${opponentLabels[opponentType] || 'Opponent'} · Their Argument
+      </div>
+      <div class="msg-text">${escapeHtml(text)}</div>
+    `;
+  }
+
+  messages.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function addRebuttal(data) {
+  const messages = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'message message-you';
+
+  let versesHtml = '';
+  if (data.verses && data.verses.length > 0) {
+    versesHtml = data.verses.map(v => `
+      <div class="verse-inline">
+        <div style="font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold);direction:rtl;line-height:2;margin-bottom:0.4rem;">${escapeHtml(v.arabic || '')}</div>
+        "${escapeHtml(v.translation || '')}"
+        <div class="verse-ref-inline">— ${escapeHtml(v.ref || '')} · ${escapeHtml(v.application || '')}</div>
+      </div>
+    `).join('');
+  }
+
+  div.innerHTML = `
+    <div class="msg-label msg-label-you">
+      <div class="msg-dot msg-dot-you"></div>
+      Al-Haqq Rebuttal · Quran Only
+    </div>
+    <div class="rebuttal-block">
+      <div class="rebuttal-section">
+        <span class="rebuttal-tag tag-misconception">◈ The Misconception</span>
+        <div class="rebuttal-text">${escapeHtml(data.misconception || '')}</div>
+      </div>
+      <div class="rebuttal-section">
+        <span class="rebuttal-tag tag-logic">◈ The Rebuttal</span>
+        <div class="rebuttal-text">${escapeHtml(data.rebuttal || '')}</div>
+      </div>
+      ${versesHtml ? `<div class="rebuttal-section">
+        <span class="rebuttal-tag tag-verse">◈ Quranic Foundation</span>
+        ${versesHtml}
+      </div>` : ''}
+      <div class="rebuttal-section">
+        <span class="rebuttal-tag tag-closer">◈ The Closer</span>
+        <div class="rebuttal-text" style="font-style:italic;color:var(--gold-light);">"${escapeHtml(data.closer || '')}"</div>
+      </div>
+    </div>
+  `;
+
+  messages.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function addSystemMessage(text) {
+  const messages = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'message message-system';
+  div.innerHTML = `
+    <div class="msg-label msg-label-system">
+      <div class="msg-dot msg-dot-system"></div>
+      System
+    </div>
+    <div class="msg-text-system">${escapeHtml(text)}</div>
+  `;
+  messages.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function setLoading(state) {
+  isLoading = state;
+  document.getElementById('typingIndicator').classList.toggle('visible', state);
+  document.getElementById('sendBtn').disabled = state;
+  if (state) {
+    document.getElementById('typingIndicator').scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+}
+
+function updateScore() {
+  document.getElementById('scoreCount').textContent = sessionCount;
+  document.getElementById('scoreVerses').textContent = sessionVerses;
+  document.getElementById('scoreTopics').textContent = sessionTopics.size;
+  document.getElementById('scorePanel').classList.add('visible');
+}
+
+function resetSession() {
+  sessionCount = 0;
+  sessionVerses = 0;
+  sessionTopics = new Set();
+  conversationHistory = [];
+  document.getElementById('messages').innerHTML = `
+    <div class="message message-system">
+      <div class="msg-label msg-label-system">
+        <div class="msg-dot msg-dot-system"></div>
+        New Session Started
+      </div>
+      <div class="msg-text-system">
+        Session cleared. Type a new argument to begin.
+      </div>
+    </div>
+  `;
+  document.getElementById('scorePanel').classList.remove('visible');
+  updateScoreDisplay();
+}
+
+function updateScoreDisplay() {
+  document.getElementById('scoreCount').textContent = 0;
+  document.getElementById('scoreVerses').textContent = 0;
+  document.getElementById('scoreTopics').textContent = 0;
+}
+
+function quickLoad(text) {
+  document.getElementById('argumentInput').value = text;
+  document.getElementById('argumentInput').focus();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendArgument();
+  }
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// Auto-resize textarea
+document.getElementById('argumentInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 140) + 'px';
+});
+
+// Init usage badge
+updateUsageBadge();
+</script>
+</body>
+</html>

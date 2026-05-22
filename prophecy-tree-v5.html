@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Al-Haqq · The Covenant Tree</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9a84c;--gold-light:#e8c97a;--gold-dim:#8a6f2e;
+  --ink:#0d0d0f;--ink-2:#1a1a1f;--ink-3:#242430;
+  --parchment:#f5f0e8;--text-main:#f0ead8;--text-dim:#a89f8a;
+  --red:#c84c4c;--red-dim:rgba(200,76,76,0.35);
+  --green:#2a7a5a;--green-dim:rgba(42,122,90,0.25);
+  --border:rgba(201,168,76,0.2);--border-strong:rgba(201,168,76,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--ink);color:var(--text-main);font-family:'Lora',Georgia,serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(201,168,76,.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(42,122,90,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+.container{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:1.5rem 1rem 3rem;}
+
+/* HEADER */
+.doc-header{text-align:center;margin-bottom:1.25rem;padding-bottom:1.1rem;border-bottom:1px solid var(--border);position:relative;}
+.doc-header::after{content:'◈';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--gold);padding:0 .75rem;font-size:.9rem;}
+.lock-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(201,168,76,.08);border:1px solid var(--border-strong);color:var(--gold-light);padding:.28rem .75rem;border-radius:999px;font-size:.62rem;font-family:'Cinzel',serif;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.75rem;}
+h1.doc-title{font-family:'Cinzel',serif;font-weight:600;font-size:clamp(1.3rem,4.5vw,1.95rem);color:var(--parchment);line-height:1.25;margin-bottom:.35rem;}
+.doc-title .gold-italic{color:var(--gold);font-style:italic;font-weight:500;}
+.doc-subtitle{color:var(--text-dim);font-style:italic;font-size:.78rem;margin-bottom:.6rem;}
+.hint{display:inline-block;color:var(--gold);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-family:'Cinzel',serif;opacity:.7;}
+
+/* GUIDED BUTTON */
+.guided-btn{display:block;width:100%;max-width:320px;margin:.9rem auto 0;background:var(--gold);color:var(--ink);border:none;font-family:'Cinzel',serif;font-weight:600;font-size:.78rem;letter-spacing:.08em;padding:.7rem 1.2rem;border-radius:4px;cursor:pointer;transition:all .2s ease;}
+.guided-btn:hover{background:var(--gold-light);}
+.guided-btn.active{background:var(--ink-3);color:var(--gold);border:1px solid var(--gold);}
+
+/* PROGRESS */
+.progress-section{margin:1.1rem 0 0;padding:.75rem .9rem;background:var(--ink-2);border:1px solid var(--border);border-radius:4px;}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem;}
+.progress-text{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;color:var(--text-dim);text-transform:uppercase;}
+.progress-pct{font-family:'Cinzel',serif;font-size:.62rem;color:var(--gold);font-weight:600;}
+.progress-track{height:3px;background:rgba(201,168,76,.12);border-radius:999px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));width:0%;transition:width .5s ease;border-radius:999px;}
+
+/* TREE */
+.tree{position:relative;margin:1.3rem 0;}
+.tree-row{display:flex;justify-content:center;position:relative;margin-bottom:1rem;}
+.tree-row.line-below::after{content:'';position:absolute;width:1px;height:1rem;background:var(--border-strong);left:50%;bottom:-1rem;transform:translateX(-50%);}
+.split-line{position:relative;height:1rem;margin-bottom:1rem;}
+.split-line::before{content:'';position:absolute;width:1px;height:.5rem;background:var(--border-strong);left:50%;top:0;transform:translateX(-50%);}
+.split-line::after{content:'';position:absolute;height:1px;background:var(--border-strong);top:.5rem;left:25%;right:25%;}
+.sl-down-l,.sl-down-r{position:absolute;width:1px;height:.5rem;background:var(--border-strong);bottom:0;}
+.sl-down-l{left:25%;transform:translateX(-50%);}
+.sl-down-r{right:25%;transform:translateX(50%);}
+.branches{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;}
+.branch-col{display:flex;flex-direction:column;align-items:center;position:relative;}
+.branch-col::before{content:'';position:absolute;width:1px;background:var(--border-strong);left:50%;top:2rem;bottom:.8rem;transform:translateX(-50%);z-index:0;}
+.branch-label{font-family:'Cinzel',serif;font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:.26rem .42rem;border:1px solid var(--border);border-radius:3px;background:var(--ink-2);margin-bottom:.75rem;position:relative;z-index:2;width:100%;}
+.branch-col.israelite .branch-label{color:var(--text-dim);}
+.branch-col.ishmaelite .branch-label{color:var(--gold);border-color:var(--border-strong);}
+
+/* NODE */
+.node{position:relative;z-index:1;background:var(--ink-2);border:1px solid var(--border);border-radius:4px;padding:.48rem .52rem;text-align:center;cursor:pointer;transition:all .2s ease;width:100%;margin-bottom:.8rem;-webkit-tap-highlight-color:transparent;user-select:none;}
+.node:last-child{margin-bottom:0;}
+.node:hover{background:var(--ink-3);border-color:var(--border-strong);}
+.node:active{transform:scale(.98);}
+.node.active{background:var(--ink-3);border-color:var(--gold);box-shadow:0 0 0 1px var(--gold);}
+
+/* Node visited state */
+.node.visited{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.35);}
+.node.visited::before{content:'✓';position:absolute;top:-7px;left:-7px;width:16px;height:16px;background:var(--gold);color:var(--ink);border-radius:50%;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:3;font-family:'Cinzel',serif;}
+.node.visited.rejected::after{top:-7px;right:-7px;}
+
+.node-name{font-family:'Cinzel',serif;font-weight:600;font-size:.69rem;color:var(--parchment);letter-spacing:.04em;line-height:1.2;margin-bottom:.1rem;}
+.node-ref{color:var(--gold-light);font-size:.57rem;font-style:italic;line-height:1.3;margin-bottom:.1rem;}
+.node-time{color:var(--text-dim);font-size:.52rem;font-family:'Cinzel',serif;letter-spacing:.06em;opacity:.7;}
+
+/* Rejected */
+.node.rejected{border-color:rgba(200,76,76,.25);}
+.node.rejected::after{content:'⚠';position:absolute;top:-7px;right:-7px;width:16px;height:16px;background:var(--ink);border:1px solid var(--red-dim);border-radius:50%;color:var(--red);font-size:.55rem;display:flex;align-items:center;justify-content:center;z-index:3;}
+.node.rejected:hover{border-color:rgba(200,76,76,.5);}
+.node.rejected.active{border-color:var(--red);box-shadow:0 0 0 1px var(--red);}
+
+/* Fulfillment */
+.node.fulfillment{border-color:var(--gold);background:linear-gradient(135deg,var(--ink-2) 0%,rgba(201,168,76,.09) 100%);box-shadow:0 0 10px rgba(201,168,76,.12);}
+.node.fulfillment .node-name{color:var(--gold-light);}
+.node.fulfillment::before{content:'✦';position:absolute;top:-10px;left:50%;transform:translateX(-50%);color:var(--gold);background:var(--ink);padding:0 .35rem;font-size:.8rem;z-index:3;}
+.node.fulfillment.visited::before{content:'✓';background:var(--gold);color:var(--ink);padding:0;}
+
+/* Pillar */
+.node.pillar{background:var(--ink-2);border-color:var(--border-strong);width:auto;min-width:190px;max-width:290px;padding:.62rem .9rem;}
+.node.pillar .node-name{color:var(--gold);font-size:.79rem;}
+.node.pillar.active{background:var(--ink-3);}
+
+/* Conclusion */
+.node.conclusion{border-color:var(--gold);background:linear-gradient(135deg,var(--ink-2) 0%,rgba(201,168,76,.07) 100%);box-shadow:0 0 14px rgba(201,168,76,.1);min-width:210px;max-width:300px;padding:.7rem 1rem;}
+.node.conclusion .node-name{color:var(--gold-light);font-size:.8rem;}
+.node.conclusion .node-ref{font-size:.58rem;}
+.node.conclusion.active{box-shadow:0 0 0 1px var(--gold),0 0 18px rgba(201,168,76,.2);}
+
+/* Convergence */
+.convergence{position:relative;height:1.3rem;margin-bottom:1rem;}
+.convergence::before{content:'';position:absolute;height:1px;background:var(--border-strong);top:.75rem;left:25%;right:25%;}
+.convergence::after{content:'';position:absolute;width:1px;height:.55rem;background:var(--border-strong);left:50%;top:.75rem;transform:translateX(-50%);}
+.cv-l,.cv-r{position:absolute;width:1px;height:.75rem;background:var(--border-strong);top:0;}
+.cv-l{left:25%;transform:translateX(-50%);}
+.cv-r{right:25%;transform:translateX(50%);}
+
+/* SHEET */
+.backdrop{position:fixed;inset:0;background:rgba(13,13,15,.82);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:99;}
+.backdrop.visible{opacity:1;pointer-events:auto;}
+.sheet{position:fixed;bottom:0;left:0;right:0;max-height:84vh;background:var(--ink-2);border-top:1px solid var(--gold);border-radius:14px 14px 0 0;transform:translateY(100%);transition:transform .35s cubic-bezier(.32,.72,0,1);z-index:100;box-shadow:0 -16px 40px rgba(0,0,0,.6);display:flex;flex-direction:column;}
+.sheet.visible{transform:translateY(0);}
+.sheet-handle{padding:.55rem 1rem .3rem;display:flex;justify-content:center;position:relative;flex-shrink:0;}
+.sheet-handle::before{content:'';width:36px;height:4px;background:var(--gold-dim);border-radius:999px;opacity:.5;}
+.sheet-close{position:absolute;top:.5rem;right:.8rem;width:27px;height:27px;border-radius:50%;background:var(--ink-3);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s;}
+.sheet-close:hover{color:var(--gold);border-color:var(--border-strong);}
+.sheet-body{overflow-y:auto;padding:.1rem 1.15rem 1rem;flex:1;-webkit-overflow-scrolling:touch;}
+
+/* Guided footer inside sheet */
+.sheet-footer{display:none;padding:.75rem 1rem;border-top:1px solid var(--border);flex-shrink:0;display:none;align-items:center;justify-content:space-between;gap:.5rem;background:var(--ink-2);}
+.sheet-footer.visible{display:flex;}
+.guided-exit-btn,.guided-next-btn{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.08em;padding:.5rem .85rem;border-radius:3px;cursor:pointer;transition:all .2s;border:1px solid var(--border);}
+.guided-exit-btn{background:transparent;color:var(--text-dim);}
+.guided-exit-btn:hover{color:var(--gold);border-color:var(--border-strong);}
+.guided-next-btn{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:600;}
+.guided-next-btn:hover{background:var(--gold-light);}
+.guided-step-label{font-family:'Cinzel',serif;font-size:.62rem;color:var(--text-dim);letter-spacing:.1em;}
+
+/* SHEET CONTENT */
+.plain-english{background:rgba(42,122,90,.1);border:1px solid rgba(42,122,90,.3);border-left:3px solid var(--green);border-radius:3px;padding:.6rem .8rem;margin-bottom:.85rem;}
+.plain-english-label{font-family:'Cinzel',serif;font-size:.58rem;color:var(--accent-light,#3da876);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.22rem;}
+.plain-english-text{color:var(--text-main);font-size:.85rem;line-height:1.65;}
+.detail-step{color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.28rem;}
+.detail-title{font-family:'Cinzel',serif;font-size:1.12rem;font-weight:600;color:var(--parchment);line-height:1.25;margin-bottom:.2rem;}
+.detail-subtitle{color:var(--gold-light);font-size:.82rem;font-style:italic;margin-bottom:.85rem;padding-bottom:.75rem;border-bottom:1px dashed var(--border);}
+.sheet-section{margin:1rem 0 .7rem;padding-top:1rem;border-top:1px dashed var(--border-strong);color:var(--gold);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;text-align:center;}
+.sheet-section::before{content:'◈  ';}
+.sheet-section::after{content:'  ◈';}
+.passage{background:rgba(13,13,15,.5);border:1px solid var(--border);border-radius:3px;padding:.68rem .78rem;margin-bottom:.6rem;}
+.passage-ref{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;color:var(--gold);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.42rem;padding-bottom:.32rem;border-bottom:1px dashed var(--border);}
+.passage-ref-label{flex:1;min-width:0;line-height:1.4;}
+.passage-text{color:var(--parchment);font-size:.84rem;line-height:1.72;font-style:italic;}
+.listen-btn{background:transparent;border:1px solid var(--border);color:var(--gold);font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.09em;padding:.2rem .46rem;border-radius:3px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+.listen-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+.listen-btn.playing{background:var(--gold);color:var(--ink);}
+.commentary{margin-top:.82rem;padding-top:.82rem;border-top:1px dashed var(--border);color:var(--text-main);font-size:.83rem;line-height:1.75;}
+.commentary::before{content:'◈  ';color:var(--gold);font-weight:700;}
+.commentary strong{color:var(--gold-light);font-weight:600;}
+.commentary em{color:var(--parchment);}
+
+/* Share button */
+.share-row{display:flex;justify-content:flex-end;margin-top:.75rem;}
+.share-btn{background:transparent;border:1px solid var(--border-strong);color:var(--gold);font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;padding:.38rem .75rem;border-radius:3px;cursor:pointer;transition:all .2s;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;}
+.share-btn:hover{background:rgba(201,168,76,.08);}
+.share-btn.copied{background:var(--gold);color:var(--ink);border-color:var(--gold);}
+
+/* Objection */
+.objection-section{margin-top:.9rem;padding-top:.9rem;border-top:1px dashed var(--border);}
+.objection-toggle-btn{width:100%;background:transparent;border:1px solid var(--red-dim);color:var(--red);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;padding:.5rem .9rem;border-radius:3px;cursor:pointer;transition:all .2s;text-transform:uppercase;text-align:center;}
+.objection-toggle-btn:hover{background:rgba(200,76,76,.08);}
+.objection-panel{display:none;margin-top:.65rem;}
+.objection-panel.visible{display:block;}
+.objection-claim-box{background:rgba(200,76,76,.07);border:1px solid var(--red-dim);border-left:3px solid var(--red);border-radius:3px;padding:.65rem .8rem;margin-bottom:.6rem;}
+.objection-claim-label{font-family:'Cinzel',serif;font-size:.57rem;color:var(--red);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.22rem;}
+.objection-claim-text{color:var(--text-main);font-size:.83rem;line-height:1.65;font-style:italic;}
+.answer-toggle-btn{width:100%;background:transparent;border:1px solid var(--border-strong);color:var(--gold);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;padding:.5rem .9rem;border-radius:3px;cursor:pointer;transition:all .2s;text-transform:uppercase;text-align:center;}
+.answer-toggle-btn:hover{background:rgba(201,168,76,.08);}
+.answer-box{display:none;margin-top:.65rem;background:rgba(42,122,90,.08);border:1px solid rgba(42,122,90,.3);border-left:3px solid var(--green);border-radius:3px;padding:.65rem .8rem;}
+.answer-box.visible{display:block;}
+.answer-label{font-family:'Cinzel',serif;font-size:.57rem;color:#3da876;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.22rem;}
+.answer-text{color:var(--text-main);font-size:.83rem;line-height:1.7;}
+.answer-text strong{color:var(--gold-light);}
+
+/* CLOSER */
+.closer{margin-top:1.3rem;padding:1.1rem 1rem;background:linear-gradient(180deg,transparent 0%,rgba(201,168,76,.04) 100%);border:1px solid var(--border);border-radius:4px;text-align:center;}
+.closer-title{font-family:'Cinzel',serif;font-weight:600;color:var(--gold);font-size:.88rem;letter-spacing:.05em;margin-bottom:.35rem;}
+.closer-text{color:var(--text-main);font-size:.83rem;line-height:1.75;font-style:italic;}
+.closer-text strong{color:var(--gold-light);font-style:normal;}
+
+/* COMPLETION OVERLAY */
+.completion-overlay{position:fixed;inset:0;background:rgba(13,13,15,.97);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem;}
+.completion-overlay.visible{display:flex;}
+.completion-box{text-align:center;max-width:400px;animation:completionIn .6s ease forwards;}
+@keyframes completionIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.completion-icon{font-size:2.8rem;color:var(--gold);margin-bottom:1rem;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{text-shadow:0 0 10px rgba(201,168,76,.4);}50%{text-shadow:0 0 30px rgba(201,168,76,.9);}}
+.completion-title{font-family:'Cinzel',serif;font-size:1.6rem;font-weight:600;color:var(--parchment);margin-bottom:.6rem;line-height:1.2;}
+.completion-subtitle{color:var(--text-dim);font-size:.88rem;font-style:italic;margin-bottom:1.3rem;line-height:1.6;}
+.completion-stats{display:flex;justify-content:center;gap:1.2rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+.c-stat{text-align:center;}
+.c-stat-num{display:block;font-family:'Cinzel',serif;font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1;}
+.c-stat-label{font-size:.68rem;color:var(--text-dim);letter-spacing:.08em;margin-top:.2rem;}
+.completion-share-btn{display:block;width:100%;background:var(--gold);color:var(--ink);border:none;font-family:'Cinzel',serif;font-weight:600;font-size:.82rem;letter-spacing:.08em;padding:.8rem 1.2rem;border-radius:4px;cursor:pointer;transition:all .2s;margin-bottom:.65rem;}
+.completion-share-btn:hover{background:var(--gold-light);}
+.completion-share-btn.copied{background:var(--green);}
+.completion-close-btn{display:block;width:100%;background:transparent;color:var(--text-dim);border:1px solid var(--border);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.08em;padding:.65rem 1rem;border-radius:4px;cursor:pointer;transition:all .2s;}
+.completion-close-btn:hover{color:var(--gold);border-color:var(--border-strong);}
+
+@media(max-width:380px){
+  .branches{gap:.4rem;}
+  .node{padding:.44rem .38rem;}
+  .node-name{font-size:.64rem;}
+  .node-ref{font-size:.54rem;}
+  .node-time{font-size:.48rem;}
+  .branch-label{font-size:.53rem;padding:.24rem .3rem;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="doc-header">
+    <div class="lock-badge">🔒 Subscriber Content</div>
+    <h1 class="doc-title">The Covenant <span class="gold-italic">Tree</span></h1>
+    <p class="doc-subtitle">From Abraham to Muhammad ﷺ — every prophecy traced through Scripture itself.</p>
+    <span class="hint">Tap any name to open the verse</span>
+  </header>
+
+  <button class="guided-btn" id="guidedBtn">▶ Take me through the chain</button>
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <span class="progress-text" id="progressText">0 of 13 explored</span>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div class="tree">
+    <div class="tree-row line-below">
+      <div class="node pillar" data-id="covenant" data-time="Written ~1,400 BCE">
+        <div class="node-name">The Covenant</div>
+        <div class="node-ref">Genesis 17:7</div>
+      </div>
+    </div>
+    <div class="tree-row line-below">
+      <div class="node pillar" data-id="abraham" data-time="~2,000 BCE">
+        <div class="node-name">Abraham ﷺ</div>
+        <div class="node-ref">Father of two nations</div>
+      </div>
+    </div>
+    <div class="split-line"><div class="sl-down-l"></div><div class="sl-down-r"></div></div>
+    <div class="branches">
+      <div class="branch-col israelite">
+        <div class="branch-label">Children of Israel</div>
+        <div class="node" data-id="isaac" data-time="~1,800 BCE"><div class="node-name">Isaac ﷺ</div><div class="node-ref">Abraham's second son</div></div>
+        <div class="node" data-id="jacob" data-time="~1,700 BCE"><div class="node-name">Jacob ﷺ</div><div class="node-ref">Renamed Israel</div></div>
+        <div class="node rejected" data-id="joseph" data-time="~1,600 BCE"><div class="node-name">Joseph ﷺ</div><div class="node-ref">Almost killed by his brothers</div></div>
+        <div class="node" data-id="moses" data-time="~1,400 BCE"><div class="node-name">Moses ﷺ</div><div class="node-ref">Sinai · Exodus 31:18</div></div>
+        <div class="node rejected" data-id="aaron" data-time="~1,400 BCE"><div class="node-name">Aaron ﷺ</div><div class="node-ref">Almost killed · Quran 20:94</div></div>
+        <div class="node rejected" data-id="jesus" data-time="~30 CE"><div class="node-name">Jesus ﷺ</div><div class="node-ref">Rejected · Matthew 21:43</div></div>
+      </div>
+      <div class="branch-col ishmaelite">
+        <div class="branch-label">Children of Ishmael</div>
+        <div class="node" data-id="ishmael" data-time="~1,800 BCE"><div class="node-name">Ishmael ﷺ</div><div class="node-ref">Settled in Paran · Gen 21:20–21</div></div>
+        <div class="node fulfillment" data-id="muhammad" data-time="610 CE"><div class="node-name">Muhammad ﷺ</div><div class="node-ref">Born in Paran · Arabia</div></div>
+      </div>
+    </div>
+    <div class="convergence"><div class="cv-l"></div><div class="cv-r"></div></div>
+    <div class="tree-row line-below">
+      <div class="node pillar" data-id="deut" data-time="Written ~1,400 BCE (Moses)">
+        <div class="node-name">Deuteronomy 33:2</div>
+        <div class="node-ref">Sinai · Seir · Paran — three prophets</div>
+      </div>
+    </div>
+    <div class="tree-row line-below">
+      <div class="node pillar" data-id="matthew" data-time="~30 CE (Jesus)">
+        <div class="node-name">Matthew 21:43</div>
+        <div class="node-ref">Kingdom transferred to a non-Jewish nation</div>
+      </div>
+    </div>
+    <div class="tree-row">
+      <div class="node conclusion" data-id="moreprophecies" data-time="Oldest: ~1,400 BCE">
+        <div class="node-name">◈ 4 More Bible Prophecies</div>
+        <div class="node-ref">Deut 18:18 · John 14:16 · Song of Solomon 5:16 · Isaiah 29:12</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="closer">
+    <div class="closer-title">The Chain Closes</div>
+    <div class="closer-text">Six chances on the left. <strong>One name on the right.</strong><br>Moses prophesied. Jesus confirmed. <strong>Muhammad ﷺ fulfilled every word.</strong></div>
+  </div>
+</div>
+
+<!-- Sheet -->
+<div class="backdrop" id="backdrop"></div>
+<div class="sheet" id="sheet" role="dialog" aria-hidden="true">
+  <div class="sheet-handle">
+    <button class="sheet-close" id="sheetClose">✕</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+  <div class="sheet-footer" id="sheetFooter">
+    <button class="guided-exit-btn" id="guidedExitBtn">← Exit</button>
+    <span class="guided-step-label" id="guidedStepLabel">1 / 13</span>
+    <button class="guided-next-btn" id="guidedNextBtn">Next →</button>
+  </div>
+</div>
+
+<!-- Completion -->
+<div class="completion-overlay" id="completionOverlay">
+  <div class="completion-box">
+    <div class="completion-icon">◈</div>
+    <h2 class="completion-title">The Chain Is Complete</h2>
+    <p class="completion-subtitle">You just traced the prophecy of Muhammad ﷺ through 14 Bible verses — from Abraham's covenant to Moses's mountain, from Jesus's announcement to the fulfilment in Paran.</p>
+    <div class="completion-stats">
+      <div class="c-stat"><span class="c-stat-num">14</span><div class="c-stat-label">Bible Verses</div></div>
+      <div class="c-stat"><span class="c-stat-num">1,400</span><div class="c-stat-label">Years Before Islam</div></div>
+      <div class="c-stat"><span class="c-stat-num">5</span><div class="c-stat-label">Prophets</div></div>
+    </div>
+    <button class="completion-share-btn" id="completionShareBtn">◈ Share the chain</button>
+    <button class="completion-close-btn" id="completionCloseBtn">Explore again</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const data = {
+  covenant:{
+    step:'Foundation',title:'The Covenant',subtitle:'Genesis 17:7 — the everlasting promise to Abraham\'s seed',
+    plainEnglish:'God promised Abraham that His covenant would last forever and apply to ALL of his children — not just one son. That means both Isaac\'s line and Ishmael\'s line are included.',
+    passages:[{ref:'Genesis 17:7 (KJV)',text:'And I will establish my covenant between me and thee and thy seed after thee in their generations for an everlasting covenant, to be a God unto thee, and to thy seed after thee.'}],
+    commentary:'Allah said <strong>"thy seed"</strong> — not "only Isaac\'s line." Abraham had two sons: Isaac and Ishmael. Both are seed. Both are covered by this everlasting covenant. Any Christian who restricts it to Isaac alone is changing what the text actually says.',
+    shareText:'Genesis 17:7 — God\'s covenant with Abraham covers ALL his seed, including Ishmael\'s line. That line leads directly to Muhammad ﷺ. In their own Bible. 📖 Al-Haqq — alhaqq.it.com'
+  },
+  abraham:{
+    step:'The Patriarch',title:'Abraham ﷺ',subtitle:'Father of both prophetic lines',
+    plainEnglish:'Abraham had two sons — Isaac and Ishmael. The Bible explicitly says God blessed BOTH of them and promised that Ishmael\'s descendants would become a great nation.',
+    passages:[
+      {ref:'Genesis 16:15 — Ishmael born',text:'And Hagar bare Abram a son: and Abram called his son\'s name, which Hagar bare, Ishmael.'},
+      {ref:'Genesis 17:20 — God blesses Ishmael explicitly',text:'And as for Ishmael, I have heard thee: Behold, I have blessed him, and will make him fruitful, and will multiply him exceedingly; twelve princes shall he beget, and I will make him a great nation.'}
+    ],
+    commentary:'Both sons. Both blessed. Genesis 17:20 — God explicitly promises to <strong>make Ishmael a great nation.</strong> The Ishmael branch is not a footnote in the Bible. It is a parallel divine decree hidden in plain sight.',
+    shareText:'Genesis 17:20 — God promised Ishmael would become "a great nation." The Bible said it. That nation produced Muhammad ﷺ. 📖 Al-Haqq — alhaqq.it.com'
+  },
+  isaac:{
+    step:'Israelite Line — Chance 1',title:'Isaac ﷺ',subtitle:'The line through which most Biblical prophets came',
+    plainEnglish:'Isaac is the son of Abraham whose descendants became the Jewish people. From his line came a long chain of prophets — and the Bible records exactly how that nation treated each one.',
+    passages:[{ref:'Genesis 21:5',text:'And Abraham was a hundred years old, when his son Isaac was born unto him.'}],
+    commentary:'From Isaac came the line of prophets sent to <strong>Bani Israel.</strong> Every prophet was a chance. As we follow this branch downward, the Bible itself records what happened to each chance — written in their own words, in their own scripture.',
+    shareText:'From Isaac\'s line came prophet after prophet for Bani Israel. The Bible records exactly how they were treated. Follow the chain at Al-Haqq — alhaqq.it.com 📖'
+  },
+  jacob:{
+    step:'Israelite Line — Chance 2',title:'Jacob ﷺ',subtitle:'Renamed Israel — the origin of "Bani Israel"',
+    plainEnglish:'"Children of Israel" — Bani Israel — comes from Jacob\'s new name. His 12 sons became the 12 tribes of Israel: the nation that received the prophets and the covenant duties.',
+    passages:[{ref:'Genesis 32:28 (KJV)',text:'And he said, Thy name shall be called no more Jacob, but Israel: for as a prince hast thou power with God and with men, and hast prevailed.'}],
+    commentary:'The name <strong>"Israel"</strong> begins here. Jacob\'s twelve sons become the twelve tribes — the future nation honoured with prophets, and tested by how they treated them.',
+    shareText:'"Bani Israel" — Children of Israel — comes from Jacob, renamed Israel in Genesis 32:28. Their story of rejecting prophet after prophet is in their own Bible. 📖 Al-Haqq'
+  },
+  joseph:{
+    step:'Israelite Line — Rejected',title:'Joseph ﷺ',subtitle:'Thrown into a pit and sold into slavery by his own brothers',
+    plainEnglish:'Joseph was a prophet. His brothers — the sons of Jacob, the future 12 tribes of Israel — plotted to murder him. They eventually sold him into slavery instead. This is the first rejection of a prophet by Bani Israel, written in the Bible.',
+    passages:[{ref:'Genesis 37:18, 20, 24 (KJV)',text:'And when they saw him afar off, even before he came near unto them, they conspired against him to slay him. And they said one to another, Come now therefore, and let us slay him… And they took him, and cast him into a pit.'}],
+    commentary:'Joseph\'s brothers — the ancestors of the Jewish people — <strong>conspired to murder their own brother prophet.</strong> They decided on selling him into slavery instead. The pattern begins here, in the Bible itself.',
+    shareText:'Genesis 37 — Joseph\'s brothers (the 12 tribes of Israel) conspired to murder him and sold him into slavery. First rejection of a prophet by Bani Israel. In their own Bible. 📖 Al-Haqq'
+  },
+  moses:{
+    step:'Israelite Line — The Law Given',title:'Moses ﷺ',subtitle:'The Torah delivered at Mount Sinai',
+    plainEnglish:'God gave Moses the Torah — the law — directly at Mount Sinai. This is one of the three mountains named in Deuteronomy 33:2. Sinai represents Moses\'s era. Within 40 days, the same people who received this law were worshipping a golden calf.',
+    passages:[{ref:'Exodus 31:18 (KJV)',text:'And he gave unto Moses, when he had made an end of communing with him upon mount Sinai, two tables of testimony, tables of stone, written with the finger of God.'}],
+    commentary:'Moses receives the Torah at <strong>Mount Sinai</strong> — the first of three mountains in Deuteronomy 33:2. The greatest chance Bani Israel received: the direct law of God, written by His own hand. Within forty days, they built a golden calf at the base of the same mountain.',
+    shareText:'Exodus 31:18 — God gave the Torah to Moses at Mount Sinai. Within 40 days, the same nation built a golden calf. Sinai is Prophecy #1 in Deuteronomy 33:2. 📖 Al-Haqq'
+  },
+  aaron:{
+    step:'Israelite Line — Rejected',title:'Aaron ﷺ',subtitle:'Surrounded and nearly killed during the golden calf incident',
+    plainEnglish:'While Moses was on the mountain receiving God\'s law, Bani Israel surrounded Aaron — Moses\'s brother and a prophet — and threatened to kill him if he didn\'t make them idols. The Quran records Aaron\'s own testimony about this.',
+    passages:[
+      {ref:'Quran 20:94 — Aaron\'s own testimony',text:'Aaron said: O son of my mother! Indeed, the people overpowered me and were about to kill me, so let not the enemies rejoice over me, and do not place me among the wrongdoing people.'},
+      {ref:'Exodus 32:1 — the Bible\'s account',text:'And when the people saw that Moses delayed to come down out of the mount, the people gathered themselves together unto Aaron, and said unto him, Up, make us gods, which shall go before us.'}
+    ],
+    commentary:'Within weeks of receiving the law of God, Bani Israel <strong>nearly killed a prophet</strong> for refusing to make them idols. The Quran (20:94) records Aaron\'s direct testimony. The Bible (Exodus 32) records the same event.',
+    shareText:'Quran 20:94 + Exodus 32 — While Moses received the Torah, Bani Israel nearly killed Aaron for refusing to make them idols. Weeks after receiving God\'s law. 📖 Al-Haqq'
+  },
+  jesus:{
+    step:'Israelite Line — Final Rejection · Kingdom Transferred',title:'Jesus ﷺ',subtitle:'Rejected by his own — the kingdom announced transferred',
+    plainEnglish:'Jesus was the final chance for Bani Israel. His own people rejected him. He then made an announcement recorded in Matthew 21:43: God\'s kingdom will be taken away from the Jewish leaders and given to a completely different nation.',
+    passages:[
+      {ref:'John 1:11 — rejected by his own',text:'He came unto his own, and his own received him not.'},
+      {ref:'Matthew 23:37 — Jesus\'s lament',text:'O Jerusalem, Jerusalem, thou that killest the prophets, and stonest them which are sent unto thee, how often would I have gathered thy children together, even as a hen gathereth her chickens under her wings, and ye would not!'},
+      {ref:'Matthew 21:43 — the transfer announced',text:'Therefore I tell you, the kingdom of God will be taken away from you and given to a people who will produce its fruit.'}
+    ],
+    commentary:'The final chance. Jesus came to his own and they rejected him (John 1:11). He called Jerusalem <em>"the killer of prophets"</em> (Matthew 23:37). Then: <strong>"taken from you and given to a nation"</strong> — Greek <em>ethnos</em>, the standard New Testament word for Gentiles — non-Jews. The left branch ends. The kingdom moves right.',
+    shareText:'Matthew 21:43 — Jesus said "the kingdom of God will be taken away from you and given to a people." Greek: ethnos = non-Jewish nation. KJV translates this word as "Gentiles" 93 times. 📖 Al-Haqq'
+  },
+  ishmael:{
+    step:'Ishmaelite Line',title:'Ishmael ﷺ',subtitle:'Genesis 21:20–21 — settled in Paran, Arabia',
+    plainEnglish:'Ishmael — Abraham\'s other son — settled in a place called Paran. The Bible tells us exactly where Paran is. Three separate Bible verses confirm it is in Arabia.',
+    passages:[{ref:'Genesis 21:20–21 (KJV)',text:'And God was with the lad; and he grew, and dwelt in the wilderness, and became an archer. And he dwelt in the wilderness of Paran: and his mother took him a wife out of the land of Egypt.'}],
+    sectionLabel:'Paran = Arabia — confirmed by 3 Bible verses',
+    extraPassages:[
+      {ref:'Habakkuk 3:3 — Paran paired with Teman (northwestern Arabia)',text:'God came from Teman, and the Holy One from mount Paran. Selah. His glory covered the heavens, and the earth was full of his praise.'},
+      {ref:'Genesis 25:18 — Ishmael\'s descendants\' territory',text:'And they dwelt from Havilah unto Shur, that is before Egypt, as thou goest toward Assyria: and he died in the presence of all his brethren.'},
+      {ref:'1 Kings 11:18 — Paran on the Midian-to-Egypt route',text:'And they arose out of Midian, and came to Paran: and they took men with them out of Paran, and they came to Egypt, unto Pharaoh king of Egypt.'}
+    ],
+    commentary:'<strong>Habakkuk 3:3</strong> pairs Paran with Teman — every Bible atlas places Teman in northwestern Arabia. <strong>Genesis 25:18</strong> shows Ishmael\'s descendants across the Arabian peninsula. <strong>1 Kings 11:18</strong> places Paran on the Midian-to-Egypt route — Midian is in modern Saudi Arabia. The "Paran = Sinai" objection has no basis in the Bible itself.',
+    objection:'Paran is in the Sinai Peninsula — not Arabia. Ishmael lived near Egypt, not in Arabia proper. This argument is just Islamic interpretation.',
+    objectionAnswer:'<strong>Three Bible verses — not Islamic sources — identify Paran\'s location:</strong> (1) Habakkuk 3:3 pairs Paran with Teman in the same verse — Teman is in northwestern Arabia, confirmed by every Bible atlas and concordance. (2) 1 Kings 11:18 shows a route from <em>Midian</em> through <em>Paran</em> to Egypt — Midian is in modern Saudi Arabia. That route only makes geographical sense if Paran is in Arabia. (3) Genesis 25:18 places Ishmael\'s descendants across the Arabian peninsula. Paran falls within that range. The text places it in Arabia. Not Muslim scholarship — their own Bible.',
+    shareText:'Genesis 21:20-21 places Ishmael in Paran. Habakkuk 3:3 confirms Paran is in Arabia. 1 Kings 11:18 confirms it again. Three Bible verses, zero Muslim sources. 📖 Al-Haqq'
+  },
+  muhammad:{
+    step:'Fulfillment',title:'Muhammad ﷺ',subtitle:'The chain closes — every detail fulfilled',
+    plainEnglish:'Muhammad ﷺ was born in Paran (Arabia), a descendant of Ishmael. He entered Mecca with exactly 10,000 followers. He brought a new law — the Quran. Every detail of Moses\'s prophecy in Deuteronomy 33:2 matches.',
+    passages:[
+      {ref:'Quran 2:128–129 — Abraham\'s prayer in Mecca',text:'Our Lord, send among them a messenger from themselves who will recite to them Your verses and teach them the Book and wisdom and purify them. Indeed, You are the Exalted in Might, the Wise.'},
+      {ref:'Quran 61:6 — Jesus prophesies Ahmad by name',text:'And mention when Jesus, the son of Mary, said: O children of Israel! Indeed, I am the messenger of Allah to you confirming what came before me of the Torah and bringing good tidings of a messenger to come after me, whose name is Ahmad.'}
+    ],
+    commentary:'Born in <strong>Paran</strong>. Descendant of Ishmael. Brought a <em>"fiery law"</em> — the Quran. Entered Mecca with <strong>10,000 followers</strong> — fulfilling Deuteronomy 33:2\'s <em>"ten thousands of saints."</em> <strong>Abraham prayed for him from Mecca (2:128). Jesus prophesied him by name — Ahmad (61:6).</strong> Every coordinate converges.',
+    shareText:'Muhammad ﷺ: born in Paran (Arabia), entered Mecca with 10,000 followers (Deut 33:2 says "ten thousands"), brought a new law, prophesied by Abraham (Quran 2:128) and Jesus (61:6). 📖 Al-Haqq'
+  },
+  deut:{
+    step:'The Prophecy',title:'Deuteronomy 33:2',subtitle:'Three mountains. Three prophets. One verse from Moses himself.',
+    plainEnglish:'In his last speech before dying, Moses named three mountains where God\'s light would come from. Each mountain represents a different prophet. Sinai = Moses. Seir = Jesus. Paran = Muhammad ﷺ. One verse. Three prophets. Written 1,400 years before Muhammad was born.',
+    passages:[{ref:'Deuteronomy 33:2 (KJV)',text:'And he said, The LORD came from Sinai, and rose up from Seir unto them; he shined forth from mount Paran, and he came with ten thousands of saints: from his right hand went a fiery law for them.'}],
+    commentary:'Three locations. Three verbs. <strong>Sinai = Moses</strong> (Torah given — Exodus 31:18). <strong>Seir = Jordan/Edom = Jesus</strong> (his ministry territory). <strong>Paran = Arabia = Muhammad ﷺ</strong> (Genesis 21:20–21). <em>"Ten thousands of saints"</em> = the conquest of Mecca. <em>"Fiery law"</em> = the Quran. <strong>Moses prophesied all three. In one verse.</strong>',
+    objection:'Deuteronomy 33:2 is Hebrew poetry about God\'s power at Sinai — the three mountains are just poetic parallelism, all referring to the same event. It has nothing to do with three different prophets.',
+    objectionAnswer:'<strong>Hebrew poetry does not produce specific historical matches 1,400 years in advance.</strong> The verse uses three different verbs — "came," "rose up," "shined forth" — three different directions, three different movements. If all three mountains referred to Sinai, why name Seir and Paran at all? Seir and Paran are geographically separate from Sinai. Furthermore, the phrase <em>"ten thousands of saints"</em> is a precise number. Muhammad ﷺ entered Mecca with exactly 10,000 followers at the conquest — a historical fact recorded in Islamic and secular history alike. Poetry doesn\'t generate specific numerical matches across 1,400 years.',
+    shareText:'Deuteronomy 33:2 — Moses names three mountains: Sinai (Moses), Seir (Jesus), Paran (Muhammad ﷺ). "Ten thousands of saints" = the conquest of Mecca. Written ~1,400 BCE. 📖 Al-Haqq'
+  },
+  matthew:{
+    step:'The Transfer',title:'Matthew 21:43',subtitle:'Jesus confirms — the kingdom moves to a non-Jewish nation',
+    plainEnglish:'In plain English: Jesus told the Jewish religious leaders that God\'s covenant is being taken away from them and handed to a completely different nation — a non-Jewish nation — that will actually follow it.',
+    passages:[{ref:'Matthew 21:43 (NRSV)',text:'Therefore I tell you, the kingdom of God will be taken away from you and given to a people who will produce its fruit.'}],
+    sectionLabel:'Christian objection answered',
+    extraPassages:[
+      {ref:'Matthew 21:40–41 — the parable Jesus told immediately before',text:'When therefore the owner of the vineyard comes, what will he do to those tenants? They said to him, He will put those wretches to a miserable death, and let out the vineyard to other tenants who will give him the fruits in their seasons.'},
+      {ref:'1 Peter 2:9 — even Christians agree it means a singular nation',text:'But ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people; that ye should shew forth the praises of him who hath called you out of darkness into his marvellous light.'}
+    ],
+    commentary:'The Greek word for <em>"a people / nation"</em> is <strong>ἔθνος (ethnos)</strong> — the standard New Testament term for Gentiles, non-Jews. KJV translates it "Gentiles" 93 times. R.T. France (NICNT Matthew, 2007), one of the most respected Matthew scholars, calls the word <em>"unexpected"</em> and admits it means a non-Jewish people. The parable just before (Matthew 21:33–41) describes singular replacement — other tenants, not a multi-ethnic merger.',
+    objection:'Matthew 21:43 refers to the Christian Church — the new people of God from all nations. "A people" doesn\'t mean Muslims. It means all who believe in Jesus. The Church is the new ethnos.',
+    objectionAnswer:'<strong>The Christian Church is multi-ethnic and multi-national by definition — it is not a singular ethnos.</strong> But the parable immediately before verse 43 (Matthew 21:33–41) describes vineyard tenants replaced by <em>other tenants</em> — a singular, specific group, not an open multi-ethnic invitation. And 1 Peter 2:9 confirms Christians themselves understand the replacement as <em>"an holy nation"</em> — singular. So: which singular non-Jewish nation actually produced the fruit Jesus described? <strong>Five daily prayers. A month of fasting every year. Monotheism preserved. A civilization built on divine law. 1.8 billion people praying toward one holy city.</strong> History answered the question.',
+    shareText:'Matthew 21:43 — Jesus said the kingdom would be given to "a people" (Greek: ethnos = Gentiles). R.T. France (Christian scholar, NICNT) admits the word is "unexpected" and means a non-Jewish nation. 📖 Al-Haqq'
+  },
+  moreprophecies:{
+    step:'The Airtight Closer',title:'4 More Bible Prophecies of Muhammad ﷺ',subtitle:'In their own Bible. In their own language. In their own words.',
+    plainEnglish:'Beyond Deuteronomy 33:2, there are four more places in the Bible that describe Muhammad ﷺ — including a place where his actual name appears in the original Hebrew, written 1,000 years before he was born.',
+    passages:[
+      {ref:'Deuteronomy 18:18 — "a prophet like Moses, from their brethren"',text:'I will raise them up a Prophet from among their brethren, like unto thee, and will put my words in his mouth; and he shall speak unto them all that I shall command him.'},
+      {ref:'John 14:16 + 16:7 — the Paraclete (Greek Periklytos = "the praised one" = Ahmad)',text:'And I will pray the Father, and he shall give you another Comforter, that he may abide with you for ever. / It is expedient for you that I go away: for if I go not away, the Comforter will not come unto you; but if I depart, I will send him unto you.'},
+      {ref:'Song of Solomon 5:16 — Hebrew "Mahamaddim" (root M-H-M-D)',text:'His mouth is most sweet: yea, he is altogether lovely. This is my beloved, and this is my friend, O daughters of Jerusalem.'},
+      {ref:'Isaiah 29:12 — the unlearned man given the book',text:'And the book is delivered to him that is not learned, saying, Read this, I pray thee: and he saith, I am not learned.'}
+    ],
+    commentary:'<strong>Deuteronomy 18:18:</strong> "A prophet like Moses, from their BRETHREN." The brethren of Israel are the Ishmaelites — Arabs. "Like Moses" means a prophet who brought a law, governed a nation, married, and fought. Jesus fits none of these. Muhammad ﷺ fits every single one.<br><br><strong>John 14:16 / 16:7:</strong> The Greek <em>Parakletos</em> is nearly identical to <em>Periklytos</em> — "the praised one" — the literal meaning of both AHMAD and MUHAMMAD. Jesus says <em>"if I go not away, the Comforter will not come"</em> — a physical successor after him, not the Holy Spirit already present. John 16:13: <em>"he shall not speak of himself"</em> — matching revelation.<br><br><strong>Song of Solomon 5:16:</strong> The Hebrew "Mahamaddim" — מַחֲמַדִּים — carries the trilateral root M-H-M-D. The exact root of Muhammad. When a Hebrew speaker reads this verse aloud, they say <em>"Mahamad."</em> His name is in their own scripture in their own language.<br><br><strong>Isaiah 29:12:</strong> A book is brought to someone who cannot read. They respond: <em>"I am not learned."</em> This matches Muhammad\'s first revelation exactly — Gabriel said <em>"Iqra"</em> (Read). The Prophet replied: <em>"Ma ana bi-qari"</em> — I cannot read. Isaiah wrote this 1,000 years before the cave.',
+    objection:'"Mahamaddim" in Song of Solomon 5:16 just means "altogether lovely" — it\'s a common Hebrew word, not someone\'s name.',
+    objectionAnswer:'<strong>The trilateral root M-H-M-D (מ-ח-מ-ד) is the same root as Muhammad.</strong> Hebrew is a root-based language. The meaning of the root — <em>"the praised one," "the desirable one"</em> — IS the meaning of the name Muhammad. The suffix -im is the Hebrew plural of respect (like Elohim for God). The Jewish scholar Heinrich Gesenius himself, in his Hebrew lexicon, acknowledges this root carries the meaning "desirable, lovely, pleasant" — identical to Ahmad. The consonants are preserved in their own scripture. The argument isn\'t that this is Muhammad\'s biography — it\'s that his name\'s meaning appears in their text, 1,000 years before he was born.',
+    shareText:'Song of Solomon 5:16 in Hebrew: "Mahamaddim" — root M-H-M-D. The same root as Muhammad. Written 1,000 years before he was born. In their own language. In their own Bible. 📖 Al-Haqq — alhaqq.it.com'
+  }
+};
+
+// ── STATE ──
+const guidedOrder=['covenant','abraham','isaac','jacob','joseph','moses','aaron','jesus','ishmael','muhammad','deut','matthew','moreprophecies'];
+const visitedNodes=new Set();
+let isGuided=false;
+let guidedStep=0;
+let completionShown=false;
+let activeNodeEl=null;
+let currentPlayBtn=null;
+
+// ── INJECT TIMESTAMPS & WIRE NODES ──
+document.querySelectorAll('.node[data-time]').forEach(n=>{
+  const t=document.createElement('div');
+  t.className='node-time';
+  t.textContent=n.dataset.time;
+  n.appendChild(t);
+});
+
+document.querySelectorAll('.node[data-id]').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const id=el.dataset.id;
+    if(!data[id])return;
+    if(activeNodeEl)activeNodeEl.classList.remove('active');
+    el.classList.add('active');
+    activeNodeEl=el;
+    markVisited(id);
+    renderSheet(data[id],id);
+    openSheet();
+  });
+});
+
+// ── PROGRESS ──
+function markVisited(id){
+  visitedNodes.add(id);
+  document.querySelectorAll(`.node[data-id="${id}"]`).forEach(n=>n.classList.add('visited'));
+  updateProgress();
+  if(visitedNodes.size===13&&!completionShown){
+    setTimeout(()=>showCompletion(),isGuided?0:800);
+  }
+}
+
+function updateProgress(){
+  const n=visitedNodes.size,total=13,pct=Math.round((n/total)*100);
+  document.getElementById('progressText').textContent=`${n} of ${total} explored`;
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+// ── GUIDED MODE ──
+document.getElementById('guidedBtn').addEventListener('click',()=>{
+  if(!isGuided){startGuided();}else{exitGuided();}
+});
+
+function startGuided(){
+  isGuided=true;guidedStep=0;
+  document.getElementById('guidedBtn').textContent='◈ Exit guide';
+  document.getElementById('guidedBtn').classList.add('active');
+  document.getElementById('sheetFooter').classList.add('visible');
+  openGuidedStep();
+}
+
+function openGuidedStep(){
+  const id=guidedOrder[guidedStep];
+  const el=document.querySelector(`.node[data-id="${id}"]`);
+  if(!el)return;
+  if(activeNodeEl)activeNodeEl.classList.remove('active');
+  el.classList.add('active');
+  activeNodeEl=el;
+  markVisited(id);
+  renderSheet(data[id],id);
+  updateGuidedFooter();
+  if(!document.getElementById('sheet').classList.contains('visible'))openSheet();
+  else{document.getElementById('sheetBody').scrollTop=0;}
+}
+
+function updateGuidedFooter(){
+  document.getElementById('guidedStepLabel').textContent=`${guidedStep+1} / ${guidedOrder.length}`;
+  const nextBtn=document.getElementById('guidedNextBtn');
+  nextBtn.textContent=guidedStep===guidedOrder.length-1?'Finish ✦':'Next →';
+}
+
+document.getElementById('guidedNextBtn').addEventListener('click',()=>{
+  if(guidedStep<guidedOrder.length-1){guidedStep++;openGuidedStep();}
+  else{closeSheet();exitGuided();if(!completionShown)showCompletion();}
+});
+
+document.getElementById('guidedExitBtn').addEventListener('click',exitGuided);
+
+function exitGuided(){
+  isGuided=false;
+  document.getElementById('guidedBtn').textContent='▶ Take me through the chain';
+  document.getElementById('guidedBtn').classList.remove('active');
+  document.getElementById('sheetFooter').classList.remove('visible');
+  closeSheet();
+}
+
+// ── SHEET ──
+const sheet=document.getElementById('sheet');
+const sheetBody=document.getElementById('sheetBody');
+const backdrop=document.getElementById('backdrop');
+
+function openSheet(){
+  sheet.classList.add('visible');backdrop.classList.add('visible');
+  sheet.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closeSheet(){
+  sheet.classList.remove('visible');backdrop.classList.remove('visible');
+  sheet.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  stopTTS();
+  if(!isGuided&&activeNodeEl){activeNodeEl.classList.remove('active');activeNodeEl=null;}
+  setTimeout(()=>{sheetBody.scrollTop=0;},360);
+}
+
+document.getElementById('sheetClose').addEventListener('click',()=>{
+  if(isGuided)exitGuided();else closeSheet();
+});
+backdrop.addEventListener('click',()=>{if(!isGuided)closeSheet();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
+
+// ── RENDER SHEET ──
+function renderSheet(entry,id){
+  stopTTS();
+  const primary=(entry.passages||[]).map(p=>passageCard(p)).join('');
+  const extra=entry.sectionLabel?`
+    <div class="sheet-section">${entry.sectionLabel}</div>
+    ${(entry.extraPassages||[]).map(p=>passageCard(p)).join('')}
+  `:'';
+  const objHTML=entry.objection?`
+    <div class="objection-section">
+      <button class="objection-toggle-btn" onclick="showObjection(this)">What would a Christian say? →</button>
+      <div class="objection-panel" id="objPanel_${id}">
+        <div class="objection-claim-box">
+          <div class="objection-claim-label">⚠ Christian Objection</div>
+          <div class="objection-claim-text">${entry.objection}</div>
+        </div>
+        <button class="answer-toggle-btn" onclick="showAnswer(this,\`${escJS(entry.objectionAnswer)}\`)">See the answer →</button>
+        <div class="answer-box" id="answerBox_${id}"></div>
+      </div>
+    </div>
+  `:'';
+  const shareHTML=entry.shareText?`
+    <div class="share-row">
+      <button class="share-btn" onclick="shareProof(this,\`${escJS(entry.shareText)}\`)">◈ Share this proof</button>
+    </div>
+  `:'';
+  sheetBody.innerHTML=`
+    <div class="detail-step">${entry.step}</div>
+    <div class="detail-title">${entry.title}</div>
+    <div class="detail-subtitle">${entry.subtitle}</div>
+    <div class="plain-english">
+      <div class="plain-english-label">◈ In plain English</div>
+      <div class="plain-english-text">${entry.plainEnglish}</div>
+    </div>
+    ${primary}${extra}
+    <div class="commentary">${entry.commentary}</div>
+    ${objHTML}${shareHTML}
+  `;
+  sheetBody.querySelectorAll('.listen-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{e.stopPropagation();playTTS(btn,btn.dataset.text);});
+  });
+  sheetBody.scrollTop=0;
+}
+
+function passageCard(p){
+  return`<div class="passage">
+    <div class="passage-ref">
+      <span class="passage-ref-label">${p.ref}</span>
+      <button class="listen-btn" data-text="${escAttr(p.text)}">◈ Listen</button>
+    </div>
+    <div class="passage-text">${p.text}</div>
+  </div>`;
+}
+
+function showObjection(btn){
+  btn.style.display='none';
+  btn.nextElementSibling.classList.add('visible');
+}
+
+function showAnswer(btn,html){
+  btn.style.display='none';
+  const box=btn.nextElementSibling;
+  box.innerHTML=`<div class="answer-label">◈ The Answer</div><div class="answer-text">${html}</div>`;
+  box.classList.add('visible');
+}
+
+// ── SHARE ──
+function shareProof(btn,text){
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='◈ Share this proof';btn.classList.remove('copied');},2200);
+  }).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.textContent='✓ Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='◈ Share this proof';btn.classList.remove('copied');},2200);
+  });
+}
+
+// ── COMPLETION ──
+function showCompletion(){
+  completionShown=true;
+  document.getElementById('completionOverlay').classList.add('visible');
+  // Gold glow sweep on tree nodes
+  document.querySelectorAll('.node').forEach((n,i)=>{
+    setTimeout(()=>{n.style.boxShadow='0 0 12px rgba(201,168,76,0.4)';setTimeout(()=>{n.style.boxShadow='';},800);},i*60);
+  });
+}
+
+const completionShareText=`I just traced the prophecy of Muhammad ﷺ through 14 Bible verses — from Genesis 17:7 to Deuteronomy 33:2 to Matthew 21:43. Moses named Paran 1,400 years before Islam. Jesus said "a nation." His name is in Song of Solomon 5:16 in Hebrew. In their own Bible. 📖 Al-Haqq — alhaqq.it.com`;
+
+document.getElementById('completionShareBtn').addEventListener('click',function(){
+  shareProof(this,completionShareText);
+});
+
+document.getElementById('completionCloseBtn').addEventListener('click',()=>{
+  document.getElementById('completionOverlay').classList.remove('visible');
+  completionShown=false;
+  visitedNodes.clear();
+  updateProgress();
+  document.querySelectorAll('.node').forEach(n=>n.classList.remove('visited','active'));
+  activeNodeEl=null;
+});
+
+// ── TTS ──
+function stopTTS(){
+  if(window.speechSynthesis.speaking)window.speechSynthesis.cancel();
+  if(currentPlayBtn){currentPlayBtn.classList.remove('playing');currentPlayBtn.innerHTML='◈ Listen';currentPlayBtn=null;}
+}
+
+function playTTS(btn,text){
+  if(currentPlayBtn===btn&&window.speechSynthesis.speaking){stopTTS();return;}
+  stopTTS();
+  btn.classList.add('playing');btn.innerHTML='⏸ Stop';currentPlayBtn=btn;
+  const u=new SpeechSynthesisUtterance(text);
+  u.rate=0.92;u.pitch=1;
+  const voices=window.speechSynthesis.getVoices();
+  const v=voices.find(v=>v.lang.startsWith('en')&&(v.name.includes('Google')||v.name.includes('Daniel')||v.name.includes('Samantha')))||voices.find(v=>v.lang.startsWith('en'));
+  if(v)u.voice=v;
+  u.onend=()=>{btn.classList.remove('playing');btn.innerHTML='◈ Listen';if(currentPlayBtn===btn)currentPlayBtn=null;};
+  window.speechSynthesis.speak(u);
+}
+
+window.speechSynthesis.onvoiceschanged=()=>{window.speechSynthesis.getVoices();};
+
+// ── HELPERS ──
+function escAttr(s){return s.replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function escJS(s){return s.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$');}
+</script>
+</body>
+</html>

@@ -1,0 +1,2941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Haqq — Islamic Myth Debunk Database</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #8a6f2e;
+    --ink: #0d0d0f;
+    --ink-2: #1a1a1f;
+    --ink-3: #242430;
+    --parchment: #f5f0e8;
+    --parchment-dim: #e8e0d0;
+    --text-main: #f0ead8;
+    --text-dim: #a89f8a;
+    --accent: #2a7a5a;
+    --accent-light: #3da876;
+    --border: rgba(201,168,76,0.2);
+    --border-strong: rgba(201,168,76,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--text-main);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(42,122,90,0.04) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    background: rgba(13,13,15,0.9);
+    backdrop-filter: blur(12px);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 0;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .logo-latin {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-subscribe {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .btn-subscribe:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-login {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-login:hover {
+    color: var(--gold);
+    border-color: var(--border-strong);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-main);
+    max-width: 750px;
+    margin: 0 auto 1rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero p {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.3s;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 300px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .divider-gem {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ── SEARCH & FILTERS ── */
+  .controls {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .search-wrap {
+    position: relative;
+    margin-bottom: 1.2rem;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-wrap input:focus { border-color: var(--border-strong); }
+  .search-wrap input::placeholder { color: var(--text-dim); font-style: italic; }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-dim);
+    font-size: 1rem;
+  }
+
+  .filters {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    background: transparent;
+    color: var(--gold-dim);
+    border: 1px solid var(--gold-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold);
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .stats-bar span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .stats-bar strong { color: var(--gold); }
+
+  .locked-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ── DATABASE GRID ── */
+  .database {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .entry {
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    padding: 1.6rem 2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transition: transform 0.25s;
+    transform-origin: bottom;
+  }
+
+  .entry:hover { background: var(--ink-3); border-color: var(--border-strong); }
+  .entry:hover::before { transform: scaleY(1); }
+  .entry.open { background: var(--ink-3); border-color: var(--border-strong); }
+  .entry.open::before { transform: scaleY(1); background: var(--accent); }
+
+  .entry-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .entry-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid;
+  }
+
+  .tag-christian { color: #7a9ec9; border-color: rgba(122,158,201,0.3); }
+  .tag-sunni { color: #c97a7a; border-color: rgba(201,122,122,0.3); }
+  .tag-secular { color: #9ec97a; border-color: rgba(158,201,122,0.3); }
+  .tag-orientalist { color: #c9b87a; border-color: rgba(201,184,122,0.3); }
+
+  .difficulty {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .entry-myth {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .entry-toggle {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+
+  .entry.open .entry-toggle { transform: rotate(45deg); border-color: var(--accent); color: var(--accent-light); }
+
+  .entry-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .entry.open .entry-body { max-height: 4000px; }
+
+  .entry-content {
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1.2rem;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .myth-claim {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+  }
+
+  .rebuttal-text {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-main);
+    margin-bottom: 1.2rem;
+  }
+
+  .quran-verse {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+  }
+
+  .quran-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    text-align: right;
+    line-height: 2;
+    margin-bottom: 0.6rem;
+    direction: rtl;
+  }
+
+  .quran-translation {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .quran-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  /* ── LOCKED ENTRIES ── */
+  .entry.locked {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .entry.locked:hover { background: var(--ink-2); border-color: var(--border); }
+  .entry.locked::before { display: none; }
+
+  .lock-overlay {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── SUBSCRIPTION MODAL ── */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .modal-backdrop.visible { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--ink-2);
+    border: 1px solid var(--border-strong);
+    max-width: 480px;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+    position: relative;
+  }
+
+  .modal-backdrop.visible .modal { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-gem {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-gem span { transform: rotate(-45deg); font-size: 1.2rem; }
+
+  .modal h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    color: var(--text-main);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+
+  .modal p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .price-display {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .price-period {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .modal-features {
+    list-style: none;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .modal-features li {
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .modal-features li span { color: var(--accent-light); }
+
+  .btn-subscribe-full {
+    width: 100%;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+    margin-bottom: 0.8rem;
+  }
+
+  .btn-subscribe-full:hover { background: var(--gold-light); }
+
+  .modal-note {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── SUBMIT SECTION ── */
+  .submit-section {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .submit-section h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .submit-section p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-submit {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    background: var(--ink-3);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .btn-submit:hover { background: var(--gold); color: var(--ink); }
+
+  .btn-submit-notify {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    background: var(--ink-3);
+    color: var(--gold-dim);
+    border: 1px solid var(--gold-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+
+  .btn-submit-notify:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  footer strong { color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TTS READER BAR ── */
+  .reader-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(13,13,15,0.98);
+    border-top: 1px solid var(--border-strong);
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .reader-bar.visible { transform: translateY(0); }
+
+  .reader-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .reader-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .reader-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+  }
+
+  .reader-myth-title {
+    font-family: 'Lora', serif;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .reader-progress {
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+    margin-top: 0.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reader-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.3s linear;
+  }
+
+  .reader-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .reader-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.9rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .reader-btn:hover { color: var(--gold); border-color: var(--border-strong); }
+  .reader-btn.active { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+  .reader-btn-stop {
+    color: #c97a7a;
+    border-color: rgba(201,122,122,0.3);
+  }
+
+  .reader-btn-stop:hover { background: rgba(201,122,122,0.1); border-color: #c97a7a; color: #c97a7a; }
+
+  .tts-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold);
+    border: none;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1.4rem;
+    font-weight: 700;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tts-trigger:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .tts-trigger-icon {
+    font-size: 1rem;
+  }
+
+  /* ── VERSE POPUP ── */
+  .verse-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.82);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
+  .verse-popup-backdrop.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .verse-popup {
+    background: var(--ink-2);
+    border: 1px solid var(--border-strong);
+    max-width: 520px;
+    width: 100%;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .verse-popup-backdrop.visible .verse-popup {
+    transform: translateY(0) scale(1);
+  }
+
+  .verse-popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+
+  .verse-popup-close:hover { color: var(--gold); }
+
+  .verse-popup-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .verse-popup-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    text-align: right;
+    line-height: 2.2;
+    direction: rtl;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .verse-popup-translation {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-main);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .verse-popup-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* Inline verse reference button inside rebuttal text */
+  .verse-ref-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.15rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    vertical-align: middle;
+    margin: 0 0.1rem;
+    white-space: nowrap;
+  }
+
+  .verse-ref-btn:hover {
+    background: rgba(201,168,76,0.18);
+    border-color: var(--gold);
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; gap: 1rem; text-align: center; }
+    .entry { padding: 1.2rem 1rem; }
+    .reader-bar { padding: 0.8rem 1rem; gap: 0.8rem; }
+    .reader-myth-title { font-size: 0.7rem; }
+    .verse-popup { padding: 2rem 1.2rem; }
+    .verse-popup-arabic { font-size: 1.3rem; }
+  }
+
+  /* ── WELCOME POPUP ── */
+  .welcome-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+
+  .welcome-backdrop.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .welcome-modal {
+    background: var(--ink-2);
+    border: 1px solid var(--border-strong);
+    max-width: 560px;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .welcome-backdrop.visible .welcome-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .welcome-bismillah {
+    font-family: 'Amiri', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    direction: rtl;
+    line-height: 2;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .welcome-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1.8rem;
+  }
+
+  .welcome-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto 1.8rem;
+    max-width: 280px;
+  }
+
+  .welcome-divider::before,
+  .welcome-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .welcome-divider-gem {
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .welcome-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    direction: rtl;
+    line-height: 2.2;
+    margin-bottom: 1rem;
+    padding: 1rem 1.2rem;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid var(--border);
+  }
+
+  .welcome-translation {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-main);
+    line-height: 1.8;
+    margin-bottom: 0.6rem;
+  }
+
+  .welcome-ref {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .welcome-message {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  .welcome-message strong {
+    color: var(--text-main);
+    font-style: normal;
+  }
+
+  .welcome-btn {
+    width: 100%;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 1rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+    margin-bottom: 0.8rem;
+  }
+
+  .welcome-btn:hover { background: var(--gold-light); }
+
+  .welcome-footnote {
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── FOUNDING MEMBER COUNTER ── */
+  .founding-banner {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 2rem;
+  }
+
+  .founding-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(138,111,46,0.12) 100%);
+    border: 2px solid var(--gold);
+    border-left: 5px solid var(--gold);
+    padding: 1.4rem 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    box-shadow: 0 0 30px rgba(201,168,76,0.12);
+  }
+
+  .founding-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .founding-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.15);
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    border: 1px solid rgba(201,168,76,0.4);
+  }
+
+  .founding-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    font-weight: 700;
+    margin-top: 0.2rem;
+  }
+
+  .founding-title span { color: var(--gold); }
+
+  .founding-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  .founding-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .founding-count {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--text-main);
+    text-transform: uppercase;
+  }
+
+  .founding-count strong {
+    color: var(--gold);
+    font-size: 1.4rem;
+    display: block;
+    line-height: 1.1;
+  }
+
+  .founding-bar {
+    width: 200px;
+    height: 6px;
+    background: rgba(201,168,76,0.15);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .founding-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-light));
+    transition: width 1s ease;
+  }
+
+  .founding-urgency {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+
+  /* Updated modal founding style */
+  .modal-founding-badge {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold);
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .price-was {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-decoration: line-through;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2rem;
+  }
+
+  .price-after {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+  .entry-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    flex: 1;
+    min-width: 140px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.8rem 1rem;
+    background: var(--ink);
+    border: 1px solid var(--border-strong);
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .action-btn:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .action-btn.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── NOTIFY MODAL ── */
+  .notify-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
+  .notify-backdrop.visible { opacity: 1; pointer-events: all; }
+
+  .notify-modal {
+    background: var(--ink-2);
+    border: 1px solid var(--border-strong);
+    max-width: 440px;
+    width: 100%;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transform: translateY(16px);
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    text-align: center;
+  }
+
+  .notify-backdrop.visible .notify-modal { transform: translateY(0); }
+
+  .notify-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .notify-close:hover { color: var(--gold); }
+
+  .notify-modal h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 0.6rem;
+  }
+
+  .notify-modal p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 1.6rem;
+  }
+
+  .notify-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .notify-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: var(--ink);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+  }
+
+  .notify-input:focus { border-color: var(--border-strong); }
+  .notify-input::placeholder { color: var(--text-dim); font-style: italic; }
+
+  .notify-submit {
+    width: 100%;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.9rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .notify-submit:hover { background: var(--gold-light); }
+
+  .notify-success {
+    display: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--accent-light);
+    padding: 1rem;
+    border: 1px solid var(--accent);
+    text-transform: uppercase;
+  }
+
+  .notify-fine-print {
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+  }
+
+  /* ── SHARE TOAST ── */
+  .share-toast {
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink-3);
+    border: 1px solid var(--border-strong);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.4rem;
+    z-index: 400;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .share-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── INTERACTIVE VERSE BLOCKS ── */
+  .verse-exp {
+    border: 1px solid rgba(201,168,76,0.22);
+    border-radius: 3px;
+    margin-bottom: .5rem;
+    overflow: hidden;
+    background: rgba(13,13,15,0.45);
+    transition: border-color .2s ease;
+  }
+  .verse-exp:hover { border-color: rgba(201,168,76,0.48); }
+  .verse-exp.open { border-color: rgba(201,168,76,0.55); }
+  .verse-exp-header {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .52rem .75rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .verse-exp-ref {
+    font-family: 'Cinzel', serif;
+    font-size: .72rem;
+    font-weight: 600;
+    color: #e8c97a;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .verse-exp-desc {
+    font-size: .72rem;
+    color: #a89f8a;
+    font-style: italic;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .verse-exp-arrow {
+    color: #c9a84c;
+    font-size: .7rem;
+    flex-shrink: 0;
+    transition: transform .25s ease;
+    line-height: 1;
+  }
+  .verse-exp.open .verse-exp-arrow { transform: rotate(180deg); }
+  .verse-exp-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+  }
+  .verse-exp.open .verse-exp-body { max-height: 500px; }
+  .verse-exp-text {
+    padding: .5rem .75rem .55rem;
+    font-size: .83rem;
+    color: #f5f0e8;
+    font-style: italic;
+    line-height: 1.72;
+    border-top: 1px dashed rgba(201,168,76,0.15);
+  }
+  .verse-exp-note {
+    padding: 0 .75rem .65rem;
+    font-size: .75rem;
+    color: #a89f8a;
+    line-height: 1.6;
+  }
+
+</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#c9a84c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Al-Haqq">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+<body>
+
+
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-arabic">الحق</span>
+      <span class="logo-latin">Al-Haqq · The Truth Database</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn-login">Sign In</button>
+      <a href="alhaqq-debate-simulator.html" style="text-decoration:none;">
+        <button class="btn-login" style="color:var(--accent-light);border-color:rgba(61,168,118,0.5);">⚔ Debate Simulator</button>
+      </a>
+      <a href="creator.html" style="text-decoration:none;">
+        <button class="btn-login" style="color:var(--gold);border-color:rgba(201,168,76,0.5);">🎬 Creator Studio</button>
+      </a>
+      <button class="btn-subscribe" onclick="window.open('https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00','_blank')">⭐ Founding Member — $2.99/mo</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Quran-Only · Evidence-Based · Uncompromising</p>
+  <h1>Every Myth. <span>Dismantled.</span><br>Every Lie. Answered.</h1>
+  <p>The world's most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah.</p>
+  <div class="divider"><div class="divider-gem"></div></div>
+</section>
+
+<!-- CREATOR STUDIO BANNER -->
+<div style="background:linear-gradient(90deg,rgba(201,168,76,0.08) 0%,rgba(201,168,76,0.04) 100%);border-top:1px solid rgba(201,168,76,0.2);border-bottom:1px solid rgba(201,168,76,0.2);padding:14px 2rem;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:5;">
+  <span style="font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.15em;color:var(--text-dim);">🎬 ARE YOU A CONTENT CREATOR?</span>
+  <span style="color:rgba(201,168,76,0.3);font-size:0.8rem;">|</span>
+  <span style="font-family:'Lora',serif;font-size:0.88rem;color:var(--text-dim);">Turn your debates into polished TikTok & YouTube Shorts — automatically.</span>
+  <a href="creator.html" style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.15em;color:var(--gold);border:1px solid rgba(201,168,76,0.5);padding:5px 14px;border-radius:3px;text-decoration:none;white-space:nowrap;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">EXPLORE CREATOR STUDIO →</a>
+</div>
+
+<!-- SEARCH & FILTERS -->
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="searchInput" placeholder="Search myths, topics, or keywords…" oninput="filterEntries()">
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All Sources</button>
+    <button class="filter-btn" onclick="setFilter('christian', this)">Christian Claims</button>
+    <button class="filter-btn" onclick="setFilter('sunni', this)">Sunni Challenges</button>
+    <button class="filter-btn" onclick="setFilter('secular', this)">Secular Critiques</button>
+    <button class="filter-btn" onclick="setFilter('orientalist', this)">Orientalist</button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <span><strong id="visibleCount">12</strong> entries found</span>
+  <div class="locked-notice">🔒 <span>12 locked — subscribe to unlock all</span></div>
+</div>
+
+<!-- FOUNDING MEMBER BANNER -->
+<div class="founding-banner">
+  <div class="founding-box">
+    <div class="founding-left">
+      <span class="founding-label">⭐ Limited Offer · Founding Members Only</span>
+      <div class="founding-title">Lock In <span>$2.99/mo For Life</span></div>
+      <div class="founding-sub">Price rises to $6.99/mo permanently after 1,000 members.</div>
+      <button class="btn-subscribe" style="margin-top:0.8rem;font-size:0.7rem;padding:0.7rem 1.4rem;" onclick="window.open('https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00','_blank')">Claim Your Spot →</button>
+    </div>
+    <div class="founding-right">
+      <div class="founding-count"><strong id="spotsLeft">1000</strong> spots remaining</div>
+      <div class="founding-bar">
+        <div class="founding-bar-fill" id="foundingBarFill" style="width:0%"></div>
+      </div>
+      <div class="founding-urgency" id="foundingUrgency">Be among the first 1,000</div>
+    </div>
+  </div>
+</div>
+
+<!-- DATABASE -->
+<div class="database" id="database"></div>
+
+<!-- SUBMIT SECTION -->
+<div class="submit-section">
+  <h3>Encountered a Myth We Haven't Addressed?</h3>
+  <p>Submit it. Every verified submission strengthens the archive.</p>
+  <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;">
+    <button class="btn-submit" onclick="openSubmitModal()">Submit a Myth →</button>
+    <button class="btn-submit-notify" onclick="openNotify()">🔔 Notify Me of New Entries</button>
+  </div>
+</div>
+
+<!-- DEBATE SIMULATOR PROMO -->
+<div style="position:relative;z-index:5;max-width:900px;margin:0 auto;padding:0 2rem 3rem;">
+  <div style="background:linear-gradient(135deg,rgba(42,122,90,0.1) 0%,rgba(13,13,15,0) 100%);border:1px solid rgba(61,168,118,0.3);border-left:4px solid var(--accent-light);padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+    <div>
+      <div style="font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent-light);margin-bottom:0.5rem;">⚔ Subscriber Feature</div>
+      <div style="font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;">The Debate Simulator</div>
+      <div style="font-family:'Lora',serif;font-style:italic;font-size:0.82rem;color:var(--text-dim);">Type any argument thrown at you. Get a Quran-only rebuttal instantly — structured for camera, comments, or live debate.</div>
+    </div>
+    <a href="alhaqq-debate-simulator.html" style="text-decoration:none;flex-shrink:0;">
+      <button style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.9rem 1.6rem;background:var(--accent);color:#fff;border:none;cursor:pointer;font-weight:700;transition:all 0.2s;" onmouseover="this.style.background='var(--accent-light)'" onmouseout="this.style.background='var(--accent)'">Enter the Simulator →</button>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Al-Haqq Database · <strong>Truth Requires No Compromise</strong> · Founded on the Quran Alone</p>
+</footer>
+
+<!-- NOTIFY MODAL -->
+<div class="notify-backdrop" id="notifyModal" onclick="closeNotifyOutside(event)">
+  <div class="notify-modal">
+    <button class="notify-close" onclick="closeNotify()">✕</button>
+    <h3>Get Notified When New Rebuttals Drop</h3>
+    <p>A new myth is dismantled every week. Enter your email and be the first to know — free, no spam, unsubscribe any time.</p>
+    <div class="notify-form">
+      <input class="notify-input" id="notifyEmail" type="email" placeholder="your@email.com">
+      <button class="notify-submit" onclick="submitNotify()">Notify Me →</button>
+    </div>
+    <div class="notify-success" id="notifySuccess">✓ You're on the list. Barak Allahu Feek.</div>
+    <p class="notify-fine-print">No spam · Weekly updates only · Unsubscribe anytime</p>
+  </div>
+</div>
+
+<!-- SUBMIT MYTH MODAL -->
+<div class="notify-backdrop" id="submitModal" onclick="closeSubmitOutside(event)">
+  <div class="notify-modal" style="max-width:500px;">
+    <button class="notify-close" onclick="closeSubmitModal()">✕</button>
+    <div style="font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;">◈ Submit a Myth</div>
+    <h3 style="margin-bottom:0.5rem;">Encountered a Lie We Haven't Answered?</h3>
+    <p>Paste the myth or argument below. Include the source if you know it. We'll research and add it to the database.</p>
+    <div class="notify-form" id="submitForm">
+      <input class="notify-input" id="submitMyth" type="text" placeholder="The myth or argument (e.g. 'Islam endorses…')">
+      <select id="submitSource" style="width:100%;padding:0.85rem 1rem;background:var(--ink);border:1px solid var(--border);color:var(--text-main);font-family:'Lora',serif;font-size:0.9rem;outline:none;">
+        <option value="">Source / Origin (optional)</option>
+        <option value="christian">Christian Claim</option>
+        <option value="sunni">Sunni Challenge</option>
+        <option value="secular">Secular / Atheist Critique</option>
+        <option value="orientalist">Orientalist</option>
+        <option value="other">Other / Unknown</option>
+      </select>
+      <input class="notify-input" id="submitEmail" type="email" placeholder="Your email (optional — for follow-up)">
+      <button class="notify-submit" onclick="submitMyth()">Submit for Research →</button>
+    </div>
+    <div class="notify-success" id="submitSuccess">✓ Received. JazakAllahu Khayran — we'll research this and add it to the archive.</div>
+    <p class="notify-fine-print">All submissions reviewed · High-quality rebuttals only · Quran-only sourcing</p>
+  </div>
+</div>
+
+<!-- SHARE TOAST -->
+<div class="share-toast" id="shareToast">✓ Link copied to clipboard</div>
+
+<!-- WELCOME MODAL -->
+<div class="welcome-backdrop" id="welcomeModal" onclick="closeWelcomeOutside(event)">
+  <div class="welcome-modal">
+    <div class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="welcome-eyebrow">In the name of Allah, the Most Gracious, the Most Merciful</div>
+    <div class="welcome-divider"><div class="welcome-divider-gem"></div></div>
+    <div class="welcome-arabic">وَقُلْ جَاءَ الْحَقُّ وَزَهَقَ الْبَاطِلُ ۚ إِنَّ الْبَاطِلَ كَانَ زَهُوقًا</div>
+    <div class="welcome-translation">"And say: Truth has come, and falsehood has departed. Indeed, falsehood is bound to depart."</div>
+    <div class="welcome-ref">— Surah Al-Isra 17:81</div>
+    <div class="welcome-message">
+      This database was built for one reason — <strong>every lie about Islam has an answer in the Quran itself.</strong>
+      No Hadith. No scholars. No apologies. Just Allah's preserved words, deployed with precision.
+      <br><br>
+      Use it. Share it. Let the truth speak.
+    </div>
+    <button class="welcome-btn" onclick="closeWelcome()">Enter Al-Haqq →</button>
+    <div class="welcome-footnote">Quran-Only · Evidence-Based · Built for the frontlines</div>
+  </div>
+</div>
+
+<!-- VERSE POPUP -->
+<div class="verse-popup-backdrop" id="versePopup" onclick="closeVersePopupOutside(event)">
+  <div class="verse-popup">
+    <button class="verse-popup-close" onclick="closeVersePopup()">✕</button>
+    <div class="verse-popup-eyebrow">◈ Quranic Reference</div>
+    <div class="verse-popup-arabic" id="versePopupArabic"></div>
+    <div class="verse-popup-translation" id="versePopupTranslation"></div>
+    <div class="verse-popup-ref" id="versePopupRef"></div>
+  </div>
+</div>
+
+<!-- TTS READER BAR -->
+<div class="reader-bar" id="readerBar">
+  <div class="reader-icon">◈</div>
+  <div class="reader-info">
+    <div class="reader-label">Now Reading</div>
+    <div class="reader-myth-title" id="readerTitle">—</div>
+    <div class="reader-progress"><div class="reader-progress-fill" id="readerProgress"></div></div>
+  </div>
+  <div class="reader-controls">
+    <button class="reader-btn" id="readerPlayPause" onclick="togglePlayPause()">⏸ Pause</button>
+    <button class="reader-btn reader-btn-stop" onclick="stopReader()">■ Stop</button>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-gem"><span>◆</span></div>
+    <div class="modal-founding-badge">⭐ Founding Member Offer</div>
+    <h2>Lock In $2.99/mo For Life</h2>
+    <p>Join the first 1,000 members and pay $2.99/month forever — even after the price rises to $6.99. Unlock every rebuttal, every verse, every argument.</p>
+    <div class="price-was">$6.99/mo after founding period</div>
+    <div class="price-display">$2.99</div>
+    <div class="price-period">per month · locked for life · cancel anytime</div>
+    <div class="price-after" id="modalSpotsLeft">⭐ 1000 founding spots remaining</div>
+    <ul class="modal-features">
+      <li><span>✓</span> Founding Member badge — permanent</li>
+      <li><span>✓</span> Access to all 200+ myth entries</li>
+      <li><span>✓</span> New rebuttals added weekly</li>
+      <li><span>✓</span> Downloadable reference cards</li>
+      <li><span>✓</span> Submit myths for research</li>
+      <li><span>✓</span> Early access to video scripts</li>
+    </ul>
+    <button class="btn-subscribe-full" onclick="window.open('https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00','_blank')">Claim Founding Member Spot</button>
+    <p class="modal-note">Secure payment · Instant access · Price locked forever</p>
+  </div>
+</div>
+
+<script>
+const entries = [
+  {
+    id: 1,
+    myth: "Islam was spread by the sword — Muslims forced people to convert",
+    source: "christian",
+    difficulty: "Common",
+    locked: false,
+    claim: "Critics allege that Islam spread primarily through military conquest and coercion, leaving people no choice but to convert or face death.",
+    rebuttal: "The Quran is explicit: there is absolutely no compulsion in the matter of faith. Belief forced at swordpoint is not belief — Allah knows what is in the heart. The historical expansion of Muslim governance and the spread of Islam as a faith are two entirely different things. Non-Muslims lived under Muslim rule for centuries without converting. If the sword was the tool, the populations would have vanished. Instead, diverse communities of Christians, Jews, and others thrived within Muslim-majority lands for generations. The Quran's position is settled: faith is a matter between a person and Allah alone — no ruler, no army, and no threat can manufacture it.",
+    verse: {
+      arabic: "لَا إِكْرَاهَ فِي الدِّينِ ۖ قَد تَّبَيَّنَ الرُّشْدُ مِنَ الْغَيِّ",
+      translation: "There is no compulsion in religion. The right course has become clear from the wrong.",
+      ref: "Surah Al-Baqarah 2:256"
+    }
+  },
+  {
+    id: 2,
+    myth: "Muslims worship Muhammad — Islam is no different from prophet worship",
+    source: "christian",
+    difficulty: "Common",
+    locked: true,
+    claim: "Some allege that Muslim veneration of the Prophet Muhammad constitutes worship, making it a form of shirk or polytheism.",
+    rebuttal: "The Quran directly addresses this. Muhammad was a human messenger — nothing more, nothing less. Allah commands that obedience to the messenger is obedience to Allah's message, not worship of a man. The Quran even rebukes Muhammad directly in Surah Abasa (80:1) when he turned away from a blind man — a divine correction that no worshipped figure would ever receive. Allah makes it clear in 3:144 that Muhammad was a messenger, and that messengers die. The moment any person is elevated beyond their station as a servant of Allah, that elevation becomes a door to shirk — and the Quran closes that door permanently. Muhammad himself is reported in the Quran as saying he is only a human being like you, receiving revelation. The worship belongs to Allah. The respect belongs to the Prophet. The two are not the same.",
+    verse: {
+      arabic: "مُّحَمَّدٌ إِلَّا رَسُولٌ قَدْ خَلَتْ مِن قَبْلِهِ الرُّسُلُ",
+      translation: "Muhammad is not but a messenger. Other messengers have passed before him.",
+      ref: "Surah Ali 'Imran 3:144"
+    }
+  },
+  {
+    id: 14,
+    myth: "The Quran says Allah prays — doesn't that prove Islam is incoherent?",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Critics point to Surah Al-Ahzab 33:56 — where the word 'yusalli' is used in relation to Allah and the angels sending blessings upon the Prophet — and argue that this means Allah 'prays', implying He submits to a higher power and exposing a supposed contradiction in Islamic theology.",
+    rebuttal: `This objection reveals a method — and once the method is exposed, the entire category of these arguments collapses.<br><br>
+
+<strong>First: Context and actor determine meaning.</strong> Arabic, like English, contains words that carry multiple meanings depending entirely on who is performing the action and in what context. Consider the English word <em>"execute."</em> A CEO who says "I will execute this strategy" is not threatening anyone's life. A court that orders a sentence to be executed means something entirely different. A programmer who executes a function means something else again. The word is identical. The actor and context transform the meaning completely. Only someone deliberately seeking to cause harm would read "the CEO executed the plan" as evidence of murder. That is precisely what is being done to the Quran.<br><br>
+
+The Arabic word <em>yusalli</em> operates the same way. When a human being performs salah, it means submission and worship directed upward — toward Allah. When Allah "yusalli" upon the Prophet, the word shifts meaning entirely because the actor is the Creator, not the creation. In this context it means to send blessings, mercy, and honour — a bestowal from above, not a submission to something higher. Allah cannot submit to anything because there is nothing above Him. The word changes its meaning based on who wields it. This is not ambiguity — this is the precision of Arabic.<br><br>
+
+<strong>Second: The Quran itself warns about this exact method of reading.</strong> In Surah Ali Imran 3:7, Allah says: <em>"It is He who has sent down to you the Book. In it are verses that are the foundation of the Book — and others that are unspecific. As for those in whose hearts is deviation, they follow the unspecific part, seeking discord and seeking an interpretation. And no one knows its true interpretation except Allah."</em> Allah diagnosed this problem directly. Those who approach the Quran to find fault do not seek understanding — they seek the unspecific, the multi-meaning, the contextually ambiguous, and then weaponise it. The Quran named them and their method fourteen centuries ago.<br><br>
+
+<strong>Third: The word daraba follows the same pattern.</strong> The Arabic word <em>daraba</em> appears across the Quran with entirely different meanings depending on context. It means: to travel (4:101), to set forth a parable (14:24), to strike a coin, to seal, to separate, and more. The full range of meanings includes: to go out, to give an example, to impose, to separate, to cover, to draw a line, to beat. Disbelievers and those seeking to discredit Islam reach into that list and select the most violent meaning — "to beat" — and apply it to 4:34, where the context is a marital dispute requiring de-escalation. They then ignore 2:231 where Allah explicitly says <em>"do not retain women to harm them"</em> — a verse in the same Book that would make their chosen meaning a direct contradiction of Allah's own command. They choose the meaning that creates the contradiction, then present the contradiction as proof of Islam's violence. The method is circular and dishonest.<br><br>
+
+<strong>The principle that governs both:</strong> Certain words do not carry the same meaning when applied to the Creator as they do when applied to creation. A king who "serves" his people is not the same as a servant who serves a king — the word is shared, the meaning is inverted by the actor's position. Allah is Al-Khaliq, the Creator of all things. Words applied to Him are understood through His majesty, not through their lowest human application. The Quran is not incoherent. The reading method being used against it is.`,
+    verse: {
+      arabic: "هُوَ الَّذِي أَنزَلَ عَلَيْكَ الْكِتَابَ مِنْهُ آيَاتٌ مُّحْكَمَاتٌ هُنَّ أُمُّ الْكِتَابِ وَأُخَرُ مُتَشَابِهَاتٌ ۖ فَأَمَّا الَّذِينَ فِي قُلُوبِهِمْ زَيْغٌ فَيَتَّبِعُونَ مَا تَشَابَهَ مِنْهُ ابْتِغَاءَ الْفِتْنَةِ",
+      translation: "It is He who sent down the Book. In it are verses that are the foundation of the Book, and others that are unspecific. Those in whose hearts is deviation follow the unspecific, seeking discord.",
+      ref: "Surah Ali Imran 3:7 — Allah identified this method of distortion and warned against it before it was even used against His Book"
+    }
+  },
+  {
+    id: 15,
+    myth: "The Quran permits men to beat their wives — the word daraba proves it",
+    source: "secular",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Critics cite the word 'daraba' in 4:34 as definitive proof that the Quran sanctions domestic violence, selecting the meaning 'to strike' from a word that carries over a dozen meanings in Arabic.",
+    rebuttal: `This is the daraba method — and it is the same dishonest reading exposed in the entry above on yusalli. The full list of meanings the word daraba carries in Arabic and across the Quran is as follows: to travel or go out (4:101), to set forth a parable or example (14:24), to strike a coin or mint, to impose or assign, to seal or cover, to draw or trace a line, to separate or part ways, to ignore or turn away from, to condemn, to put forward. That is the range. Disbelievers reach into that list and select the most violent option — "to strike" — and apply it to a verse about marital conflict requiring careful, graduated de-escalation.<br><br>
+
+Then the Quran itself destroys that reading. In 2:231, Allah commands: <em>"Do not retain women to harm them, or to transgress against them."</em> If daraba in 4:34 means "strike her," then the same Book that contains 4:34 is simultaneously commanding in 2:231 that you must not harm her. That is a direct internal contradiction — and Allah does not contradict Himself. The Quran says so explicitly: <em>"Do they not reflect upon the Quran? If it had been from other than Allah, they would have found within it much contradiction."</em> (4:82)<br><br>
+
+The correct reading of daraba in 4:34 is to separate — to physically part from her as the final step in a structured process that begins with counsel, then distance in the bedroom, then separation. This reading is internally consistent with 2:231, with 30:21 which describes marriage as built on mercy and tranquility, and with the Quran's entire framework for how a believer treats another human being. The violent reading creates contradiction. The separation reading creates coherence. Allah's Book is coherent. The choice of meaning is not arbitrary — the Quran itself tells you which one is right.`,
+    verse: {
+      arabic: "أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا",
+      translation: "Do they not reflect upon the Quran? Had it been from other than Allah, they would have found within it much contradiction.",
+      ref: "Surah An-Nisa 4:82 — the Quran's own standard: internal consistency is the test of divine origin. The violent reading of daraba fails this test."
+    }
+  },
+  {
+    id: 4,
+    myth: "Islam borrowed everything from Judaism and Christianity — it's not an original revelation",
+    source: "orientalist",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Orientalist scholars argue Muhammad compiled the Quran from Jewish rabbinical texts and Christian apocrypha, making it a derivative human work.",
+    rebuttal: "The Quran itself addresses this directly — it confirms what came before while correcting corruptions that crept into earlier scriptures. This is not borrowing; it is the same original source returning in its uncorrupted form. The Quran does not claim to be a new religion — it claims to be the final, preserved transmission of the same message sent to Ibrahim, Musa, and Isa. Shared stories are evidence of a shared origin, not plagiarism. Furthermore, the Quran challenges anyone who believes it is human-authored to produce ten chapters comparable to it. That challenge was issued over 1,400 years ago. It has never been met. No literary scholar, no linguist, no theologian has produced anything approaching it — not from that era and not since. A seventh-century man in the Arabian desert did not compile the Torah, the Gospel, and then surpass them all in linguistic and structural perfection. The challenge stands.",
+    verse: {
+      arabic: "أَمْ يَقُولُونَ افْتَرَاهُ ۖ قُلْ فَأْتُوا بِعَشْرِ سُوَرٍ مِّثْلِهِ مُفْتَرَيَاتٍ",
+      translation: "Or do they say he invented it? Say: Then bring ten chapters like it, invented.",
+      ref: "Surah Hud 11:13"
+    }
+  },
+  {
+    id: 5,
+    myth: "Rejecting Hadith means rejecting Islam itself — you cannot be Muslim without Hadith",
+    source: "sunni",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Sunni scholars argue that the Quran alone is insufficient and that rejecting Hadith constitutes apostasy or fundamental misunderstanding of the deen.",
+    rebuttal: "The Quran explicitly states it is complete, detailed, and sufficient. Allah did not leave His Book incomplete requiring human supplements. In 6:114, Allah asks: 'Shall I seek other than Allah as a judge while it is He who has revealed to you the Book explained in detail?' The Book is explained in detail — by Allah's own words. The Quran also warns in 45:6: 'These are the verses of Allah which We recite to you in truth. Then in what hadith after Allah and His verses will they believe?' That verse names the problem directly. Furthermore, the earliest Hadith collections were compiled 200 to 300 years after the Prophet's death — through chains of human memory, political upheaval, and documented fabrication. The Quran, by contrast, was preserved in writing from the time of revelation. A believer who trusts Allah's preserved Book over centuries-old human narrations is not rejecting Islam. They are following it precisely as Allah commanded.",
+    verse: {
+      arabic: "وَمَا مِن دَابَّةٍ فِي الْأَرْضِ وَلَا طَائِرٍ يَطِيرُ بِجَنَاحَيْهِ إِلَّا أُمَمٌ أَمْثَالُكُم ۚ مَّا فَرَّطْنَا فِي الْكِتَابِ مِن شَيْءٍ",
+      translation: "We have not neglected in the Register a single thing.",
+      ref: "Surah Al-An'am 6:38"
+    }
+  },
+  {
+    id: 13,
+    myth: "Why do Muslims mention Muhammad in their prayer? Doesn't that contradict monotheism?",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Christians point to the Islamic declaration and certain sectarian prayer practices where the Prophet's name is invoked, arguing this contradicts the Muslim claim of pure monotheism and direct connection to God alone.",
+    rebuttal: `This is actually a valid observation — but the target is sectarian innovation, not the Quran itself. The Quran does not instruct believers to mention Muhammad during prayer. That practice was introduced by various sects and has no Quranic foundation whatsoever.<br><br>
+
+The Quran establishes prayer through the example of Ibrahim (Abraham). He called upon Allah directly, alone, and the Quran records his supplications in pure glorification. Allah then commands the believers: <em>"Stand in prayer, bow with those who bow"</em> (2:43) — the physical posture is established. That is all the Quran prescribes structurally.<br><br>
+
+As for what is said during prayer — the Quran is filled with it. Surah Al-Ikhlas (112) is the purest declaration of Allah's oneness. Ayatul Kursi (2:255) describes His majesty and dominion. Al-Fatihah (1:1–7) is a direct conversation between the servant and his Lord. These are the words of glorification. Beyond these, Allah gave human beings the faculty of speech — use it to glorify Him with whatever beautiful words your heart produces. Allah hears and He knows.<br><br>
+
+The Quran also makes clear that Allah did not make this religion a burden: <em>"He has chosen you and has not placed upon you in the religion any difficulty"</em> (22:78). A prayer that requires the mandatory invocation of a Prophet's name — nowhere commanded by Allah — is a human addition to the deen. The Quran warns clearly in 42:21: <em>"Or have they partners who have laid down for them a religion which Allah has not permitted?"</em> Prayer belongs to Allah alone. It always did. The Quran never changed that — certain sects did.`,
+    verse: {
+      arabic: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ",
+      translation: "Establish prayer, give zakah, and bow with those who bow.",
+      ref: "Surah Al-Baqarah 2:43 — the Quran's own instruction on prayer, with no mention of invoking the Prophet"
+    }
+  },
+  {
+    id: 16,
+    myth: "The Quran makes a scientific mistake about embryology — bones don't form before flesh",
+    source: "secular",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Atheists and ex-Muslims argue that Surah Al-Mu'minun 23:14 claims the embryo develops bones first which are then coated with flesh — and that modern embryology proves this sequence is wrong, because organs develop simultaneously, not sequentially.",
+    rebuttal: `This argument was built on one mistranslated English word. The entire objection collapses the moment you open an Arabic dictionary and an embryology textbook simultaneously.<br><br>
+
+<strong>First: What the Quran actually says.</strong> The verse in question is Surah Al-Mu'minun 23:14. The Arabic word translated as "flesh" is <em>lahm (لَحْمًا)</em> — which in classical Arabic specifically means muscle tissue. Not generic soft tissue. Not skin. Not fat. Muscle. The word for "bones" is <em>izam (عِظَامًا)</em> — the skeletal framework. The Quran is describing a precise biological sequence: skeletal framework forms → muscle tissue clothes it. That is the claim. That is all the claim is.<br><br>
+
+<strong>Second: What embryology actually says.</strong> Around weeks 6–7, cartilage models of the skeletal framework form first through a process called chondrification. This is the <em>izam</em> stage — the structural template being laid down. Then, starting weeks 7–8, myoblasts (muscle precursor cells) migrate toward those cartilage models and fuse to form muscle tissue — the <em>lahm</em> — wrapping around the skeletal framework. The NIH peer-reviewed journal on musculoskeletal development states it plainly: muscle formation is driven by signals from the surrounding skeletal tissue. Muscles develop around bones, directed by bones. That is literally the Quranic sequence described in modern scientific language.<br><br>
+
+<strong>Third: The "simultaneous" argument is a half-truth weaponised.</strong> Yes, multiple systems develop in parallel during embryogenesis. But the specific tissues the Quran names — <em>izam</em> and <em>lahm</em> — do follow the sequence described. The cartilage skeletal models precede the muscular wrapping. The objector conflated undifferentiated precursor cells (mesenchyme) with differentiated muscle tissue (lahm). Mesenchyme is not lahm. It is the raw material from which everything — bones, muscles, connective tissue — eventually forms. Calling mesenchyme "flesh" to create a contradiction is not science. It is a word game.<br><br>
+
+<strong>Fourth: A 7th-century man in a desert named this sequence 1,400 years before the electron microscope.</strong> No dissection tools. No ultrasound. No microscopy. The Quran named two specific tissue types and their developmental order — and peer-reviewed embryology from the NIH, the University of New South Wales Faculty of Medicine, and StatPearls confirms that order. If this is a guess, it is the most precise guess in the history of pre-scientific literature.<br><br>
+
+The conclusion is not complicated: he took one English word, assumed it meant everything soft, never opened a biology textbook, and built his apostasy on that assumption. He did not leave Islam over a mistake in the Quran. He left Islam over a mistake in his dictionary.`,
+    verse: {
+      arabic: "فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ ۚ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ",
+      translation: "And We made the lump into bones, and We clothed the bones with flesh (muscle); then We developed him into another creation. So blessed is Allah, the best of creators.",
+      ref: "Surah Al-Mu'minun 23:14 — izam (عِظَام) = skeletal framework. lahm (لَحْم) = muscle tissue specifically. The sequence: bones first, muscle clothing them after — confirmed by NIH peer-reviewed embryology."
+    }
+  },
+  {
+    id: 6,
+    myth: "The Quran endorses slavery — Islam is incompatible with human rights",
+    source: "secular",
+    difficulty: "Complex",
+    locked: true,
+    claim: "",
+    rebuttal: "",
+    verse: null
+  },
+  {
+    id: 7,
+    myth: "Jesus is God — the Trinity is found in the original scriptures",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "",
+    rebuttal: "",
+    verse: null
+  },
+  {
+    id: 8,
+    myth: "The Quran has no prayer times — you need Hadith to know when to pray",
+    source: "sunni",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Sunni scholars argue that without Hadith, a Muslim cannot know when to pray — that the Quran provides no timing for the five daily prayers, making Hadith an indispensable supplement to the Book of Allah.",
+    rebuttal: `The Quran does not give you clock times. It gives you something more honest and more merciful — windows of time. And within those windows, it names three prayers explicitly, leaving the believer with the natural world as their timepiece rather than a man-made schedule.<br><br>
+
+<strong>Fajr — the dawn prayer.</strong> Allah names it directly in 17:78: the Quran of dawn — the recitation performed at the first light before sunrise. The window is written in the sky itself: from the first thread of light until the sun clears the horizon. Not 5:13am. Not 5:47am. The dawn is your signal — placed there for every human being across every timezone and every century.<br><br>
+
+<strong>Al-Wusta — the middle prayer.</strong> Allah names this one by title in 2:238: Guard the prayers and the middle prayer. He calls it Al-Wusta — the middle one — which by definition sits between the prayer at the start of the day and the prayer at its end. The context of 24:58 places it within the midday rest period: the time after morning activity settles and before the sun begins its descent. That is your window. Not a clock — a position in the day.<br><br>
+
+<strong>Isha — the night prayer.</strong> The same verse 17:78 closes with the darkness of night as the boundary. When true darkness has fallen, the window for the night prayer has opened. Allah does not say 9:00pm. He says darkness. The sky tells you — as it always has.<br><br>
+
+<strong>The sweeping framework.</strong> In 11:114, Allah says: Establish prayer at the two ends of the day and in the approaches of the night. Two ends of the day — dawn and the period surrounding sunset. Approaches of the night — as darkness descends. One verse captures the rhythm of an entire day without a single clock reference. Because Allah designed the human being to read the natural world, not to serve a printed schedule.<br><br>
+
+<strong>What about Dhuhr and Asr by name?</strong> The Quran does not use those labels — and that is the point. Sectarian tradition created fixed Arabic names and fixed clock times and presented them as divine obligation. But 17:78 describes the entire period from the decline of the sun to the darkness of night as a single window for prayer. Within that window, the believer prays. The rigid segmentation into Dhuhr at 12:30 and Asr at 3:45 is a human construction placed on top of a divine framework that was already whole.<br><br>
+
+<strong>The analogy.</strong> A doctor tells a patient: take this medication with food — morning and evening. He does not say: take it at 7:43am with exactly 300 grams of oatmeal, and again at 6:17pm before a meal of no fewer than 400 calories. The instruction is complete as given. One patient eats at 7am and takes it then — correct. Another eats at 8:30am and takes it then — equally correct. The wisdom is in the window, not the precision. Rigid clock-based rules would fail billions of people across different latitudes, seasons, and centuries. Allah is the Lord of all of them. He gave every one of them the same sky. The windows work universally. A printed timetable does not.<br><br>
+
+The prayer times are in the Quran. They are inscribed in the movement of the sun. The specific clock times printed on mosque schedules are a human tool — potentially useful, but not divine command, and not evidence of the Quran's insufficiency. Allah completed His Book. He said so Himself.`,
+    verse: {
+      arabic: "أَقِمِ الصَّلَاةَ لِدُلُوكِ الشَّمْسِ إِلَىٰ غَسَقِ اللَّيْلِ وَقُرْآنَ الْفَجْرِ ۖ إِنَّ قُرْآنَ الْفَجْرِ كَانَ مَشْهُودًا",
+      translation: "Establish prayer at the decline of the sun until the darkness of night, and the Quran of dawn — indeed, the recitation of dawn is witnessed.",
+      ref: "Surah Al-Isra 17:78 — one verse covers the entire day of worship: decline of sun through darkness of night, and names Fajr explicitly. No clock required."
+    }
+  },
+  {
+    id: 9,
+    myth: "Women in Islam are worth half of men — the religion institutionalises inequality",
+    source: "secular",
+    difficulty: "Common",
+    locked: true,
+    claim: "",
+    rebuttal: "",
+    verse: null
+  },
+  {
+    id: 10,
+    myth: "Muhammad married a child — Islam condones child marriage",
+    source: "christian",
+    difficulty: "Common",
+    locked: true,
+    claim: "Critics claim the Prophet Muhammad married Aisha at age 6 or 9, and use this to argue that Islam institutionally sanctions child marriage and the abuse of minors.",
+    rebuttal: `This argument is dismantled by the Quran itself — and the Quran's criteria make the accusation impossible to sustain for any believer who takes Allah's words seriously.<br><br>
+
+<strong>First: The Quran defines who is marriage-ready.</strong> In Surah An-Nisa 4:6, Allah gives a direct criterion for when a person may be given their wealth and considered ready for adult life: they must have reached marriageable age AND you must perceive in them <em>rushd</em> — sound judgement, intellectual and emotional maturity. A six-year-old or nine-year-old cannot possess rushd by any honest measure. Allah set this standard. It is not cultural. It is not era-dependent. It is divine and it applies to all times.<br><br>
+
+<strong>Second: The Quran links mental maturity to wealth-handling.</strong> In 4:5, Allah commands: <em>do not give the mentally immature your wealth which Allah has made a means of support for you.</em> If a child cannot be trusted with something as concrete as money, how could they possibly be ready for the far more complex, emotionally and spiritually demanding covenant of marriage? The Quran's own hierarchy of maturity makes this clear — financial responsibility comes before marital responsibility. A child who cannot manage wealth cannot carry a marriage.<br><br>
+
+<strong>Third: The Prophet would never violate Allah's commands.</strong> The Quran states in 53:3–4 that Muhammad does not speak from his own desire — what he brought was revelation. A man whose entire life was submission to Allah's words would not then act in direct violation of the criteria Allah Himself established in 4:6. To accuse the Prophet of marrying a child is to simultaneously accuse him of defying the Book he was sent to deliver. Those two things cannot coexist. The accusation collapses under its own weight.<br><br>
+
+<strong>Fourth: The age narration is a Hadith problem, not a Quran problem.</strong> The claim about Aisha's age comes entirely from later narrations — not a single verse of the Quran. Historical researchers have noted serious contradictions in these narrations, with other accounts placing her age significantly higher at the time of marriage. The Quran contains no such claim. The Quran contains the criteria — and those criteria are decisive.<br><br>
+
+<strong>Fifth: The Quran's silence on age here is itself evidence.</strong> When age is a relevant factor in a Quranic narrative, Allah states it plainly. He mentions that Sarah, the wife of Ibrahim, was barren and elderly when the angels brought news of a son — her age made the miracle meaningful, so Allah included it. He mentions that Zakariya was an old man with weakened bones, his wife barren, when he asked Allah for an heir — again, age was the point, so Allah named it. The Quran never omits details that carry theological weight. If Muhammad had married a six or nine year old child, and if that were sanctioned by Allah, the Quran — which documents, justifies, and contextualises every significant act of the Prophet — would have addressed it. It does not. Not once. The narration exists only in Hadith literature, compiled centuries later. And beyond the silence: what divine purpose would such a marriage serve? The Quran sanctions things for reasons. Every ruling, every permission carries wisdom. There is no coherent wisdom in marrying a child — it produces no prophetic lesson, no divine demonstration, nothing except contradiction with Allah's own criteria in 4:6. The Quran is a Book of purpose. What was narrated serves none.<br><br>
+
+The conclusion is simple: Allah defined who can marry. A child lacking rushd does not meet that definition. The Prophet followed Allah. Therefore the accusation, as presented, cannot stand — not by Quranic logic, not by any honest reading of what Allah has revealed.`,
+    verse: {
+      arabic: "وَابْتَلُوا الْيَتَامَىٰ حَتَّىٰ إِذَا بَلَغُوا النِّكَاحَ فَإِنْ آنَسْتُم مِّنْهُمْ رُشْدًا فَادْفَعُوا إِلَيْهِمْ أَمْوَالَهُمْ",
+      translation: "Test the orphans until they reach marriageable age. Then if you perceive in them sound judgement, release their wealth to them.",
+      ref: "Surah An-Nisa 4:6 — Allah's own criterion: marriageable age requires perceived sound judgement (rushd). A child of 6 or 9 cannot meet this standard."
+    }
+  },
+  {
+    id: 11,
+    myth: "The Quran commands Muslims to kill all non-believers",
+    source: "christian",
+    difficulty: "Common",
+    locked: true,
+    claim: "",
+    rebuttal: "",
+    verse: null
+  },
+  {
+    id: 12,
+    myth: "Stoning for adultery is an Islamic law — the Quran endorses capital punishment for sin",
+    source: "sunni",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "",
+    rebuttal: "",
+    verse: null
+  },
+  {
+    id: 17,
+    myth: "Paul is Jesus's true apostle — his letters define authentic Christianity",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Christians treat Paul as the great apostle who spread Jesus's true message to the world. His letters make up nearly half of the New Testament and define core Christian doctrine. He is presented as carrying the authentic teaching of Christ to the nations.",
+    rebuttal: `Paul's own writings and the Book of Acts disqualify him from being a follower of Jesus or a transmitter of His message. Four points dismantle the claim entirely.<br><br>
+
+<strong>1. Before his "vision," Paul violently persecuted Jesus's actual disciples.</strong> Acts 8:3 — Saul ravaged the church, dragging men and women off to prison. Acts 9:1–2 — he was <em>"breathing threats and murder against the disciples of the Lord."</em> Acts 22:4 — <em>"I persecuted this Way to the death, binding and delivering to prison both men and women."</em> And in Galatians 1:13, Paul himself admits: <em>"I persecuted the church of God violently and tried to destroy it."</em> The man who jailed and helped kill Jesus's followers then claimed — on his own authority alone — to become their leader.<br><br>
+
+<strong>2. Paul never met Jesus during Jesus's ministry.</strong> In 1 Corinthians 15:8 he admits he saw Jesus only <em>"as to one untimely born"</em> — a post-crucifixion vision. In Galatians 1:11–12 he openly states his gospel came <em>"not from any man"</em> but by private <em>"revelation"</em> — bypassing the disciples who actually walked with Jesus. His entire apostleship rests on the Damascus Road event in Acts 9 — a personal vision no one else witnessed.<br><br>
+
+<strong>3. Non-Muslim scholars confirm Paul never met the historical Jesus.</strong> <em>Bart Ehrman</em>, Distinguished Professor of Religious Studies at UNC Chapel Hill (an agnostic, not a Muslim), documents in <em>How Jesus Became God</em> and <em>Peter, Paul, and Mary Magdalene</em> that Paul never encountered the earthly Jesus and reshaped early Christianity around his own visions. <em>James Tabor</em> at UNC Charlotte argues in <em>Paul and Jesus</em> that Paul transformed Jesus's Jewish movement into a separate religion built on Pauline revelation. The Jewish scholar <em>Hyam Maccoby</em>, in <em>The Mythmaker: Paul and the Invention of Christianity</em>, concludes that Paul — not Jesus — founded Christianity as we know it. <em>Robert Eisenman</em> in <em>James, the Brother of Jesus</em> documents Paul's open opposition to James and the Jerusalem disciples. These are not Muslim sources. This is mainstream Western scholarship.<br><br>
+
+<strong>4. Paul openly clashed with the disciples Jesus actually chose.</strong> In Galatians 2:11–14, Paul confronts Peter <em>"to his face"</em> in Antioch. In 2 Corinthians 11:5 and 11:13, he attacks his opponents as <em>"false apostles"</em> — opponents who were historically the Jerusalem followers of Jesus or those carrying their teaching. Acts 15 records the Jerusalem Council, where the original disciples and Paul fundamentally disagreed on circumcision and the Law. And the <em>Ebionites</em> — the earliest Jewish-Christian sect, in direct continuity with the original disciples — formally rejected Paul as an apostate.<br><br>
+
+<strong>The bottom line:</strong> A man who hunted and killed Jesus's disciples, never met Jesus in the flesh, claimed his doctrine came from a private vision rather than from those Jesus chose, and stood in open conflict with those very disciples — this is the man whose letters make up nearly half the New Testament. Allah praises the real disciples (al-hawariyyun) in 61:14, 3:52, and 5:111. He warns about those who fabricate scripture and sell it as divine in 2:79. And in 6:112 He describes the exact pattern: every prophet has had enemies who later inspire one another with decorative speech in delusion. Paul fulfilled the description he himself wrote into history.`,
+    verse: {
+      arabic: "وَكَذَٰلِكَ جَعَلْنَا لِكُلِّ نَبِيٍّ عَدُوًّا شَيَاطِينَ الْإِنسِ وَالْجِنِّ يُوحِي بَعْضُهُمْ إِلَىٰ بَعْضٍ زُخْرُفَ الْقَوْلِ غُرُورًا",
+      translation: "And thus We have made for every prophet an enemy — devils from mankind and jinn, inspiring to one another decorative speech in delusion.",
+      ref: "Surah Al-An'am 6:112 — Allah described the pattern. Paul fulfilled it: a former enemy of the prophet who returned with embellished doctrine that overshadowed the original message."
+    }
+  },
+  {
+    id: 18,
+    myth: "There is no prophecy of Muhammad ﷺ in the Bible — every Muslim claim is just Islamic interpretation",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    interactive: true,
+    claim: "The Bible contains no mention of Muhammad or Islam. Muslims who claim to find prophecies in the Old and New Testament are reading things into the text that simply are not there. The Bible points to Jesus alone.",
+    rebuttal: "",
+    verse: null
+  },
+  {
+    id: 19,
+    myth: "Quran 10:94 proves Muhammad had doubts — Allah told him to ask Jews and Christians for confirmation, proving the Bible is the authority",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "In Surah Yunus 10:94, Allah says 'if you are in doubt about what We have revealed to you, ask those who have been reading the scripture before you.' This proves Muhammad himself was uncertain about his revelation. Allah directed him to the Bible as the authority — which means the Bible is reliable and the Quran defers to it.",
+    rebuttal: `<div style="font-family:'Cinzel',serif;font-size:.72rem;color:#c9a84c;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem;padding-bottom:.6rem;border-bottom:1px dashed rgba(201,168,76,0.25);">Part One — The Verse Is Rhetorical</div>
+
+Read the full verse — Allah answers His own conditional in the same breath:<br><br>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Yunus 10:94</span>
+    <span class="verse-exp-desc">The verse they use as their attack</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"And if you are in doubt about what We have revealed to you, ask those who have been reading the scripture before you. <strong>The truth has certainly come to you from your Lord, so never be among the doubters.</strong>"</div>
+    <div class="verse-exp-note">The Arabic conditional "in kunta fi shakk" (if you are in doubt) is eliminated in the same verse — "the truth has come to you." The doubt was hypothetical. Allah answers it before it lands. This is a classical rhetorical device in Arabic, not an admission of uncertainty.</div>
+  </div>
+</div>
+
+Beyond the verse's own structure, examine who these "people of scripture" were — using Allah's own testimony and their own Bible against themselves. Tap each verse:<br><br>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Quran 5:82</span>
+    <span class="verse-exp-desc">Their hostility — Allah's own testimony</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"You will surely find the most intense of the people in animosity toward the believers to be the Jews and those who associate others with Allah."</div>
+    <div class="verse-exp-note">Allah Himself describes their animosity toward the very believers they are being asked to confirm the Prophet ﷺ to. These are not neutral, credible witnesses.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Quran 2:87</span>
+    <span class="verse-exp-desc">A people who killed their own prophets</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"And We did certainly give Moses the Torah and followed up after him with messengers. But is it not that every time a messenger came to you with what your souls did not desire, you were arrogant? And a party of the messengers you denied and another party you killed."</div>
+    <div class="verse-exp-note">These are people who denied and murdered their own prophets. Allah is not directing His Prophet ﷺ to consult witnesses with this track record.</div>
+  </div>
+</div>
+
+<div class="verse-exp" style="margin-bottom:1rem;">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Matthew 23:37</span>
+    <span class="verse-exp-desc">Jesus indicts them in their own Bible</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"O Jerusalem, Jerusalem, the city that kills the prophets and stones those who are sent to it! How often would I have gathered your children together as a hen gathers her brood under her wings, and you were not willing!"</div>
+    <div class="verse-exp-note">Even Jesus, in their own Bible, calls Jerusalem "the killer of prophets." This is their own scripture indicting their own witnesses — before we even quote the Quran.</div>
+  </div>
+</div>
+
+<strong>Historically, there was nothing reliable left to consult.</strong> The original Torah given to Moses was lost during the Babylonian captivity — the Bible itself records its rediscovery under King Josiah (2 Kings 22:8), proving it had been absent for generations. The original Injil revealed to Jesus has no surviving manuscript. What exists are Greek translations written decades after Jesus by authors who never met him. Allah was not directing His Prophet to corrupted documents held by hostile witnesses with a documented history of killing their own messengers.<br><br>
+
+<strong>The verse is its own answer: the truth has come to you from your Lord — so never doubt.</strong>
+
+<div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-left:3px solid rgba(201,168,76,0.5);border-radius:3px;padding:.8rem 1rem;margin:1.1rem 0;">
+  <div style="font-family:'Cinzel',serif;font-size:.62rem;color:#c9a84c;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.4rem;">If They Push — "No, the verse is literal"</div>
+  <div style="color:#a89f8a;font-size:.82rem;font-style:italic;">Then we take it completely literally. The honest Torah and Gospel scholars of that era — those who still carried uncorrupted knowledge — would have confirmed the Prophet ﷺ using their own texts. Tap each verse below to see exactly what they would have said.</div>
+</div>
+
+<div style="font-family:'Cinzel',serif;font-size:.72rem;color:#c9a84c;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem;padding-bottom:.6rem;border-top:1px dashed rgba(201,168,76,0.25);padding-top:.85rem;">Part Two — The Literal Reading Still Confirms Muhammad ﷺ</div>
+
+If 10:94 is taken literally — that the Prophet was directed to consult sincere Torah and Gospel scholars — then the question is: <strong>what would those scholars have told him?</strong><br><br>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Genesis 17:7</span>
+    <span class="verse-exp-desc">The covenant covers ALL of Abraham's seed</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"And I will establish my covenant between me and thee and thy seed after thee in their generations for an everlasting covenant, to be a God unto thee, and to thy seed after thee."</div>
+    <div class="verse-exp-note">Allah said "thy seed" — not "only Isaac's line." Both Isaac AND Ishmael are Abraham's seed. The covenant was never restricted to one son. The Ishmael line — leading to Muhammad ﷺ — was always included.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Deuteronomy 33:2</span>
+    <span class="verse-exp-desc">Sinai · Seir · Paran — three prophets named</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"And he said, The LORD came from Sinai, and rose up from Seir unto them; he shined forth from mount Paran, and he came with ten thousands of saints: from his right hand went a fiery law for them."</div>
+    <div class="verse-exp-note">Sinai = Moses (Exodus 31:18). Seir = Jordan — Jesus's ministry territory. Paran = Arabia = Muhammad ﷺ (Genesis 21:20–21). "Ten thousands of saints" = the 10,000 followers at the conquest of Mecca. Three prophets in one verse — written by Moses himself.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Deuteronomy 18:18</span>
+    <span class="verse-exp-desc">A prophet like Moses — from their brethren</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"I will raise them up a Prophet from among their brethren, like unto thee, and will put my words in his mouth; and he shall speak unto them all that I shall command him."</div>
+    <div class="verse-exp-note">The brethren of Israel are the Ishmaelites — Arabs. "Like Moses" means a prophet who brought a law, governed a nation, married, and led armies. Jesus doesn't fit. Muhammad ﷺ fits every single characteristic.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Matthew 21:43</span>
+    <span class="verse-exp-desc">Jesus — the kingdom moves to a non-Jewish nation</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"Therefore I tell you, the kingdom of God will be taken away from you and given to a people who will produce its fruit."</div>
+    <div class="verse-exp-note">Greek: ethnos — the standard New Testament word for Gentiles, non-Jews. KJV translates it "Gentiles" 93 times. Even Jesus, in the Gospel Christians defend, confirms the transfer to a non-Jewish nation.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Song of Solomon 5:16</span>
+    <span class="verse-exp-desc">His name in the original Hebrew</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"His mouth is most sweet: yea, he is altogether lovely. This is my beloved, and this is my friend, O daughters of Jerusalem."</div>
+    <div class="verse-exp-note">The Hebrew "altogether lovely" is מַחֲמַדִּים — Mahamaddim. Root: M-H-M-D. The exact root of Muhammad. When a Hebrew speaker reads this verse aloud, they say "Mahamad." The Prophet's name is preserved in their own scripture, in their own language.</div>
+  </div>
+</div>
+
+<div class="verse-exp" style="margin-bottom:1.1rem;">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Isaiah 29:12</span>
+    <span class="verse-exp-desc">The unlearned man and the book — Iqra</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"And the book is delivered to him that is not learned, saying, Read this, I pray thee: and he saith, I am not learned."</div>
+    <div class="verse-exp-note">A book brought to someone who cannot read. He says "I am not learned." This matches the first revelation to Muhammad ﷺ exactly — Gabriel said "Iqra" (Read). The Prophet replied: "Ma ana bi-qari" — I cannot read. Isaiah wrote this 700 years before the cave.</div>
+  </div>
+</div>
+
+The literal reading of 10:94 does not lead away from Islam. <strong>It leads directly into it.</strong> Whichever interpretation the Christian chooses — rhetorical or literal — the conclusion is the same: Muhammad ﷺ is confirmed.
+
+<div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.35);border-radius:4px;padding:.9rem 1rem;margin-top:1.1rem;text-align:center;">
+  <div style="font-family:'Cinzel',serif;font-size:.6rem;color:#c9a84c;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;">◈ The Covenant Tree</div>
+  <div style="font-size:.82rem;color:#f0ead8;font-style:italic;margin-bottom:.7rem;">Trace every prophecy the people of scripture would have confirmed — 13 nodes, 14 Bible verses, fully interactive.</div>
+  <button onclick="openTreeModal();event.stopPropagation();" style="background:#c9a84c;color:#0d0d0f;border:none;font-family:'Cinzel',serif;font-weight:600;font-size:.72rem;letter-spacing:.08em;padding:.55rem 1.1rem;border-radius:3px;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='#e8c97a'" onmouseout="this.style.background='#c9a84c'">Open the Covenant Tree →</button>
+</div>`,
+    verse: {
+      arabic: "وَإِن كُنتَ فِي شَكٍّ مِّمَّا أَنزَلْنَا إِلَيْكَ فَاسْأَلِ الَّذِينَ يَقْرَءُونَ الْكِتَابَ مِن قَبْلِكَ ۚ لَقَدْ جَاءَكَ الْحَقُّ مِن رَّبِّكَ فَلَا تَكُونَنَّ مِنَ الْمُمْتَرِينَ",
+      translation: "And if you are in doubt about what We have revealed to you, ask those who have been reading the scripture before you. The truth has certainly come to you from your Lord, so never be among the doubters.",
+      ref: "Surah Yunus 10:94 — The verse they use as an attack contains its own answer in the same breath. Allah immediately negates the hypothetical doubt: 'the truth has come to you from your Lord.' The conditional was never real. The verse is its own rebuttal."
+    }
+  },
+  {
+    id: 20,
+    myth: "The Bible is God's perfectly preserved Word — it has never been changed or added to",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Christians claim the Bible is the divinely preserved, unaltered Word of God — written by eyewitnesses and protected through the centuries without corruption or human addition.",
+    rebuttal: `Allah told us this would happen. In Surah Al-Ma'idah 5:13, Allah states directly that the People of the Scripture distorted words from their proper places. This is not a Muslim accusation — it is Allah's own testimony. The manuscript evidence of the Bible confirms it precisely.<br><br>
+
+<strong>Five verses not found in the original manuscripts — added by human hands, centuries after Jesus:</strong><br><br>
+
+<strong>① 1 John 5:7 — Added 1522 CE</strong><br>
+The only verse in the entire Bible that explicitly declares the Trinity: <em>"For there are three that bear record in heaven, the Father, the Word, and the Holy Ghost: and these three are one."</em> This verse does not appear in any Greek manuscript before the 10th–11th century. The scholar Erasmus excluded it entirely from his 1516 Greek New Testament. Under Church pressure, he inserted it in his 1522 third edition. Every modern critical Bible either removes it or footnotes it as absent from original manuscripts. The clearest Trinity proof text in existence — a documented medieval forgery.<br>
+<em>Source: Metzger &amp; Ehrman, The Text of the New Testament, 4th ed. (Oxford University Press, 2005), pp. 146–148</em><br><br>
+
+<strong>② Mark 16:9–20 — Added 4th–6th century CE</strong><br>
+The original Gospel of Mark ends at verse 8. The women flee the empty tomb. That is where the oldest manuscripts stop. Verses 9–20 — containing resurrection appearances, snake handling, and speaking in tongues — are absent from Codex Sinaiticus (4th century) and Codex Vaticanus (4th century), the two oldest complete New Testament manuscripts on earth. The resurrection narrative's ending was composed by an unknown author centuries after the original.<br>
+<em>Source: Metzger, A Textual Commentary on the Greek New Testament, 2nd ed. (United Bible Societies, 1994), pp. 102–107 · Codex Sinaiticus Project: codexsinaiticus.org</em><br><br>
+
+<strong>③ John 8:1–11 — Added 4th–8th century CE</strong><br>
+<em>"Let he who is without sin cast the first stone."</em> The most famous saying attributed to Jesus in Western culture. Absent from all earliest manuscripts — including P66, P75, Codex Sinaiticus, and Codex Vaticanus. Scholars across every denomination agree it was not original to John's Gospel. Modern translations bracket it or footnote its absence.<br>
+<em>Source: Metzger, A Textual Commentary on the Greek New Testament, pp. 187–189 · Wasserman, T., "The Strange Case of the Missing Adulteress," Textual History of the Bible (Brill, 2016)</em><br><br>
+
+<strong>④ Luke 22:43–44 — Added 4th century CE</strong><br>
+Jesus sweating blood in Gethsemane. Absent from the earliest papyri. Appears as a later correction by a different hand in Codex Sinaiticus. Marked as doubtful in Codex Vaticanus.<br>
+<em>Source: Metzger, A Textual Commentary on the Greek New Testament, pp. 150–151</em><br><br>
+
+<strong>⑤ John 5:4 — Added 4th–5th century CE</strong><br>
+The angel stirring the healing waters. Missing from P66, P75, Codex Sinaiticus, and Codex Vaticanus — the four oldest surviving witnesses to John's Gospel.<br>
+<em>Source: Metzger, A Textual Commentary on the Greek New Testament, pp. 179–180</em><br><br>
+
+<div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.25);border-left:3px solid var(--gold);padding:1rem 1.2rem;margin:1.2rem 0;">
+<div style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;">◈ Academic Sources</div>
+<div style="font-family:'Lora',serif;font-size:0.82rem;color:var(--text-dim);line-height:1.9;">
+① Metzger, B.M. &amp; Ehrman, B.D. — <em>The Text of the New Testament: Its Transmission, Corruption, and Restoration</em>, 4th ed. Oxford University Press, 2005<br>
+② Metzger, B.M. — <em>A Textual Commentary on the Greek New Testament</em>, 2nd ed. United Bible Societies, 1994<br>
+③ Codex Sinaiticus Project — <em>codexsinaiticus.org</em> — Full digitised manuscript, British Library<br>
+④ Codex Vaticanus — Vatican Apostolic Library, Vat.gr.1209 (4th century)<br>
+⑤ Wasserman, T. — <em>Textual History of the Bible</em>, Brill, 2016<br>
+⑥ Erasmus, D. — <em>Novum Instrumentum omne</em>, Froben, Basel, 1516 (1 John 5:7 excluded from original edition)<br>
+⑦ United Bible Societies Greek New Testament, 5th ed. — critical apparatus confirms all five passages as non-original
+</div>
+</div>
+
+The verdict is not Muslim opinion. It is the conclusion of Christian and secular manuscript scholars working from physical evidence spanning 1,700 years. Allah said the words were distorted. The manuscripts confirm exactly that.`,
+    verse: {
+      arabic: "فَبِمَا نَقْضِهِم مِّيثَاقَهُمْ لَعَنَّاهُمْ وَجَعَلْنَا قُلُوبَهُمْ قَاسِيَةً ۖ يُحَرِّفُونَ الْكَلِمَ عَن مَّوَاضِعِهِ",
+      translation: "So for their breaking of the covenant We cursed them and made their hearts hard. They distort words from their proper places.",
+      ref: "Surah Al-Ma'idah 5:13 — Allah's direct testimony that the People of the Scripture altered His words. The manuscript evidence confirms exactly this."
+    }
+  }
+];
+
+let currentFilter = 'all';
+
+function renderEntries(filtered) {
+  const db = document.getElementById('database');
+  db.innerHTML = '';
+  let count = 0;
+  let lockedCount = 0;
+
+  filtered.forEach(entry => {
+    count++;
+    if (entry.locked) lockedCount++;
+    const div = document.createElement('div');
+    div.className = `entry${entry.locked ? ' locked' : ''}`;
+    div.dataset.id = entry.id;
+
+    const tagClass = `tag-${entry.source}`;
+    const tagLabel = { christian: 'Christian Claim', sunni: 'Sunni Challenge', secular: 'Secular Critique', orientalist: 'Orientalist' }[entry.source];
+
+    if (entry.locked) {
+      div.innerHTML = `
+        <div class="entry-header">
+          <div style="flex:1">
+            <div class="entry-meta">
+              <span class="tag ${tagClass}">${tagLabel}</span>
+              <span class="difficulty">${entry.difficulty}</span>
+            </div>
+            <div class="entry-myth">${entry.myth}</div>
+          </div>
+          <div class="entry-toggle">🔒</div>
+        </div>
+        <div class="lock-overlay">🔒 Subscribe to unlock this rebuttal</div>
+      `;
+      div.onclick = openModal;
+    } else if (entry.interactive) {
+      div.innerHTML = `
+        <div class="entry-header" onclick="openTreeModal()" style="cursor:pointer;">
+          <div style="flex:1">
+            <div class="entry-meta">
+              <span class="tag ${tagClass}">${tagLabel}</span>
+              <span class="difficulty">${entry.difficulty}</span>
+              <span class="difficulty" style="background:rgba(201,168,76,0.12);color:#c9a84c;border-color:rgba(201,168,76,0.35);letter-spacing:.06em;">◈ Interactive</span>
+            </div>
+            <div class="entry-myth">${entry.myth}</div>
+            <div style="color:#a89f8a;font-size:.78rem;font-style:italic;margin-top:.5rem;line-height:1.5;">
+              Tap to open the interactive Covenant Tree — 13 nodes · 14 Bible verses · guided tour included
+            </div>
+          </div>
+          <div class="entry-toggle" style="color:#c9a84c;font-size:1.05rem;">▶</div>
+        </div>
+      `;
+    } else {
+      div.innerHTML = `
+        <div class="entry-header" onclick="toggleEntry(${entry.id})">
+          <div style="flex:1">
+            <div class="entry-meta">
+              <span class="tag ${tagClass}">${tagLabel}</span>
+              <span class="difficulty">${entry.difficulty}</span>
+            </div>
+            <div class="entry-myth">${entry.myth}</div>
+          </div>
+          <div class="entry-toggle">+</div>
+        </div>
+        <div class="entry-body">
+          <div class="entry-content">
+            <button class="tts-trigger" onclick="startReader(${entry.id}, event)">
+              <span class="tts-trigger-icon">◈</span> Listen to this rebuttal
+            </button>
+            <div class="section-label" style="margin-top:1.4rem;">The Claim</div>
+            <div class="myth-claim">"${linkVerseRefs(entry.claim)}"</div>
+            <div class="section-label">The Rebuttal</div>
+            <div class="rebuttal-text">${linkVerseRefs(entry.rebuttal)}</div>
+            ${entry.verse ? `
+            <div class="section-label">Quranic Foundation</div>
+            <div class="quran-verse">
+              <div class="quran-arabic">${entry.verse.arabic}</div>
+              <div class="quran-translation">"${entry.verse.translation}"</div>
+              <div class="quran-ref">— ${entry.verse.ref}</div>
+            </div>` : ''}
+            <div class="entry-actions">
+              <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">
+                ⬡ Share this rebuttal
+              </button>
+              <button class="action-btn" onclick="downloadCard(${entry.id}, event)">
+                ↓ Download reference card
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    db.appendChild(div);
+  });
+
+  document.getElementById('visibleCount').textContent = count;
+  const lockedNotice = document.querySelector('.locked-notice');
+  if (lockedNotice) {
+    lockedNotice.innerHTML = lockedCount > 0
+      ? `🔒 <span>${lockedCount} locked — subscribe to unlock all</span>`
+      : `<span>All entries unlocked</span>`;
+  }
+}
+
+function toggleEntry(id) {
+  const el = document.querySelector(`.entry[data-id="${id}"]`);
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.entry.open').forEach(e => e.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+function toggleVerse(headerEl) {
+  headerEl.parentElement.classList.toggle('open');
+}
+
+function filterEntries() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = entries.filter(e => {
+    const matchFilter = currentFilter === 'all' || e.source === currentFilter;
+    const rebuttalText = e.rebuttal.replace(/<[^>]+>/g, ' ').toLowerCase();
+    const matchSearch = !q || e.myth.toLowerCase().includes(q) || rebuttalText.includes(q) || (e.claim && e.claim.toLowerCase().includes(q));
+    return matchFilter && matchSearch;
+  });
+  renderEntries(filtered);
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterEntries();
+}
+
+function openModal() { document.getElementById('modal').classList.add('visible'); }
+function closeModal() { document.getElementById('modal').classList.remove('visible'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+
+// ── VERSE DATABASE ──
+const verseDB = {
+  "23:14": {
+    arabic: "فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ",
+    translation: "And We made the lump into bones, and We clothed the bones with flesh; then We developed him into another creation. So blessed is Allah, the best of creators.",
+    ref: "Surah Al-Mu'minun 23:14"
+  },
+  "2:256": {
+    arabic: "لَا إِكْرَاهَ فِي الدِّينِ ۖ قَد تَّبَيَّنَ الرُّشْدُ مِنَ الْغَيِّ",
+    translation: "There is no compulsion in religion. The right course has become clear from the wrong.",
+    ref: "Surah Al-Baqarah 2:256"
+  },
+  "2:231": {
+    arabic: "وَلَا تُمْسِكُوهُنَّ ضِرَارًا لِّتَعْتَدُوا",
+    translation: "Do not retain women to harm them, or to transgress against them.",
+    ref: "Surah Al-Baqarah 2:231"
+  },
+  "2:43": {
+    arabic: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ",
+    translation: "Establish prayer, give zakah, and bow with those who bow.",
+    ref: "Surah Al-Baqarah 2:43"
+  },
+  "2:238": {
+    arabic: "حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَىٰ",
+    translation: "Maintain with care the prayers and the middle prayer and stand before Allah, devoutly obedient.",
+    ref: "Surah Al-Baqarah 2:238"
+  },
+  "3:7": {
+    arabic: "هُوَ الَّذِي أَنزَلَ عَلَيْكَ الْكِتَابَ مِنْهُ آيَاتٌ مُّحْكَمَاتٌ هُنَّ أُمُّ الْكِتَابِ وَأُخَرُ مُتَشَابِهَاتٌ",
+    translation: "It is He who has sent down the Book. In it are verses that are the foundation of the Book and others that are unspecific. Those in whose hearts is deviation follow the unspecific, seeking discord.",
+    ref: "Surah Ali Imran 3:7"
+  },
+  "3:144": {
+    arabic: "مُّحَمَّدٌ إِلَّا رَسُولٌ قَدْ خَلَتْ مِن قَبْلِهِ الرُّسُلُ",
+    translation: "Muhammad is not but a messenger. Other messengers have passed before him.",
+    ref: "Surah Ali Imran 3:144"
+  },
+  "4:5": {
+    arabic: "وَلَا تُؤْتُوا السُّفَهَاءَ أَمْوَالَكُمُ الَّتِي جَعَلَ اللَّهُ لَكُمْ قِيَامًا",
+    translation: "Do not give the mentally immature your wealth which Allah has made a means of support for you.",
+    ref: "Surah An-Nisa 4:5"
+  },
+  "4:6": {
+    arabic: "وَابْتَلُوا الْيَتَامَىٰ حَتَّىٰ إِذَا بَلَغُوا النِّكَاحَ فَإِنْ آنَسْتُم مِّنْهُمْ رُشْدًا فَادْفَعُوا إِلَيْهِمْ أَمْوَالَهُمْ",
+    translation: "Test the orphans until they reach marriageable age. Then if you perceive in them sound judgement, release their wealth to them.",
+    ref: "Surah An-Nisa 4:6"
+  },
+  "4:82": {
+    arabic: "أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا",
+    translation: "Do they not reflect upon the Quran? Had it been from other than Allah, they would have found within it much contradiction.",
+    ref: "Surah An-Nisa 4:82"
+  },
+  "4:101": {
+    arabic: "وَإِذَا ضَرَبْتُمْ فِي الْأَرْضِ فَلَيْسَ عَلَيْكُمْ جُنَاحٌ أَن تَقْصُرُوا مِنَ الصَّلَاةِ",
+    translation: "And when you travel throughout the land, there is no blame upon you for shortening the prayer.",
+    ref: "Surah An-Nisa 4:101"
+  },
+  "6:38": {
+    arabic: "مَّا فَرَّطْنَا فِي الْكِتَابِ مِن شَيْءٍ",
+    translation: "We have not neglected in the Register a single thing.",
+    ref: "Surah Al-An'am 6:38"
+  },
+  "6:114": {
+    arabic: "أَفَغَيْرَ اللَّهِ أَبْتَغِي حَكَمًا وَهُوَ الَّذِي أَنزَلَ إِلَيْكُمُ الْكِتَابَ مُفَصَّلًا",
+    translation: "Shall I seek other than Allah as a judge while it is He who has revealed to you the Book explained in detail?",
+    ref: "Surah Al-An'am 6:114"
+  },
+  "11:13": {
+    arabic: "أَمْ يَقُولُونَ افْتَرَاهُ ۖ قُلْ فَأْتُوا بِعَشْرِ سُوَرٍ مِّثْلِهِ مُفْتَرَيَاتٍ",
+    translation: "Or do they say he invented it? Say: Then bring ten chapters like it, invented.",
+    ref: "Surah Hud 11:13"
+  },
+  "14:24": {
+    arabic: "أَلَمْ تَرَ كَيْفَ ضَرَبَ اللَّهُ مَثَلًا كَلِمَةً طَيِّبَةً كَشَجَرَةٍ طَيِّبَةٍ",
+    translation: "Do you not see how Allah sets forth a parable — a good word is like a good tree.",
+    ref: "Surah Ibrahim 14:24"
+  },
+  "17:78": {
+    arabic: "أَقِمِ الصَّلَاةَ لِدُلُوكِ الشَّمْسِ إِلَىٰ غَسَقِ اللَّيْلِ وَقُرْآنَ الْفَجْرِ",
+    translation: "Establish prayer at the decline of the sun until the darkness of night, and the Quran of dawn — indeed, the recitation of dawn is witnessed.",
+    ref: "Surah Al-Isra 17:78"
+  },
+  "22:78": {
+    arabic: "وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ",
+    translation: "He has chosen you and has not placed upon you in the religion any difficulty.",
+    ref: "Surah Al-Hajj 22:78"
+  },
+  "24:58": {
+    arabic: "يَا أَيُّهَا الَّذِينَ آمَنُوا لِيَسْتَأْذِنكُمُ الَّذِينَ مَلَكَتْ أَيْمَانُكُمْ وَالَّذِينَ لَمْ يَبْلُغُوا الْحُلُمَ مِنكُمْ ثَلَاثَ مَرَّاتٍ",
+    translation: "O you who believe, let those your right hands possess and those who have not yet reached puberty among you ask your permission at three times — before the dawn prayer, when you put aside your clothing at noon, and after the night prayer.",
+    ref: "Surah An-Nur 24:58"
+  },
+  "30:21": {
+    arabic: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً",
+    translation: "And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy.",
+    ref: "Surah Ar-Rum 30:21"
+  },
+  "42:21": {
+    arabic: "أَمْ لَهُمْ شُرَكَاءُ شَرَعُوا لَهُم مِّنَ الدِّينِ مَا لَمْ يَأْذَن بِهِ اللَّهُ",
+    translation: "Or have they partners who have laid down for them a religion which Allah has not permitted?",
+    ref: "Surah Ash-Shura 42:21"
+  },
+  "45:6": {
+    arabic: "تِلْكَ آيَاتُ اللَّهِ نَتْلُوهَا عَلَيْكَ بِالْحَقِّ ۖ فَبِأَيِّ حَدِيثٍ بَعْدَ اللَّهِ وَآيَاتِهِ يُؤْمِنُونَ",
+    translation: "These are the verses of Allah which We recite to you in truth. Then in what hadith after Allah and His verses will they believe?",
+    ref: "Surah Al-Jathiyah 45:6"
+  },
+  "53:3": {
+    arabic: "وَمَا يَنطِقُ عَنِ الْهَوَىٰ إِنْ هُوَ إِلَّا وَحْيٌ يُوحَىٰ",
+    translation: "Nor does he speak from his own desire. It is not but a revelation revealed.",
+    ref: "Surah An-Najm 53:3–4"
+  },
+  "53:4": {
+    arabic: "إِنْ هُوَ إِلَّا وَحْيٌ يُوحَىٰ",
+    translation: "It is not but a revelation revealed.",
+    ref: "Surah An-Najm 53:4"
+  },
+  "80:1": {
+    arabic: "عَبَسَ وَتَوَلَّىٰ أَن جَاءَهُ الْأَعْمَىٰ",
+    translation: "He frowned and turned away because there came to him the blind man.",
+    ref: "Surah Abasa 80:1–2"
+  },
+  "112:1": {
+    arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ",
+    translation: "Say: He is Allah, the One.",
+    ref: "Surah Al-Ikhlas 112:1"
+  }
+};
+
+
+
+// ── FOUNDING MEMBER COUNTER ──
+const FOUNDING_TOTAL = 1000;
+
+function getFoundingCount() {
+  // When Stripe is connected this pulls from your real subscriber count
+  // For now uses localStorage to simulate — replace with API call later
+  return parseInt(localStorage.getItem('alhaqq_founding_count') || '0');
+}
+
+function updateFoundingUI() {
+  const taken = getFoundingCount();
+  const remaining = Math.max(0, FOUNDING_TOTAL - taken);
+  const pct = (taken / FOUNDING_TOTAL) * 100;
+
+  document.getElementById('spotsLeft').textContent = remaining.toLocaleString();
+  document.getElementById('foundingBarFill').style.width = pct + '%';
+  document.getElementById('modalSpotsLeft').textContent = `⭐ ${remaining.toLocaleString()} founding spots remaining`;
+
+  const urgency = document.getElementById('foundingUrgency');
+  if (remaining <= 50) {
+    urgency.textContent = '🔴 Almost gone — ' + remaining + ' left';
+    urgency.style.color = '#c97a7a';
+  } else if (remaining <= 200) {
+    urgency.textContent = '⚠ Only ' + remaining + ' spots left';
+    urgency.style.color = '#c9a84c';
+  } else {
+    urgency.textContent = 'Be among the first 1,000';
+    urgency.style.color = '';
+  }
+}
+
+// Animate counter on load
+function animateCounter() {
+  const taken = getFoundingCount();
+  if (taken === 0) return;
+  const el = document.getElementById('spotsLeft');
+  const target = FOUNDING_TOTAL - taken;
+  let current = FOUNDING_TOTAL;
+  const step = Math.ceil((FOUNDING_TOTAL - target) / 40);
+  const timer = setInterval(() => {
+    current = Math.max(target, current - step);
+    el.textContent = current.toLocaleString();
+    if (current <= target) clearInterval(timer);
+  }, 30);
+}
+
+updateFoundingUI();
+setTimeout(animateCounter, 600);
+
+// ── SHARE ──
+function shareEntry(id, event) {
+  event.stopPropagation();
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return;
+
+  // Build a shareable text + simulated URL
+  const shareUrl = `${window.location.href.split('?')[0]}?myth=${id}`;
+  const shareText = `"${entry.myth}" — Debunked with the Quran alone.\n\nRead the full rebuttal: ${shareUrl}\n\nAl-Haqq · The Truth Database`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'Al-Haqq — ' + entry.myth, text: shareText, url: shareUrl })
+      .catch(() => fallbackCopy(shareUrl, id));
+  } else {
+    fallbackCopy(shareUrl, id);
+  }
+}
+
+function fallbackCopy(text, id) {
+  navigator.clipboard.writeText(text).then(() => {
+    showToast();
+    const btn = document.getElementById(`share-btn-${id}`);
+    if (btn) {
+      btn.classList.add('copied');
+      btn.textContent = '✓ Link copied';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '⬡ Share this rebuttal';
+      }, 2500);
+    }
+  }).catch(() => showToast());
+}
+
+function showToast() {
+  const toast = document.getElementById('shareToast');
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 2500);
+}
+
+// ── DOWNLOAD REFERENCE CARD ──
+function downloadCard(id, event) {
+  event.stopPropagation();
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return;
+
+  const rebuttalClean = entry.rebuttal.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  const verseBlock = entry.verse
+    ? `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nQURANIC FOUNDATION\n${entry.verse.translation}\n— ${entry.verse.ref}`
+    : '';
+
+  const cardText =
+`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AL-HAQQ · THE TRUTH DATABASE
+الحق · Quran-Only Rebuttals
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MYTH
+${entry.myth}
+
+THE CLAIM
+"${entry.claim}"
+
+THE REBUTTAL
+${rebuttalClean}${verseBlock}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Al-Haqq Database · Truth Requires No Compromise
+Founded on the Quran Alone
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  const blob = new Blob([cardText], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Al-Haqq_Rebuttal_${id}_${entry.myth.slice(0, 30).replace(/[^a-z0-9]/gi, '_')}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ── SUBMIT MYTH ──
+function openSubmitModal() {
+  document.getElementById('submitModal').classList.add('visible');
+  document.getElementById('submitSuccess').style.display = 'none';
+  document.getElementById('submitForm').style.display = 'flex';
+  document.getElementById('submitMyth').value = '';
+  document.getElementById('submitEmail').value = '';
+  document.getElementById('submitSource').value = '';
+}
+
+function closeSubmitModal() {
+  document.getElementById('submitModal').classList.remove('visible');
+}
+
+function closeSubmitOutside(e) {
+  if (e.target === document.getElementById('submitModal')) closeSubmitModal();
+}
+
+function submitMyth() {
+  const myth = document.getElementById('submitMyth').value.trim();
+  if (!myth) {
+    document.getElementById('submitMyth').style.borderColor = '#c97a7a';
+    setTimeout(() => document.getElementById('submitMyth').style.borderColor = '', 1500);
+    return;
+  }
+  const source = document.getElementById('submitSource').value;
+  const email = document.getElementById('submitEmail').value.trim();
+
+  // Store locally
+  const existing = JSON.parse(localStorage.getItem('alhaqq_submissions') || '[]');
+  existing.push({ myth, source, email, date: new Date().toISOString() });
+  localStorage.setItem('alhaqq_submissions', JSON.stringify(existing));
+
+  // mailto fallback — opens email client with pre-filled submission
+  const subject = encodeURIComponent('Al-Haqq Myth Submission');
+  const body = encodeURIComponent(
+    'MYTH SUBMITTED:\n' + myth +
+    '\n\nSOURCE: ' + (source || 'Not specified') +
+    '\n\nSUBMITTER EMAIL: ' + (email || 'Not provided') +
+    '\n\n— Submitted via Al-Haqq database'
+  );
+  const mailtoLink = document.createElement('a');
+  mailtoLink.href = 'mailto:must.muhammad49@gmail.com?subject=' + subject + '&body=' + body;
+  mailtoLink.style.display = 'none';
+  document.body.appendChild(mailtoLink);
+  mailtoLink.click();
+  document.body.removeChild(mailtoLink);
+
+  document.getElementById('submitSuccess').style.display = 'block';
+  document.getElementById('submitForm').style.display = 'none';
+  setTimeout(() => closeSubmitModal(), 3500);
+}
+
+// ── NOTIFY ──
+function openNotify() {
+  document.getElementById('notifyModal').classList.add('visible');
+  document.getElementById('notifySuccess').style.display = 'none';
+  document.getElementById('notifyEmail').value = '';
+}
+
+function closeNotify() {
+  document.getElementById('notifyModal').classList.remove('visible');
+}
+
+function closeNotifyOutside(e) {
+  if (e.target === document.getElementById('notifyModal')) closeNotify();
+}
+
+function submitNotify() {
+  const email = document.getElementById('notifyEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('notifyEmail').style.borderColor = '#c97a7a';
+    setTimeout(() => document.getElementById('notifyEmail').style.borderColor = '', 1500);
+    return;
+  }
+  // Store locally
+  const existing = JSON.parse(localStorage.getItem('alhaqq_notify') || '[]');
+  if (!existing.includes(email)) {
+    existing.push(email);
+    localStorage.setItem('alhaqq_notify', JSON.stringify(existing));
+  }
+  // mailto fallback — notifies Mustafa of the signup
+  const subject = encodeURIComponent('Al-Haqq — New Notification Signup');
+  const body = encodeURIComponent(
+    'Someone signed up for Al-Haqq notifications:\n\n' + email +
+    '\n\nAdd to your mailing list when you set one up.'
+  );
+  const mailtoLink = document.createElement('a');
+  mailtoLink.href = 'mailto:must.muhammad49@gmail.com?subject=' + subject + '&body=' + body;
+  mailtoLink.style.display = 'none';
+  document.body.appendChild(mailtoLink);
+  mailtoLink.click();
+  document.body.removeChild(mailtoLink);
+
+  document.getElementById('notifySuccess').style.display = 'block';
+  document.querySelector('.notify-form').style.display = 'none';
+  setTimeout(() => closeNotify(), 3000);
+}
+
+// ── VERSE POPUP FUNCTIONS ──
+function openVersePopup(ref) {
+  const verse = verseDB[ref];
+  if (!verse) return;
+  document.getElementById('versePopupArabic').textContent = verse.arabic;
+  document.getElementById('versePopupTranslation').textContent = '"' + verse.translation + '"';
+  document.getElementById('versePopupRef').textContent = '— ' + verse.ref;
+  document.getElementById('versePopup').classList.add('visible');
+}
+
+function closeVersePopup() {
+  document.getElementById('versePopup').classList.remove('visible');
+}
+
+function closeVersePopupOutside(e) {
+  if (e.target === document.getElementById('versePopup')) closeVersePopup();
+}
+
+// Close verse popup on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeVersePopup(); closeModal(); }
+});
+
+// ── INLINE REFERENCE LINKER ──
+// Finds patterns like (2:256), (4:6), 2:231, 4:82 etc inside rebuttal text
+// and wraps them in clickable verse-ref-btn buttons
+function linkVerseRefs(text) {
+  return text.replace(/\(?\b(\d+:\d+(?:–\d+)?)\b\)?/g, (match, ref) => {
+    const cleanRef = ref.split('–')[0]; // normalise ranges like 53:3–4 → 53:3
+    if (verseDB[cleanRef]) {
+      return `<button class="verse-ref-btn" onclick="openVersePopup('${cleanRef}');event.stopPropagation()">📖 ${match}</button>`;
+    }
+    return match;
+  });
+}
+
+// ── TTS READER ENGINE ──
+let ttsUtterance = null;
+let ttsActive = false;
+let ttsPaused = false;
+let ttsEntryId = null;
+let ttsWords = [];
+let ttsWordIndex = 0;
+let ttsProgressInterval = null;
+
+function buildReadText(id) {
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return '';
+  const claimText = entry.claim;
+  const rebuttalText = entry.rebuttal.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const verseText = entry.verse
+    ? `Quranic Foundation. ${entry.verse.translation}. — ${entry.verse.ref}.`
+    : '';
+  return `The myth: ${entry.myth}. The claim: ${claimText}. The rebuttal: ${rebuttalText}. ${verseText}`;
+}
+
+function startReader(id, event) {
+  event.stopPropagation();
+  if (ttsActive) stopReader();
+
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return;
+
+  const text = buildReadText(id);
+  if (!text) return;
+
+  ttsEntryId = id;
+  ttsActive = true;
+  ttsPaused = false;
+
+  document.getElementById('readerTitle').textContent = entry.myth;
+  document.getElementById('readerBar').classList.add('visible');
+  document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+  document.getElementById('readerPlayPause').classList.add('active');
+  document.getElementById('readerProgress').style.width = '0%';
+
+  ttsUtterance = new SpeechSynthesisUtterance(text);
+  ttsUtterance.rate = 0.92;
+  ttsUtterance.pitch = 1;
+  ttsUtterance.volume = 1;
+
+  // Pick a clear English voice if available
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v =>
+    v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Daniel') || v.name.includes('Samantha'))
+  ) || voices.find(v => v.lang.startsWith('en')) || null;
+  if (preferred) ttsUtterance.voice = preferred;
+
+  // Progress tracking via word boundary
+  ttsWords = text.split(/\s+/).length;
+  ttsWordIndex = 0;
+
+  ttsUtterance.onboundary = (e) => {
+    if (e.name === 'word') {
+      ttsWordIndex++;
+      const pct = Math.min((ttsWordIndex / ttsWords) * 100, 100);
+      document.getElementById('readerProgress').style.width = pct + '%';
+    }
+  };
+
+  ttsUtterance.onend = () => {
+    document.getElementById('readerProgress').style.width = '100%';
+    setTimeout(() => {
+      stopReader();
+    }, 800);
+  };
+
+  ttsUtterance.onerror = () => stopReader();
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(ttsUtterance);
+}
+
+function togglePlayPause() {
+  if (!ttsActive) return;
+  if (ttsPaused) {
+    window.speechSynthesis.resume();
+    ttsPaused = false;
+    document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+    document.getElementById('readerPlayPause').classList.add('active');
+  } else {
+    window.speechSynthesis.pause();
+    ttsPaused = true;
+    document.getElementById('readerPlayPause').textContent = '▶ Resume';
+    document.getElementById('readerPlayPause').classList.remove('active');
+  }
+}
+
+function stopReader() {
+  window.speechSynthesis.cancel();
+  ttsActive = false;
+  ttsPaused = false;
+  ttsEntryId = null;
+  document.getElementById('readerBar').classList.remove('visible');
+  document.getElementById('readerProgress').style.width = '0%';
+  document.getElementById('readerPlayPause').classList.remove('active');
+}
+
+// Load voices async (Chrome requires this)
+window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+
+// ── WELCOME MODAL ──
+function closeWelcome() {
+  document.getElementById('welcomeModal').classList.remove('visible');
+  document.body.style.overflow = '';
+  localStorage.setItem('alhaqq_welcomed', '1');
+}
+
+function closeWelcomeOutside(e) {
+  if (e.target === document.getElementById('welcomeModal')) closeWelcome();
+}
+
+// Show on first visit only
+if (!localStorage.getItem('alhaqq_welcomed')) {
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.getElementById('welcomeModal').classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }, 600);
+  });
+  // If DOM already loaded (inline script)
+  if (document.readyState !== 'loading') {
+    setTimeout(function() {
+      document.getElementById('welcomeModal').classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }, 600);
+  }
+}
+
+// Allow Escape to close welcome
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeWelcome();
+});
+
+// Initial render
+renderEntries(entries);
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      console.log('Al-Haqq SW registered');
+    }).catch(err => console.log('SW error:', err));
+  });
+}
+</script>
+<!-- ── COVENANT TREE MODAL ── -->
+<div id="covenantTreeModal" style="display:none;position:fixed;inset:0;z-index:500;background:#0d0d0f;flex-direction:column;">
+  <div style="position:absolute;top:.75rem;right:.75rem;z-index:502;display:flex;align-items:center;gap:.6rem;">
+    <span style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;color:rgba(201,168,76,.6);text-transform:uppercase;">The Covenant Tree</span>
+    <button onclick="closeTreeModal()" style="width:30px;height:30px;border-radius:50%;background:#1a1a1f;border:1px solid rgba(201,168,76,.35);color:#a89f8a;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.color='#c9a84c';this.style.borderColor='rgba(201,168,76,.7)';" onmouseout="this.style.color='#a89f8a';this.style.borderColor='rgba(201,168,76,.35)';">✕</button>
+  </div>
+  <iframe id="treeFrame" src="" style="width:100%;height:100%;border:none;display:block;" title="The Covenant Tree — Interactive Prophecy Chain"></iframe>
+</div>
+
+<script>
+function openTreeModal() {
+  const modal = document.getElementById('covenantTreeModal');
+  const frame = document.getElementById('treeFrame');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  // Load the tree only on first open (lazy load)
+  if (!frame.getAttribute('data-loaded')) {
+    frame.src = 'prophecy-tree-v5.html';
+    frame.setAttribute('data-loaded', 'true');
+  }
+}
+
+function closeTreeModal() {
+  document.getElementById('covenantTreeModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Allow Escape key to close
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('covenantTreeModal').style.display === 'flex') {
+    closeTreeModal();
+  }
+});
+</script>
+
+</body>
+</html>
