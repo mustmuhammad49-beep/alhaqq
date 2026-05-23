@@ -1709,7 +1709,7 @@
       <span class="logo-latin">Al-Haqq · The Truth Database</span>
     </div>
     <div class="header-actions">
-      <button class="btn-login" onclick="openModal()">Sign In</button>
+      <button class="btn-login" onclick="openSignIn()">Sign In</button>
       <a href="alhaqq-debate-simulator.html" style="text-decoration:none;">
         <button class="btn-login" style="color:var(--accent-light);border-color:rgba(61,168,118,0.5);">⚔ Debate Simulator</button>
       </a>
@@ -1936,6 +1936,21 @@ Truth requires no compromise.</div>
   </div>
 </div>
 
+
+<!-- OWNER LOGIN MODAL -->
+<div class="modal-backdrop" id="owner-login-modal" onclick="closeOwnerModalOutside(event)" style="z-index:9999;">
+  <div class="modal" style="max-width:360px;width:90%;text-align:center;padding:2rem 1.8rem;">
+    <button class="modal-close" onclick="closeOwnerModal()">✕</button>
+    <div class="modal-gem"><span>◆</span></div>
+    <div style="font-family:'Cinzel',serif;font-size:.9rem;color:#c9a84c;letter-spacing:.15em;margin-bottom:.4rem;">OWNER ACCESS</div>
+    <p style="font-size:.8rem;color:#a89f8a;margin-bottom:1.4rem;line-height:1.6;">Enter your email to sign in and unlock all entries.</p>
+    <input id="owner-email-input" type="email" placeholder="your@email.com"
+      style="width:100%;padding:.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);border-radius:4px;color:#f0ead8;font-size:.85rem;margin-bottom:.5rem;box-sizing:border-box;outline:none;"
+      onkeydown="if(event.key==='Enter')submitOwnerLogin()">
+    <div id="owner-login-err" style="color:#e05a5a;font-size:.75rem;min-height:1.1rem;margin-bottom:.6rem;"></div>
+    <button onclick="submitOwnerLogin()" style="width:100%;padding:.8rem;background:linear-gradient(135deg,#c9a84c,#8a6f2e);color:#0d0d0f;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.15em;border:none;border-radius:4px;cursor:pointer;">SIGN IN</button>
+  </div>
+</div>
 
 <div class="modal-backdrop" id="modal" onclick="closeModalOutside(event)">
   <div class="modal">
@@ -2467,15 +2482,16 @@ function renderEntries(filtered) {
 
   filtered.forEach(entry => {
     count++;
-    if (entry.locked) lockedCount++;
+    const renderLocked = entry.locked && !isOwner();
+    if (renderLocked) lockedCount++;
     const div = document.createElement('div');
-    div.className = `entry${entry.locked ? ' locked' : ''}`;
+    div.className = `entry${renderLocked ? ' locked' : ''}`;
     div.dataset.id = entry.id;
 
     const tagClass = `tag-${entry.source}`;
     const tagLabel = { christian: 'Christian Claim', sunni: 'Sunni Challenge', secular: 'Secular Critique', orientalist: 'Orientalist' }[entry.source];
 
-    if (entry.locked) {
+    if (renderLocked) {
       const isEmpty = !entry.claim && !entry.rebuttal;
       div.innerHTML = `
         <div class="entry-header" onclick="${isEmpty ? '' : 'openModal()'}">
@@ -2497,6 +2513,62 @@ function renderEntries(filtered) {
         </div>
       `;
       if (!isEmpty) div.onclick = openModal;
+    } else if (entry.locked && isOwner() && !entry.interactive) {
+      // Owner view: locked entry with content — render as unlocked
+      const isEmpty = !entry.claim && !entry.rebuttal;
+      if (isEmpty) {
+        div.innerHTML = `
+          <div class="entry-header">
+            <div style="flex:1">
+              <div class="entry-meta">
+                <span class="tag ${tagClass}">${tagLabel}</span>
+                <span class="difficulty">${entry.difficulty}</span>
+                <span class="difficulty" style="background:rgba(201,168,76,0.12);color:#c9a84c;border-color:rgba(201,168,76,0.4);letter-spacing:.06em;">⏳ Coming Soon</span>
+                <span class="difficulty" style="background:rgba(42,122,90,0.15);color:#2a7a5a;border-color:rgba(42,122,90,0.4);letter-spacing:.06em;">👑 Owner</span>
+              </div>
+              <div class="entry-myth">${entry.myth}</div>
+            </div>
+            <div class="entry-toggle">⏳</div>
+          </div>
+        `;
+      } else {
+        div.innerHTML = `
+          <div class="entry-header" onclick="toggleEntry(${entry.id})">
+            <div style="flex:1">
+              <div class="entry-meta">
+                <span class="tag ${tagClass}">${tagLabel}</span>
+                <span class="difficulty">${entry.difficulty}</span>
+                <span class="difficulty" style="background:rgba(42,122,90,0.15);color:#2a7a5a;border-color:rgba(42,122,90,0.4);letter-spacing:.06em;">👑 Owner</span>
+              </div>
+              <div class="entry-myth">${entry.myth}</div>
+            </div>
+            <div class="entry-toggle">+</div>
+          </div>
+          <div class="entry-body">
+            <div class="entry-content">
+              <button class="tts-trigger" onclick="startReader(${entry.id}, event)">
+                <span class="tts-trigger-icon">◈</span> Listen to this rebuttal
+              </button>
+              <div class="section-label" style="margin-top:1.4rem;">The Claim</div>
+              <div class="myth-claim">"${linkVerseRefs(entry.claim)}"</div>
+              <div class="section-label">The Rebuttal</div>
+              <div class="rebuttal-text">${linkVerseRefs(entry.rebuttal)}</div>
+              ${entry.verse ? `
+              <div class="section-label">Quranic Foundation</div>
+              <div class="quran-verse">
+                <div class="quran-arabic">${entry.verse.arabic}</div>
+                <div class="quran-translation">"${entry.verse.translation}"</div>
+                <div class="quran-ref">— ${entry.verse.ref}</div>
+              </div>` : ''}
+              <div class="entry-actions">
+                <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share this rebuttal</button>
+                <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Download reference card</button>
+                <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📱 Copy for TikTok</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
     } else if (entry.interactive) {
       div.innerHTML = `
         <div class="entry-header" onclick="openTreeModal()" style="cursor:pointer;">
@@ -2610,6 +2682,57 @@ function setDifficulty(diff, btn) {
 function openModal() { document.getElementById('modal').classList.add('visible'); }
 function closeModal() { document.getElementById('modal').classList.remove('visible'); }
 function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+
+// ── OWNER LOGIN ──
+function isOwner() {
+  return localStorage.getItem('alhaqq_owner') === '1';
+}
+
+function openSignIn() {
+  if (isOwner()) {
+    if (confirm('Signed in as site owner. Sign out?')) {
+      localStorage.removeItem('alhaqq_owner');
+      location.reload();
+    }
+    return;
+  }
+  document.getElementById('owner-login-modal').classList.add('visible');
+  setTimeout(() => document.getElementById('owner-email-input').focus(), 150);
+}
+
+function closeOwnerModal() {
+  document.getElementById('owner-login-modal').classList.remove('visible');
+  document.getElementById('owner-email-input').value = '';
+  document.getElementById('owner-login-err').textContent = '';
+}
+
+function closeOwnerModalOutside(e) {
+  if (e.target === document.getElementById('owner-login-modal')) closeOwnerModal();
+}
+
+function submitOwnerLogin() {
+  const email = document.getElementById('owner-email-input').value.trim().toLowerCase();
+  if (email === 'must.muhammad49@gmail.com') {
+    localStorage.setItem('alhaqq_owner', '1');
+    closeOwnerModal();
+    applyOwnerState();
+    filterEntries();
+  } else {
+    document.getElementById('owner-login-err').textContent = 'Email not recognized.';
+  }
+}
+
+function applyOwnerState() {
+  const btn = document.querySelector('.btn-login');
+  if (btn) {
+    btn.textContent = '👑 Owner';
+    btn.style.color = '#c9a84c';
+    btn.style.borderColor = 'rgba(201,168,76,0.5)';
+    btn.setAttribute('onclick', 'openSignIn()');
+  }
+  const notice = document.querySelector('.locked-notice');
+  if (notice) notice.style.opacity = '0.4';
+}
 
 // ── VERSE DATABASE ──
 const verseDB = {
@@ -2790,6 +2913,9 @@ function animateCounter() {
 
 updateFoundingUI();
 setTimeout(animateCounter, 600);
+
+// Apply owner state on load
+if (isOwner()) applyOwnerState();
 
 // ── SHARE ──
 function shareEntry(id, event) {
@@ -3149,7 +3275,6 @@ function stopReader() {
   ttsPaused = false;
   ttsEntryId = null;
   document.getElementById('readerBar').classList.remove('visible');
-  document.getElementById('readerProgress').style.width = '0%';
   document.getElementById('readerPlayPause').classList.remove('active');
 }
 
