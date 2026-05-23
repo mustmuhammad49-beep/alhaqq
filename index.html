@@ -1150,6 +1150,46 @@
   .jarvis-send:hover { opacity: .85; }
   .jarvis-send:disabled { opacity: .4; cursor: default; }
 
+  .jarvis-research-label {
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    letter-spacing: .1em;
+    color: #c9a84c;
+    margin-right: .5rem;
+    opacity: .8;
+  }
+
+  .jibril-cursor {
+    display: inline-block;
+    color: #c9a84c;
+    animation: blink .7s step-end infinite;
+    font-size: .85em;
+    vertical-align: baseline;
+    margin-left: 1px;
+  }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  .jibril-tool-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+    margin-top: .6rem;
+    padding-top: .5rem;
+    border-top: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .jibril-badge {
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    letter-spacing: .08em;
+    color: #8a6f2e;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 3px;
+    padding: .15rem .45rem;
+  }
+
   .jarvis-disclaimer {
     text-align: center;
     font-size: .58rem;
@@ -3317,7 +3357,7 @@ document.addEventListener('keydown', function(e) {
 // Initial render
 renderEntries(entries);
 
-// ── JARVIS ──
+// ── JIBRIL ──
 let jarvisOpen = false;
 let jarvisLoading = false;
 const jarvisHistory = [];
@@ -3337,32 +3377,81 @@ function jarvisKeydown(e) {
   }
 }
 
+function jarvisFormatText(text) {
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
 function jarvisAppendMsg(role, text) {
   const msgs = document.getElementById('jarvisMessages');
   const div = document.createElement('div');
   div.className = `jarvis-msg ${role}`;
-  // Convert **bold** markdown to <strong>
-  div.innerHTML = text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  div.innerHTML = jarvisFormatText(text);
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
   return div;
 }
 
-function jarvisShowTyping() {
+// Typewriter effect — types text char by char into an existing div
+function jarvisTypewrite(div, text, onDone) {
+  const msgs = document.getElementById('jarvisMessages');
+  const html = jarvisFormatText(text);
+  div.innerHTML = '';
+  // Strip HTML for char iteration, then reveal by slicing formatted HTML
+  // Fast approach: build char by char on raw text, then set final HTML at end
+  let i = 0;
+  const chars = text.split('');
+  const speed = Math.max(8, Math.min(18, Math.floor(6000 / chars.length))); // adaptive speed
+  const timer = setInterval(() => {
+    i++;
+    // Build partial formatted version
+    const partial = chars.slice(0, i).join('');
+    div.innerHTML = jarvisFormatText(partial) + '<span class="jibril-cursor">▋</span>';
+    msgs.scrollTop = msgs.scrollHeight;
+    if (i >= chars.length) {
+      clearInterval(timer);
+      div.innerHTML = jarvisFormatText(text); // final clean render
+      msgs.scrollTop = msgs.scrollHeight;
+      if (onDone) onDone();
+    }
+  }, speed);
+}
+
+function jarvisShowTyping(label) {
   const msgs = document.getElementById('jarvisMessages');
   const div = document.createElement('div');
   div.className = 'jarvis-typing';
   div.id = 'jarvisTyping';
-  div.innerHTML = '<span></span><span></span><span></span>';
+  div.innerHTML = label
+    ? `<span class="jarvis-research-label">${label}</span><span></span><span></span><span></span>`
+    : '<span></span><span></span><span></span>';
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
+}
+
+function jarvisUpdateTyping(label) {
+  const t = document.getElementById('jarvisTyping');
+  if (t) {
+    t.innerHTML = `<span class="jarvis-research-label">${label}</span><span></span><span></span><span></span>`;
+  }
 }
 
 function jarvisHideTyping() {
   const t = document.getElementById('jarvisTyping');
   if (t) t.remove();
+}
+
+function jarvisShowToolBadges(toolsUsed, container) {
+  if (!toolsUsed || toolsUsed.length === 0) return;
+  const badgeMap = { quran: '📖', bible: '✝', wikipedia: '📚', web: '🔍' };
+  const badges = document.createElement('div');
+  badges.className = 'jibril-tool-badges';
+  badges.innerHTML = toolsUsed.map(t =>
+    `<span class="jibril-badge">${badgeMap[t.tool] || '◈'} ${t.label}</span>`
+  ).join('');
+  container.appendChild(badges);
 }
 
 async function jarvisSend() {
@@ -3378,7 +3467,7 @@ async function jarvisSend() {
 
   jarvisLoading = true;
   document.getElementById('jarvisSend').disabled = true;
-  jarvisShowTyping();
+  jarvisShowTyping('Jibril is thinking...');
 
   try {
     const res = await fetch('/.netlify/functions/jibril', {
@@ -3386,13 +3475,32 @@ async function jarvisSend() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: jarvisHistory })
     });
+
+    // Show "researching" if the request takes >1.5s (tool calls happening)
+    const researchTimer = setTimeout(() => {
+      jarvisUpdateTyping('Researching...');
+    }, 1500);
+
     const data = await res.json();
+    clearTimeout(researchTimer);
     jarvisHideTyping();
 
     if (data.choices && data.choices[0]) {
       const reply = data.choices[0].message.content;
       jarvisHistory.push({ role: 'assistant', content: reply });
-      jarvisAppendMsg('jarvis', reply);
+
+      // Create message div and typewrite the response
+      const msgs = document.getElementById('jarvisMessages');
+      const replyDiv = document.createElement('div');
+      replyDiv.className = 'jarvis-msg jarvis';
+      msgs.appendChild(replyDiv);
+
+      jarvisTypewrite(replyDiv, reply, () => {
+        // After typewrite finishes, show research badges if any tools were used
+        if (data.tools_used && data.tools_used.length > 0) {
+          jarvisShowToolBadges(data.tools_used, replyDiv);
+        }
+      });
     } else {
       jarvisAppendMsg('jarvis', data.error || 'Something went wrong. Try again.');
     }

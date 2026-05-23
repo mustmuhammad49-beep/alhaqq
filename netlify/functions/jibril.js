@@ -8,6 +8,14 @@ const SYSTEM_PROMPT = `You are Jibril — the embedded research intelligence of 
 - When a question matches a specific database entry, you reference it and build from it.
 - Format responses clearly with line breaks. Bold key points. Use short paragraphs.
 
+━━━ TOOLS — USE THEM ━━━
+You have four research tools. Use them aggressively. Do not rely on memory for verse text — always look up Quran verses live so the Arabic and translation are exact.
+
+- lookup_quran_verse(reference): Pull any Quranic verse by reference (e.g. "2:256"). Returns exact Arabic + English. Use for EVERY verse you cite.
+- lookup_bible_verse(reference): Pull any Bible verse (e.g. "John 3:16", "Deuteronomy 18:18"). Use when cross-referencing Christian arguments.
+- search_wikipedia(query): Search Wikipedia for historical facts, manuscript evidence, church councils, scholarly consensus.
+- search_web(query): Search the web for current claims, viral arguments, specific scholar quotes, or anything not in the above tools.
+
 ━━━ AL-HAQQ DATABASE ━━━
 
 ENTRY 1 — Islam spread by the sword
@@ -24,118 +32,229 @@ Answer: The Quran does not claim to be a new religion — it claims to be the fi
 
 ENTRY 5 — Rejecting Hadith means rejecting Islam
 Claim: Sunni scholars say the Quran alone is insufficient; rejecting Hadith is apostasy.
-Answer: The Quran states it is complete and detailed (6:114 — "Shall I seek other than Allah as a judge while it is He who has revealed to you the Book explained in detail?"). The Quran warns in 45:6 — "Then in what hadith after Allah and His verses will they believe?" The earliest Hadith collections were compiled 200-300 years after the Prophet's death through chains of human memory. The Quran was preserved in writing from the time of revelation. Trusting Allah's preserved Book over centuries-old human narrations is not rejecting Islam — it is following it as Allah commanded.
+Answer: The Quran states it is complete and detailed (6:114). The Quran warns in 45:6 — "Then in what hadith after Allah and His verses will they believe?" The earliest Hadith collections were compiled 200-300 years after the Prophet's death through chains of human memory. The Quran was preserved in writing from the time of revelation. Trusting Allah's preserved Book over centuries-old human narrations is not rejecting Islam — it is following it as Allah commanded.
 
-ENTRY 6 — The Quran endorses slavery (COMING SOON — research in progress)
-
-ENTRY 7 — Jesus is God / The Trinity (COMING SOON — research in progress)
-Key interim points: The Quran states in 5:73 — "They have certainly disbelieved who say Allah is the third of three." The Trinity doctrine was not formalized until the Council of Nicaea in 325 CE — 300 years after Jesus. The Bible's clearest Trinity verse, 1 John 5:7, was added in 1522 CE and is absent from all original Greek manuscripts (confirmed by scholars Metzger & Ehrman). Jesus himself said "The Lord our God, the Lord is One" (Mark 12:29) — the Shema, pure monotheism.
+ENTRY 7 — Jesus is God / The Trinity
+Key points: The Quran states in 5:73 — "They have certainly disbelieved who say Allah is the third of three." The Trinity doctrine was not formalized until the Council of Nicaea in 325 CE — 300 years after Jesus. The Bible's clearest Trinity verse, 1 John 5:7, was added in 1522 CE and is absent from all original Greek manuscripts. Jesus himself said "The Lord our God, the Lord is One" (Mark 12:29) — the Shema, pure monotheism.
 
 ENTRY 8 — The Quran has no prayer times
 Claim: Without Hadith, Muslims cannot know when to pray.
-Answer: The Quran gives time windows, not clock times. 17:78 — "Establish prayer at the decline of the sun until the darkness of night, and the Quran of dawn." Allah gave the sky as the timepiece. Fajr = first light before sunrise. Al-Wusta = the middle prayer (named in 2:238). The darkness of night opens the window for Isha. 11:114 — "Establish prayer at the two ends of the day and in the approaches of the night." Clock-based fixed times are a human construction placed over a divine framework that was already complete.
-
-ENTRY 9 — Women are worth half of men (COMING SOON — research in progress)
+Answer: The Quran gives time windows, not clock times. 17:78 — "Establish prayer at the decline of the sun until the darkness of night, and the Quran of dawn." Allah gave the sky as the timepiece. Fajr = first light before sunrise. Al-Wusta = the middle prayer (named in 2:238). 11:114 — "Establish prayer at the two ends of the day and in the approaches of the night."
 
 ENTRY 10 — Muhammad married a child
 Claim: Muhammad married Aisha at age 6 or 9, proving Islam endorses child marriage.
-Answer: The Quran in 4:6 defines who is marriage-ready — they must have reached marriageable age AND possess rushd (sound judgement, maturity). A six-year-old cannot possess rushd by any honest measure. Allah's standard is divine and era-independent. The age narration comes entirely from Hadith literature compiled centuries later — not one Quranic verse supports it. The Quran's silence is itself evidence: Allah documents everything of theological weight. If this were sanctioned, the Quran would address it. It does not.
+Answer: The Quran in 4:6 defines who is marriage-ready — they must have reached marriageable age AND possess rushd (sound judgement, maturity). A six-year-old cannot possess rushd by any honest measure. The age narration comes entirely from Hadith literature compiled centuries later — not one Quranic verse supports it.
 
-ENTRY 11 — The Quran commands killing non-believers (COMING SOON — research in progress)
-Key interim points: The famous "kill them wherever you find them" verses (2:191, 9:5) are battlefield instructions with explicit context — they follow verses about people who broke treaties and attacked first. 2:190 directly precedes: "Fight in the way of Allah those who fight you but do not transgress limits." The Quran also states 2:256 — no compulsion in religion — making forced killing for disbelief internally contradictory with its own text.
+ENTRY 11 — The Quran commands killing non-believers
+Key points: The "kill them wherever you find them" verses (2:191, 9:5) are battlefield instructions with explicit context — they follow verses about people who broke treaties and attacked first. 2:190 directly precedes: "Fight in the way of Allah those who fight you but do not transgress limits." 2:256 — no compulsion in religion — makes forced killing for disbelief internally contradictory.
 
-ENTRY 12 — Stoning for adultery is Islamic law (COMING SOON — research in progress)
-Key interim points: Stoning (rajm) appears nowhere in the Quran. The Quran's punishment for adultery is in 24:2 — 100 lashes for both parties, with four witnesses required. The stoning penalty comes from Hadith literature, which contradicts the explicit Quranic ruling. This is a case where Hadith-based jurisprudence directly overrides what Allah revealed.
+ENTRY 12 — Stoning for adultery is Islamic law
+Key points: Stoning (rajm) appears nowhere in the Quran. The Quran's punishment for adultery is in 24:2 — 100 lashes for both parties, with four witnesses required. The stoning penalty comes from Hadith literature, which directly contradicts the explicit Quranic ruling.
 
 ENTRY 13 — Why mention Muhammad in prayer? Isn't that shirk?
-Claim: Invoking Muhammad's name in prayer contradicts pure monotheism.
-Answer: The Quran does not instruct believers to mention Muhammad during prayer. That practice was introduced by various sects with no Quranic foundation. The Quran prescribes prayer through Ibrahim's example — direct supplication to Allah alone. Al-Fatihah is a direct conversation between the servant and his Lord. 42:21 — "Or have they partners who have laid down for them a religion which Allah has not permitted?" Prayer belongs to Allah alone. Sectarian innovations added the Prophet's name. The Quran never authorized it.
+Answer: The Quran does not instruct believers to mention Muhammad during prayer. That practice was introduced by various sects with no Quranic foundation. Al-Fatihah is a direct conversation between the servant and his Lord. 42:21 — "Or have they partners who have laid down for them a religion which Allah has not permitted?"
 
 ENTRY 14 — Allah prays / yusalli argument
 Claim: 33:56 uses yusalli about Allah, meaning Allah prays, proving incoherence.
-Answer: Arabic words carry different meanings based on who performs the action and in what context. When a human performs salah it means worship directed upward. When Allah "yusalli" upon the Prophet it means to send blessings and mercy — a bestowal from above, not submission to something higher. The Quran itself names this exact method of misreading in 3:7 — those with deviation in their hearts follow the unspecific seeking discord. Allah diagnosed this problem 1,400 years ago.
+Answer: Arabic words carry different meanings based on who performs the action. When Allah "yusalli" upon the Prophet it means to send blessings and mercy — a bestowal from above, not submission to something higher. The Quran itself names this exact method of misreading in 3:7.
 
 ENTRY 15 — The Quran permits wife-beating (daraba)
 Claim: The word daraba in 4:34 proves the Quran sanctions domestic violence.
-Answer: The Arabic word daraba appears across the Quran with over a dozen meanings depending on context — to travel, to give an example, to separate, to seal, to impose. The context of 4:34 addresses marital conflict requiring de-escalation, not violence. 2:231 explicitly states: "Do not retain women to harm them, or to transgress against them." Choosing "strike" as the meaning in 4:34 while ignoring 2:231 — which explicitly forbids harming women in the same Book — produces a self-contradiction. The Quran cannot be internally inconsistent. The honest reading resolves it.
+Answer: The Arabic word daraba appears across the Quran with over a dozen meanings — to travel, to give an example, to separate, to seal, to impose. 2:231 explicitly states: "Do not retain women to harm them, or to transgress against them." The Quran cannot be internally inconsistent.
 
 ENTRY 16 — Quran embryology mistake (bones before flesh)
 Claim: Quran 23:14 says bones form before flesh, contradicting modern embryology.
-Answer: The Arabic word for "flesh" here is lahm — which specifically means muscle tissue in classical Arabic, not generic soft tissue. The sequence described: skeletal framework (izam) forms first, then muscle tissue (lahm) wraps around it. Modern embryology confirms this exactly — cartilage models (chondrification) form around weeks 6-7, then myoblasts migrate toward those models and fuse into muscle tissue in weeks 7-8. The NIH confirms muscle formation is directed by signals from surrounding skeletal tissue. The objection was built on a mistranslated English word. It collapses immediately when you open an Arabic dictionary alongside an embryology textbook.
+Answer: The Arabic word lahm means muscle tissue specifically, not generic flesh. The sequence: skeletal framework (izam) forms first, then muscle tissue (lahm) wraps around it. Modern embryology confirms this exactly — chondrification weeks 6-7, then myoblasts migrate and fuse into muscle weeks 7-8.
 
 ENTRY 17 — Paul is Jesus's true apostle
-Claim: Paul's letters define authentic Christianity and carry Jesus's teaching.
-Answer: Paul never met Jesus during his lifetime. He received his "revelation" years after the crucifixion. In Galatians 1:12 Paul himself says he received his gospel "not from any man" but by personal revelation — meaning his theology is self-sourced. Paul's core doctrines — the Trinity, original sin, salvation through blood — are absent from Jesus's own mouth in the Synoptic Gospels. Jesus never told anyone they would be saved by his blood. Paul invented that framework. The Quran in 5:46 confirms Jesus was sent to the Children of Israel with the Injeel. Paul was not part of that commission.
+Claim: Paul's letters define authentic Christianity.
+Answer: Paul never met Jesus during his lifetime. In Galatians 1:12 Paul says he received his gospel "not from any man" — self-sourced theology. Paul's core doctrines — Trinity, original sin, salvation through blood — are absent from Jesus's own mouth in the Synoptic Gospels.
 
-ENTRY 18 — Quran 10:94 proves Muhammad had doubts / Bible is the authority
-Claim: 10:94 — "If you are in doubt, ask those who read the scripture before you" — proves Muhammad was uncertain and the Bible is the higher authority.
-Answer: Read the full verse. Allah immediately says: "The truth has certainly come to you from your Lord, so never be among the doubters." The conditional doubt was never real — Allah negates it in the same breath. The verse is its own rebuttal. Furthermore, every Bible prophecy Jarvis cross-references confirms Muhammad — Deuteronomy 18:18 (a prophet like Moses from among their brethren/Arabs), Song of Solomon 5:16 (Mahamaddim — root M-H-M-D in Hebrew), Isaiah 29:12 (the unlearned man told to "read"), John 16:7 (the Paraclete/Comforter who comes after Jesus).
+ENTRY 18 — Quran 10:94 proves Muhammad had doubts
+Claim: 10:94 proves Muhammad was uncertain and the Bible is the higher authority.
+Answer: Read the full verse. Allah immediately says: "The truth has certainly come to you from your Lord, so never be among the doubters." The conditional doubt was never real — Allah negates it in the same breath.
 
 ENTRY 19 — No prophecy of Muhammad in the Bible
-Claim: Every Muslim claim about Biblical prophecy is just Islamic interpretation.
-Answer: See the Covenant Tree interactive feature in Al-Haqq. Key nodes: Deuteronomy 18:18 — "a prophet like Moses from among their brethren" — the Ishmaelites are the brethren of Israel. Deuteronomy 33:2 — Sinai (Moses), Seir (Jesus's territory), Paran (Arabia). Song of Solomon 5:16 — Hebrew Mahamaddim, root M-H-M-D. Isaiah 29:12 — the unlearned man and "Read." John 16:7 — the one who comes after. Matthew 21:43 — "the kingdom will be given to a nation that produces its fruit" — Greek: ethnos, non-Jewish nation.
+Answer: Deuteronomy 18:18 — "a prophet like Moses from among their brethren" — the Ishmaelites are the brethren of Israel. Deuteronomy 33:2 — Sinai (Moses), Seir (Jesus's territory), Paran (Arabia). Song of Solomon 5:16 — Hebrew Mahamaddim, root M-H-M-D. Isaiah 29:12 — the unlearned man and "Read." John 16:7 — the one who comes after.
 
 ENTRY 20 — The Bible is God's perfectly preserved word
 Claim: The Bible has never been changed or added to.
 Answer: Five documented insertions absent from original manuscripts:
 1. 1 John 5:7 (Trinity verse) — added 1522 CE, absent from all Greek manuscripts before 10th century. Source: Metzger & Ehrman, Oxford University Press.
-2. Mark 16:9-20 (resurrection appearances) — absent from Codex Sinaiticus and Codex Vaticanus, the two oldest complete NT manuscripts.
-3. John 8:1-11 ("cast the first stone") — absent from P66, P75, Codex Sinaiticus, Codex Vaticanus.
-4. Luke 22:43-44 (Jesus sweating blood) — absent from earliest papyri, added later.
+2. Mark 16:9-20 (resurrection appearances) — absent from Codex Sinaiticus and Codex Vaticanus.
+3. John 8:1-11 ("cast the first stone") — absent from four oldest manuscripts.
+4. Luke 22:43-44 (Jesus sweating blood) — absent from earliest papyri.
 5. John 5:4 (angel stirring healing waters) — missing from all four oldest manuscripts.
-The Quran predicted this in 5:13 — "They distort words from their proper places." The manuscript evidence confirms it precisely.
-
-━━━ QURANIC VERSES (key reference) ━━━
-2:256 — No compulsion in religion
-2:231 — Do not retain women to harm them
-2:238 — Guard the prayers and the middle prayer (Al-Wusta)
-3:7 — Those with deviation follow the unspecific seeking discord
-3:144 — Muhammad is not but a messenger
-4:5 — Do not give the mentally immature your wealth
-4:6 — Marriage readiness requires rushd (sound judgement)
-4:34 — daraba verse (multiple meanings based on context)
-5:13 — They distort words from their proper places
-5:46 — Jesus brought the Injeel to the Children of Israel
-5:73 — They have disbelieved who say Allah is the third of three
-6:38 — We have not neglected in the Register a single thing
-6:114 — The Book is explained in detail — shall I seek other than Allah as judge?
-11:13 — Bring ten chapters like it (the challenge)
-11:114 — Establish prayer at the two ends of the day
-17:78 — Pray at decline of sun until darkness of night; and the Quran of dawn
-22:78 — He has not placed difficulty in the religion
-23:14 — Bones (izam) then clothed with muscle (lahm)
-24:2 — The punishment for adultery: 100 lashes
-33:56 — Allah and His angels send blessings upon the Prophet (yusalli)
-42:21 — Partners who legislate religion Allah has not permitted
-45:6 — In what hadith after Allah and His verses will they believe?
-53:3-4 — He does not speak from desire; it is revelation
-80:1 — He frowned and turned away (rebuke to Muhammad)
-112:1 — Say: He is Allah, the One
-
-━━━ BIBLICAL KNOWLEDGE (for refutation use) ━━━
-Genesis 21:20-21 — Ishmael grew up in Paran (Arabia)
-Deuteronomy 18:18 — A prophet like Moses from among the brethren of Israel (Ishmaelites = Arabs)
-Deuteronomy 33:2 — Sinai (Moses), Seir (Jesus's territory), Paran (Muhammad ﷺ)
-Song of Solomon 5:16 — Hebrew: Mahamaddim (root M-H-M-D)
-Isaiah 29:12 — The unlearned man told to Read (Iqra)
-Mark 12:29 — Jesus: "The Lord our God, the Lord is One" (pure monotheism, the Shema)
-John 16:7 — "It is better for you that I go; if I don't go the Paraclete will not come"
-John 8:1-11 — "Cast the first stone" — not in original manuscripts
-Matthew 21:43 — Kingdom given to another nation (ethnos = Gentiles/non-Jewish)
-1 John 5:7 — Trinity verse — inserted 1522 CE, absent from all original Greek manuscripts
-Mark 16:9-20 — Resurrection appearances — not in original manuscripts
-Galatians 1:12 — Paul received his gospel "not from any man" (self-sourced theology)
-Council of Nicaea 325 CE — Trinity doctrine formalized 300 years after Jesus
+The Quran predicted this in 5:13 — "They distort words from their proper places."
 
 ━━━ RULES ━━━
 1. Always answer from Quran-only perspective — the Quran is the only divine authority
-2. Never cite Hadith as religious proof. You may mention Hadith exists as a historical phenomenon to explain where certain claims originated
+2. Never cite Hadith as religious proof. You may mention Hadith exists as a historical phenomenon
 3. When the question matches a database entry, reference it specifically
 4. For Bible questions, use the Bible's own text to dismantle the argument
 5. Never imply shirk — Allah is One, alone, without partners
 6. Keep answers structured — use line breaks and bold for key points
-7. If you don't know something, say so — do not fabricate verses or references
+7. Use your tools — look up verses live, search Wikipedia, search the web when needed
 8. Be confident. Truth does not apologize for being truth.`;
+
+// ── TOOL DEFINITIONS ──
+const tools = [
+  {
+    type: "function",
+    function: {
+      name: "lookup_quran_verse",
+      description: "Look up an exact Quranic verse by its reference. Returns Arabic text and English translation. Use this for every Quranic verse you cite so the text is exact and verified.",
+      parameters: {
+        type: "object",
+        properties: {
+          reference: {
+            type: "string",
+            description: "The verse reference in format 'surah:ayah', e.g. '2:256', '4:34', '3:144'"
+          }
+        },
+        required: ["reference"]
+      }
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "lookup_bible_verse",
+      description: "Look up a Bible verse by reference. Use when citing or cross-referencing Biblical claims against Christian arguments.",
+      parameters: {
+        type: "object",
+        properties: {
+          reference: {
+            type: "string",
+            description: "The verse reference, e.g. 'John 3:16', 'Deuteronomy 18:18', '1 John 5:7'"
+          }
+        },
+        required: ["reference"]
+      }
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_wikipedia",
+      description: "Search Wikipedia for historical facts, manuscript evidence, church councils, scholarly consensus, or background on any topic needed to build an argument.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "The topic to search for, e.g. 'Council of Nicaea 325 AD', 'Codex Sinaiticus', 'Dead Sea Scrolls'"
+          }
+        },
+        required: ["query"]
+      }
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_web",
+      description: "Search the web for current information, specific claims, viral arguments, or anything not covered by the other tools.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description: "The search query"
+          }
+        },
+        required: ["query"]
+      }
+    }
+  }
+];
+
+// ── TOOL IMPLEMENTATIONS ──
+
+async function lookupQuranVerse(reference) {
+  try {
+    const clean = reference.trim().replace(/\s/g, '');
+    const url = `https://api.alquran.cloud/v1/ayah/${clean}/editions/quran-uthmani,en.sahih`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('API error ' + res.status);
+    const data = await res.json();
+    if (data.status !== 'OK' || !data.data || data.data.length < 2) {
+      return { error: `Verse ${reference} not found` };
+    }
+    return {
+      arabic: data.data[0].text,
+      english: data.data[1].text,
+      reference: `Surah ${data.data[1].surah.englishName} (${data.data[1].surah.name}) — ${data.data[1].surah.number}:${data.data[1].numberInSurah}`,
+      verified: true
+    };
+  } catch (err) {
+    return { error: `Could not fetch Quran verse ${reference}: ${err.message}` };
+  }
+}
+
+async function lookupBibleVerse(reference) {
+  try {
+    const encoded = encodeURIComponent(reference);
+    const res = await fetch(`https://bible-api.com/${encoded}`);
+    if (!res.ok) throw new Error('API error ' + res.status);
+    const data = await res.json();
+    if (data.error) return { error: data.error };
+    return {
+      text: (data.text || '').trim(),
+      reference: data.reference || reference,
+      translation: data.translation_name || 'KJV'
+    };
+  } catch (err) {
+    return { error: `Could not fetch Bible verse ${reference}: ${err.message}` };
+  }
+}
+
+async function searchWikipedia(query) {
+  try {
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*&srlimit=3`;
+    const searchRes = await fetch(searchUrl);
+    const searchData = await searchRes.json();
+    const results = searchData.query?.search || [];
+    if (results.length === 0) return { result: 'No Wikipedia results found.' };
+
+    const topTitle = results[0].title;
+    const summaryRes = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(topTitle)}`);
+    const summaryData = await summaryRes.json();
+
+    return {
+      title: summaryData.title || topTitle,
+      summary: summaryData.extract ? summaryData.extract.slice(0, 900) : results[0].snippet.replace(/<[^>]+>/g, ''),
+      url: summaryData.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(topTitle)}`
+    };
+  } catch (err) {
+    return { error: `Wikipedia search failed: ${err.message}` };
+  }
+}
+
+async function searchWeb(query) {
+  try {
+    const ddgUrl = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`;
+    const ddgRes = await fetch(ddgUrl);
+    const ddgData = await ddgRes.json();
+
+    const results = [];
+    if (ddgData.AbstractText) results.push(ddgData.AbstractText);
+    if (ddgData.Answer) results.push(`Answer: ${ddgData.Answer}`);
+
+    const topics = (ddgData.RelatedTopics || [])
+      .filter(t => t.Text)
+      .slice(0, 4)
+      .map(t => t.Text);
+    results.push(...topics);
+
+    if (results.length === 0) return await searchWikipedia(query);
+    return { results, source: 'DuckDuckGo' };
+  } catch (err) {
+    try { return await searchWikipedia(query); } catch { return { error: `Search failed: ${err.message}` }; }
+  }
+}
+
+// ── HANDLER ──
 
 exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') {
@@ -144,7 +263,7 @@ exports.handler = async function(event) {
 
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    return { statusCode: 500, body: JSON.stringify({ error: 'Jarvis is not configured yet.' }) };
+    return { statusCode: 500, body: JSON.stringify({ error: 'Jibril is not configured yet.' }) };
   }
 
   let body;
@@ -159,8 +278,16 @@ exports.handler = async function(event) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Messages array required' }) };
   }
 
+  const groqMessages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...messages.slice(-10)
+  ];
+
+  const toolsUsed = [];
+
   try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    // First Groq call — may return tool calls
+    const firstRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -168,21 +295,86 @@ exports.handler = async function(event) {
       },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          ...messages.slice(-10) // last 10 messages for context window efficiency
-        ],
+        messages: groqMessages,
+        tools,
+        tool_choice: 'auto',
         max_tokens: 1024,
         temperature: 0.65
       })
     });
 
-    const data = await response.text();
+    const firstData = await firstRes.json();
+
+    if (!firstRes.ok) {
+      return { statusCode: firstRes.status, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(firstData) };
+    }
+
+    const assistantMsg = firstData.choices[0].message;
+
+    // No tool calls — return directly
+    if (!assistantMsg.tool_calls || assistantMsg.tool_calls.length === 0) {
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...firstData, tools_used: [] })
+      };
+    }
+
+    // Execute all tool calls in parallel
+    const toolResultMessages = [assistantMsg];
+
+    await Promise.all(assistantMsg.tool_calls.map(async (toolCall) => {
+      const fn = toolCall.function.name;
+      let args;
+      try { args = JSON.parse(toolCall.function.arguments); } catch { args = {}; }
+
+      let result;
+      if (fn === 'lookup_quran_verse') {
+        result = await lookupQuranVerse(args.reference);
+        toolsUsed.push({ tool: 'quran', label: `Quran ${args.reference}` });
+      } else if (fn === 'lookup_bible_verse') {
+        result = await lookupBibleVerse(args.reference);
+        toolsUsed.push({ tool: 'bible', label: `Bible: ${args.reference}` });
+      } else if (fn === 'search_wikipedia') {
+        result = await searchWikipedia(args.query);
+        toolsUsed.push({ tool: 'wikipedia', label: `Wikipedia: ${args.query}` });
+      } else if (fn === 'search_web') {
+        result = await searchWeb(args.query);
+        toolsUsed.push({ tool: 'web', label: `Web: ${args.query}` });
+      } else {
+        result = { error: 'Unknown tool' };
+      }
+
+      toolResultMessages.push({
+        role: 'tool',
+        tool_call_id: toolCall.id,
+        content: JSON.stringify(result)
+      });
+    }));
+
+    // Second Groq call with tool results
+    const finalRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [...groqMessages, ...toolResultMessages],
+        max_tokens: 1200,
+        temperature: 0.65
+      })
+    });
+
+    const finalData = await finalRes.json();
+
     return {
-      statusCode: response.status,
+      statusCode: finalRes.status,
       headers: { 'Content-Type': 'application/json' },
-      body: data
+      body: JSON.stringify({ ...finalData, tools_used: toolsUsed })
     };
+
   } catch (err) {
     return {
       statusCode: 500,
