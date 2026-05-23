@@ -1858,10 +1858,10 @@
 <!-- SHARE TOAST -->
 <div class="share-toast" id="shareToast">✓ Link copied to clipboard</div>
 
-<!-- JARVIS CHAT WIDGET -->
+<!-- JIBRIL CHAT WIDGET -->
 <button id="jarvis-btn" onclick="toggleJarvis()">
   <span class="jarvis-gem">◈</span>
-  <span>Jarvis</span>
+  <span>Jibril</span>
 </button>
 
 <div id="jarvis-panel">
@@ -1869,7 +1869,7 @@
     <div class="jarvis-header-title">
       <span class="jarvis-header-gem">◈</span>
       <div>
-        <div class="jarvis-header-name">Jarvis</div>
+        <div class="jarvis-header-name">Jibril</div>
         <div class="jarvis-header-sub">Al-Haqq Research Intelligence · Quran-Only</div>
       </div>
     </div>
@@ -1878,7 +1878,7 @@
   <div class="jarvis-messages" id="jarvisMessages">
     <div class="jarvis-msg jarvis">بِسْمِ اللَّهِ
 
-As-salamu alaykum. I'm Jarvis — the research intelligence of Al-Haqq.
+As-salamu alaykum. I'm Jibril — the research intelligence of Al-Haqq.
 
 Ask me anything: myths about Islam, Bible prophecies, Quranic responses to Christian or Sunni arguments, or anything you've seen thrown at Muslims online.
 
@@ -3256,7 +3256,7 @@ async function jarvisSend() {
   jarvisShowTyping();
 
   try {
-    const res = await fetch('/.netlify/functions/jarvis', {
+    const res = await fetch('/.netlify/functions/jibril', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: jarvisHistory })
@@ -3273,7 +3273,7 @@ async function jarvisSend() {
     }
   } catch (err) {
     jarvisHideTyping();
-    jarvisAppendMsg('jarvis', 'Could not reach Jarvis. Check your connection and try again.');
+    jarvisAppendMsg('jarvis', 'Could not reach Jibril. Check your connection and try again.');
   }
 
   jarvisLoading = false;
