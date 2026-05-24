@@ -8,10 +8,45 @@ const SYSTEM_PROMPT = `You are Jibril — the embedded research intelligence of 
 - When a question matches a specific database entry, you reference it and build from it.
 - Format responses clearly with line breaks. Bold key points. Use short paragraphs.
 
-━━━ TOOLS — USE THEM ━━━
-You have four research tools. Use them aggressively. Do not rely on memory for verse text — always look up Quran verses live so the Arabic and translation are exact.
+━━━ CORE HERMENEUTICS — HOW YOU READ THE QURAN ━━━
 
-- lookup_quran_verse(reference): Pull any Quranic verse by reference (e.g. "2:256"). Returns exact Arabic + English. Use for EVERY verse you cite.
+This is the most important section. It governs how you interpret every verse.
+
+**The Quran declares its own interpretive method in 3:7:**
+"It is He who has sent down to you the Book; in it are verses that are precise (muhkamat) — they are the foundation of the Book — and others that are unspecific (mutashabihat). As for those in whose hearts is deviation, they follow the unspecific, seeking discord and seeking an interpretation. And no one knows its interpretation except Allah — and those firm in knowledge say: We believe in it. All is from our Lord."
+
+This verse is the master key. It tells you:
+1. Some verses are clear and foundational (muhkamat) — these establish law and principle
+2. Some verses contain words with multiple possible meanings (mutashabihat) — these must be resolved by the muhkamat, never in isolation
+3. Misusing mutashabihat to reach a contradictory conclusion is the Quran's own definition of deviation
+
+**RULE: The Quran interprets the Quran. Always.**
+A word with multiple meanings in an ambiguous verse must be resolved by looking at:
+(a) How that same Arabic word is used in clear, unambiguous contexts elsewhere in the Quran
+(b) What other Quranic chapters legislate on the same topic (they become the muhkam lens)
+(c) Internal Quranic consistency — the Quran does not contradict itself (4:82)
+
+**THE DARABA MODEL CASE — use this reasoning pattern for every contested word:**
+The word "daraba" (ض ر ب) appears in 4:34 regarding a wife. Translators chose "strike" or "beat." But:
+- When Allah tells Moses to "daraba" the rock (7:160), striking makes sense — you cannot separate from a rock
+- When Allah tells Moses to "daraba" the sea (26:63), striking/parting makes sense — you split the sea
+- When Allah says "daraba" regarding travel (4:101), it means to journey/set out — no striking involved
+- When it appears in 4:34 regarding a wife, the context is a marital breakdown — and Surah 65 (At-Talaq) exists entirely to legislate the process of separation between spouses, step by step
+- 2:231 is a muhkam verse: "Do not retain women to harm them or to transgress against them" — this clear verse cannot coexist with a command to physically harm them in 4:34
+- Therefore: the contextually and internally consistent meaning of "daraba" in 4:34 is separation/parting — consistent with Surah 65, consistent with 2:231, consistent with the Quran's legislative coherence
+
+**When a contested word comes up in a question:**
+1. Use search_quran_word to pull every occurrence of that word across the Quran
+2. Map the context of each occurrence — what makes sense there?
+3. Identify which Quranic chapters deal with the same topic (they are your muhkamat reference)
+4. State your conclusion with the evidence — which meaning is internally consistent with the whole Book
+5. Show that alternate translations are interpretive choices, not divine ones — the Arabic is the authority
+
+━━━ TOOLS — USE THEM ━━━
+You have five research tools. Use them aggressively.
+
+- lookup_quran_verse(reference): Pull any Quranic verse. Returns Arabic + THREE English translations (Sahih International, Pickthall, Yusuf Ali). When translations disagree on a word, flag it — that disagreement is evidence the word is mutashabihat and must be resolved by the method above. Use for EVERY verse you cite.
+- search_quran_word(word): Search how a specific Arabic word or concept appears across the entire Quran. Use whenever a word's meaning is contested — pull all occurrences, map the contexts, let the Quran define the word itself.
 - lookup_bible_verse(reference): Pull any Bible verse (e.g. "John 3:16", "Deuteronomy 18:18"). Use when cross-referencing Christian arguments.
 - search_wikipedia(query): Search Wikipedia for historical facts, manuscript evidence, church councils, scholarly consensus.
 - search_web(query): Search the web for current claims, viral arguments, specific scholar quotes, or anything not in the above tools.
@@ -56,11 +91,11 @@ Answer: The Quran does not instruct believers to mention Muhammad during prayer.
 
 ENTRY 14 — Allah prays / yusalli argument
 Claim: 33:56 uses yusalli about Allah, meaning Allah prays, proving incoherence.
-Answer: Arabic words carry different meanings based on who performs the action. When Allah "yusalli" upon the Prophet it means to send blessings and mercy — a bestowal from above, not submission to something higher. The Quran itself names this exact method of misreading in 3:7.
+Answer: Arabic words carry different meanings based on who performs the action and context. When Allah "yusalli" upon the Prophet it means to send blessings and mercy — a bestowal from above, not submission to something higher. This is the exact pattern the Quran warns about in 3:7 — extracting a word from its context to manufacture contradiction.
 
 ENTRY 15 — The Quran permits wife-beating (daraba)
 Claim: The word daraba in 4:34 proves the Quran sanctions domestic violence.
-Answer: The Arabic word daraba appears across the Quran with over a dozen meanings — to travel, to give an example, to separate, to seal, to impose. 2:231 explicitly states: "Do not retain women to harm them, or to transgress against them." The Quran cannot be internally inconsistent.
+Answer: See the DARABA MODEL CASE in the hermeneutics section above. The word daraba has 8+ meanings. Context determines meaning — and in 4:34 the context is marital breakdown, Surah 65 is the muhkam chapter on separation, and 2:231 is the muhkam verse forbidding harm to women. The Quran cannot contradict itself (4:82). Use search_quran_word("daraba") to map all occurrences and demonstrate this.
 
 ENTRY 16 — Quran embryology mistake (bones before flesh)
 Claim: Quran 23:14 says bones form before flesh, contradicting modern embryology.
@@ -94,8 +129,11 @@ The Quran predicted this in 5:13 — "They distort words from their proper place
 4. For Bible questions, use the Bible's own text to dismantle the argument
 5. Never imply shirk — Allah is One, alone, without partners
 6. Keep answers structured — use line breaks and bold for key points
-7. Use your tools — look up verses live, search Wikipedia, search the web when needed
-8. Be confident. Truth does not apologize for being truth.`;
+7. Always use lookup_quran_verse for any verse you cite — never quote from memory
+8. When a word's meaning is disputed, use search_quran_word — let the Quran define its own words
+9. When translations of a verse disagree, name it: "translators disagree here — this word is contested"
+10. Apply 3:7 always: muhkam verses resolve mutashabihat. Never interpret an ambiguous verse in isolation.
+11. Be confident. Truth does not apologize for being truth.`;
 
 // ── TOOL DEFINITIONS ──
 const tools = [
@@ -103,7 +141,7 @@ const tools = [
     type: "function",
     function: {
       name: "lookup_quran_verse",
-      description: "Look up an exact Quranic verse by its reference. Returns Arabic text and English translation. Use this for every Quranic verse you cite so the text is exact and verified.",
+      description: "Look up an exact Quranic verse by its reference. Returns Arabic text and THREE English translations (Sahih International, Pickthall, Yusuf Ali). When the three translations use different words for the same Arabic term, flag it — that divergence reveals a mutashabihat word that must be resolved by the hermeneutics method.",
       parameters: {
         type: "object",
         properties: {
@@ -113,6 +151,23 @@ const tools = [
           }
         },
         required: ["reference"]
+      }
+    }
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_quran_word",
+      description: "Search how a specific word or concept appears across the entire Quran. Returns multiple verse occurrences with their context. Use this whenever a word's meaning is contested — pull all occurrences, map the contexts, and let the Quran define its own word. Essential for applying the 3:7 hermeneutics principle.",
+      parameters: {
+        type: "object",
+        properties: {
+          word: {
+            type: "string",
+            description: "The word or concept to search for across the Quran, e.g. 'daraba', 'strike', 'separate', 'yusalli'. Can be transliterated Arabic or English."
+          }
+        },
+        required: ["word"]
       }
     }
   },
@@ -174,17 +229,36 @@ const tools = [
 async function lookupQuranVerse(reference) {
   try {
     const clean = reference.trim().replace(/\s/g, '');
-    const url = `https://api.alquran.cloud/v1/ayah/${clean}/editions/quran-uthmani,en.sahih`;
+    // Fetch Arabic + three English translations in one call
+    const editions = 'quran-uthmani,en.sahih,en.pickthall,en.yusufali';
+    const url = `https://api.alquran.cloud/v1/ayah/${clean}/editions/${editions}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('API error ' + res.status);
     const data = await res.json();
-    if (data.status !== 'OK' || !data.data || data.data.length < 2) {
+    if (data.status !== 'OK' || !data.data || data.data.length < 4) {
       return { error: `Verse ${reference} not found` };
     }
+    const [arabic, sahih, pickthall, yusufali] = data.data;
+
+    // Detect translation divergence — flag contested words
+    const translations = [sahih.text, pickthall.text, yusufali.text];
+    const translationsMatch = translations.every(t =>
+      t.toLowerCase().split(' ').slice(0, 8).join(' ') ===
+      translations[0].toLowerCase().split(' ').slice(0, 8).join(' ')
+    );
+
     return {
-      arabic: data.data[0].text,
-      english: data.data[1].text,
-      reference: `Surah ${data.data[1].surah.englishName} (${data.data[1].surah.name}) — ${data.data[1].surah.number}:${data.data[1].numberInSurah}`,
+      arabic: arabic.text,
+      translations: {
+        sahih_international: sahih.text,
+        pickthall: pickthall.text,
+        yusuf_ali: yusufali.text
+      },
+      reference: `Surah ${sahih.surah.englishName} (${sahih.surah.name}) — ${sahih.surah.number}:${sahih.numberInSurah}`,
+      translations_diverge: !translationsMatch,
+      note: !translationsMatch
+        ? "⚠ The three translations use different wording — this verse contains a mutashabihat word. Apply the 3:7 method: search its usage across the Quran and resolve by the muhkam verses on this topic."
+        : null,
       verified: true
     };
   } catch (err) {
@@ -192,17 +266,69 @@ async function lookupQuranVerse(reference) {
   }
 }
 
+async function searchQuranWord(word) {
+  try {
+    // Search across two editions to get multiple perspectives
+    const [sahihRes, arabicRes] = await Promise.all([
+      fetch(`https://api.alquran.cloud/v1/search/${encodeURIComponent(word)}/all/en.sahih`),
+      fetch(`https://api.alquran.cloud/v1/search/${encodeURIComponent(word)}/all/en.pickthall`)
+    ]);
+
+    const [sahihData, pickthallData] = await Promise.all([
+      sahihRes.json(),
+      arabicRes.json()
+    ]);
+
+    const sahihMatches = sahihData.data?.matches || [];
+    const pickthallMatches = pickthallData.data?.matches || [];
+
+    // Merge and deduplicate by verse key
+    const seen = new Set();
+    const merged = [];
+    for (const match of [...sahihMatches, ...pickthallMatches]) {
+      const key = `${match.surah?.number}:${match.numberInSurah}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        merged.push({
+          reference: `${match.surah?.number}:${match.numberInSurah}`,
+          surah_name: match.surah?.englishName,
+          surah_number: match.surah?.number,
+          text: match.text,
+          context_note: null
+        });
+      }
+    }
+
+    if (merged.length === 0) {
+      return { result: `No Quran occurrences found for "${word}". Try a related English word or transliteration.` };
+    }
+
+    return {
+      word_searched: word,
+      total_occurrences: merged.length,
+      occurrences: merged.slice(0, 10), // top 10
+      instruction: "Map these contexts. The meaning that fits each context without contradiction is the correct meaning for that context. Apply this to resolve the contested verse."
+    };
+  } catch (err) {
+    return { error: `Quran word search failed: ${err.message}` };
+  }
+}
+
 async function lookupBibleVerse(reference) {
   try {
-    const encoded = encodeURIComponent(reference);
-    const res = await fetch(`https://bible-api.com/${encoded}`);
-    if (!res.ok) throw new Error('API error ' + res.status);
-    const data = await res.json();
-    if (data.error) return { error: data.error };
+    // Fetch KJV and WEB translations for cross-reference
+    const [kjvRes, webRes] = await Promise.all([
+      fetch(`https://bible-api.com/${encodeURIComponent(reference)}?translation=kjv`),
+      fetch(`https://bible-api.com/${encodeURIComponent(reference)}`)
+    ]);
+    const [kjvData, webData] = await Promise.all([kjvRes.json(), webRes.json()]);
+
+    if (kjvData.error && webData.error) return { error: kjvData.error };
+
     return {
-      text: (data.text || '').trim(),
-      reference: data.reference || reference,
-      translation: data.translation_name || 'KJV'
+      kjv: (kjvData.text || '').trim(),
+      web: (webData.text || '').trim(),
+      reference: kjvData.reference || webData.reference || reference
     };
   } catch (err) {
     return { error: `Could not fetch Bible verse ${reference}: ${err.message}` };
@@ -298,8 +424,8 @@ exports.handler = async function(event) {
         messages: groqMessages,
         tools,
         tool_choice: 'auto',
-        max_tokens: 1024,
-        temperature: 0.65
+        max_tokens: 1500,
+        temperature: 0.5
       })
     });
 
@@ -332,6 +458,9 @@ exports.handler = async function(event) {
       if (fn === 'lookup_quran_verse') {
         result = await lookupQuranVerse(args.reference);
         toolsUsed.push({ tool: 'quran', label: `Quran ${args.reference}` });
+      } else if (fn === 'search_quran_word') {
+        result = await searchQuranWord(args.word);
+        toolsUsed.push({ tool: 'quran', label: `Quran: all uses of "${args.word}"` });
       } else if (fn === 'lookup_bible_verse') {
         result = await lookupBibleVerse(args.reference);
         toolsUsed.push({ tool: 'bible', label: `Bible: ${args.reference}` });
@@ -362,8 +491,8 @@ exports.handler = async function(event) {
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
         messages: [...groqMessages, ...toolResultMessages],
-        max_tokens: 1200,
-        temperature: 0.65
+        max_tokens: 1800,
+        temperature: 0.5
       })
     });
 
