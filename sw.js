@@ -1,14 +1,11 @@
-const CACHE_NAME = 'alhaqq-v2';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/alhaqq-debate-simulator.html',
+const CACHE_NAME = 'alhaqq-v3';
+const STATIC_ASSETS = [
   '/manifest.json'
 ];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
   );
   self.skipWaiting();
 });
@@ -23,7 +20,19 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const { request } = e;
+  const url = new URL(request.url);
+
+  // Network-first for HTML navigation — always get fresh page from server
+  if (request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname === '/') {
+    e.respondWith(
+      fetch(request).catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Cache-first for everything else (fonts, images, etc.)
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
+    caches.match(request).then(cached => cached || fetch(request))
   );
 });
