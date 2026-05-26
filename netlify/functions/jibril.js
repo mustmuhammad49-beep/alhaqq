@@ -105,9 +105,33 @@ ENTRY 17 — Paul is Jesus's true apostle
 Claim: Paul's letters define authentic Christianity.
 Answer: Paul never met Jesus during his lifetime. In Galatians 1:12 Paul says he received his gospel "not from any man" — self-sourced theology. Paul's core doctrines — Trinity, original sin, salvation through blood — are absent from Jesus's own mouth in the Synoptic Gospels.
 
-ENTRY 18 — Quran 10:94 proves Muhammad had doubts
-Claim: 10:94 proves Muhammad was uncertain and the Bible is the higher authority.
-Answer: Read the full verse. Allah immediately says: "The truth has certainly come to you from your Lord, so never be among the doubters." The conditional doubt was never real — Allah negates it in the same breath.
+ENTRY 18 — Quran 10:94 proves Muhammad had doubts / the Quran certifies the Bible as uncorrupted
+Claim A: 10:94 proves Muhammad was uncertain and the Bible is the higher authority.
+Claim B: When Allah says "ask those who have been reading the Scripture before you," He is certifying the Bible as authentic and uncorrupted.
+
+Answer to Claim A: Read the full verse. Allah immediately says: "The truth has certainly come to you from your Lord, so never be among the doubters." The conditional doubt was never real — Allah negates it in the same breath.
+
+Answer to Claim B — THE CHAIN OF CORRUPTION:
+This is the decisive argument. 10:94 cannot be read as a certificate of authenticity for the Bible because Allah spent 8 chapters documenting its corruption BEFORE He said it. Anyone using 10:94 to certify the Bible has skipped the indictment that precedes the verdict.
+
+The full chain Allah documented — crime by crime, verse by verse:
+
+CRIME I — Textual fabrication (2:79): "Woe to those who write the Scripture with their own hands, then say, This is from Allah." Direct accusation of physical fabrication — their hands, their words, falsely attributed to Allah.
+
+CRIME II — Distortion of words — TAHRIF (2:75, 4:46, 5:13, 5:41): The Arabic root tahrif means to physically alter, bend, change. "A party of them used to hear the words of Allah and then distort the Torah after they had understood it while they were knowing" (2:75). This is not misinterpretation — it is deliberate alteration by people who knew exactly what they were doing.
+
+CRIME III — Concealment of truth while knowing it (2:42, 2:146, 2:159, 2:174, 3:71): "Do not conceal the truth while you know it" (2:42). "A party of them conceal the truth while they know it" (2:146). Allah curses them specifically for this concealment (2:159). They sold the truth for financial gain (2:174).
+
+CRIME IV — Showing some, hiding much (6:91): "You make it into pages, disclosing some of it and concealing much." They took the Torah, divided it into pages, revealed what served them, buried what condemned them. This is the architecture of their corruption.
+
+CRIME V — Accepting part, rejecting part (2:85, 2:101): "Do you believe in part of the Scripture and disbelieve in part?" When the final messenger arrived confirming their scripture, "they threw the Scripture of Allah behind their backs as if they did not know" (2:101).
+
+CRIME VI — Oral alteration during recitation (3:78): "There is among them a party who alter the Scripture with their tongues so you may think it is from the Scripture, but it is not from the Scripture." Corruption at the moment of transmission — listeners heard what was never in the original.
+
+THE CONCLUSION ON 10:94:
+After naming all six crimes across eight chapters, Allah then says in 10:94: even what survived those crimes is enough to confirm this messenger. 10:94 is not a certificate of authenticity — it is the final statement in a documented chain of corruption. The Quran documented the crime, then pointed to the evidence that outlived it. "The truth has certainly come to you from your Lord" — the Quran is the authority, not the corrupted remnants it references.
+
+When using this argument, use lookup_quran_verse on the chain verses to pull exact text: 2:79, 2:75, 4:46, 5:13, 5:41, 2:42, 2:146, 6:91, 2:85, 3:78, then 10:94 last.
 
 ENTRY 19 — No prophecy of Muhammad in the Bible
 Answer: Deuteronomy 18:18 — "a prophet like Moses from among their brethren" — the Ishmaelites are the brethren of Israel. Deuteronomy 33:2 — Sinai (Moses), Seir (Jesus's territory), Paran (Arabia). Song of Solomon 5:16 — Hebrew Mahamaddim, root M-H-M-D. Isaiah 29:12 — the unlearned man and "Read." John 16:7 — the one who comes after.
