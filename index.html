@@ -4,6 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Al-Haqq — Islamic Myth Debunk Database</title>
+
+<!-- ── BASE SEO (overridden dynamically by edge function for shared links) ── -->
+<meta name="description" content="The most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah. Every lie answered. Every myth dismantled. Quran-only.">
+<meta name="keywords" content="Islam debunked, Islamic myth, Quran only, Islamic apologetics, Muslim debate, daraba, Quran science, hadith free, Al-Haqq">
+<meta name="author" content="Al-Haqq · The Truth Database">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://alhaqq.it.com">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Al-Haqq · الحق">
+<meta property="og:url" content="https://alhaqq.it.com">
+<meta property="og:title" content="Al-Haqq — Islamic Myth Debunk Database">
+<meta property="og:description" content="The most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah. Every lie answered. Every myth dismantled. Quran-only.">
+<meta property="og:image" content="https://alhaqq.it.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Al-Haqq — Islamic Myth Debunk Database">
+<meta name="twitter:description" content="The most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah. Every lie answered. Quran-only.">
+<meta name="twitter:image" content="https://alhaqq.it.com/og-image.png">
+
+<!-- Structured Data (JSON-LD) — helps Google understand the site -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Al-Haqq",
+  "alternateName": "Al-Haqq Islamic Myth Database",
+  "url": "https://alhaqq.it.com",
+  "description": "The most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://alhaqq.it.com/?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1729,6 +1771,112 @@
     line-height: 1.6;
   }
 
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     VISUAL UPGRADES
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  /* Cards: breathing room between entries */
+  .database { gap: 5px; }
+
+  /* Left accent: always faintly visible, full on hover/open */
+  .entry::before { transform: scaleY(1); opacity: 0.18; }
+  .entry:hover::before, .entry.open::before { opacity: 1; }
+  .entry.locked::before { display: none; }
+
+  /* Source-specific accent colors */
+  .src-christian::before    { background: #7a9ec9; }
+  .src-sunni::before        { background: #c97a7a; }
+  .src-secular::before      { background: #9ec97a; }
+  .src-orientalist::before  { background: #c9b87a; }
+
+  /* Entry-open accent overrides */
+  .entry.open.src-christian::before    { background: #7a9ec9; }
+  .entry.open.src-sunni::before        { background: #c97a7a; }
+  .entry.open.src-secular::before      { background: #9ec97a; }
+  .entry.open.src-orientalist::before  { background: #c9b87a; }
+
+  /* Hover: depth */
+  .entry:hover { box-shadow: 0 6px 28px rgba(0,0,0,0.5); }
+  .entry.open  { box-shadow: 0 6px 28px rgba(0,0,0,0.5); }
+
+  /* Entry number as ghost watermark (uses data-id already set by JS) */
+  .entry::after {
+    content: attr(data-id);
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cinzel', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.016);
+    pointer-events: none;
+    line-height: 1;
+    letter-spacing: -.04em;
+    z-index: 0;
+    transition: color .3s;
+  }
+  .entry:hover::after { color: rgba(201,168,76,0.042); }
+
+  /* Difficulty pill: colored by level */
+  .difficulty {
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    padding: .18rem .58rem;
+    border: 1px solid transparent;
+  }
+  .difficulty[data-diff="Beginner"]     { color: #5ec9a0; background: rgba(94,201,160,0.07); border-color: rgba(94,201,160,0.22); }
+  .difficulty[data-diff="Intermediate"] { color: #c9a84c; background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.22); }
+  .difficulty[data-diff="Advanced"]     { color: #e8796f; background: rgba(232,121,111,0.07); border-color: rgba(232,121,111,0.22); }
+
+  /* Source tags: slightly larger */
+  .tag { font-size: .6rem; padding: .22rem .65rem; letter-spacing: .17em; }
+
+  /* Hero: ghosted Arabic calligraphy behind the heading */
+  .hero { overflow: hidden; }
+  .hero-bg-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Amiri', serif;
+    font-size: 26rem;
+    color: rgba(201,168,76,0.03);
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    overflow: hidden;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* Quran verse block: stronger gold left stripe */
+  .quran-verse {
+    border-left: 3px solid rgba(201,168,76,0.5);
+    background: rgba(201,168,76,0.05);
+  }
+  .quran-arabic { font-size: 1.5rem; line-height: 2.1; }
+
+  /* Verse-exp: subtle depth when open */
+  .verse-exp.open { background: rgba(10,10,12,0.65); }
+  .verse-exp-header { padding: .58rem .85rem; }
+
+  /* Search bar: bottom border accent */
+  .search-wrap input:focus {
+    border-color: rgba(201,168,76,0.6);
+    box-shadow: 0 2px 12px rgba(201,168,76,0.07);
+  }
+
+  /* Filter buttons: rounded pill style */
+  .filter-btn { border-radius: 2px; }
+  .filter-btn:hover, .filter-btn.active {
+    box-shadow: 0 2px 10px rgba(201,168,76,0.18);
+  }
+
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#c9a84c">
@@ -1763,6 +1911,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-bg-text" aria-hidden="true">الحق</div>
   <p class="hero-eyebrow">Quran-Only · Evidence-Based · Uncompromising</p>
   <h1>Every Myth. <span>Dismantled.</span><br>Every Lie. Answered.</h1>
   <p>The world's most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah.</p>
@@ -1854,6 +2003,20 @@
 <footer>
   <p>Al-Haqq Database · <strong>Truth Requires No Compromise</strong> · Founded on the Quran Alone</p>
 </footer>
+
+<!-- NETLIFY FORM DETECTION — hidden, DO NOT REMOVE
+     Netlify scans these at deploy time to register the forms.
+     Submissions are stored in Netlify dashboard → Forms. -->
+<form name="alhaqq-notify" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input name="bot-field">
+</form>
+<form name="alhaqq-submit-myth" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="myth">
+  <input type="text" name="source">
+  <input type="email" name="email">
+  <input name="bot-field">
+</form>
 
 <!-- NOTIFY MODAL -->
 <div class="notify-backdrop" id="notifyModal" onclick="closeNotifyOutside(event)">
@@ -1977,18 +2140,21 @@ Truth requires no compromise.</div>
 </div>
 
 
-<!-- OWNER LOGIN MODAL -->
+<!-- SIGN IN MODAL -->
 <div class="modal-backdrop" id="owner-login-modal" onclick="closeOwnerModalOutside(event)" style="z-index:9999;">
-  <div class="modal" style="max-width:360px;width:90%;text-align:center;padding:2rem 1.8rem;">
+  <div class="modal" style="max-width:380px;width:90%;text-align:center;padding:2.2rem 2rem;">
     <button class="modal-close" onclick="closeOwnerModal()">✕</button>
     <div class="modal-gem"><span>◆</span></div>
-    <div style="font-family:'Cinzel',serif;font-size:.9rem;color:#c9a84c;letter-spacing:.15em;margin-bottom:.4rem;">OWNER ACCESS</div>
-    <p style="font-size:.8rem;color:#a89f8a;margin-bottom:1.4rem;line-height:1.6;">Enter your email to sign in and unlock all entries.</p>
+    <div id="signin-title" style="font-family:'Cinzel',serif;font-size:.9rem;color:#c9a84c;letter-spacing:.15em;margin-bottom:.4rem;">MEMBER ACCESS</div>
+    <p id="signin-desc" style="font-size:.82rem;color:#a89f8a;margin-bottom:1.4rem;line-height:1.65;">Enter the email you used to subscribe. Your access unlocks instantly.</p>
     <input id="owner-email-input" type="email" placeholder="your@email.com"
-      style="width:100%;padding:.75rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);border-radius:4px;color:#f0ead8;font-size:.85rem;margin-bottom:.5rem;box-sizing:border-box;outline:none;"
-      onkeydown="if(event.key==='Enter')submitOwnerLogin()">
-    <div id="owner-login-err" style="color:#e05a5a;font-size:.75rem;min-height:1.1rem;margin-bottom:.6rem;"></div>
-    <button onclick="submitOwnerLogin()" style="width:100%;padding:.8rem;background:linear-gradient(135deg,#c9a84c,#8a6f2e);color:#0d0d0f;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.15em;border:none;border-radius:4px;cursor:pointer;">SIGN IN</button>
+      style="width:100%;padding:.78rem 1rem;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);border-radius:4px;color:#f0ead8;font-size:.85rem;margin-bottom:.5rem;box-sizing:border-box;outline:none;transition:border-color .2s;"
+      onkeydown="if(event.key==='Enter')submitSignIn()"
+      onfocus="this.style.borderColor='rgba(201,168,76,0.65)'"
+      onblur="this.style.borderColor='rgba(201,168,76,0.3)'">
+    <div id="owner-login-err" style="color:#e05a5a;font-size:.75rem;min-height:1.2rem;margin-bottom:.5rem;line-height:1.4;"></div>
+    <button id="signin-btn" onclick="submitSignIn()" style="width:100%;padding:.85rem;background:linear-gradient(135deg,#c9a84c,#8a6f2e);color:#0d0d0f;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.15em;border:none;border-radius:4px;cursor:pointer;transition:opacity .2s;">UNLOCK MY ACCESS</button>
+    <p style="font-size:.72rem;color:#6b6358;margin-top:1rem;line-height:1.5;">Not a subscriber yet? <a href="#" onclick="closeOwnerModal();openModal();return false;" style="color:#c9a84c;text-decoration:none;">Join for $2.99/mo →</a></p>
   </div>
 </div>
 
@@ -2137,6 +2303,48 @@ The Quran also makes clear that Allah did not make this religion a burden: <em>"
     }
   },
   {
+    id: 22,
+    myth: "Islam is the most violent religion on the face of the earth",
+    source: "christian",
+    difficulty: "Common",
+    locked: false,
+    claim: "Critics — Christian apologists, secular commentators, and ex-Muslims — claim that Islam is uniquely violent because of its scripture, pointing to verses about fighting, historical conquests, and modern conflicts involving Muslim-majority groups as evidence that violence is commanded by the Quran itself.",
+    rebuttal: `This argument fails on every level — textually, historically, and academically. The Quran does not command violence. It regulates defensive warfare within a strict moral framework. Here is what the Quran actually says — verse by verse.<br><br>
+
+<strong>The foundational verse — Surah Al-Maidah 5:32.</strong> Before any discussion of warfare begins, this must be on screen: <em>"Whoever kills a soul unless for a soul or for corruption in the land — it is as if he had slain mankind entirely. And whoever saves one — it is as if he had saved mankind entirely."</em> Killing one innocent human being equals killing all of humanity. That is the Quran's foundational statement on human life. Every verse about fighting exists within this moral ceiling.<br><br>
+
+<strong>Who you are permitted to fight — Surah Al-Baqarah 2:190.</strong> <em>"Fight in the way of Allah those who fight you, but do not transgress. Indeed, Allah does not love the transgressors."</em> The permission is defensive — those who fight you. The prohibition is absolute — do not transgress. Aggression is explicitly forbidden.<br><br>
+
+<strong>Why the Prophet fought — Surah At-Tawbah 9:13.</strong> <em>"Will you not fight a people who broke their oaths and treaties and intended to expel the messenger — and they initiated aggression against you first?"</em> The trigger is broken treaties and initiated aggression — not religion, not disbelief, not race. Oath-breakers who attacked first.<br><br>
+
+<strong>The proportionality rule — Surah Al-Baqarah 2:194.</strong> <em>"Whoever transgresses against you, transgress against him in the same measure as he transgressed against you."</em> Eye for eye — no more. Escalation beyond what was done to you is forbidden.<br><br>
+
+<strong>The encouraged alternative — Surah Fussilat 41:34.</strong> <em>"Good and evil are not equal. Repel evil with that which is better — and the one who was your enemy may become like a devoted friend."</em> The Quran actively encourages responding to hostility with goodness — presenting forgiveness and excellence as the higher path.<br><br>
+
+<strong>Kindness to non-combatants is commanded — Surah Al-Mumtahanah 60:8.</strong> <em>"Allah does not forbid you from being kind and just towards those who did not fight you because of your religion and did not drive you out of your homes. Indeed, Allah loves those who act justly."</em> Not just permitted — commanded.<br><br>
+
+<strong>The only exception — Surah Al-Mumtahanah 60:9.</strong> <em>"Allah only forbids you from those who fought you because of religion and expelled you from your homes and supported your expulsion."</em> Aggressors specifically — not disbelievers in general, not critics, not people of other faiths living peacefully.<br><br>
+
+<strong>No compulsion — ever — Surah Al-Baqarah 2:256.</strong> <em>"There is no compulsion in religion. The right course has become clear from the wrong."</em> Forced conversion is not Islam. Faith coerced at swordpoint is not belief — Allah knows what is in the heart.<br><br>
+
+<strong>If they incline to peace — you must also — Surah Al-Anfal 8:61.</strong> <em>"And if they incline to peace, then incline to it also and rely upon Allah."</em> If the enemy seeks peace, the Muslim is commanded to accept it. No exceptions. No conditions. This verse alone disqualifies any claim that Islam commands perpetual warfare.<br><br>
+
+<strong>Oppression is worse than killing — Surah Al-Baqarah 2:217.</strong> <em>"And fitnah (oppression/persecution) is worse than killing."</em> The Quran ranks oppression as a greater evil than the act of killing itself.<br><br>
+
+<strong>The Sword Verse — At-Tawbah 9:5 — the most misquoted verse in Islamic history.</strong> Critics quote: kill the polytheists wherever you find them. What they never quote is 9:4 immediately before: <em>"Except those polytheists with whom you have a treaty and who have not failed you in anything and have not supported anyone against you — fulfil the treaty until its term."</em> And 9:6 immediately after: <em>"If any of the polytheists seeks your protection — grant him protection so that he may hear the word of Allah, then deliver him to his place of safety."</em> Treaty-keepers are protected. Those who seek asylum are protected, escorted to safety, and given a hearing. The Sword Verse is a specific military command directed at treaty-breakers who had already initiated warfare — not a general command to kill all non-Muslims everywhere forever. The context is always removed deliberately.<br><br>
+
+<strong>The historical record.</strong> Thomas Arnold, British historian and orientalist, in <em>The Preaching of Islam</em> (1896) documented that the majority of conversions to Islam across history occurred through trade, scholarship, and personal contact — not military conquest. Non-Muslim communities — Christians, Jews, Zoroastrians — lived under Muslim governance for centuries without forced conversion. The existence of large Christian communities in Egypt, Lebanon, and Iraq today — after 1,400 years of Muslim-majority governance — is itself the evidence. If the sword was the tool, those communities would not exist.<br><br>
+
+<strong>The violence attributed to Islam today is not Quranic.</strong> Boko Haram violates 2:256 — no compulsion. ISIS violates 5:32 — killing innocents equals killing all humanity. Al-Qaeda violates 8:61 — peace must be accepted when offered. Every major act of violence attributed to Islam in the modern era violates explicit Quranic commands. Judge the religion by its text — not by those who contradict it while claiming its name.<br><br>
+
+<strong>Apply the standard consistently.</strong> The Crusades were sanctioned by papal authority — the highest Christian institution. The Thirty Years War was fought between Christian factions and killed 8 million people. The Rwandan genocide occurred in a country that was 90% Christian, with churches used as killing sites, killing 800,000 people in 100 days. Belgian Congo under King Leopold II — a Christian monarch — killed an estimated 10 million Africans. The residential school system in Canada was run by Christian churches with documented state approval. No serious scholar attributes these acts to the teachings of Jesus. Apply the same standard to Islam and the argument collapses entirely.`,
+    verse: {
+      arabic: "مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا",
+      translation: "Whoever kills a soul unless for a soul or for corruption in the land — it is as if he had slain mankind entirely. And whoever saves one — it is as if he had saved mankind entirely.",
+      ref: "Surah Al-Maidah 5:32 — The Quran's foundational statement on human life. Every verse about warfare exists within this moral ceiling. Killing one innocent soul equals killing all of humanity. No religion that commands indiscriminate violence could contain this verse."
+    }
+  },
+  {
     id: 16,
     myth: "The Quran makes a scientific mistake about embryology — bones don't form before flesh",
     source: "secular",
@@ -2161,6 +2369,112 @@ The conclusion is not complicated: he took one English word, assumed it meant ev
     }
   },
   {
+    id: 21,
+    myth: "The four Gospels were written by Matthew, Mark, Luke, and John — eyewitnesses and companions of Jesus",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Christians assert that the four New Testament Gospels were written by Matthew, Mark, Luke, and John — either direct eyewitnesses to Jesus or close companions of those who were. This claim is foundational to Christian apologetics, because named eyewitness testimony is presented as the basis for Gospel reliability and therefore the basis for the entire Christian theological edifice.",
+    rebuttal: `The Gospels are anonymous documents. Every word of that statement is conceded by mainstream Christian biblical scholarship — Catholic, Protestant, evangelical, and secular alike. The four Gospels do not name their authors anywhere in the text. Not in the body. Not in any opening line. The titles Matthew, Mark, Luke, and John were attached later, and when you trace those attributions back to their actual source, the chain collapses.<br><br>
+
+What follows is not a skeptic's case. It is the mainstream position of the institutions that compiled and canonised the New Testament.<br><br>
+
+<strong>1. Universal internal anonymity — admitted by the Catholic Church itself.</strong><br>
+Open any of the four Gospels. The author never identifies himself by name. The New American Bible Revised Edition (NABRE), the official English translation of the Roman Catholic Church, states in its introduction to Matthew that "the unknown author" wrote in Greek and that traditional Matthean apostolic authorship is "untenable." The Anchor Bible Commentary, the Oxford Annotated Bible, and the HarperCollins Study Bible all agree. Bart Ehrman of the University of North Carolina puts it bluntly: the books are completely anonymous and their authors never divulge their names. This is the consensus, not a fringe.<br><br>
+
+<strong>2. The four-Gospel attribution crystallises with Irenaeus around 180 CE — 150 years after Jesus.</strong><br>
+Before Irenaeus of Lyon, there is no clear, named, four-Gospel attribution anywhere in surviving Christian literature. Papias around 120 to 130 CE mentions only a Matthew and a Mark, and his descriptions do not match our Greek texts (see point 3). Justin Martyr around 150 CE refers generically to "memoirs of the apostles" without naming all four. It is Irenaeus, in Against Heresies 3.1.1, who first asserts the four authors by name. And his stated justification for John reads, in the Greek, as deduction: "we have learned" — not "I received from an unbroken chain of custody." The attribution is a late ecclesiastical decision, not eyewitness testimony.<br><br>
+
+<strong>3. Papias's "Matthew" is not our Matthew.</strong><br>
+The earliest writer Christians cite as evidence — Papias of Hierapolis — describes a Matthew who "composed the sayings in the Hebrew dialect, and each interpreted them as best he could." Our Matthew is not a sayings collection. It is a Greek narrative gospel that copies roughly 90 percent of the Greek text of Mark. Whatever Papias was describing, it is not the book Christians today call Matthew. Either Papias is wrong about Matthew, or there were two completely different Matthews — both of which fatally damage the claim of clean apostolic authorship. Conservative scholar Richard Bauckham, who has spent his career defending Gospel reliability, still concedes that named apostolic authorship of the Greek Matthew is not what Papias is describing.<br><br>
+
+<strong>4. The Matthew problem — an apostle who copied from a non-apostle.</strong><br>
+The author of Matthew copied approximately 90 percent of the Gospel of Mark, often word-for-word in Greek. Matthew was supposedly an eyewitness apostle who walked with Jesus for three years. Mark was, by Christian tradition itself, not an eyewitness — he was Peter's secondhand interpreter. So Christian tradition asks the world to believe that an apostle who personally witnessed Jesus's ministry chose to base ninety percent of his account on the writings of someone who never met Jesus. No serious historian accepts this. The simpler explanation, accepted across the field, is that the author of Greek Matthew was a later Greek-speaking writer working with Mark as a source — not the tax collector named in Matthew 9:9.<br><br>
+
+<strong>5. The Mark problem — Peter's interpreter, writing in Greek, with a redacted ending.</strong><br>
+Christian tradition itself never claimed Mark was a disciple of Jesus. The claim was that Mark was Peter's interpreter. Even taken at face value, this is already secondhand testimony — not eyewitness. But the text itself shows further problems. Mark contains documented geographic errors (the route in Mark 7:31 from Tyre through Sidon to the Sea of Galilee via Decapolis is geographically incoherent; the Gerasene demoniac episode in Mark 5 places pigs running into a sea from a town roughly thirty miles inland). And crucially, the original Gospel of Mark ends at 16:8, with the women fleeing the empty tomb in silence. There are no resurrection appearances. The familiar ending in 16:9–20, which contains the resurrection appearances Christians rely on, is absent from the oldest complete manuscripts (Codex Sinaiticus and Codex Vaticanus, both fourth century). Church Fathers Eusebius and Jerome both noted in antiquity that the most accurate copies of Mark ended at 16:8. The resurrection ending of Mark is a later scribal addition that the early Church itself flagged as inauthentic.<br><br>
+
+<strong>6. The Luke problem — Luke admits he was not an eyewitness.</strong><br>
+Luke 1:1–3 is one of the most quietly devastating passages in the New Testament for the eyewitness claim. The author opens his Gospel by saying that "many" had already attempted to compile accounts, that he himself received material that was "handed down" to him by others, and that he then "investigated" everything carefully. Translate that plainly: the author of Luke is admitting, in writing, that he was not present for the events he describes, that the field was already crowded with prior accounts when he wrote, and that his Gospel is a researched compilation of secondhand material. This does not destroy the traditional attribution to Luke the physician, companion of Paul — but Luke the physician never met Jesus. So even granting the traditional authorship, the Gospel of Luke is by its own admission not eyewitness testimony to Jesus. The Christian claim that the Gospels rest on eyewitness authority has just lost one of its four pillars by internal confession.<br><br>
+
+<strong>7. The John problem — the Gospel itself records its own editorial seam.</strong><br>
+The Gospel of John never names its author. The text refers to a figure called "the disciple whom Jesus loved" and at the end, in John 21:24, an editorial voice says: "This is the disciple who testifies to these things and who wrote them, and we know that his testimony is true." The shift to first-person plural — "we know" — is universally recognised by scholars as the voice of a community, not the original author. The community is writing about the beloved disciple in the third person and vouching for him. This is an editorial seam — the Gospel of John admits, on its own pages, that it was finalised by a community after the beloved disciple's death. The identification of that disciple as John son of Zebedee is Irenaeus's deduction, not the text's own statement. And Richard Bauckham, the strongest contemporary academic defender of Johannine eyewitness testimony, has argued the beloved disciple was probably not John son of Zebedee at all but a separate figure called John the Elder. Even the conservative reconstruction abandons the traditional apostolic authorship.<br><br>
+
+<strong>Pre-empting the strongest Christian counter — Bauckham's eyewitness Gospels thesis.</strong><br>
+Apologists today increasingly cite Richard Bauckham's <em>Jesus and the Eyewitnesses</em> (2006) to argue that the Gospels rest on eyewitness testimony. Read Bauckham carefully. His actual argument is that eyewitness <em>traditions</em> stand <em>behind</em> the Gospels — not that named apostles authored them. Bauckham still concedes that the Gospels are formally anonymous, that the titles were added later, and that the named apostolic attribution chain is post-eyewitness. So even the strongest scholarly defender of Gospel reliability does not reach the conclusion that Christian popular apologetics requires — namely, that Matthew the apostle wrote Matthew, that John son of Zebedee wrote John, and so on. That popular claim is unsupported even by its own most credentialed academic defender.<br><br>
+
+<strong>Pre-empting the tu quoque — "your Quran has the same problem."</strong><br>
+A Christian apologist who has lost the textual debate often pivots: "by your own standard, the Quran is just as anonymous and just as late." This is not true and the difference is structural, not rhetorical. The Quran was written down during the Prophet's lifetime by scribes he assigned to record revelation. It was memorised in full by direct companions who heard it from the Prophet himself. The Uthmanic codex was standardised approximately twenty years after the Prophet's death, using direct companion witnesses still living. The Sana'a manuscripts, the oldest surviving fragments of the Quran, show only orthographic variants — not theological variants, not contested authorship, not missing endings, not anonymous redactors. By contrast, the four Gospels were written in Greek (not the language Jesus spoke), four to seven decades after the events, by unnamed authors, in different communities, with documented later additions including the resurrection ending of Mark. The two textual histories are not analogous. The Quran's preservation is precisely what the Gospels lack.<br><br>
+
+<strong>The Quranic standard.</strong><br>
+Allah's standard for what counts as revelation is set in <strong>Surah An-Najm 53:3–4</strong>: the messenger does not speak from his own inclination — what he conveys is revelation revealed. Direct. From God. To the prophet. This is the Quranic definition of scripture. Anonymous Greek narratives compiled forty to seventy years after the events by non-eyewitnesses, copying from each other, with editorial seams, redacted endings, and an attribution chain that crystallises only with one bishop in 180 CE — do not meet that standard. The Quran does not deny that Allah gave Isa a revelation called the Injil. It denies that the four anonymous Greek Gospels of the New Testament are that revelation. The historical record of Gospel authorship, established by Christian scholarship itself, confirms exactly what the Quran said fourteen centuries ago.<br><br>
+
+People can reject this. Rejecting it does not make it incorrect. Every claim in this entry is sourced to mainstream Christian and academic scholarship. The chain breaks where it breaks. The Quran's verdict stands.`,
+    verse: {
+      arabic: "وَمَا يَنطِقُ عَنِ الْهَوَىٰ ۚ إِنْ هُوَ إِلَّا وَحْيٌ يُوحَىٰ",
+      translation: "Nor does he speak from his own desire. It is not but a revelation revealed.",
+      ref: "Surah An-Najm 53:3–4"
+    }
+  },
+  {
+    id: 23,
+    myth: "The Gospel of John is a reliable eyewitness account proving Jesus claimed to be God",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Christian apologists argue that the Gospel of John is a first-hand eyewitness account written by the apostle John — the disciple Jesus loved — and that its unique theology, including the Logos prologue and the I AM statements, represents Jesus's own direct claims to divine identity. They use John as the primary scriptural foundation for the Trinity and the incarnation.",
+    rebuttal: `Start with the foundation of the argument. The Gospel of John is anonymous. The author never once names himself in the text. The title "According to John" was added by church tradition, and the first person to specifically attribute it to John the son of Zebedee was Irenaeus, a bishop who wrote around 185 CE — nearly a century after the Gospel was written. Bart Ehrman, Professor of Religious Studies at the University of North Carolina and one of the world's leading New Testament scholars, states plainly: <em>"The Gospel is anonymous. The author chose never to name himself."</em> Your entire Trinitarian argument rests on a document whose author you cannot identify. <a href="https://www.bartehrman.com/who-wrote-the-gospel-of-john/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Who Wrote the Gospel of John?</a><br><br>
+
+Beyond authorship, there is a more fundamental problem. Over 90% of John's content does not appear in Matthew, Mark, or Luke. The Sermon on the Mount is not in John. The Lord's Prayer is not in John. The Transfiguration is not in John. The institution of communion is not in John. Jesus casting out demons — not once in John. The parables — entirely absent from John. If John the son of Zebedee walked with Jesus for three years and witnessed all of this, why did three other Gospel writers independently omit 90% of everything he supposedly saw? <a href="https://bible.org/seriespage/2-major-differences-between-john-and-synoptic-gospels" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bible.org — Major Differences Between John and the Synoptics</a><br><br>
+
+The I AM statements are the same story. <em>"I am the light of the world." "I am the way, the truth, and the life." "Before Abraham was, I am."</em> None of those appear in Matthew, Mark, or Luke. Not once. Ehrman puts it directly: <em>"In the Synoptic Gospels, Jesus is hesitant, afraid even, to speak about himself. In John, however, Jesus not only embraces talk about his divinity, but he also publicly declares it."</em> So the question is simple: if Jesus was openly declaring his divine identity throughout his ministry, why did three separate writers independently choose to leave out every single instance of it? Either they suppressed the most important statements Jesus ever made about himself — or those statements were never part of the original tradition and developed later in John's community. <a href="https://ehrmanblog.org/differences-between-john-and-the-synoptics/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Differences Between John and the Synoptics</a><br><br>
+
+Look at how Jesus dies. In Matthew 27:46 and Mark 15:34 his last words are: <em>"My God, my God, why have you forsaken me?"</em> Abandonment. Agony. A genuine cry of doubt. In John 19:30 he says: <em>"It is finished."</em> Calm. Complete. In control. These are not two descriptions of the same emotional state. They are two completely different people dying. A God incarnate who knows he is rising in three days does not cry out feeling forsaken by God. The Jesus of Matthew and Mark and the Jesus of John die as different people.<br><br>
+
+Then there is the passage you may know best from John: the woman caught in adultery. <em>"Let he who is without sin cast the first stone."</em> That story was added to the Gospel by scribes centuries after it was written. It does not appear in any Greek manuscript of John before the fifth century. The two earliest manuscripts that contain the full Gospel — Papyrus 66 and Papyrus 75, dated 175 to 225 CE — do not have it. Daniel B. Wallace of Dallas Theological Seminary, a conservative evangelical scholar, confirmed: <em>"The great majority of scholars hold that the pericope adulterae is not original to John's Gospel. The first manuscript of John to include this story is Codex Bezae, which dates to the fifth century."</em> Scribes inserted a passage into John in the 400s. The question worth sitting with is: if that was inserted, what else was? <a href="https://danielbwallace.com/2013/06/26/where-is-the-story-of-the-woman-caught-in-adultery-really-from/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Daniel B. Wallace, Dallas Theological Seminary</a><br><br>
+
+The prologue of John has its own scribal problem. John 1:18 reads: <em>"No one has ever seen God; the only begotten [blank] has made him known."</em> In the oldest manuscripts — Papyrus 66, Papyrus 75, Codex Sinaiticus, and Codex Vaticanus — the word in that blank is theos, meaning God. In later medieval manuscripts it was changed to huios, meaning Son. The single most theologically loaded verse in the Johannine prologue had its key word altered by scribes. <a href="https://beliefmap.org/bible/john/1-18-only-begotten" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ BeliefMap — John 1:18 Textual Variant, citing Metzger, NET Bible, Pillar Commentary</a><br><br>
+
+And after all of that — the Logos theology, the I AM statements, the pre-existence — John 20:17 has post-resurrection Jesus say to Mary Magdalene: <em>"I ascend unto my Father and your Father — and to my God and your God."</em> At the peak of the supposed divine revelation, Jesus calls the Father his God. God does not have a God above Him. The author of John, in his own text, recorded a statement from Jesus that contradicts the theology he placed at the beginning of the same book.<br><br>
+
+The Quran's account of Jesus is consistent throughout. He is Al-Masih, the Messiah (3:45). Kalimatullah, the Word of Allah (4:171). Ruhun minhu, a Spirit from Him (4:171). Born of a virgin. Performing miracles by the permission of Allah. Taken up by Allah. The Quran honors Jesus with titles given to no other prophet and never once contradicts itself about who he is. Peter's own testimony in Acts 2:22 describes Jesus as <em>"a man approved of God among you by miracles and wonders and signs, which God did by him"</em> — God working through him, not him acting as God. That matches Matthew. That matches Mark. That matches Luke. That matches the Quran. John stands alone. And the manuscript evidence shows exactly why.`,
+    verse: {
+      arabic: "وَإِذْ قَالَ عِيسَى ابْنُ مَرْيَمَ يَا بَنِي إِسْرَائِيلَ إِنِّي رَسُولُ اللَّهِ إِلَيْكُم",
+      translation: "And when Jesus son of Mary said: O Children of Israel, I am the messenger of Allah to you.",
+      ref: "Surah As-Saf 61:6 — The Quran's Jesus identifies himself as a messenger of Allah — consistent with how Jesus describes himself in Matthew, Mark, and Luke. The divine identity claims exist in John alone, are absent from the three earlier Synoptic Gospels, from Acts 2:22, and are contradicted by John 20:17 where post-resurrection Jesus calls the Father his God."
+    }
+  },
+  {
+    id: 24,
+    myth: "The Quran cannot be proven to be preserved — it was compiled and altered by men after Muhammad died",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Christian apologists and secular critics argue that the Quran was not preserved during Muhammad's lifetime, that the standardization under Caliph Uthman involved burning variant manuscripts, that the Sanaa palimpsest proves the text was in flux, that Ibn Masud's objections prove companions disagreed on content, and that the Quran's transmission is therefore no more reliable than the Hadith. The conclusion they draw: the Quran we have today cannot be proven to be the same text revealed to Muhammad.",
+    rebuttal: `In 2015 Oxford University carbon-dated a Quran manuscript held at the University of Birmingham to between 568 and 645 CE. Muhammad lived from 570 to 632. That means the physical parchment was written either during his lifetime or within 13 years of his death, while the people who heard the revelation directly were still alive. Susan Worrall, Director of Special Collections at Birmingham, called it a result that <em>"contributes significantly to our understanding of the earliest written copies of the Quran."</em> Oxford University Radiocarbon Accelerator Unit. Not an Islamic institution. Physical evidence from your own academic world. <a href="https://www.birmingham.ac.uk/news/2015/quran-manuscript-among-oldest-in-the-world" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ University of Birmingham — Official Announcement</a><br><br>
+
+That manuscript matches early Quran fragments currently held in four separate European institutions: the Bibliothèque nationale de France in Paris, the National Library of Russia in Saint Petersburg, the Vatican Library in Rome, and the Khalili Collection in London. The same text. Across different countries. Held by non-Muslim institutions with no coordination between them. If someone had altered the Quran after Muhammad died, those geographically separated manuscripts would show it. They show nothing, because there was nothing to show.<br><br>
+
+The scholars who spent their careers critiquing Islam reached the same conclusion. Sir William Muir, Scottish orientalist and Principal of the University of Edinburgh, wrote in The Life of Mahomet in 1858: <em>"There is probably in the world no other book which has remained twelve centuries with so pure a text."</em> Muir was not defending Islam. He was one of its most prominent critics. John Burton of the University of St Andrews wrote in The Collection of the Quran in 1977: <em>"The Quran we have today is, to all intents and purposes, the exact text that was revealed to Muhammad. There is no evidence to suggest that the text has been altered in any way since the time of its revelation."</em> Stanley Lane-Poole wrote: <em>"That very word we can now read with full confidence that it has remained unchanged through nearly thirteen hundred years."</em> When adversaries confirm your preservation, the argument does not need defending further.<br><br>
+
+What made corruption structurally impossible is the dual system. Muhammad had 65 dedicated scribes recording revelation in real time as it descended — on parchment, leather, palm leaves, and bone — every verse immediately dictated and attributed to its Surah. Simultaneously, thousands of companions were memorizing each revelation as it came. Today over ten million Muslims have the entire Quran memorized word for word. No other book in the history of humanity has been fully memorized by that many people simultaneously, over 1,400 years, across every continent. You can destroy manuscripts. You cannot destroy what ten million people carry inside them. Any corruption of the written text would be detected immediately by the millions who hold the original in memory. W. Montgomery Watt of the University of Edinburgh documented the scribal system in Muhammad at Medina, Oxford University Press, 1956.<br><br>
+
+The Sanaa manuscript gets brought up a lot. A palimpsest found in Yemen in 1972, where an older text was scraped off and a newer one written over. Gerd Puin, the German orientalist commissioned to study it, found unconventional verse orderings and variations in orthography — meaning spelling. Early Arabic script before standardized vowel marks varied in how letters were written, not in what they meant. The consonantal skeleton, the actual letters carrying the meaning of every word, is consistent across the manuscripts. Spelling varied. Surah ordering varied. The meaning never did. <a href="https://www.theatlantic.com/magazine/archive/1999/01/what-is-the-koran/304024/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ The Atlantic, 1999 — Gerd Puin, University of Saarland</a><br><br>
+
+Ibn Masud's disagreement was about whether Al-Fatiha and Surahs 113 and 114 should be included in the physical written copy of the Mushaf, or kept as separate liturgical prayers used in worship. He was not claiming those Surahs had wrong words. He was not saying the verses had been altered. A debate about categorization among people who had the entire Quran memorized is not evidence of corruption. By that same standard, the early church's centuries-long debate about which books belong in the Bible would prove the New Testament is unreliable. Use one standard for both.<br><br>
+
+Speaking of the New Testament. Bart Ehrman, former evangelical and Professor at the University of North Carolina, wrote in Misquoting Jesus, HarperCollins 2005: <em>"There are more variations among our manuscripts than there are words in the New Testament."</em> Between 200,000 and 400,000 documented variants. Scholar Eldon Epp raised that figure to 750,000 in 2014. Among those variants: 1 John 5:7, the only explicit Trinity verse in the entire Bible, absent from every Greek manuscript before the 16th century. 1 Timothy 3:16, where a scribe changed the word "He who" to "God" — confirmed by Codex Sinaiticus and Codex Vaticanus. Mark 16:9 through 20, the resurrection appearances, absent from the two oldest complete New Testament manuscripts. The Trinity proof text was added by scribes. The clearest God-in-flesh verse was altered by scribes. The resurrection ending was added by scribes. You questioned the Quran's preservation with 400,000 to 750,000 variants sitting in your own text. <a href="https://en.wikipedia.org/wiki/Textual_variants_in_the_New_Testament" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Textual Variants in the New Testament — Ehrman 2005, Epp 2014</a><br><br>
+
+Surah Al-Hijr 15:9: <em>"Indeed it is We who sent down the Reminder and indeed We will be its guardian."</em> Allah made a direct promise to preserve this Book. The Birmingham manuscript, the four European institutions holding identical fragments, Muir, Burton, Lane-Poole, ten million living memorizers, and 1,400 years of scholarship all testify to the same thing. The promise was kept.<br><br>
+
+Produce one manuscript — dated, verified, academically accepted — that contains a version of the Quran different in meaning from the Quran read in every mosque on earth today. Not different in spelling. Not different in Surah order. Different in meaning. One manuscript. Anywhere in the world. In 1,400 years of scholarship it has never been produced. Because it does not exist.`,
+    verse: {
+      arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ",
+      translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
+      ref: "Surah Al-Hijr 15:9 — A promise with 1,400 years of physical, scientific, and academic verification. The Birmingham Quran manuscript was carbon-dated to 568–645 CE by Oxford University. Non-Muslim scholars William Muir, John Burton, and Stanley Lane-Poole all confirmed the Quran's textual purity. Ten million people have it memorized simultaneously. The challenge stands: produce one verified manuscript with different meaning. It has never been done."
+    }
+  },
+  {
     id: 6,
     myth: "The Quran endorses slavery — Islam is incompatible with human rights",
     source: "secular",
@@ -2176,9 +2490,37 @@ The conclusion is not complicated: he took one English word, assumed it meant ev
     source: "christian",
     difficulty: "Advanced",
     locked: true,
-    claim: "",
-    rebuttal: "",
-    verse: null
+    claim: "Christian apologists argue that Jesus claimed divine identity — that his miracles, his titles, and his own words in John prove he is co-equal God. They point to John 5:26, John 10:30, John 14:9, and Philippians 2:7-9 as proof that the Trinity is biblical and that the Quran fundamentally misrepresents who Jesus is.",
+    rebuttal: `This argument collapses from the inside — using nothing but their own Gospel, their own Peter, and their own Jesus.<br><br>
+
+<strong>Kill Shot 1 — John 5:26 destroys inherent divinity with one word.</strong> The verse most commonly cited to prove Jesus has divine life within himself reads: <em>"For as the Father has life in himself, so he has granted the Son also to have life in himself."</em> The operative word is <em>granted</em>. You cannot grant yourself something you already possess. Granted means bestowed from outside — from a source that is not the recipient. The Father is the source. Jesus is the recipient. That is not co-equal divinity. That is the permission framework — identical to what the Quran states in Surah 3:49: Jesus performs miracles by the permission of Allah. Their own proof text proves the Quranist position.<br><br>
+
+<strong>Anticipated counter: "Granted refers to the kenosis — Jesus temporarily set aside divine attributes."</strong> Show me that word in John 5:26. It is not there. The text says granted. Not temporarily limited. Not set aside. Granted — present tense, permanent conferral from the Father. Additionally, Malachi 3:6 says God does not change, and Numbers 23:19 says God is not a man. The kenosis doctrine requires God to change into a man — directly contradicting the Old Testament Jesus himself read and upheld. You cannot use Philippians 2:7-9 to override Malachi 3:6 and call that consistent theology.<br><br>
+
+<strong>Kill Shot 2 — Every verse they cite proves subordination, not divinity.</strong> This is the pattern that runs through the entire Gospel of John. John 5:19 — <em>"The Son can do nothing of himself."</em> John 5:30 — <em>"I can of mine own self do nothing. I seek not mine own will but the will of the Father which hath sent me."</em> John 6:38 — <em>"I came down from heaven, not to do mine own will, but the will of him that sent me."</em> John 8:28 — <em>"I do nothing of myself; but as my Father hath taught me, I speak these things."</em> John 12:49 — <em>"I have not spoken of myself; but the Father which sent me, he gave me a commandment, what I should say."</em> Five separate statements. Cannot act independently. Subordinate will. Receives commandments about what to say. Is taught by the Father. A co-equal God who cannot act independently, has a will separate from and subordinate to another's, and receives teaching is not co-equal with anything. That is the description of a sent messenger — which is exactly what the Quran calls him.<br><br>
+
+<strong>Anticipated counter: "Those verses apply to his human nature during the kenosis — his divine nature is co-equal."</strong> Jesus makes no such distinction in any of these statements. He does not say in my human nature I can do nothing. He says I — the full person speaking — can do nothing of myself. If you want to split his nature mid-sentence to rescue the argument, you are adding a theological construct that is not in the text. The text says what it says. Apply it as written or admit you are reading your theology into the verse rather than out of it.<br><br>
+
+<strong>Kill Shot 3 — John 10:30 is defined by Jesus himself in John 17.</strong> Apologists claim I and the Father are one means ontological identity — they are the same being. But Jesus himself defines what he means by one four chapters later in John 17:21-22: <em>"That they all may be one; as thou, Father, art in me, and I in thee, that they also may be one in us — that they may be one, even as we are one."</em> Jesus uses the identical word — one — to describe the unity between himself and the Father AND the unity he prays for between his disciples and God. If John 10:30 proves Jesus is God because he and the Father are one — then John 17:21-22 proves the disciples are also God because they are one in exactly the same way. The argument proves too much and therefore proves nothing. The oneness Jesus describes is unity of purpose, will, and mission — not identity of being. His own prayer defines his own words.<br><br>
+
+<strong>Anticipated counter: "The disciples' oneness is relational not ontological."</strong> Show me that distinction in the text of John 17. It is not there. Jesus uses the same grammatical construction, the same word, the same framing for both. You are applying one standard to John 10:30 and a different standard to John 17:21-22 to rescue a position the text does not support. That is called special pleading — not exegesis.<br><br>
+
+<strong>Kill Shot 4 — John 14:28 is in the same chapter as their strongest divinity claim.</strong> In John 14:9 Jesus says if you have seen me you have seen the Father — used to claim Jesus is the Father. But four verses later in the same speech, same conversation, same Jesus: <em>"My Father is greater than I."</em> A co-equal God does not say the Father is greater than him. Greater means superior in some meaningful sense. You cannot claim identity in verse 9 and subordination in verse 28 without contradiction. The consistent reading across both verses: Jesus perfectly represents the Father's character and message — as any prophet sent by God would — without being ontologically identical to the Father. That reading makes both verses coherent. The Trinity reading makes them contradict each other.<br><br>
+
+<strong>Kill Shot 5 — Peter's own testimony matches the Quran, not the Trinity.</strong> Acts 2:22 (KJV) — Peter speaking about Jesus immediately after the resurrection: <em>"Jesus of Nazareth, a man approved of God among you by miracles and wonders and signs, which God did by him."</em> God did the miracles BY him. Not Jesus doing them independently as co-equal God. BY him — instrumental language — means Jesus was the channel through whom God worked. That is the permission framework. That is Surah 3:49. Peter — the man who walked with Jesus for three years in the flesh — describes Jesus using language that perfectly matches the Quranic position. Paul never met Jesus. The Trinity doctrine was formalized at Nicaea in 325 AD — 300 years after Jesus. Peter met Jesus. Peter's testimony is the one that should carry weight. And Peter's testimony matches the Quran.<br><br>
+
+<strong>Anticipated counter: "Acts 2:22 is early theology — Peter understood more after Pentecost."</strong> This argument requires you to believe that Peter's direct eyewitness testimony about the man he physically knew is less reliable than theology developed 300 years later by men who never met Jesus. If progressive revelation can overturn eyewitness account, then no biblical account is stable, because any later theology can always claim deeper understanding. The principle destroys the reliability of the very Gospels being defended.<br><br>
+
+<strong>Kill Shot 6 — The three verses that built the Trinity were added by scribes.</strong> 1 John 5:7 — the most explicit Trinity statement in the entire Bible — is absent from every Greek manuscript before the 16th century. Erasmus himself refused to include it until a single late manuscript appeared. Modern translations including the NIV, ESV, and NASB bracket it as a later addition. 1 Timothy 3:16 — God was manifest in the flesh — reads in the earliest manuscripts as He who was manifest in the flesh. One pen stroke changed He to God — confirmed by Codex Sinaiticus and Codex Vaticanus. Mark 16:9-20 — the resurrection appearances — is absent from the two oldest complete manuscripts. These are not spelling variants. These are the backbone verses of Trinitarian theology and they are the ones scholars have flagged as additions. Remove them and the explicit Trinity disappears from the text entirely.<br><br>
+
+<strong>Anticipated counter: "99.5% of manuscripts agree — variants are minor."</strong> The 0.5% that differs contains 1 John 5:7, 1 Timothy 3:16, and Mark 16:9-20. The size of the percentage does not determine the theological weight of what differs. A 0.5% variant that removes your only explicit Trinity verse and your clearest God-in-flesh statement is not a spelling mistake. It is a doctrinal earthquake. The 400,000 total variants across 25,000 manuscripts are documented by Bart Ehrman — Professor at University of North Carolina, former evangelical Christian — in Misquoting Jesus. That is not a Muslim source. That is their own scholarship.<br><br>
+
+<strong>The Quranic position on Jesus:</strong> The Quran gives Jesus titles no other prophet receives. Al-Masih — the Messiah — Surah 3:45. Kalimatullah — Word of Allah — Surah 4:171. Ruhun minhu — Spirit from Him — Surah 4:171. Born of a virgin. Performed miracles. Taken up by Allah. The Quran honors Jesus enormously. What the Quran rejects — precisely and specifically — is the claim that Jesus is ontologically identical to Allah. Surah 4:171 states it plainly: Do not say Trinity. Desist — it is better for you. Allah is only one God. This is not the Quran getting Jesus wrong. This is the Quran disagreeing with a doctrine formalized 300 years after Jesus — by men who never met him — using verses that were not in the original manuscripts.`,
+    verse: {
+      arabic: "إِنَّمَا الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ رَسُولُ اللَّهِ وَكَلِمَتُهُ أَلْقَاهَا إِلَىٰ مَرْيَمَ وَرُوحٌ مِّنْهُ ۖ فَآمِنُوا بِاللَّهِ وَرُسُلِهِ ۖ وَلَا تَقُولُوا ثَلَاثَةٌ ۚ انتَهُوا خَيْرًا لَّكُمْ ۚ إِنَّمَا اللَّهُ إِلَٰهٌ وَاحِدٌ",
+      translation: "The Messiah, Jesus son of Mary, was but a messenger of Allah and His word which He directed to Mary and a soul from Him. So believe in Allah and His messengers. And do not say Trinity — desist, it is better for you. Indeed, Allah is but one God.",
+      ref: "Surah An-Nisa 4:171 — The Quran gives Jesus the highest titles of any prophet: Al-Masih, Kalimatullah, Ruhun minhu. Then immediately forbids the Trinity. Honoring Jesus enormously and calling him God are two different things. The Quran does the first. It explicitly rejects the second."
+    }
   },
   {
     id: 8,
@@ -2451,6 +2793,93 @@ The literal reading of 10:94 does not lead away from Islam. <strong>It leads dir
   <div style="font-family:'Cinzel',serif;font-size:.6rem;color:#c9a84c;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;">◈ The Covenant Tree</div>
   <div style="font-size:.82rem;color:#f0ead8;font-style:italic;margin-bottom:.7rem;">Trace every prophecy the people of scripture would have confirmed — 13 nodes, 14 Bible verses, fully interactive.</div>
   <button onclick="openTreeModal();event.stopPropagation();" style="background:#c9a84c;color:#0d0d0f;border:none;font-family:'Cinzel',serif;font-weight:600;font-size:.72rem;letter-spacing:.08em;padding:.55rem 1.1rem;border-radius:3px;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='#e8c97a'" onmouseout="this.style.background='#c9a84c'">Open the Covenant Tree →</button>
+</div>
+
+<div style="font-family:'Cinzel',serif;font-size:.72rem;color:#c9a84c;letter-spacing:.14em;text-transform:uppercase;margin-top:1.4rem;margin-bottom:.75rem;padding-bottom:.6rem;border-top:1px dashed rgba(201,168,76,0.25);padding-top:.85rem;">Part Three — The Chain of Corruption</div>
+
+But there is a deeper problem with the Christian's argument that has not yet been addressed. Their entire case assumes the scripture those scholars held was reliable. Allah did not. Before 10:94 was revealed, Allah had already spent <em>multiple surahs</em> documenting a systematic, multi-generational corruption of those same scriptures. 10:94 is the final statement inside a corruption chain — not a certificate issued above it.<br><br>
+
+<strong>The Quran records six distinct crimes against the original revelation. They are not accusations — they are Allah's documented testimony:</strong><br><br>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Crime I — Physical Fabrication · 2:79</span>
+    <span class="verse-exp-desc">They wrote with their own hands and called it scripture</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"So woe to those who write the 'scripture' with their own hands, then say, 'This is from Allah,' in order to exchange it for a small price. Woe to them for what their hands have written and woe to them for what they earn."</div>
+    <div class="verse-exp-note">Not metaphor. Not interpretation. Allah describes scribes physically writing fabricated text and attributing it to God for material gain. This is the foundation crime — the scripture Christians cite today contains human insertions that the scribes themselves authored.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Crime II — TAHRIF · 2:75, 4:46, 5:13, 5:41</span>
+    <span class="verse-exp-desc">They twisted words from their proper positions</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">2:75 — "Do you covet that they will believe you while a party of them used to hear the words of Allah and then distort them after they had understood them?" · 4:46 — "Among the Jews are those who distort words from their proper usages." · 5:13 — "They distort words from their proper places." · 5:41 — "They distort words beyond their usages."</div>
+    <div class="verse-exp-note">The Arabic root is TAHRIF (ت-ح-ر-ي-ف) — meaning to deliberately move something from its correct position. Allah uses this word across four separate verses across four different surahs. This is not a single accusation. It is a pattern Allah documents repeatedly across the Quran. The word was known, then moved.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Crime III — Concealment · 2:42, 2:146, 2:159, 2:174, 3:71</span>
+    <span class="verse-exp-desc">They knew the truth and deliberately hid it</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">2:42 — "Do not mix the truth with falsehood or conceal the truth while you know it." · 2:146 — "Those to whom We gave the Scripture know him as they know their own sons, but indeed a party of them conceal the truth while they know it." · 2:159 — "Those who conceal what We sent down of clear proofs and guidance after We made it clear to the people — those are cursed by Allah and cursed by those who curse." · 2:174 — "Those who conceal what Allah has sent down of the Book and exchange it for a small price — those consume into their bellies only fire." · 3:71 — "O People of the Scripture, why do you confuse the truth with falsehood and conceal the truth while you know it?"</div>
+    <div class="verse-exp-note">Five separate ayat across three surahs. Allah establishes beyond doubt that the scholars of scripture actively concealed divine truth they personally recognized. They knew who Muhammad ﷺ was — "as they know their own sons" (2:146). They hid it. 10:94 was not asking the Prophet to consult books — it was confronting witnesses who already knew.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Crime IV — Selective Disclosure · 6:91</span>
+    <span class="verse-exp-desc">They showed some and buried the rest</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"They did not appraise Allah with true appraisal when they said, 'Allah did not reveal to a human being anything.' Say: 'Who revealed the Scripture that Moses brought as light and guidance to the people? You made it into pages, disclosing some and concealing much.'"</div>
+    <div class="verse-exp-note">This verse is surgical. They did not destroy the Torah — they curated it. What was kept: the parts that served their authority. What was buried: the prophecies that pointed to Muhammad ﷺ. Allah names this crime explicitly. The version they held was not an honest transmission — it was a selection.</div>
+  </div>
+</div>
+
+<div class="verse-exp">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Crime V — Partial Acceptance · 2:85, 2:101</span>
+    <span class="verse-exp-desc">They took what they wanted and rejected the rest</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">2:85 — "Do you believe in part of the Scripture and disbelieve in part? What is the recompense for those among you who do that except disgrace in worldly life; and on the Day of Resurrection they will be sent back to the severest of punishment." · 2:101 — "And when a messenger from Allah came to them confirming that which was with them, a party of those who had been given the Scripture threw the Scripture of Allah behind their backs as if they did not know."</div>
+    <div class="verse-exp-note">They exercised editorial control over divine revelation — accepting what aligned with their doctrinal interests and discarding what condemned them. 2:101 describes their response to Muhammad ﷺ himself: they threw their own scripture away the moment it confirmed him. This is the behavior of the very witnesses 10:94 references.</div>
+  </div>
+</div>
+
+<div class="verse-exp" style="margin-bottom:1rem;">
+  <div class="verse-exp-header" onclick="toggleVerse(this)">
+    <span class="verse-exp-ref">Crime VI — Oral Substitution · 3:78</span>
+    <span class="verse-exp-desc">They recited fabrications as if they were scripture</span>
+    <span class="verse-exp-arrow">▾</span>
+  </div>
+  <div class="verse-exp-body">
+    <div class="verse-exp-text">"And there is among them a party who alter the Scripture with their tongues so you may think it is from the Scripture, but it is not from the Scripture. And they say, 'This is from Allah,' but it is not from Allah. And they speak untruth about Allah while they know."</div>
+    <div class="verse-exp-note">The final crime closes the chain. Even when the written text was available, oral recitation was corrupted — altered in the telling. A listener could not distinguish. This is why manuscript evidence and oral tradition from this source cannot be treated as reliable transmission: the corrupting agency was operating at every level — pen, page, and tongue.</div>
+  </div>
+</div>
+
+<div style="background:rgba(180,60,60,0.07);border:1px solid rgba(180,60,60,0.25);border-left:3px solid rgba(180,60,60,0.5);border-radius:3px;padding:.85rem 1rem;margin:1rem 0 1.1rem;">
+  <div style="font-family:'Cinzel',serif;font-size:.62rem;color:#c9a84c;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.5rem;">The Conclusion — 10:94 Is Not a Certificate</div>
+  <div style="color:#d4cfc4;font-size:.85rem;line-height:1.65;">
+    The Christian argument is: "10:94 tells Muhammad to ask the People of Scripture, therefore the Bible is the authority."<br><br>
+    But the Quran documents six crimes against that scripture — fabrication, TAHRIF, concealment, selective disclosure, partial acceptance, and oral substitution — across <strong>13+ verses in multiple surahs revealed before and alongside 10:94</strong>. Allah cannot simultaneously certify a text as authoritative in 10:94 while documenting its systematic corruption everywhere else.<br><br>
+    The verse is not a stamp of approval on modern Bibles. It is a challenge to those who held fragments of what was once true — <em>the honest among them would confirm Muhammad ﷺ</em> precisely because the fragments Allah left intact still pointed to him. The evidence that they did is recorded in Part Two above.
+  </div>
 </div>`,
     verse: {
       arabic: "وَإِن كُنتَ فِي شَكٍّ مِّمَّا أَنزَلْنَا إِلَيْكَ فَاسْأَلِ الَّذِينَ يَقْرَءُونَ الْكِتَابَ مِن قَبْلِكَ ۚ لَقَدْ جَاءَكَ الْحَقُّ مِن رَّبِّكَ فَلَا تَكُونَنَّ مِنَ الْمُمْتَرِينَ",
@@ -2522,10 +2951,10 @@ function renderEntries(filtered) {
 
   filtered.forEach(entry => {
     count++;
-    const renderLocked = entry.locked && !isOwner();
+    const renderLocked = entry.locked && !hasAccess();
     if (renderLocked) lockedCount++;
     const div = document.createElement('div');
-    div.className = `entry${renderLocked ? ' locked' : ''}`;
+    div.className = `entry src-${entry.source}${renderLocked ? ' locked' : ''}`;
     div.dataset.id = entry.id;
 
     const tagClass = `tag-${entry.source}`;
@@ -2538,7 +2967,7 @@ function renderEntries(filtered) {
           <div style="flex:1">
             <div class="entry-meta">
               <span class="tag ${tagClass}">${tagLabel}</span>
-              <span class="difficulty">${entry.difficulty}</span>
+              <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
               ${isEmpty ? `<span class="difficulty" style="background:rgba(201,168,76,0.12);color:#c9a84c;border-color:rgba(201,168,76,0.4);letter-spacing:.06em;">⏳ Coming Soon</span>` : ''}
             </div>
             <div class="entry-myth">${entry.myth}</div>
@@ -2553,7 +2982,7 @@ function renderEntries(filtered) {
         </div>
       `;
       if (!isEmpty) div.onclick = openModal;
-    } else if (entry.locked && isOwner() && !entry.interactive) {
+    } else if (entry.locked && hasAccess() && !entry.interactive) {
       // Owner view: locked entry with content — render as unlocked
       const isEmpty = !entry.claim && !entry.rebuttal;
       if (isEmpty) {
@@ -2562,7 +2991,7 @@ function renderEntries(filtered) {
             <div style="flex:1">
               <div class="entry-meta">
                 <span class="tag ${tagClass}">${tagLabel}</span>
-                <span class="difficulty">${entry.difficulty}</span>
+                <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
                 <span class="difficulty" style="background:rgba(201,168,76,0.12);color:#c9a84c;border-color:rgba(201,168,76,0.4);letter-spacing:.06em;">⏳ Coming Soon</span>
                 <span class="difficulty" style="background:rgba(42,122,90,0.15);color:#2a7a5a;border-color:rgba(42,122,90,0.4);letter-spacing:.06em;">👑 Owner</span>
               </div>
@@ -2577,7 +3006,7 @@ function renderEntries(filtered) {
             <div style="flex:1">
               <div class="entry-meta">
                 <span class="tag ${tagClass}">${tagLabel}</span>
-                <span class="difficulty">${entry.difficulty}</span>
+                <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
                 <span class="difficulty" style="background:rgba(42,122,90,0.15);color:#2a7a5a;border-color:rgba(42,122,90,0.4);letter-spacing:.06em;">👑 Owner</span>
               </div>
               <div class="entry-myth">${entry.myth}</div>
@@ -2601,9 +3030,11 @@ function renderEntries(filtered) {
                 <div class="quran-ref">— ${entry.verse.ref}</div>
               </div>` : ''}
               <div class="entry-actions">
-                <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share this rebuttal</button>
-                <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Download reference card</button>
-                <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📱 Copy for TikTok</button>
+                <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share link</button>
+                <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Reference card</button>
+                <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📝 Copy script</button>
+                <button class="action-btn" id="pin-btn-${entry.id}" onclick="copyPinnedComment(${entry.id}, event)">📌 Copy pinned comment</button>
+                <button class="action-btn" id="desc-btn-${entry.id}" onclick="copyDescription(${entry.id}, event)">📋 Copy video description</button>
               </div>
             </div>
           </div>
@@ -2615,7 +3046,7 @@ function renderEntries(filtered) {
           <div style="flex:1">
             <div class="entry-meta">
               <span class="tag ${tagClass}">${tagLabel}</span>
-              <span class="difficulty">${entry.difficulty}</span>
+              <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
               <span class="difficulty" style="background:rgba(201,168,76,0.12);color:#c9a84c;border-color:rgba(201,168,76,0.35);letter-spacing:.06em;">◈ Interactive</span>
             </div>
             <div class="entry-myth">${entry.myth}</div>
@@ -2632,7 +3063,7 @@ function renderEntries(filtered) {
           <div style="flex:1">
             <div class="entry-meta">
               <span class="tag ${tagClass}">${tagLabel}</span>
-              <span class="difficulty">${entry.difficulty}</span>
+              <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
             </div>
             <div class="entry-myth">${entry.myth}</div>
           </div>
@@ -2655,15 +3086,11 @@ function renderEntries(filtered) {
               <div class="quran-ref">— ${entry.verse.ref}</div>
             </div>` : ''}
             <div class="entry-actions">
-              <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">
-                ⬡ Share this rebuttal
-              </button>
-              <button class="action-btn" onclick="downloadCard(${entry.id}, event)">
-                ↓ Download reference card
-              </button>
-              <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">
-                📱 Copy for TikTok
-              </button>
+              <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share link</button>
+              <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Reference card</button>
+              <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📝 Copy script</button>
+              <button class="action-btn" id="pin-btn-${entry.id}" onclick="copyPinnedComment(${entry.id}, event)">📌 Copy pinned comment</button>
+              <button class="action-btn" id="desc-btn-${entry.id}" onclick="copyDescription(${entry.id}, event)">📋 Copy video description</button>
             </div>
           </div>
         </div>
@@ -2724,14 +3151,32 @@ function closeModal() { document.getElementById('modal').classList.remove('visib
 function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
 
 // ── OWNER LOGIN ──
+// ── AUTH HELPERS ──
+
 function isOwner() {
   return localStorage.getItem('alhaqq_owner') === '1';
+}
+
+function isSubscriber() {
+  return !!localStorage.getItem('alhaqq_sub_token');
+}
+
+function hasAccess() {
+  return isOwner() || isSubscriber();
 }
 
 function openSignIn() {
   if (isOwner()) {
     if (confirm('Signed in as site owner. Sign out?')) {
       localStorage.removeItem('alhaqq_owner');
+      location.reload();
+    }
+    return;
+  }
+  if (isSubscriber()) {
+    if (confirm('You are signed in as a subscriber. Sign out?')) {
+      localStorage.removeItem('alhaqq_sub_token');
+      localStorage.removeItem('alhaqq_sub_email');
       location.reload();
     }
     return;
@@ -2744,23 +3189,68 @@ function closeOwnerModal() {
   document.getElementById('owner-login-modal').classList.remove('visible');
   document.getElementById('owner-email-input').value = '';
   document.getElementById('owner-login-err').textContent = '';
+  // Reset button state
+  const btn = document.getElementById('signin-btn');
+  if (btn) { btn.textContent = 'UNLOCK MY ACCESS'; btn.disabled = false; btn.style.opacity = '1'; }
 }
 
 function closeOwnerModalOutside(e) {
   if (e.target === document.getElementById('owner-login-modal')) closeOwnerModal();
 }
 
-function submitOwnerLogin() {
+async function submitSignIn() {
   const email = document.getElementById('owner-email-input').value.trim().toLowerCase();
-  if (email === 'must.muhammad49@gmail.com') {
-    localStorage.setItem('alhaqq_owner', '1');
-    closeOwnerModal();
-    applyOwnerState();
-    filterEntries();
-  } else {
-    document.getElementById('owner-login-err').textContent = 'Email not recognized.';
+  const errEl = document.getElementById('owner-login-err');
+  const btn = document.getElementById('signin-btn');
+
+  if (!email || !email.includes('@')) {
+    errEl.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  // Loading state
+  btn.textContent = 'Verifying…';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+  errEl.textContent = '';
+
+  try {
+    const res = await fetch('/.netlify/functions/verify-subscriber', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+
+    if (res.ok && data.access) {
+      if (data.access === 'owner') {
+        localStorage.setItem('alhaqq_owner', '1');
+        closeOwnerModal();
+        applyOwnerState();
+      } else {
+        // Subscriber
+        localStorage.setItem('alhaqq_sub_token', data.token);
+        localStorage.setItem('alhaqq_sub_email', email);
+        closeOwnerModal();
+        applySubscriberState(email);
+      }
+      filterEntries();
+    } else {
+      errEl.textContent = data.error || 'Sign in failed. Please try again.';
+      btn.textContent = 'UNLOCK MY ACCESS';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    }
+  } catch (err) {
+    errEl.textContent = 'Could not connect. Check your internet and try again.';
+    btn.textContent = 'UNLOCK MY ACCESS';
+    btn.disabled = false;
+    btn.style.opacity = '1';
   }
 }
+
+// Keep old name as alias so no breakage
+function submitOwnerLogin() { submitSignIn(); }
 
 function applyOwnerState() {
   const btn = document.querySelector('.btn-login');
@@ -2773,6 +3263,40 @@ function applyOwnerState() {
   const notice = document.querySelector('.locked-notice');
   if (notice) notice.style.opacity = '0.4';
 }
+
+function applySubscriberState(email) {
+  const btn = document.querySelector('.btn-login');
+  if (btn) {
+    btn.textContent = '⭐ Member';
+    btn.style.color = '#c9a84c';
+    btn.style.borderColor = 'rgba(201,168,76,0.5)';
+    btn.setAttribute('onclick', 'openSignIn()');
+  }
+  const notice = document.querySelector('.locked-notice');
+  if (notice) notice.style.opacity = '0.4';
+  // Hide the "subscribe" button since they're already subscribed
+  const subBtn = document.querySelector('.btn-subscribe');
+  if (subBtn) { subBtn.textContent = '⭐ Active Member'; subBtn.style.background = '#2a7a5a'; subBtn.style.cursor = 'default'; subBtn.onclick = null; }
+}
+
+// ── DETECT ?subscribed=1 REDIRECT FROM STRIPE ──
+// Stripe should be configured to redirect to: https://alhaqq.it.com?subscribed=1
+(function checkSubscribeRedirect() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('subscribed') === '1') {
+    // Clean the URL without reloading
+    history.replaceState({}, '', window.location.pathname);
+    // Show sign-in modal with success messaging
+    setTimeout(() => {
+      const titleEl = document.getElementById('signin-title');
+      const descEl = document.getElementById('signin-desc');
+      if (titleEl) titleEl.textContent = '🎉 PAYMENT SUCCESSFUL';
+      if (descEl) descEl.innerHTML = 'Enter the email you used at checkout to unlock all entries now.';
+      document.getElementById('owner-login-modal').classList.add('visible');
+      setTimeout(() => document.getElementById('owner-email-input').focus(), 150);
+    }, 600);
+  }
+}());
 
 // ── VERSE DATABASE ──
 const verseDB = {
@@ -2805,6 +3329,91 @@ const verseDB = {
     arabic: "هُوَ الَّذِي أَنزَلَ عَلَيْكَ الْكِتَابَ مِنْهُ آيَاتٌ مُّحْكَمَاتٌ هُنَّ أُمُّ الْكِتَابِ وَأُخَرُ مُتَشَابِهَاتٌ",
     translation: "It is He who has sent down the Book. In it are verses that are the foundation of the Book and others that are unspecific. Those in whose hearts is deviation follow the unspecific, seeking discord.",
     ref: "Surah Ali Imran 3:7"
+  },
+  "3:45": {
+    arabic: "إِذْ قَالَتِ الْمَلَائِكَةُ يَا مَرْيَمُ إِنَّ اللَّهَ يُبَشِّرُكِ بِكَلِمَةٍ مِّنْهُ اسْمُهُ الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ",
+    translation: "The angels said: O Mary, indeed Allah gives you good tidings of a word from Him, whose name will be the Messiah, Jesus son of Mary.",
+    ref: "Surah Ali Imran 3:45"
+  },
+  "3:49": {
+    arabic: "أَنِّي قَدْ جِئْتُكُم بِآيَةٍ مِّن رَّبِّكُمْ أَنِّي أَخْلُقُ لَكُم مِّنَ الطِّينِ كَهَيْئَةِ الطَّيْرِ فَأَنفُخُ فِيهِ فَيَكُونُ طَيْرًا بِإِذْنِ اللَّهِ",
+    translation: "I have come to you with a sign from your Lord — I create for you from clay the form of a bird, then I breathe into it and it becomes a bird by permission of Allah.",
+    ref: "Surah Ali Imran 3:49 — by the permission of Allah. Not independent divine power. Permission. The same framework Peter describes in Acts 2:22."
+  },
+  "3:50": {
+    arabic: "وَمُصَدِّقًا لِّمَا بَيْنَ يَدَيَّ مِنَ التَّوْرَاةِ",
+    translation: "And I have come confirming what was before me of the Torah.",
+    ref: "Surah Ali Imran 3:50"
+  },
+  "4:171": {
+    arabic: "إِنَّمَا الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ رَسُولُ اللَّهِ وَكَلِمَتُهُ وَلَا تَقُولُوا ثَلَاثَةٌ",
+    translation: "The Messiah, Jesus son of Mary, was but a messenger of Allah and His word. Do not say Trinity — desist, it is better for you. Indeed Allah is but one God.",
+    ref: "Surah An-Nisa 4:171"
+  },
+  "42:11": {
+    arabic: "لَيْسَ كَمِثْلِهِ شَيْءٌ ۖ وَهُوَ السَّمِيعُ الْبَصِيرُ",
+    translation: "There is nothing like unto Him, and He is the Hearing, the Seeing.",
+    ref: "Surah Ash-Shura 42:11 — Allah has no comparable form, image, or likeness. Any description using human anatomical terms is metaphorical language for His majesty — not literal anatomy."
+  },
+  "5:32": {
+    arabic: "مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا",
+    translation: "Whoever kills a soul unless for a soul or for corruption in the land — it is as if he had slain mankind entirely. And whoever saves one — it is as if he had saved mankind entirely.",
+    ref: "Surah Al-Maidah 5:32 — The Quran's foundational statement on human life. Every verse about warfare exists within this moral ceiling."
+  },
+  "2:190": {
+    arabic: "وَقَاتِلُوا فِي سَبِيلِ اللَّهِ الَّذِينَ يُقَاتِلُونَكُمْ وَلَا تَعْتَدُوا ۚ إِنَّ اللَّهَ لَا يُحِبُّ الْمُعْتَدِينَ",
+    translation: "Fight in the way of Allah those who fight you, but do not transgress. Indeed, Allah does not love the transgressors.",
+    ref: "Surah Al-Baqarah 2:190 — Defensive only. Aggression explicitly forbidden."
+  },
+  "2:194": {
+    arabic: "فَمَنِ اعْتَدَىٰ عَلَيْكُمْ فَاعْتَدُوا عَلَيْهِ بِمِثْلِ مَا اعْتَدَىٰ عَلَيْكُمْ",
+    translation: "Whoever transgresses against you, transgress against him in the same measure as he transgressed against you.",
+    ref: "Surah Al-Baqarah 2:194 — Proportionality. Eye for eye — no more. Escalation is forbidden."
+  },
+  "2:217": {
+    arabic: "وَالْفِتْنَةُ أَشَدُّ مِنَ الْقَتْلِ",
+    translation: "And oppression is worse than killing.",
+    ref: "Surah Al-Baqarah 2:217 — The Quran ranks oppression as a greater evil than killing itself."
+  },
+  "8:61": {
+    arabic: "وَإِن جَنَحُوا لِلسَّلْمِ فَاجْنَحْ لَهَا وَتَوَكَّلْ عَلَى اللَّهِ",
+    translation: "And if they incline to peace, then incline to it also and rely upon Allah.",
+    ref: "Surah Al-Anfal 8:61 — If the enemy seeks peace, the Muslim is commanded to accept it. No exceptions."
+  },
+  "60:8": {
+    arabic: "لَّا يَنْهَاكُمُ اللَّهُ عَنِ الَّذِينَ لَمْ يُقَاتِلُوكُمْ فِي الدِّينِ وَلَمْ يُخْرِجُوكُم مِّن دِيَارِكُمْ أَن تَبَرُّوهُمْ وَتُقْسِطُوا إِلَيْهِمْ",
+    translation: "Allah does not forbid you from being kind and just towards those who did not fight you because of your religion and did not drive you out of your homes.",
+    ref: "Surah Al-Mumtahanah 60:8 — Kindness and justice toward non-combatant non-Muslims is commanded — not just permitted."
+  },
+  "60:9": {
+    arabic: "إِنَّمَا يَنْهَاكُمُ اللَّهُ عَنِ الَّذِينَ قَاتَلُوكُمْ فِي الدِّينِ وَأَخْرَجُوكُم مِّن دِيَارِكُمْ",
+    translation: "Allah only forbids you from those who fought you because of religion and expelled you from your homes and supported your expulsion.",
+    ref: "Surah Al-Mumtahanah 60:9 — The prohibition applies only to active aggressors — not disbelievers in general."
+  },
+  "15:9": {
+    arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ",
+    translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
+    ref: "Surah Al-Hijr 15:9 — Allah's direct promise to preserve the Quran. Carbon-dated manuscripts, 10 million memorizers, and 160 years of non-Muslim scholarship confirm it."
+  },
+  "61:6": {
+    arabic: "وَإِذْ قَالَ عِيسَى ابْنُ مَرْيَمَ يَا بَنِي إِسْرَائِيلَ إِنِّي رَسُولُ اللَّهِ إِلَيْكُم",
+    translation: "And when Jesus son of Mary said: O Children of Israel, I am the messenger of Allah to you.",
+    ref: "Surah As-Saf 61:6 — Jesus identifies himself as a messenger of Allah. Consistent with the Synoptic Gospels. Contradicts John's unique divine identity claims."
+  },
+  "41:34": {
+    arabic: "وَلَا تَسْتَوِي الْحَسَنَةُ وَلَا السَّيِّئَةُ ۚ ادْفَعْ بِالَّتِي هِيَا أَحْسَنُ",
+    translation: "Good and evil are not equal. Repel evil with that which is better.",
+    ref: "Surah Fussilat 41:34 — The Quran actively encourages responding to hostility with goodness."
+  },
+  "5:3": {
+    arabic: "الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ وَأَتْمَمْتُ عَلَيْكُمْ نِعْمَتِي وَرَضِيتُ لَكُمُ الْإِسْلَامَ دِينًا",
+    translation: "This day I have perfected for you your religion and completed My favour upon you and have approved for you Islam as religion.",
+    ref: "Surah Al-Ma'idah 5:3"
+  },
+  "33:40": {
+    arabic: "مَّا كَانَ مُحَمَّدٌ أَبَا أَحَدٍ مِّن رِّجَالِكُمْ وَلَٰكِن رَّسُولَ اللَّهِ وَخَاتَمَ النَّبِيِّينَ",
+    translation: "Muhammad is not the father of any of your men, but he is the Messenger of Allah and the seal of the prophets.",
+    ref: "Surah Al-Ahzab 33:40"
   },
   "3:144": {
     arabic: "مُّحَمَّدٌ إِلَّا رَسُولٌ قَدْ خَلَتْ مِن قَبْلِهِ الرُّسُلُ",
@@ -2908,54 +3517,93 @@ const verseDB = {
 // ── FOUNDING MEMBER COUNTER ──
 const FOUNDING_TOTAL = 1000;
 
-function getFoundingCount() {
-  // When Stripe is connected this pulls from your real subscriber count
-  // For now uses localStorage to simulate — replace with API call later
-  return parseInt(localStorage.getItem('alhaqq_founding_count') || '0');
-}
-
-function updateFoundingUI() {
-  const taken = getFoundingCount();
+function updateFoundingUI(taken) {
   const remaining = Math.max(0, FOUNDING_TOTAL - taken);
-  const pct = (taken / FOUNDING_TOTAL) * 100;
+  const pct = Math.min((taken / FOUNDING_TOTAL) * 100, 100);
 
-  document.getElementById('spotsLeft').textContent = remaining.toLocaleString();
-  document.getElementById('foundingBarFill').style.width = pct + '%';
-  document.getElementById('modalSpotsLeft').textContent = `⭐ ${remaining.toLocaleString()} founding spots remaining`;
+  // Animate the spots number counting down
+  const el = document.getElementById('spotsLeft');
+  if (el) {
+    let current = parseInt(el.textContent.replace(/,/g, '')) || FOUNDING_TOTAL;
+    if (current === remaining) { el.textContent = remaining.toLocaleString(); }
+    else {
+      const step = Math.ceil(Math.abs(current - remaining) / 40) || 1;
+      const dir = current > remaining ? -1 : 1;
+      const timer = setInterval(() => {
+        current = dir > 0 ? Math.min(remaining, current + step) : Math.max(remaining, current - step);
+        el.textContent = current.toLocaleString();
+        if (current === remaining) clearInterval(timer);
+      }, 30);
+    }
+  }
+
+  const barEl = document.getElementById('foundingBarFill');
+  if (barEl) barEl.style.width = pct + '%';
+
+  const modalEl = document.getElementById('modalSpotsLeft');
+  if (modalEl) modalEl.textContent = `⭐ ${remaining.toLocaleString()} founding spots remaining`;
 
   const urgency = document.getElementById('foundingUrgency');
-  if (remaining <= 50) {
-    urgency.textContent = '🔴 Almost gone — ' + remaining + ' left';
-    urgency.style.color = '#c97a7a';
-  } else if (remaining <= 200) {
-    urgency.textContent = '⚠ Only ' + remaining + ' spots left';
-    urgency.style.color = '#c9a84c';
-  } else {
-    urgency.textContent = 'Be among the first 1,000';
-    urgency.style.color = '';
+  if (urgency) {
+    if (remaining <= 50) {
+      urgency.textContent = '🔴 Almost gone — ' + remaining + ' left';
+      urgency.style.color = '#c97a7a';
+    } else if (remaining <= 200) {
+      urgency.textContent = '⚠ Only ' + remaining + ' spots left';
+      urgency.style.color = '#c9a84c';
+    } else {
+      urgency.textContent = 'Be among the first 1,000';
+      urgency.style.color = '';
+    }
   }
 }
 
-// Animate counter on load
-function animateCounter() {
-  const taken = getFoundingCount();
-  if (taken === 0) return;
-  const el = document.getElementById('spotsLeft');
-  const target = FOUNDING_TOTAL - taken;
-  let current = FOUNDING_TOTAL;
-  const step = Math.ceil((FOUNDING_TOTAL - target) / 40);
-  const timer = setInterval(() => {
-    current = Math.max(target, current - step);
-    el.textContent = current.toLocaleString();
-    if (current <= target) clearInterval(timer);
-  }, 30);
-}
-
-updateFoundingUI();
-setTimeout(animateCounter, 600);
+// Fetch real subscriber count from Stripe via Netlify function
+// Falls back to 0 (shows 1,000 remaining) if the call fails
+(async function loadFoundingCount() {
+  try {
+    const res = await fetch('/.netlify/functions/subscriber-count');
+    if (!res.ok) throw new Error('non-200');
+    const data = await res.json();
+    updateFoundingUI(data.count || 0);
+  } catch {
+    updateFoundingUI(0); // graceful fallback — shows 1,000 remaining
+  }
+}());
 
 // Apply owner state on load
 if (isOwner()) applyOwnerState();
+else if (isSubscriber()) applySubscriberState(localStorage.getItem('alhaqq_sub_email') || '');
+
+// ── DEEP LINK: ?myth=ID ──
+// Allows shared URLs like alhaqq.it.com?myth=5 to auto-open the correct entry
+(function handleMythDeepLink() {
+  const params = new URLSearchParams(window.location.search);
+  const mythId = parseInt(params.get('myth'), 10);
+  if (!mythId) return;
+
+  // Clean the URL without reloading
+  history.replaceState({}, '', window.location.pathname);
+
+  // Wait for entries to render, then open the target entry
+  setTimeout(() => {
+    const entryEl = document.querySelector(`.entry[data-id="${mythId}"]`);
+    if (!entryEl) return;
+
+    // Scroll to it
+    entryEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Open it (if not locked)
+    if (!entryEl.classList.contains('locked')) {
+      setTimeout(() => {
+        entryEl.classList.add('open');
+        entryEl.querySelector('.entry-toggle') && (entryEl.querySelector('.entry-toggle').textContent = '×');
+        const body = entryEl.querySelector('.entry-body');
+        if (body) body.style.maxHeight = '4000px';
+      }, 400);
+    }
+  }, 300);
+}());
 
 // ── SHARE ──
 function shareEntry(id, event) {
@@ -3039,48 +3687,81 @@ Founded on the Quran Alone
 }
 
 // ── COPY FOR TIKTOK ──
+// ── CREATOR COPY HELPERS ──
+
+function _copyText(text, btnId, label) {
+  const finish = (btn, orig) => {
+    if (!btn) return;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => { btn.innerHTML = orig; }, 2400);
+  };
+  const btn = document.getElementById(btnId);
+  const orig = btn ? btn.innerHTML : '';
+  navigator.clipboard.writeText(text)
+    .then(() => finish(btn, orig))
+    .catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      finish(btn, orig);
+    });
+}
+
 function copyScript(id, event) {
   event.stopPropagation();
   const entry = entries.find(e => e.id === id);
   if (!entry) return;
-  const rebuttalClean = entry.rebuttal.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-  const preview = rebuttalClean.length > 350 ? rebuttalClean.slice(0, 350).trim() + '...' : rebuttalClean;
+  const clean = stripHtmlForSpeech(entry.rebuttal);
+  const preview = clean.length > 400 ? clean.slice(0, 400).trim() + '…' : clean;
   const verseText = entry.verse ? `\n\n📖 "${entry.verse.translation}"\n— ${entry.verse.ref}` : '';
   const script = `They say: "${entry.myth}"\n\nHere's what the Quran actually says:\n\n${preview}${verseText}\n\n#AlHaqq #QuranOnly #IslamicDebate #DebunkingMyths`;
-  navigator.clipboard.writeText(script).then(() => {
-    const btn = document.getElementById(`copy-btn-${id}`);
-    if (btn) {
-      const orig = btn.innerHTML;
-      btn.textContent = '✓ Copied to clipboard';
-      setTimeout(() => { btn.innerHTML = orig; }, 2200);
-    }
-  }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = script;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    const btn = document.getElementById(`copy-btn-${id}`);
-    if (btn) { btn.textContent = '✓ Copied'; setTimeout(() => { btn.innerHTML = '📱 Copy for TikTok'; }, 2200); }
-  });
+  _copyText(script, `copy-btn-${id}`, 'Copy Script');
 }
 
-// ── DEEP-LINK: open entry from ?myth=ID ──
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const mythId = parseInt(params.get('myth'));
-  if (!mythId) return;
-  setTimeout(() => {
-    const el = document.querySelector(`.entry[data-id="${mythId}"]`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (!el.classList.contains('locked')) {
-        setTimeout(() => el.classList.add('open'), 400);
-      }
-    }
-  }, 300);
-})();
+function copyPinnedComment(id, event) {
+  event.stopPropagation();
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return;
+  const link = `https://alhaqq.it.com?myth=${id}`;
+  const verseSnippet = entry.verse
+    ? `\n\n📖 "${entry.verse.translation.slice(0, 120).trim()}…"\n— ${entry.verse.ref.split('—')[0].trim()}`
+    : '';
+  const comment =
+`📌 Full breakdown with Quran evidence 👇
+
+${link}${verseSnippet}
+
+— Full rebuttal + Arabic text on Al-Haqq ↑
+
+#Islam #Quran #QuranOnly #Muslim #IslamicFacts #AlHaqq`;
+  _copyText(comment, `pin-btn-${id}`, 'Copy Pinned Comment');
+}
+
+function copyDescription(id, event) {
+  event.stopPropagation();
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return;
+  const link = `https://alhaqq.it.com?myth=${id}`;
+  const clean = stripHtmlForSpeech(entry.rebuttal);
+  const hook = clean.split('.')[0].trim() + '.';
+  const sourceLabel = { christian:'Christian', sunni:'Sunni', secular:'Secular / Atheist', orientalist:'Orientalist' }[entry.source] || '';
+  const desc =
+`${entry.myth}
+
+${hook}
+
+I break this down using the Quran alone — no Hadith, no conjecture. ${sourceLabel ? `This is a common ${sourceLabel} argument.` : ''}
+
+📚 Full rebuttal with Quran verses + Arabic text:
+${link}
+
+More rebuttals at alhaqq.it.com
+
+#Islam #Quran #QuranOnly #Muslim #IslamicApologetics #DebunkingMyths #AlHaqq #IslamicFacts #Dawah`;
+  _copyText(desc, `desc-btn-${id}`, 'Copy Description');
+}
+
+// (duplicate deep-link handler removed — handled by handleMythDeepLink above)
 
 // ── SUBMIT MYTH ──
 function openSubmitModal() {
@@ -3100,7 +3781,7 @@ function closeSubmitOutside(e) {
   if (e.target === document.getElementById('submitModal')) closeSubmitModal();
 }
 
-function submitMyth() {
+async function submitMyth() {
   const myth = document.getElementById('submitMyth').value.trim();
   if (!myth) {
     document.getElementById('submitMyth').style.borderColor = '#c97a7a';
@@ -3110,25 +3791,23 @@ function submitMyth() {
   const source = document.getElementById('submitSource').value;
   const email = document.getElementById('submitEmail').value.trim();
 
-  // Store locally
-  const existing = JSON.parse(localStorage.getItem('alhaqq_submissions') || '[]');
-  existing.push({ myth, source, email, date: new Date().toISOString() });
-  localStorage.setItem('alhaqq_submissions', JSON.stringify(existing));
+  const btn = document.querySelector('#submitForm .notify-submit');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
 
-  // mailto fallback — opens email client with pre-filled submission
-  const subject = encodeURIComponent('Al-Haqq Myth Submission');
-  const body = encodeURIComponent(
-    'MYTH SUBMITTED:\n' + myth +
-    '\n\nSOURCE: ' + (source || 'Not specified') +
-    '\n\nSUBMITTER EMAIL: ' + (email || 'Not provided') +
-    '\n\n— Submitted via Al-Haqq database'
-  );
-  const mailtoLink = document.createElement('a');
-  mailtoLink.href = 'mailto:must.muhammad49@gmail.com?subject=' + subject + '&body=' + body;
-  mailtoLink.style.display = 'none';
-  document.body.appendChild(mailtoLink);
-  mailtoLink.click();
-  document.body.removeChild(mailtoLink);
+  try {
+    await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'form-name': 'alhaqq-submit-myth',
+        myth,
+        source: source || 'not specified',
+        email: email || 'not provided'
+      }).toString()
+    });
+  } catch (e) {
+    // Silent — Netlify Forms may fail on localhost but works on production
+  }
 
   document.getElementById('submitSuccess').style.display = 'block';
   document.getElementById('submitForm').style.display = 'none';
@@ -3150,34 +3829,32 @@ function closeNotifyOutside(e) {
   if (e.target === document.getElementById('notifyModal')) closeNotify();
 }
 
-function submitNotify() {
+async function submitNotify() {
   const email = document.getElementById('notifyEmail').value.trim();
   if (!email || !email.includes('@')) {
     document.getElementById('notifyEmail').style.borderColor = '#c97a7a';
     setTimeout(() => document.getElementById('notifyEmail').style.borderColor = '', 1500);
     return;
   }
-  // Store locally
-  const existing = JSON.parse(localStorage.getItem('alhaqq_notify') || '[]');
-  if (!existing.includes(email)) {
-    existing.push(email);
-    localStorage.setItem('alhaqq_notify', JSON.stringify(existing));
+
+  const btn = document.querySelector('#notifyModal .notify-submit');
+  if (btn) { btn.textContent = 'Subscribing…'; btn.disabled = true; }
+
+  try {
+    await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'form-name': 'alhaqq-notify',
+        email
+      }).toString()
+    });
+  } catch (e) {
+    // Silent — works on production even if fetch throws
   }
-  // mailto fallback — notifies Mustafa of the signup
-  const subject = encodeURIComponent('Al-Haqq — New Notification Signup');
-  const body = encodeURIComponent(
-    'Someone signed up for Al-Haqq notifications:\n\n' + email +
-    '\n\nAdd to your mailing list when you set one up.'
-  );
-  const mailtoLink = document.createElement('a');
-  mailtoLink.href = 'mailto:must.muhammad49@gmail.com?subject=' + subject + '&body=' + body;
-  mailtoLink.style.display = 'none';
-  document.body.appendChild(mailtoLink);
-  mailtoLink.click();
-  document.body.removeChild(mailtoLink);
 
   document.getElementById('notifySuccess').style.display = 'block';
-  document.querySelector('.notify-form').style.display = 'none';
+  document.querySelector('#notifyModal .notify-form').style.display = 'none';
   setTimeout(() => closeNotify(), 3000);
 }
 
@@ -3208,8 +3885,25 @@ document.addEventListener('keydown', e => {
 // Finds patterns like (2:256), (4:6), 2:231, 4:82 etc inside rebuttal text
 // and wraps them in clickable verse-ref-btn buttons
 function linkVerseRefs(text) {
+  // Guard: if the text already contains verse-exp blocks or verse-ref-btn buttons,
+  // it was hand-authored with expandable cards — don't double-wrap refs inside it.
+  // We still linkify refs in the plain claim text and simple rebuttals.
+  if (text.includes('verse-exp') || text.includes('verse-ref-btn')) {
+    // Only linkify refs that appear in plain text segments (outside any HTML tag)
+    // Strategy: split on HTML tags, linkify only the text nodes, reassemble
+    return text.replace(/(<[^>]+>)|(\(?\b(\d+:\d+(?:–\d+)?)\b\)?)/g, (match, tag, full, ref) => {
+      if (tag) return tag; // leave HTML tags untouched
+      if (!ref) return match;
+      const cleanRef = ref.split('–')[0];
+      if (verseDB[cleanRef]) {
+        return `<button class="verse-ref-btn" onclick="openVersePopup('${cleanRef}');event.stopPropagation()">📖 ${full}</button>`;
+      }
+      return match;
+    });
+  }
+  // Simple rebuttal — linkify all verse refs normally
   return text.replace(/\(?\b(\d+:\d+(?:–\d+)?)\b\)?/g, (match, ref) => {
-    const cleanRef = ref.split('–')[0]; // normalise ranges like 53:3–4 → 53:3
+    const cleanRef = ref.split('–')[0];
     if (verseDB[cleanRef]) {
       return `<button class="verse-ref-btn" onclick="openVersePopup('${cleanRef}');event.stopPropagation()">📖 ${match}</button>`;
     }
@@ -3217,27 +3911,33 @@ function linkVerseRefs(text) {
   });
 }
 
-// ── TTS READER ENGINE ──
-let ttsUtterance = null;
+// ── TTS READER ENGINE — powered by ElevenLabs ──
+let ttsAudio = null;        // current Audio element
 let ttsActive = false;
 let ttsPaused = false;
 let ttsEntryId = null;
-let ttsWords = [];
-let ttsWordIndex = 0;
-let ttsProgressInterval = null;
+let ttsProgressTimer = null;
+const TTS_VOICE = 'adam';   // 'adam' or 'christopher'
+
+function stripHtmlForSpeech(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  tmp.querySelectorAll('script,style').forEach(el => el.remove());
+  return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+}
 
 function buildReadText(id) {
   const entry = entries.find(e => e.id === id);
   if (!entry) return '';
-  const claimText = entry.claim;
-  const rebuttalText = entry.rebuttal.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const claimText = stripHtmlForSpeech(entry.claim);
+  const rebuttalText = stripHtmlForSpeech(entry.rebuttal);
   const verseText = entry.verse
-    ? `Quranic Foundation. ${entry.verse.translation}. — ${entry.verse.ref}.`
+    ? `Quranic Foundation. ${entry.verse.translation}. ${entry.verse.ref}.`
     : '';
-  return `The myth: ${entry.myth}. The claim: ${claimText}. The rebuttal: ${rebuttalText}. ${verseText}`;
+  return `${entry.myth}. The claim: ${claimText}. The rebuttal: ${rebuttalText}. ${verseText}`;
 }
 
-function startReader(id, event) {
+async function startReader(id, event) {
   event.stopPropagation();
   if (ttsActive) stopReader();
 
@@ -3253,63 +3953,108 @@ function startReader(id, event) {
 
   document.getElementById('readerTitle').textContent = entry.myth;
   document.getElementById('readerBar').classList.add('visible');
-  document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+  document.getElementById('readerPlayPause').textContent = '⏳ Loading…';
   document.getElementById('readerPlayPause').classList.add('active');
   document.getElementById('readerProgress').style.width = '0%';
 
-  ttsUtterance = new SpeechSynthesisUtterance(text);
-  ttsUtterance.rate = 0.92;
-  ttsUtterance.pitch = 1;
-  ttsUtterance.volume = 1;
+  try {
+    const res = await fetch('/.netlify/functions/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: text.slice(0, 5000), voice: TTS_VOICE })
+    });
 
-  // Pick a clear English voice if available
-  const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find(v =>
-    v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Daniel') || v.name.includes('Samantha'))
-  ) || voices.find(v => v.lang.startsWith('en')) || null;
-  if (preferred) ttsUtterance.voice = preferred;
-
-  // Progress tracking via word boundary
-  ttsWords = text.split(/\s+/).length;
-  ttsWordIndex = 0;
-
-  ttsUtterance.onboundary = (e) => {
-    if (e.name === 'word') {
-      ttsWordIndex++;
-      const pct = Math.min((ttsWordIndex / ttsWords) * 100, 100);
-      document.getElementById('readerProgress').style.width = pct + '%';
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'TTS request failed');
     }
-  };
 
-  ttsUtterance.onend = () => {
-    document.getElementById('readerProgress').style.width = '100%';
-    setTimeout(() => {
-      stopReader();
-    }, 800);
-  };
+    const audioBlob = await res.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
 
-  ttsUtterance.onerror = () => stopReader();
+    ttsAudio = new Audio(audioUrl);
+    ttsAudio.playbackRate = 1.0;
 
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(ttsUtterance);
+    // Progress bar via timeupdate
+    ttsAudio.addEventListener('timeupdate', () => {
+      if (ttsAudio.duration) {
+        const pct = (ttsAudio.currentTime / ttsAudio.duration) * 100;
+        document.getElementById('readerProgress').style.width = pct + '%';
+      }
+    });
+
+    ttsAudio.addEventListener('ended', () => {
+      document.getElementById('readerProgress').style.width = '100%';
+      setTimeout(() => stopReader(), 800);
+    });
+
+    ttsAudio.addEventListener('error', () => stopReader());
+
+    document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+    await ttsAudio.play();
+
+  } catch (err) {
+    console.error('[TTS]', err.message);
+    // Graceful fallback to browser speech
+    stopReader();
+    const utt = new SpeechSynthesisUtterance(text.slice(0, 3000));
+    utt.rate = 0.92;
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google'))
+      || voices.find(v => v.lang.startsWith('en')) || null;
+    if (preferred) utt.voice = preferred;
+
+    ttsActive = true;
+    document.getElementById('readerTitle').textContent = entry.myth;
+    document.getElementById('readerBar').classList.add('visible');
+    document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+    document.getElementById('readerPlayPause').classList.add('active');
+
+    let wordCount = text.split(/\s+/).length, wordIdx = 0;
+    utt.onboundary = (e) => {
+      if (e.name === 'word') {
+        wordIdx++;
+        document.getElementById('readerProgress').style.width = Math.min((wordIdx / wordCount) * 100, 100) + '%';
+      }
+    };
+    utt.onend = () => { document.getElementById('readerProgress').style.width = '100%'; setTimeout(stopReader, 800); };
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utt);
+  }
 }
 
 function togglePlayPause() {
   if (!ttsActive) return;
-  if (ttsPaused) {
-    window.speechSynthesis.resume();
-    ttsPaused = false;
-    document.getElementById('readerPlayPause').textContent = '⏸ Pause';
-    document.getElementById('readerPlayPause').classList.add('active');
+  if (ttsAudio) {
+    if (ttsPaused) {
+      ttsAudio.play();
+      ttsPaused = false;
+      document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+      document.getElementById('readerPlayPause').classList.add('active');
+    } else {
+      ttsAudio.pause();
+      ttsPaused = true;
+      document.getElementById('readerPlayPause').textContent = '▶ Resume';
+      document.getElementById('readerPlayPause').classList.remove('active');
+    }
   } else {
-    window.speechSynthesis.pause();
-    ttsPaused = true;
-    document.getElementById('readerPlayPause').textContent = '▶ Resume';
-    document.getElementById('readerPlayPause').classList.remove('active');
+    // Browser speech fallback controls
+    if (ttsPaused) {
+      window.speechSynthesis.resume();
+      ttsPaused = false;
+      document.getElementById('readerPlayPause').textContent = '⏸ Pause';
+      document.getElementById('readerPlayPause').classList.add('active');
+    } else {
+      window.speechSynthesis.pause();
+      ttsPaused = true;
+      document.getElementById('readerPlayPause').textContent = '▶ Resume';
+      document.getElementById('readerPlayPause').classList.remove('active');
+    }
   }
 }
 
 function stopReader() {
+  if (ttsAudio) { ttsAudio.pause(); ttsAudio.src = ''; ttsAudio = null; }
   window.speechSynthesis.cancel();
   ttsActive = false;
   ttsPaused = false;
@@ -3317,9 +4062,6 @@ function stopReader() {
   document.getElementById('readerBar').classList.remove('visible');
   document.getElementById('readerPlayPause').classList.remove('active');
 }
-
-// Load voices async (Chrome requires this)
-window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
 
 // ── WELCOME MODAL ──
 function closeWelcome() {
@@ -3333,20 +4075,13 @@ function closeWelcomeOutside(e) {
 }
 
 // Show on first visit only
+// Show welcome modal on first visit
+// Script runs at bottom of body — DOM is always ready at this point
 if (!localStorage.getItem('alhaqq_welcomed')) {
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      document.getElementById('welcomeModal').classList.add('visible');
-      document.body.style.overflow = 'hidden';
-    }, 600);
-  });
-  // If DOM already loaded (inline script)
-  if (document.readyState !== 'loading') {
-    setTimeout(function() {
-      document.getElementById('welcomeModal').classList.add('visible');
-      document.body.style.overflow = 'hidden';
-    }, 600);
-  }
+  setTimeout(function() {
+    document.getElementById('welcomeModal').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }, 600);
 }
 
 // Allow Escape to close welcome
@@ -3502,11 +4237,27 @@ async function jarvisSend() {
         }
       });
     } else {
-      jarvisAppendMsg('jarvis', data.error || 'Something went wrong. Try again.');
+      // Handle Groq API errors cleanly
+      const errObj = data.error;
+      let errMsg = 'Something went wrong. Try again.';
+      if (errObj) {
+        const msg = typeof errObj === 'string' ? errObj : (errObj.message || '');
+        if (msg.includes('rate_limit') || msg.includes('Rate limit') || msg.includes('tokens per minute')) {
+          errMsg = 'Jibril is processing too many requests right now. Wait 15–30 seconds and ask again.';
+        } else if (msg.includes('invalid_api_key') || msg.includes('authentication')) {
+          errMsg = 'API key issue — site admin needs to reconfigure Jibril.';
+        } else if (msg) {
+          errMsg = msg;
+        }
+      }
+      jarvisAppendMsg('jarvis', errMsg);
     }
   } catch (err) {
     jarvisHideTyping();
-    jarvisAppendMsg('jarvis', 'Could not reach Jibril. Check your connection and try again.');
+    const isOffline = !navigator.onLine;
+    jarvisAppendMsg('jarvis', isOffline
+      ? 'You appear to be offline. Check your internet connection and try again.'
+      : 'Could not reach Jibril. Try again in a moment.');
   }
 
   jarvisLoading = false;
