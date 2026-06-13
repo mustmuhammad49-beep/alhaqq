@@ -1241,6 +1241,38 @@
     flex-shrink: 0;
   }
 
+  /* ── JIBRIL COMING SOON LOCK ── */
+  .jibril-lock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    padding: 1.5rem 1.25rem;
+    margin: 0 .75rem .75rem;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .jibril-lock-icon {
+    font-size: 1.6rem;
+    opacity: .7;
+  }
+  .jibril-lock-title {
+    font-family: 'Cinzel', serif;
+    font-size: .7rem;
+    letter-spacing: .18em;
+    color: #c9a84c;
+  }
+  .jibril-lock-sub {
+    font-size: .72rem;
+    color: #6b6358;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 220px;
+  }
+
   /* ── WELCOME POPUP ── */
   .welcome-backdrop {
     position: fixed;
@@ -1877,6 +1909,260 @@
     box-shadow: 0 2px 10px rgba(201,168,76,0.18);
   }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   AL-HAQQ v2.0 — "MASTERY UPDATE" DESIGN + FEATURE LAYER
+   Additive layer. Overrides refine the base; new components
+   are all prefixed .v2- . Safe to remove as one block.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Token refresh ── */
+:root {
+  --v2-glow: rgba(201,168,76,0.14);
+  --v2-card-grad: linear-gradient(160deg, rgba(201,168,76,0.045) 0%, rgba(26,26,31,0) 38%);
+  --v2-gold-leaf: linear-gradient(110deg, #8a6f2e 0%, #c9a84c 28%, #f0dca0 50%, #c9a84c 72%, #8a6f2e 100%);
+  --v2-ease: cubic-bezier(.22,.8,.3,1);
+}
+
+/* ── Ambient background: true 8-fold khatam star tessellation ── */
+body::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgba(201,168,76,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 15% 110%, rgba(42,122,90,0.05) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23c9a84c' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M48 18 L57 39 L78 48 L57 57 L48 78 L39 57 L18 48 L39 39 Z'/%3E%3Cpath d='M48 28 L62 48 L48 68 L34 48 Z'/%3E%3Cpath d='M28 48 L48 34 L68 48 L48 62 Z'/%3E%3Ccircle cx='48' cy='48' r='5'/%3E%3Cpath d='M0 0 L9 0 M0 0 L0 9 M96 0 L87 0 M96 0 L96 9 M0 96 L9 96 M0 96 L0 87 M96 96 L87 96 M96 96 L96 87'/%3E%3C/g%3E%3C/svg%3E");
+}
+::selection { background: rgba(201,168,76,0.32); color: #fff; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: #2c2c36; border-radius: 6px; border: 2px solid var(--ink); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+/* ── Hero: gold-leaf headline word ── */
+.hero h1 span {
+  background: var(--v2-gold-leaf);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: v2leaf 7s linear infinite;
+}
+@keyframes v2leaf { to { background-position: 200% center; } }
+
+/* ── Subscribe CTA shimmer ── */
+.btn-subscribe { position: relative; overflow: hidden; border-radius: 3px; }
+.btn-subscribe::after {
+  content: ''; position: absolute; top: 0; left: -80%;
+  width: 50%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+  transform: skewX(-20deg);
+  animation: v2shimmer 4.5s var(--v2-ease) infinite;
+}
+@keyframes v2shimmer { 0%,72% { left: -80%; } 100% { left: 140%; } }
+
+/* ── Search + chips polish ── */
+.search-wrap input { border-radius: 6px; transition: border-color .25s, box-shadow .25s; }
+.search-wrap input:focus { border-color: var(--border-strong); box-shadow: 0 0 0 4px var(--v2-glow); }
+.filter-btn { border-radius: 999px; transition: all .22s var(--v2-ease); }
+.filter-btn:hover { transform: translateY(-1px); }
+.filter-btn.active { box-shadow: 0 2px 14px rgba(201,168,76,0.25); }
+
+/* ── Entry cards: layered depth + living top hairline ── */
+.entry {
+  background: var(--v2-card-grad), var(--ink-2);
+  transition: transform .25s var(--v2-ease), border-color .25s, box-shadow .25s;
+}
+.entry::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.55), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.entry:hover { transform: translateY(-2px); border-color: var(--border-strong); box-shadow: 0 14px 34px -16px rgba(0,0,0,0.85), 0 0 0 1px rgba(201,168,76,0.07); }
+.entry:hover::after { opacity: 1; }
+.entry.open { border-color: var(--border-strong); box-shadow: 0 18px 44px -18px rgba(0,0,0,0.9); }
+.entry.open::after { opacity: 1; }
+.entry.open { border-left: 3px solid var(--gold); }
+.entry-body { transition: max-height .55s var(--v2-ease); }
+.entry-toggle { transition: transform .3s var(--v2-ease), color .2s; }
+.entry.open .entry-toggle { transform: rotate(45deg); color: var(--gold); }
+.action-btn { border-radius: 4px; transition: all .2s var(--v2-ease); }
+.action-btn:hover { transform: translateY(-1px); border-color: var(--border-strong); color: var(--gold-light); }
+@keyframes v2pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); } 40% { box-shadow: 0 0 0 6px rgba(201,168,76,0.22); } }
+.entry.v2-pulse { animation: v2pulse 1.5s var(--v2-ease) 1; border-color: var(--border-strong); }
+
+/* ── Bookmark star ── */
+.v2-star {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--gold-dim); font-size: 1.15rem; line-height: 1;
+  padding: .35rem .5rem; margin-right: .2rem; align-self: flex-start;
+  transition: transform .2s var(--v2-ease), color .2s;
+}
+.v2-star:hover { transform: scale(1.25); color: var(--gold); }
+.v2-star.on { color: var(--gold); text-shadow: 0 0 12px rgba(201,168,76,0.6); }
+
+/* ── Mastered ── */
+.v2-mastered-tag { background: rgba(42,122,90,0.16) !important; color: var(--accent-light) !important; border: 1px solid rgba(61,168,118,0.45) !important; }
+.v2-master-btn.on { background: rgba(42,122,90,0.18); color: var(--accent-light); border-color: rgba(61,168,118,0.5); }
+
+/* ── Progress strip ── */
+.v2-strip {
+  position: relative; z-index: 5; max-width: 900px;
+  margin: 0 auto 1.6rem; padding: 0 2rem;
+}
+.v2-strip-box {
+  display: flex; align-items: center; gap: 1.1rem; flex-wrap: wrap;
+  background: linear-gradient(160deg, rgba(201,168,76,0.05), rgba(26,26,31,0.6));
+  border: 1px solid var(--border); border-radius: 8px; padding: .9rem 1.2rem;
+  backdrop-filter: blur(6px);
+}
+.v2-ring { position: relative; width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+  background: conic-gradient(var(--gold) 0%, rgba(201,168,76,0.12) 0); }
+.v2-ring::after { content: ''; position: absolute; inset: 5px; border-radius: 50%; background: var(--ink-2); }
+.v2-ring span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-size: .62rem; font-weight: 700; color: var(--gold); z-index: 1; }
+.v2-strip-info { display: flex; flex-direction: column; gap: .18rem; min-width: 150px; }
+.v2-rank { font-family: 'Cinzel', serif; font-size: .8rem; font-weight: 700; letter-spacing: .08em; color: var(--text-main); }
+.v2-rank em { font-style: normal; color: var(--gold); }
+.v2-strip-sub { font-family: 'Lora', serif; font-size: .74rem; color: var(--text-dim); }
+.v2-streak { font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .12em; color: var(--text-dim);
+  border-left: 1px solid var(--border); padding-left: 1.1rem; }
+.v2-streak strong { color: #e8a14c; font-size: .85rem; }
+.v2-strip-actions { margin-left: auto; display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; }
+.v2-drillbtn {
+  font-family: 'Cinzel', serif; font-size: .66rem; letter-spacing: .18em; text-transform: uppercase;
+  padding: .65rem 1.2rem; border-radius: 4px; cursor: pointer; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), #1e5c43); color: #fff; border: 1px solid rgba(61,168,118,0.5);
+  transition: all .22s var(--v2-ease);
+}
+.v2-drillbtn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px -6px rgba(42,122,90,0.7); }
+.v2-font { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.v2-font button { background: transparent; border: none; color: var(--text-dim); font-family: 'Lora', serif;
+  padding: .5rem .7rem; cursor: pointer; font-size: .78rem; transition: all .2s; }
+.v2-font button:first-child { border-right: 1px solid var(--border); }
+.v2-font button:hover { color: var(--gold); background: rgba(201,168,76,0.07); }
+
+/* Reading size */
+body[data-reading="lg"] .rebuttal-text, body[data-reading="lg"] .myth-claim { font-size: 1.04rem; line-height: 1.95; }
+body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { font-size: 1.16rem; line-height: 2.05; }
+
+/* ── Daily Myth ── */
+.v2-daily { position: relative; z-index: 5; max-width: 900px; margin: 0 auto 1.6rem; padding: 0 2rem; }
+.v2-daily-box {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap;
+  border: 1px solid var(--border-strong); border-radius: 8px; padding: 1.2rem 1.5rem;
+  background:
+    radial-gradient(ellipse 60% 130% at 0% 50%, rgba(201,168,76,0.12), transparent 70%),
+    var(--ink-2);
+  position: relative; overflow: hidden;
+}
+.v2-daily-box::before { content: '◈'; position: absolute; right: -14px; bottom: -34px; font-size: 7rem; color: rgba(201,168,76,0.05); pointer-events: none; }
+.v2-daily-eyebrow { font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: .45rem; }
+.v2-daily-title { font-family: 'Cinzel', serif; font-size: 1.02rem; font-weight: 700; color: var(--text-main); line-height: 1.4; }
+.v2-daily-sub { font-family: 'Lora', serif; font-style: italic; font-size: .78rem; color: var(--text-dim); margin-top: .35rem; }
+.v2-daily-btn {
+  font-family: 'Cinzel', serif; font-size: .66rem; letter-spacing: .18em; text-transform: uppercase;
+  padding: .8rem 1.4rem; background: var(--gold); color: var(--ink); border: none; border-radius: 4px;
+  cursor: pointer; font-weight: 700; flex-shrink: 0; transition: all .22s var(--v2-ease);
+}
+.v2-daily-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ── Locked entries: teaser + unlock card ── */
+.lock-overlay.v2-unlock {
+  display: block; margin-top: 1rem; text-transform: none; letter-spacing: 0;
+  font-family: 'Lora', serif; color: var(--text-dim);
+}
+.v2-teaser {
+  font-family: 'Lora', serif; font-size: .92rem; line-height: 1.8; color: var(--text-dim);
+  max-height: 96px; overflow: hidden; position: relative; margin-bottom: 1.1rem;
+  -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 96%);
+  mask-image: linear-gradient(180deg, #000 20%, transparent 96%);
+}
+.v2-unlock-card {
+  border: 1px solid var(--border-strong); border-radius: 8px; padding: 1.3rem 1.4rem;
+  background: linear-gradient(160deg, rgba(201,168,76,0.09), rgba(13,13,15,0.4));
+}
+.v2-unlock-head { font-family: 'Cinzel', serif; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem; }
+.v2-unlock-list { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .4rem .9rem; }
+.v2-unlock-list li { font-family: 'Lora', serif; font-size: .8rem; color: var(--text-main); display: flex; gap: .5rem; align-items: baseline; }
+.v2-unlock-list li::before { content: '✓'; color: var(--accent-light); font-weight: 700; flex-shrink: 0; }
+.v2-unlock-btn {
+  font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+  padding: .85rem 1.5rem; background: var(--gold); color: var(--ink); border: none; border-radius: 4px;
+  cursor: pointer; font-weight: 700; transition: all .22s var(--v2-ease);
+}
+.v2-unlock-btn:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 22px -8px rgba(201,168,76,0.6); }
+.v2-unlock-fine { font-family: 'Lora', serif; font-size: .7rem; color: var(--text-dim); margin-top: .6rem; font-style: italic; }
+
+/* ── Drill Mode ── */
+.v2-drill {
+  position: fixed; inset: 0; z-index: 180; display: none;
+  background: radial-gradient(ellipse 90% 70% at 50% 0%, rgba(42,122,90,0.10), transparent 60%), rgba(10,10,12,0.97);
+  backdrop-filter: blur(8px); overflow-y: auto;
+}
+.v2-drill.visible { display: block; }
+.v2-drill-inner { max-width: 760px; margin: 0 auto; padding: 3.2rem 1.6rem 4rem; }
+.v2-drill-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.8rem; }
+.v2-drill-label { font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; color: var(--accent-light); }
+.v2-drill-count { font-family: 'Lora', serif; font-size: .76rem; color: var(--text-dim); }
+.v2-drill-close { width: 34px; height: 34px; border-radius: 50%; background: var(--ink-2); border: 1px solid var(--border);
+  color: var(--text-dim); cursor: pointer; font-size: .9rem; transition: all .2s; }
+.v2-drill-close:hover { color: var(--gold); border-color: var(--border-strong); }
+.v2-drill-card { background: var(--v2-card-grad), var(--ink-2); border: 1px solid var(--border-strong); border-radius: 10px; padding: 2.2rem 2.2rem 2rem; box-shadow: 0 30px 70px -30px rgba(0,0,0,0.9); }
+.v2-drill-meta { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+.v2-drill-myth { font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 700; line-height: 1.45; color: var(--text-main); margin-bottom: 1rem; }
+.v2-drill-claim { font-family: 'Lora', serif; font-style: italic; font-size: .95rem; line-height: 1.8; color: var(--text-dim); border-left: 3px solid var(--gold-dim); padding-left: 1.1rem; margin-bottom: 1.6rem; }
+.v2-drill-prompt { font-family: 'Cinzel', serif; font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); text-align: center; margin: 1.4rem 0 1rem; }
+.v2-drill-reveal { display: block; margin: 0 auto; font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  padding: .95rem 2rem; background: var(--gold); color: var(--ink); border: none; border-radius: 4px; cursor: pointer; font-weight: 700; transition: all .22s var(--v2-ease); }
+.v2-drill-reveal:hover { background: var(--gold-light); transform: translateY(-1px); }
+.v2-drill-answer { display: none; margin-top: 1.6rem; border-top: 1px solid var(--border); padding-top: 1.6rem; }
+.v2-drill-answer.visible { display: block; animation: v2fadeup .45s var(--v2-ease); }
+@keyframes v2fadeup { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.v2-drill-rebuttal { font-family: 'Lora', serif; font-size: .94rem; line-height: 1.85; color: var(--text-main); }
+.v2-drill-rebuttal a { color: var(--gold); }
+.v2-drill-actions { display: flex; gap: .8rem; justify-content: center; margin-top: 1.8rem; flex-wrap: wrap; }
+.v2-drill-got, .v2-drill-again { font-family: 'Cinzel', serif; font-size: .66rem; letter-spacing: .16em; text-transform: uppercase;
+  padding: .85rem 1.6rem; border-radius: 4px; cursor: pointer; font-weight: 700; transition: all .22s var(--v2-ease); }
+.v2-drill-got { background: linear-gradient(135deg, var(--accent), #1e5c43); color: #fff; border: 1px solid rgba(61,168,118,0.5); }
+.v2-drill-got:hover { transform: translateY(-1px); box-shadow: 0 6px 18px -6px rgba(42,122,90,0.7); }
+.v2-drill-again { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.v2-drill-again:hover { color: var(--gold); border-color: var(--border-strong); }
+
+/* ── Top scroll progress + back-to-top ── */
+.v2-topbar { position: fixed; top: 0; left: 0; height: 2px; width: 0; z-index: 300;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold)); box-shadow: 0 0 10px rgba(201,168,76,0.5); }
+.v2-fab { position: fixed; right: 1.4rem; bottom: 5.6rem; z-index: 90; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ink-2); border: 1px solid var(--border-strong); color: var(--gold); font-size: 1.1rem; cursor: pointer;
+  opacity: 0; pointer-events: none; transform: translateY(8px); transition: all .3s var(--v2-ease); }
+.v2-fab.visible { opacity: 1; pointer-events: auto; transform: none; }
+.v2-fab:hover { background: var(--ink-3); box-shadow: 0 6px 18px -6px rgba(201,168,76,0.4); }
+
+/* ── Toast ── */
+.v2-toast { position: fixed; left: 50%; bottom: 2rem; transform: translateX(-50%) translateY(16px); z-index: 400;
+  background: var(--ink-3); border: 1px solid var(--border-strong); color: var(--gold-light);
+  font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .14em; padding: .8rem 1.4rem; border-radius: 6px;
+  opacity: 0; pointer-events: none; transition: all .3s var(--v2-ease); box-shadow: 0 14px 40px -10px rgba(0,0,0,0.8); }
+.v2-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Motion respect + mobile ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 span { animation: none; }
+  .btn-subscribe::after { animation: none; display: none; }
+  .entry, .action-btn, .filter-btn, .v2-daily-btn, .v2-drillbtn { transition: none; }
+  .entry.v2-pulse { animation: none; }
+}
+@media (max-width: 640px) {
+  .v2-strip-box { gap: .8rem; padding: .85rem 1rem; }
+  .v2-streak { border-left: none; padding-left: 0; }
+  .v2-strip-actions { margin-left: 0; width: 100%; justify-content: space-between; }
+  .v2-daily-box { padding: 1.1rem 1.2rem; }
+  .v2-daily-btn { width: 100%; }
+  .v2-drill-inner { padding: 2.4rem 1rem 3rem; }
+  .v2-drill-card { padding: 1.6rem 1.3rem 1.5rem; }
+  .v2-fab { bottom: 5.2rem; right: 1rem; }
+}
+
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#c9a84c">
@@ -2002,6 +2288,12 @@
 <!-- FOOTER -->
 <footer>
   <p>Al-Haqq Database · <strong>Truth Requires No Compromise</strong> · Founded on the Quran Alone</p>
+  <p style="margin-top:.6rem;font-size:.7rem;opacity:.6;">
+    <a href="/terms.html" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color=''">Terms of Service</a>
+    &nbsp;·&nbsp;
+    <a href="/privacy.html" style="color:inherit;text-decoration:none;" onmouseover="this.style.color='#c9a84c'" onmouseout="this.style.color=''">Privacy Policy</a>
+    &nbsp;·&nbsp; Operated in Canada
+  </p>
 </footer>
 
 <!-- NETLIFY FORM DETECTION — hidden, DO NOT REMOVE
@@ -2064,7 +2356,7 @@
 <!-- JIBRIL CHAT WIDGET -->
 <button id="jarvis-btn" onclick="toggleJarvis()">
   <span class="jarvis-gem">◈</span>
-  <span>Jibril</span>
+  <span>Jibril <span style="font-size:.6rem;opacity:.6;letter-spacing:.05em;">SOON</span></span>
 </button>
 
 <div id="jarvis-panel">
@@ -2073,7 +2365,7 @@
       <span class="jarvis-header-gem">◈</span>
       <div>
         <div class="jarvis-header-name">Jibril</div>
-        <div class="jarvis-header-sub">Al-Haqq Research Intelligence · Quran-Only</div>
+        <div class="jarvis-header-sub">Research Intelligence · Coming Soon</div>
       </div>
     </div>
     <button class="jarvis-close" onclick="toggleJarvis()">✕</button>
@@ -2081,17 +2373,15 @@
   <div class="jarvis-messages" id="jarvisMessages">
     <div class="jarvis-msg jarvis">بِسْمِ اللَّهِ
 
-As-salamu alaykum. I'm Jibril — the research intelligence of Al-Haqq.
+Jibril is Al-Haqq's research intelligence — Quran-Only, built to answer myths, Christian arguments, and Sunni challenges in real time.
 
-Ask me anything: myths about Islam, Bible prophecies, Quranic responses to Christian or Sunni arguments, or anything you've seen thrown at Muslims online.
-
-Truth requires no compromise.</div>
+This feature is in active development. It will be unlocked when fully verified and ready.</div>
   </div>
-  <div class="jarvis-input-row">
-    <textarea class="jarvis-input" id="jarvisInput" placeholder="Ask anything..." rows="1" onkeydown="jarvisKeydown(event)"></textarea>
-    <button class="jarvis-send" id="jarvisSend" onclick="jarvisSend()">➤</button>
+  <div class="jibril-lock">
+    <div class="jibril-lock-icon">🔒</div>
+    <div class="jibril-lock-title">COMING SOON</div>
+    <div class="jibril-lock-sub">Jibril is being built and verified before going live. Subscribe to be notified when it launches.</div>
   </div>
-  <div class="jarvis-disclaimer">Powered by Llama 3.3 · Quran-Only methodology · No Hadith cited as authority</div>
 </div>
 
 <!-- WELCOME MODAL -->
@@ -2118,7 +2408,7 @@ Truth requires no compromise.</div>
 <div class="verse-popup-backdrop" id="versePopup" onclick="closeVersePopupOutside(event)">
   <div class="verse-popup">
     <button class="verse-popup-close" onclick="closeVersePopup()">✕</button>
-    <div class="verse-popup-eyebrow">◈ Quranic Reference</div>
+    <div class="verse-popup-eyebrow" id="versePopupEyebrow">◈ Quranic Reference</div>
     <div class="verse-popup-arabic" id="versePopupArabic"></div>
     <div class="verse-popup-translation" id="versePopupTranslation"></div>
     <div class="verse-popup-ref" id="versePopupRef"></div>
@@ -2171,7 +2461,7 @@ Truth requires no compromise.</div>
     <div class="price-after" id="modalSpotsLeft">⭐ 1000 founding spots remaining</div>
     <ul class="modal-features">
       <li><span>✓</span> Founding Member badge — permanent</li>
-      <li><span>✓</span> Access to all 200+ myth entries</li>
+      <li><span>✓</span> Every rebuttal unlocked — new myths weekly</li>
       <li><span>✓</span> New rebuttals added weekly</li>
       <li><span>✓</span> Downloadable reference cards</li>
       <li><span>✓</span> Submit myths for research</li>
@@ -2261,7 +2551,32 @@ The correct reading of daraba in 4:34 is to separate — to physically part from
     difficulty: "Advanced",
     locked: true,
     claim: "Orientalist scholars argue Muhammad compiled the Quran from Jewish rabbinical texts and Christian apocrypha, making it a derivative human work.",
-    rebuttal: "The Quran itself addresses this directly — it confirms what came before while correcting corruptions that crept into earlier scriptures. This is not borrowing; it is the same original source returning in its uncorrupted form. The Quran does not claim to be a new religion — it claims to be the final, preserved transmission of the same message sent to Ibrahim, Musa, and Isa. Shared stories are evidence of a shared origin, not plagiarism. Furthermore, the Quran challenges anyone who believes it is human-authored to produce ten chapters comparable to it. That challenge was issued over 1,400 years ago. It has never been met. No literary scholar, no linguist, no theologian has produced anything approaching it — not from that era and not since. A seventh-century man in the Arabian desert did not compile the Torah, the Gospel, and then surpass them all in linguistic and structural perfection. The challenge stands.",
+    rebuttal: `Start by naming the source of this charge, because it has a documented birth date — and it has been abandoned by the very field that created it.<br><br>
+
+The "Muhammad borrowed it" thesis began with Abraham Geiger, a German rabbi, whose 1833 work was literally titled <em>Was hat Mohammed aus dem Judenthume aufgenommen?</em> — "What did Muhammad borrow from Judaism?" The title reveals the conclusion baked in before the investigation began. William St. Clair Tisdall, an Anglican missionary, rehashed and expanded Geiger's material in 1905 in a book published by the Society for the Promotion of Christian Knowledge, an explicitly evangelistic organisation. The plagiarism charge did not arise from neutral inquiry. It arose from polemics with the verdict already decided. And Tisdall's version had a fatal hole: he never demonstrated that the alleged Jewish and Christian source texts existed in Arabic, were accessible in the Hijaz, or identified who supposedly taught them to Muhammad. He assumed the transmission he needed to prove. <a href="https://en.wikipedia.org/wiki/What_Did_Muhammad_Borrow_from_Judaism%3F" target="_blank" rel="noopener"><em>↗ Geiger, What Did Muhammad Borrow from Judaism? (1833)</em></a><br><br>
+
+<strong>The decisive point: secular Western scholarship has itself abandoned the borrowing thesis.</strong><br>
+This is not a Muslim apologetic claim. It is the documented state of the academic field. Modern Quranic studies underwent a paradigm shift away from the "derivative work" model. Contemporary scholars no longer attempt to reduce the Quran to alleged sources. They treat it instead as a text that engages with and critiques the traditions known to its audience, from its own autonomous standpoint — what one scholar calls "corrective retellings." <a href="https://yaqeeninstitute.org/read/paper/the-qurans-engagement-with-christian-and-jewish-literature" target="_blank" rel="noopener"><em>↗ The Qur'an's Engagement with Christian and Jewish Literature</em></a><br><br>
+
+Angelika Neuwirth, Professor Emerita at the Free University of Berlin and one of the most eminent living scholars of the Quran, explicitly rejects treating the Quran as "a replica or summary of the Bible in Arabic." Her landmark work, published by Oxford University Press, approaches the Quran as an original product of its community in dialogue with late antiquity, not a derivative copy. <a href="https://global.oup.com/academic/product/the-quran-and-late-antiquity-9780199928958" target="_blank" rel="noopener"><em>↗ Neuwirth, The Qur'an and Late Antiquity (Oxford University Press)</em></a><br><br>
+
+Gabriel Said Reynolds of the University of Notre Dame positions the Quran as "both original and interconnected" — a deliberate middle ground that rejects both the old Orientalist "derivative" claim and a naive "wholly disconnected" claim. The Quran engages its audience's existing knowledge and offers its own theological interpretation. That is intertextuality. It is not plagiarism. <a href="https://www.routledge.com/The-Quran-and-its-Biblical-Subtext/Reynolds/p/book/9780415524247" target="_blank" rel="noopener"><em>↗ Reynolds, The Qur'an and Its Biblical Subtext (Routledge)</em></a><br><br>
+
+The distinction is not a dodge. Engaging with, alluding to, and reworking prior tradition is what every major text in history does. Shakespeare drew on Holinshed's Chronicles, and no one calls Shakespeare a plagiarist. The Quran engaging the biblical tradition while reshaping it is the normal behaviour of a sophisticated text, and the scholarly consensus now recognises this. The crude cut-and-paste thesis of Geiger and Tisdall is a museum piece.<br><br>
+
+<strong>The argument that finishes the charge: the Quran corrects its alleged sources on the most important points.</strong><br>
+A plagiarist copies his source. He does not systematically contradict it on its central claims. The Quran does exactly that. On the single most important narrative in Christianity, the crucifixion, the Quran flatly denies it: 4:157 states they did not kill Jesus, nor did they crucify him, but it was made to appear so. This contradicts both the Christian sources Muhammad allegedly copied and the Jewish accounts. If the Quran were assembled from Christian apocrypha, the crucifixion is the last detail a copyist would delete. The Quran deletes it. That is not borrowing. That is correction.<br><br>
+
+On the central doctrine of Christianity, the Trinity and the divinity of Jesus, the Quran rejects it outright. 5:73 and 4:171 explicitly deny that God is three and deny that Jesus is the son of God, calling him instead a messenger and a word from God. A man compiling a derivative work from Christian sources does not surgically remove the core theology of those sources. The Quran removes it deliberately and replaces it with strict monotheism. This is the behaviour of a text claiming to correct a corrupted tradition, which is exactly what the Quran says it is doing.<br><br>
+
+<strong>The Quran's own framework: confirmation of the original, correction of the corruption.</strong><br>
+The Quran never claims to introduce a new God or a new religion. It claims to be the final, preserved transmission of the same revelation given to Ibrahim, Musa, and Isa. It describes itself as confirming what came before while standing as a guardian over it: 5:48 states it was sent confirming the scripture before it and as a criterion over it. 3:3, 2:97, and 35:31 affirm the same confirming function. Within this framework, shared narratives are not evidence of theft. They are exactly what a revelation claiming a shared divine origin would contain. The Orientalist points at the shared stories as a smoking gun, when the Quran openly declares from the outset that it continues the same line of revelation.<br><br>
+
+<strong>The standing challenge.</strong><br>
+The Quran issued a falsifiable public challenge to anyone claiming it was human invention, escalating across the text. Produce a surah like it (2:23). Produce ten surahs like it (11:13). And the grand version, 17:88: even if all of humankind and all the jinn gathered together to produce the like of this Quran, they could not, even backing one another. The challenge was issued in 7th-century Arabia, a civilisation at the absolute peak of Arabic eloquence, where the Prophet's opponents had every political, financial, and religious motive to discredit him. Meeting the literary challenge would have ended the movement instantly and cheaply. The historical record preserves no instance of an opponent meeting it. They chose warfare, exile, and assassination over the far easier path of simply producing the equivalent text. That is a historically significant silence. Literary excellence is partly subjective, and a non-Arabic speaker will not experience it directly — so the challenge is most forceful as a historical observation: the people best positioned and most motivated to refute it by meeting it did not.<br><br>
+
+<strong>Verdict.</strong><br>
+The charge that the Quran is a derivative human work compiled from rabbinical texts and Christian apocrypha fails on four independent grounds. It originated in admitted polemics, not neutral inquiry. It has been abandoned by the secular field that created it. It cannot explain why the Quran systematically corrects and contradicts its alleged sources on their most central doctrines. And it ignores the Quran's own coherent framework of confirming the original revelation while correcting its corruption. A seventh-century unlettered man in the Arabian desert did not quietly assemble the Torah and the Gospel, surgically delete the crucifixion, the Trinity, and original sin, then surpass the entire tradition in a literary challenge no contemporary ever met. The plagiarism charge is not the strong skeptical position. It is the outdated one. The field of Western Quranic studies rejected it first.`,
     verse: {
       arabic: "أَمْ يَقُولُونَ افْتَرَاهُ ۖ قُلْ فَأْتُوا بِعَشْرِ سُوَرٍ مِّثْلِهِ مُفْتَرَيَاتٍ",
       translation: "Or do they say he invented it? Say: Then bring ten chapters like it, invented.",
@@ -2350,22 +2665,66 @@ The Quran also makes clear that Allah did not make this religion a burden: <em>"
     source: "secular",
     difficulty: "Advanced",
     locked: false,
-    claim: "Atheists and ex-Muslims argue that Surah Al-Mu'minun 23:14 claims the embryo develops bones first which are then coated with flesh — and that modern embryology proves this sequence is wrong, because organs develop simultaneously, not sequentially.",
-    rebuttal: `This argument was built on one mistranslated English word. The entire objection collapses the moment you open an Arabic dictionary and an embryology textbook simultaneously.<br><br>
+    claim: "Atheists and ex-Muslims argue that Surah Al-Mu'minun 23:14 claims the embryo develops bones first which are then coated with flesh — and that modern embryology proves this sequence is wrong because organs develop simultaneously. Some add that the Quran plagiarised Galen's outdated Greek embryology, or that the entire miracle claim was fabricated by Keith Moore on Saudi funding.",
+    rebuttal: `Surah Al-Mu'minun 23:14 describes human embryonic development in a precise sequence: a drop (<em>nutfah</em>), then a clinging substance (<em>alaqah</em>), then a chewed-like lump (<em>mudghah</em>), then bones (<em>izam</em>), then the bones clothed with flesh (<em>lahm</em>). The Quran was revealed in the 7th century — more than a thousand years before the microscope was invented in 1677, before any human being could observe an embryo at these stages. Modern peer-reviewed embryology confirms each stage occurs in exactly this order, and the descriptions match the observable morphology at each stage. Every atheist objection collapses under examination.<br><br>
 
-<strong>First: What the Quran actually says.</strong> The verse in question is Surah Al-Mu'minun 23:14. The Arabic word translated as "flesh" is <em>lahm (لَحْمًا)</em> — which in classical Arabic specifically means muscle tissue. Not generic soft tissue. Not skin. Not fat. Muscle. The word for "bones" is <em>izam (عِظَامًا)</em> — the skeletal framework. The Quran is describing a precise biological sequence: skeletal framework forms → muscle tissue clothes it. That is the claim. That is all the claim is.<br><br>
+<strong>Stage 1 — Nutfah, the drop.</strong><br>
+The Quran describes the beginning of human development as a <em>nutfah</em> — a drop. A single fertilised cell. The zygote at day one is a single cell, microscopically small, a literal drop of fluid. No 7th-century human could observe this. The description is accurate.<br><br>
 
-<strong>Second: What embryology actually says.</strong> Around weeks 6–7, cartilage models of the skeletal framework form first through a process called chondrification. This is the <em>izam</em> stage — the structural template being laid down. Then, starting weeks 7–8, myoblasts (muscle precursor cells) migrate toward those cartilage models and fuse to form muscle tissue — the <em>lahm</em> — wrapping around the skeletal framework. The NIH peer-reviewed journal on musculoskeletal development states it plainly: muscle formation is driven by signals from the surrounding skeletal tissue. Muscles develop around bones, directed by bones. That is literally the Quranic sequence described in modern scientific language.<br><br>
+<strong>Stage 2 — Alaqah, the clinging substance.</strong><br>
+The Arabic word <em>alaqah</em> carries three semantic meanings in classical Arabic lexicons, including Ibn Manzur's <em>Lisan al-Arab</em> and al-Jawhari's <em>as-Sihah</em>: (1) a leech, (2) something that clings or adheres, (3) a blood clot. <a href="https://en.wikipedia.org/wiki/Al-Alaq" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Al-Alaq — Wikipedia (citing Ibn Manzur and Professor Abdul Haleem, SOAS University of London)</a><br><br>
 
-<strong>Third: The "simultaneous" argument is a half-truth weaponised.</strong> Yes, multiple systems develop in parallel during embryogenesis. But the specific tissues the Quran names — <em>izam</em> and <em>lahm</em> — do follow the sequence described. The cartilage skeletal models precede the muscular wrapping. The objector conflated undifferentiated precursor cells (mesenchyme) with differentiated muscle tissue (lahm). Mesenchyme is not lahm. It is the raw material from which everything — bones, muscles, connective tissue — eventually forms. Calling mesenchyme "flesh" to create a contradiction is not science. It is a word game.<br><br>
+All three meanings describe the embryo precisely at this stage. Between day 7 and day 24 of development, three things are simultaneously true. The embryo physically clings to the uterine wall through implantation. <a href="https://embryology.med.unsw.edu.au/embryology/index.php/Carnegie_stage_5" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ UNSW Medical Embryology — Carnegie Stage 5 (implantation)</a><br><br>
 
-<strong>Fourth: A 7th-century man in a desert named this sequence 1,400 years before the electron microscope.</strong> No dissection tools. No ultrasound. No microscopy. The Quran named two specific tissue types and their developmental order — and peer-reviewed embryology from the NIH, the University of New South Wales Faculty of Medicine, and StatPearls confirms that order. If this is a guess, it is the most precise guess in the history of pre-scientific literature.<br><br>
+The embryo at day 23 to 24 visually resembles a leech. Side-by-side photographs of Carnegie stage 10 embryos and a leech show striking morphological similarity — the curved body, segmented dorsal surface, and ventral protrusion mirror leech anatomy. <a href="https://embryology.med.unsw.edu.au/embryology/index.php/Carnegie_stage_10" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ UNSW Medical Embryology — Carnegie Stage 10</a><br><br>
 
-The conclusion is not complicated: he took one English word, assumed it meant everything soft, never opened a biology textbook, and built his apostasy on that assumption. He did not leave Islam over a mistake in the Quran. He left Islam over a mistake in his dictionary.`,
+The embryo at this stage is suspended in blood within the developing chorionic sac and resembles a clot in its appearance. The maternal blood feeds the embryo just as a leech feeds on blood — the embryo behaves functionally like a leech, dependent on host blood. A 7th-century Arab in the desert could not have made this comparison. There were no microscopes. There was no way to observe the embryo at day 23 to 24. The fact that <em>alaqah</em> carries all three accurate meanings is the kind of multi-layered precision that Greek medicine of the era never approached.<br><br>
+
+<strong>Stage 3 — Mudghah, the chewed-like substance.</strong><br>
+<em>Mudghah</em> means a piece of substance that has been chewed. At day 26 to 30 of development, the embryo develops somites — paired blocks of mesoderm running along its back. These somites create indentations and ridges across the embryo's surface that visually resemble teeth marks on a chewed piece of gum. The Carnegie Stages embryology reference, the gold standard for human embryonic morphology since 1942, documents the somite formation timeline. <a href="https://embryology.med.unsw.edu.au/embryology/index.php/Carnegie_Stages" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ UNSW Medical Embryology — Carnegie Stages full reference</a><br><br>
+
+At Carnegie Stage 13 (around day 28), the embryo has 30 pairs of somites visible externally. The dorsal surface is corrugated. The shape continuously changes as somites form sequentially. The Quranic word for this stage is not metaphorical excess. It is a precise morphological description of an embryo that no human in 7th-century Arabia could have seen. <a href="https://www.sciencedirect.com/topics/medicine-and-dentistry/carnegie-stages" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ ScienceDirect — Carnegie Stages overview</a><br><br>
+
+<strong>Stages 4 and 5 — Bones form, then flesh clothes them.</strong><br>
+The Quran says: "We made the <em>mudghah</em> into bones, then We clothed the bones with flesh." The Arabic verb is <em>kasawna</em> (كَسَوْنَا) — "We clothed" or "We wrapped." Not "We created after." The image is muscle wrapping around a pre-existing skeletal frame. This is precisely what occurs in limb development. The peer-reviewed embryology is unambiguous on the sequence.<br><br>
+
+The UNSW medical embryology curriculum states that bone in the limb forms through endochondral ossification of a pre-existing cartilage template — cartilage condensations form first, muscle migrates in afterward. <a href="https://embryology.med.unsw.edu.au/embryology/index.php/Musculoskeletal_System_-_Limb_Development" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ UNSW Medical Embryology — Limb Development</a><br><br>
+
+The Kenhub medical education platform states it directly: "In limbs, myoblasts migrate to the limb buds and surround the primordial limb bones." <a href="https://www.kenhub.com/en/library/anatomy/development-of-musculoskeletal-system" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Kenhub — Development of Muscles and Bones</a><br><br>
+
+ScienceDirect's limb bud reference documents the precise sequence: at day 33, prechondrogenic condensations form where cartilage skeletal elements will develop. At day 36, chondrogenesis is underway and myoblasts migrate in from the somites and aggregate into dorsal and ventral muscle masses around the cartilage. <a href="https://www.sciencedirect.com/topics/medicine-and-dentistry/limb-bud" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ ScienceDirect — Limb Bud reference</a><br><br>
+
+Columbia University Medical School lecture notes confirm the migration: "As the appendicular skeleton forms, myoblasts migrate in from the somites (5th week) and cells aggregate into dorsal and ventral muscle masses in each limb." <a href="http://www.columbia.edu/itc/hs/medical/humandev/2004/Chapt8-Limb.pdf" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Columbia University Medical School — Limb Development Chapter 8</a><br><br>
+
+The atheist claim that "flesh and bones form simultaneously" is wrong on the morphology. At the cellular origin level, both cells trace back to mesoderm — true. But at the structural and observable level, which is what the Quran describes, the cartilage skeletal elements form first and muscle then migrates and wraps around them. A three-day morphological gap between day 33 cartilage condensation and day 36 myoblast migration is documented in the standard literature. The Arabic verb <em>kasawna</em> — "We clothed" — is the precise mechanical description that myoblast migration performs.<br><br>
+
+<strong>Addressing the Keith Moore controversy honestly.</strong><br>
+A common deflection: "Keith Moore was paid by King Abdulaziz University in Saudi Arabia to produce the Islamic edition of his embryology textbook. Therefore his Quranic embryology claims are bought scholarship." This is partially true and needs to be acknowledged, not hidden. Moore did produce a third edition of <em>The Developing Human</em> with Islamic additions in collaboration with Saudi scholars in 1983. <a href="https://en.wikipedia.org/wiki/Keith_L._Moore" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Keith L. Moore — Wikipedia (documenting the King Abdulaziz University collaboration)</a><br><br>
+
+The honest response is that the case for Quranic embryology does not depend on Keith Moore. Strip Moore out of the argument entirely. The peer-reviewed embryology references above — UNSW Medical Embryology, ScienceDirect, Columbia Medical School, Kenhub — make no reference to the Quran. They simply describe the morphological sequence. Place that sequence next to the Quranic verse and the match is independent of Moore's involvement. The Carnegie Stages were established by the Carnegie Institution of Washington in 1942, before Keith Moore was in academia. They are the universal reference for human embryonic morphology. The sequence is verifiable. The Moore controversy is irrelevant to the morphological evidence.<br><br>
+
+<strong>Addressing the Galen plagiarism attack.</strong><br>
+Some critics argue the Quranic embryology is just a restatement of Galen of Pergamon's 2nd-century Greek embryology, which was common medical knowledge of late antiquity and would have been available through Syriac translations in 7th-century Arabia. The argument fails for three reasons.<br><br>
+
+First, Galen's stages differ from the Quranic stages in a critical way. Galen's four stages are: (1) seminal matter, (2) bloody form, (3) flesh with rough outline of organs, (4) fully formed limbs. Galen has flesh forming before bones as part of the same general fleshy mass. The Quran specifies bones forming first, then flesh wrapping the bones — which is the modern embryological sequence and which Galen did not describe. If Muhammad copied Galen, he would have inherited Galen's incorrect ordering. He didn't.<br><br>
+
+Second, Galen held specific embryological errors the Quran does not endorse. Galen believed female semen contributed substantively to the embryo and that the embryo was formed primarily by male and female semen mixing. The Quran's description (76:2 — a mixed drop) is general and does not endorse Galen's specific female semen theory. If the Quran were plagiarised from Galen, the specific Galenic errors should be present. They are not.<br><br>
+
+Third, the proposed transmission route is weak. Galen's works were translated into Syriac by Sergius of Reshaina in the 6th century, but these translations circulated primarily in Christian medical schools in Alexandria and Gundeshapur. There is no evidence the unlettered Muhammad, raised in pre-Islamic Mecca, encountered Galenic medical texts. The Quranic embryology shares some general framework with late antique medicine — staged development was widely held — but the specific details diverge from Galen in ways that align with modern embryology rather than ancient Greek medicine. <a href="https://www.hamzatzortzis.com/did-the-prophet-muhammad-plagiarise-hellenic-embryology/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Hamza Tzortzis — Did the Prophet Plagiarise Hellenic Embryology?</a><br><br>
+
+<strong>The Arabic linguistic precision the atheist cannot dismiss.</strong><br>
+Surah 23:14 uses the conjunction <em>fa</em> (ف) between stages, which in Arabic indicates rapid succession — not arbitrary or long gaps. Each stage flows quickly into the next. This matches the actual embryonic timeline, where the alaqah-to-mudghah transition occurs within days. A 7th-century speaker pulling from folk knowledge or Galenic medicine would not have chosen this specific linguistic marker for the transition.<br><br>
+
+The Arabic word <em>kasawna</em> (كَسَوْنَا) for "We clothed the bones with flesh" is a clothing verb — the same root used for putting on garments. The mechanical action described — wrapping, covering, clothing — is precisely what myoblast migration onto pre-existing cartilage models accomplishes. Galen never used this verbal construction. Greek medicine had no such precise mechanical description.<br><br>
+
+<strong>Verdict.</strong><br>
+Every Quranic stage of embryonic development corresponds to an observable morphological feature of the human embryo as documented by Carnegie stage reference materials — the gold standard for embryonic morphology established in 1942 and maintained by major university medical schools worldwide. The <em>nutfah</em> is the zygote. The <em>alaqah</em> is the leech-resembling, blood-suspended, uterine-clinging embryo at days 7 to 24. The <em>mudghah</em> is the somite-segmented, chewed-gum-resembling embryo at days 26 to 30. The bones form as cartilage condensations at days 33 onward. The muscle migrates from the somites and clothes the bones at day 36 onward.<br><br>
+
+This sequence was revealed in 7th-century Arabia, a thousand years before the microscope and fourteen hundred years before scanning electron micrographs of human embryos. No competing 7th-century source — Galen, Aristotle, the Talmud, Indian medicine — has the complete sequence with these precise mechanical descriptions. The Quran does. He did not leave Islam over a mistake in the Quran. The Quran said what it said in the 7th century. The microscopes caught up in the 20th.`,
     verse: {
-      arabic: "فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ ۚ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ",
-      translation: "And We made the lump into bones, and We clothed the bones with flesh (muscle); then We developed him into another creation. So blessed is Allah, the best of creators.",
-      ref: "Surah Al-Mu'minun 23:14 — izam (عِظَام) = skeletal framework. lahm (لَحْم) = muscle tissue specifically. The sequence: bones first, muscle clothing them after — confirmed by NIH peer-reviewed embryology."
+      arabic: "ثُمَّ خَلَقْنَا النُّطْفَةَ عَلَقَةً فَخَلَقْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ ۚ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ",
+      translation: "Then We made the sperm-drop into a clinging substance, and We made the clinging substance into a lump of flesh, and We made from the lump bones, and We covered the bones with flesh; then We developed him into another creation. So blessed is Allah, the best of creators.",
+      ref: "Surah Al-Mu'minun 23:14 — Five stages, all confirmed. Carnegie Stage 5 (implantation/alaqah), Stage 10 (leech morphology/alaqah), Stage 12 (somites/mudghah), day 33 cartilage condensation (izam), day 36 myoblast migration (kasawna — We clothed). Documented by UNSW Medical School, ScienceDirect, Columbia University Medical School. Established 1942."
     }
   },
   {
@@ -2375,41 +2734,35 @@ The conclusion is not complicated: he took one English word, assumed it meant ev
     difficulty: "Advanced",
     locked: true,
     claim: "Christians assert that the four New Testament Gospels were written by Matthew, Mark, Luke, and John — either direct eyewitnesses to Jesus or close companions of those who were. This claim is foundational to Christian apologetics, because named eyewitness testimony is presented as the basis for Gospel reliability and therefore the basis for the entire Christian theological edifice.",
-    rebuttal: `The Gospels are anonymous documents. Every word of that statement is conceded by mainstream Christian biblical scholarship — Catholic, Protestant, evangelical, and secular alike. The four Gospels do not name their authors anywhere in the text. Not in the body. Not in any opening line. The titles Matthew, Mark, Luke, and John were attached later, and when you trace those attributions back to their actual source, the chain collapses.<br><br>
+    rebuttal: `The Gospels do not name their authors inside the text. Granted. And it changes nothing, because that was never the real question.<br><br>
 
-What follows is not a skeptic's case. It is the mainstream position of the institutions that compiled and canonised the New Testament.<br><br>
+Many respected ancient works are internally anonymous. The real question is not whether the texts name themselves. It is whether the four men in the titles, Matthew, Mark, Luke, and John, were eyewitnesses who actually wrote these books. And here is the decisive fact: the strongest scholarship a Christian can assemble proves only that the titles are old. It never proves that an eyewitness wrote a single word. Old is not accurate. An early title is not eyewitness authorship. That gap is where the entire case lives, and no defender of the Gospels has ever crossed it.<br><br>
 
-<strong>1. Universal internal anonymity — admitted by the Catholic Church itself.</strong><br>
-Open any of the four Gospels. The author never identifies himself by name. The New American Bible Revised Edition (NABRE), the official English translation of the Roman Catholic Church, states in its introduction to Matthew that "the unknown author" wrote in Greek and that traditional Matthean apostolic authorship is "untenable." The Anchor Bible Commentary, the Oxford Annotated Bible, and the HarperCollins Study Bible all agree. Bart Ehrman of the University of North Carolina puts it bluntly: the books are completely anonymous and their authors never divulge their names. This is the consensus, not a fringe.<br><br>
+<strong>1. Everything offered to defend the Gospels proves the titles are early, and nothing more.</strong><br>
+The serious arguments for Gospel authorship, from Hengel, from Gathercole, from Dunn, all argue the same narrow thing: the title headings are old and unanimous. Grant all of it. A title attached early by the circulating church is still a title attached by the church, not by the author. James Dunn states it himself: the titles were given as soon as the Gospels began to be circulated, chosen by the recipients as the texts spread beyond their place of origin. That is attribution by the community at the point of distribution. The age of a title tells you when the church labelled the book. It tells you nothing about who held the pen. And even Gathercole, the most thorough defender, concedes in the Journal of Theological Studies that the manuscript titles may well in their present form be secondary, and that original attribution is only the most likely conclusion, not a proven one. <a href="https://academic.oup.com/jts/article-abstract/69/2/447/5101372" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Simon Gathercole, The Alleged Anonymity of the Canonical Gospels, Journal of Theological Studies, Oxford University Press</em></a><br><br>
 
-<strong>2. The four-Gospel attribution crystallises with Irenaeus around 180 CE — 150 years after Jesus.</strong><br>
-Before Irenaeus of Lyon, there is no clear, named, four-Gospel attribution anywhere in surviving Christian literature. Papias around 120 to 130 CE mentions only a Matthew and a Mark, and his descriptions do not match our Greek texts (see point 3). Justin Martyr around 150 CE refers generically to "memoirs of the apostles" without naming all four. It is Irenaeus, in Against Heresies 3.1.1, who first asserts the four authors by name. And his stated justification for John reads, in the Greek, as deduction: "we have learned" — not "I received from an unbroken chain of custody." The attribution is a late ecclesiastical decision, not eyewitness testimony.<br><br>
+<strong>2. The defenders' own champion deletes the apostle John.</strong><br>
+The most influential modern defender of Gospel reliability is Richard Bauckham, whose book Jesus and the Eyewitnesses is the standard scholarly case that the Gospels rest on eyewitness testimony. Read what Bauckham actually concludes about John. He argues the Gospel of John was not written by John the apostle, the son of Zebedee, but by a different man he calls John the Elder, who was not one of the Twelve. The strongest case for eyewitness Gospels ends by removing the apostle John from the authorship of John. The title According to John does not mean the apostle, on the testimony of the very scholar the defenders cite. <a href="https://biblicalfoundations.org/jesus-and-the-eyewitnesses/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Köstenberger, Biblical Foundations: Bauckham identifies John the Elder, not the apostle</em></a> &nbsp;·&nbsp; <a href="https://denverjournal.denverseminary.edu/the-denver-journal-article/the-testimony-of-the-beloved-disciple/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Denver Seminary, Denver Journal: Bauckham's case for John the elder, not the apostle</em></a><br><br>
 
-<strong>3. Papias's "Matthew" is not our Matthew.</strong><br>
-The earliest writer Christians cite as evidence — Papias of Hierapolis — describes a Matthew who "composed the sayings in the Hebrew dialect, and each interpreted them as best he could." Our Matthew is not a sayings collection. It is a Greek narrative gospel that copies roughly 90 percent of the Greek text of Mark. Whatever Papias was describing, it is not the book Christians today call Matthew. Either Papias is wrong about Matthew, or there were two completely different Matthews — both of which fatally damage the claim of clean apostolic authorship. Conservative scholar Richard Bauckham, who has spent his career defending Gospel reliability, still concedes that named apostolic authorship of the Greek Matthew is not what Papias is describing.<br><br>
+<strong>3. The Catholic Church deletes the apostle Matthew.</strong><br>
+The New American Bible Revised Edition, the official translation of the Roman Catholic Church, states that the traditional ascription of the first Gospel to the apostle Matthew is untenable, precisely because the Gospel copies the bulk of its content from Mark. An eyewitness apostle who walked with Jesus does not build roughly ninety percent of his account on the work of Mark, who by Christian tradition itself never met Jesus and was only the interpreter of Peter. The institution that compiled the New Testament says apostolic authorship of Matthew cannot stand. <a href="https://bible.usccb.org/bible/matthew/0" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ USCCB, official Catholic introduction to Matthew: apostolic authorship untenable</em></a><br><br>
 
-<strong>4. The Matthew problem — an apostle who copied from a non-apostle.</strong><br>
-The author of Matthew copied approximately 90 percent of the Gospel of Mark, often word-for-word in Greek. Matthew was supposedly an eyewitness apostle who walked with Jesus for three years. Mark was, by Christian tradition itself, not an eyewitness — he was Peter's secondhand interpreter. So Christian tradition asks the world to believe that an apostle who personally witnessed Jesus's ministry chose to base ninety percent of his account on the writings of someone who never met Jesus. No serious historian accepts this. The simpler explanation, accepted across the field, is that the author of Greek Matthew was a later Greek-speaking writer working with Mark as a source — not the tax collector named in Matthew 9:9.<br><br>
+<strong>4. Luke disqualifies himself in his own opening lines.</strong><br>
+Luke 1 verses 1 to 4 has the author say plainly that those who from the beginning were eyewitnesses handed the material down to his generation, and that he then investigated and compiled an orderly account. He places himself in the generation that received the reports from the witnesses. He is a researcher, not a witness, by his own pen. Even granting the traditional ascription to Luke the physician, Luke never met Jesus. One of the four is conceded as non-eyewitness by the text itself.<br><br>
 
-<strong>5. The Mark problem — Peter's interpreter, writing in Greek, with a redacted ending.</strong><br>
-Christian tradition itself never claimed Mark was a disciple of Jesus. The claim was that Mark was Peter's interpreter. Even taken at face value, this is already secondhand testimony — not eyewitness. But the text itself shows further problems. Mark contains documented geographic errors (the route in Mark 7:31 from Tyre through Sidon to the Sea of Galilee via Decapolis is geographically incoherent; the Gerasene demoniac episode in Mark 5 places pigs running into a sea from a town roughly thirty miles inland). And crucially, the original Gospel of Mark ends at 16:8, with the women fleeing the empty tomb in silence. There are no resurrection appearances. The familiar ending in 16:9–20, which contains the resurrection appearances Christians rely on, is absent from the oldest complete manuscripts (Codex Sinaiticus and Codex Vaticanus, both fourth century). Church Fathers Eusebius and Jerome both noted in antiquity that the most accurate copies of Mark ended at 16:8. The resurrection ending of Mark is a later scribal addition that the early Church itself flagged as inauthentic.<br><br>
+<strong>5. Mark was never claimed to be an eyewitness, and Mark's resurrection ending was added later.</strong><br>
+Christian tradition never said Mark was a disciple of Jesus. It said Mark was the interpreter of Peter, which is secondhand testimony by definition. And the Gospel of Mark, the earliest of the four and the source the others copied, originally ended at Mark 16 verse 8 with the women fleeing the empty tomb in silence and no resurrection appearances at all. The familiar resurrection ending was added by later scribes. The Church Fathers Eusebius and Jerome both noted that the most accurate manuscripts ended at verse 8, and the longer ending is absent from the oldest complete manuscripts, Codex Sinaiticus and Codex Vaticanus.<br><br>
 
-<strong>6. The Luke problem — Luke admits he was not an eyewitness.</strong><br>
-Luke 1:1–3 is one of the most quietly devastating passages in the New Testament for the eyewitness claim. The author opens his Gospel by saying that "many" had already attempted to compile accounts, that he himself received material that was "handed down" to him by others, and that he then "investigated" everything carefully. Translate that plainly: the author of Luke is admitting, in writing, that he was not present for the events he describes, that the field was already crowded with prior accounts when he wrote, and that his Gospel is a researched compilation of secondhand material. This does not destroy the traditional attribution to Luke the physician, companion of Paul — but Luke the physician never met Jesus. So even granting the traditional authorship, the Gospel of Luke is by its own admission not eyewitness testimony to Jesus. The Christian claim that the Gospels rest on eyewitness authority has just lost one of its four pillars by internal confession.<br><br>
+<strong>6. Count it up, using only the defenders' own claims.</strong><br>
+The tradition itself only ever claimed two of the four authors as eyewitnesses of Jesus: Matthew and John. Mark and Luke were companions, not witnesses, by the tradition's own account. Now apply the defenders' own champion: Bauckham removes the apostle John. That leaves Matthew. And the Catholic Church calls Matthean authorship untenable because Matthew copied ninety percent of non-eyewitness Mark. So the strongest position the defenders' own sources permit is, at most, one disputed eyewitness out of four, and that one reproduced the work of a non-witness. Four eyewitness Gospels is not the strong claim it sounds like. It is the claim the defenders' own scholarship takes apart.<br><br>
 
-<strong>7. The John problem — the Gospel itself records its own editorial seam.</strong><br>
-The Gospel of John never names its author. The text refers to a figure called "the disciple whom Jesus loved" and at the end, in John 21:24, an editorial voice says: "This is the disciple who testifies to these things and who wrote them, and we know that his testimony is true." The shift to first-person plural — "we know" — is universally recognised by scholars as the voice of a community, not the original author. The community is writing about the beloved disciple in the third person and vouching for him. This is an editorial seam — the Gospel of John admits, on its own pages, that it was finalised by a community after the beloved disciple's death. The identification of that disciple as John son of Zebedee is Irenaeus's deduction, not the text's own statement. And Richard Bauckham, the strongest contemporary academic defender of Johannine eyewitness testimony, has argued the beloved disciple was probably not John son of Zebedee at all but a separate figure called John the Elder. Even the conservative reconstruction abandons the traditional apostolic authorship.<br><br>
-
-<strong>Pre-empting the strongest Christian counter — Bauckham's eyewitness Gospels thesis.</strong><br>
-Apologists today increasingly cite Richard Bauckham's <em>Jesus and the Eyewitnesses</em> (2006) to argue that the Gospels rest on eyewitness testimony. Read Bauckham carefully. His actual argument is that eyewitness <em>traditions</em> stand <em>behind</em> the Gospels — not that named apostles authored them. Bauckham still concedes that the Gospels are formally anonymous, that the titles were added later, and that the named apostolic attribution chain is post-eyewitness. So even the strongest scholarly defender of Gospel reliability does not reach the conclusion that Christian popular apologetics requires — namely, that Matthew the apostle wrote Matthew, that John son of Zebedee wrote John, and so on. That popular claim is unsupported even by its own most credentialed academic defender.<br><br>
-
-<strong>Pre-empting the tu quoque — "your Quran has the same problem."</strong><br>
-A Christian apologist who has lost the textual debate often pivots: "by your own standard, the Quran is just as anonymous and just as late." This is not true and the difference is structural, not rhetorical. The Quran was written down during the Prophet's lifetime by scribes he assigned to record revelation. It was memorised in full by direct companions who heard it from the Prophet himself. The Uthmanic codex was standardised approximately twenty years after the Prophet's death, using direct companion witnesses still living. The Sana'a manuscripts, the oldest surviving fragments of the Quran, show only orthographic variants — not theological variants, not contested authorship, not missing endings, not anonymous redactors. By contrast, the four Gospels were written in Greek (not the language Jesus spoke), four to seven decades after the events, by unnamed authors, in different communities, with documented later additions including the resurrection ending of Mark. The two textual histories are not analogous. The Quran's preservation is precisely what the Gospels lack.<br><br>
+<strong>7. The names are not a forgery problem, and the Tacitus parallel backfires.</strong><br>
+Defenders ask why a forger would pick a despised tax collector and two non-apostles rather than prominent names. The question assumes a false choice between genuine eyewitness authorship and deliberate forgery. The actual explanation is neither: organic traditional attribution that simply may be wrong. And the names follow a clear logic of apostolic proxy. Mark was tied to Peter as his interpreter, Luke to Paul as his companion. The early church anchored anonymous texts to apostolic authority through known associates. That explains the picks without requiring a single eyewitness. As for the comparison defenders love, that we accept Tacitus or Plutarch wrote their works on attribution that surfaced a century or more later, it concedes the entire point: it admits Gospel authorship rests on the same late tradition, not on the texts and not on witnesses. And no one stakes their eternal soul on who wrote the Annals. A claim of divine eyewitness testimony to a resurrection demands far more than most likely, by later tradition.<br><br>
 
 <strong>The Quranic standard.</strong><br>
-Allah's standard for what counts as revelation is set in <strong>Surah An-Najm 53:3–4</strong>: the messenger does not speak from his own inclination — what he conveys is revelation revealed. Direct. From God. To the prophet. This is the Quranic definition of scripture. Anonymous Greek narratives compiled forty to seventy years after the events by non-eyewitnesses, copying from each other, with editorial seams, redacted endings, and an attribution chain that crystallises only with one bishop in 180 CE — do not meet that standard. The Quran does not deny that Allah gave Isa a revelation called the Injil. It denies that the four anonymous Greek Gospels of the New Testament are that revelation. The historical record of Gospel authorship, established by Christian scholarship itself, confirms exactly what the Quran said fourteen centuries ago.<br><br>
+Allah's standard for revelation is set in 53:3-4: the messenger does not speak from his own desire, and what he conveys is revelation revealed, direct from God to the prophet. And the Quran warns against precisely the process that produced the Gospels in 2:79: woe to those who write the Scripture with their own hands, then say it is from Allah. Anonymous biographies, titled by the later church, copying one another, with at most one disputed eyewitness among the four, do not meet that standard. The Quran does not deny that Allah gave Isa a revelation called the Injil. It denies that four traditionally-attributed Greek biographies are that revelation.<br><br>
 
-People can reject this. Rejecting it does not make it incorrect. Every claim in this entry is sourced to mainstream Christian and academic scholarship. The chain breaks where it breaks. The Quran's verdict stands.`,
+People can reject this. Rejecting it does not make it incorrect. Every load-bearing point here is conceded by Christian scholarship itself: the Catholic Church on Matthew, Bauckham on John, the tradition itself on Mark and Luke. The defenders proved the titles are old. They never proved that an eyewitness wrote a single word.`,
     verse: {
       arabic: "وَمَا يَنطِقُ عَنِ الْهَوَىٰ ۚ إِنْ هُوَ إِلَّا وَحْيٌ يُوحَىٰ",
       translation: "Nor does he speak from his own desire. It is not but a revelation revealed.",
@@ -2418,30 +2771,57 @@ People can reject this. Rejecting it does not make it incorrect. Every claim in 
   },
   {
     id: 23,
-    myth: "The Gospel of John is a reliable eyewitness account proving Jesus claimed to be God",
+    myth: "The Gospel of John is reliable eyewitness testimony proving Jesus claimed to be God",
     source: "christian",
     difficulty: "Advanced",
     locked: true,
-    claim: "Christian apologists argue that the Gospel of John is a first-hand eyewitness account written by the apostle John — the disciple Jesus loved — and that its unique theology, including the Logos prologue and the I AM statements, represents Jesus's own direct claims to divine identity. They use John as the primary scriptural foundation for the Trinity and the incarnation.",
-    rebuttal: `Start with the foundation of the argument. The Gospel of John is anonymous. The author never once names himself in the text. The title "According to John" was added by church tradition, and the first person to specifically attribute it to John the son of Zebedee was Irenaeus, a bishop who wrote around 185 CE — nearly a century after the Gospel was written. Bart Ehrman, Professor of Religious Studies at the University of North Carolina and one of the world's leading New Testament scholars, states plainly: <em>"The Gospel is anonymous. The author chose never to name himself."</em> Your entire Trinitarian argument rests on a document whose author you cannot identify. <a href="https://www.bartehrman.com/who-wrote-the-gospel-of-john/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Who Wrote the Gospel of John?</a><br><br>
+    claim: "Christian apologists argue that the Gospel of John provides direct eyewitness testimony from the apostle John son of Zebedee, that the Gospel records Jesus's own divine self-identification through statements like 'I and the Father are one' and 'before Abraham was, I am,' and that this Johannine evidence establishes the Trinity and the divinity of Jesus as historical fact.",
+    rebuttal: `Start with the foundation of the argument. The Gospel of John is anonymous. The author never once names himself in the text. The title "According to John" was added by church tradition. The first person to specifically attribute it to John son of Zebedee was Irenaeus of Lyon, a bishop writing around 180 CE in Against Heresies 3.1.1 — roughly 80 to 90 years after the Gospel was composed. The New American Bible Revised Edition, the official Catholic translation, concedes the Gospel's authorship is unknown. Father Raymond Brown, the foremost Catholic Johannine scholar of the 20th century and author of the Anchor Bible Commentary on John, concluded the Gospel went through multiple editorial layers and wasn't written by John son of Zebedee. Bart Ehrman, Professor of Religious Studies at the University of North Carolina, states plainly that the Gospel is anonymous and the author chose never to name himself. The Oxford Annotated Bible and HarperCollins Study Bible agree. The Trinitarian case rests on a document whose author the Church itself can't identify.<br><a href="https://www.newadvent.org/fathers/0103301.htm" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Irenaeus, Against Heresies 3.1.1 (New Advent)</a> &nbsp;·&nbsp; <a href="https://bible.usccb.org/bible/john/0" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ USCCB — Official Catholic Introduction to John</a> &nbsp;·&nbsp; <a href="https://www.thegospelcoalition.org/themelios/review/the-gospel-according-to-john-2/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Raymond Brown, Anchor Bible Commentary (TGC Review)</a> &nbsp;·&nbsp; <a href="https://ehrmanblog.org/why-are-the-gospels-anonymous/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Why Are the Gospels Anonymous?</a><br><br>
 
-Beyond authorship, there is a more fundamental problem. Over 90% of John's content does not appear in Matthew, Mark, or Luke. The Sermon on the Mount is not in John. The Lord's Prayer is not in John. The Transfiguration is not in John. The institution of communion is not in John. Jesus casting out demons — not once in John. The parables — entirely absent from John. If John the son of Zebedee walked with Jesus for three years and witnessed all of this, why did three other Gospel writers independently omit 90% of everything he supposedly saw? <a href="https://bible.org/seriespage/2-major-differences-between-john-and-synoptic-gospels" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bible.org — Major Differences Between John and the Synoptics</a><br><br>
+<strong>The Synoptic silence.</strong><br>
+Beyond authorship, there's a deeper problem. Over 90% of John's content doesn't appear in Matthew, Mark, or Luke. The Sermon on the Mount. Not in John. The Lord's Prayer. Not in John. The Transfiguration. Not in John. The institution of communion. Not in John. Jesus casting out demons. Not once in John. The parables. Entirely absent from John. If John son of Zebedee walked with Jesus for three years and witnessed all of this, why did three earlier Gospel writers independently leave out ninety percent of everything he supposedly saw? The more honest answer is that they didn't leave it out. John added it. The Synoptic Gospels were written first. John was written last. The material unique to John is material that wasn't part of the earlier Christian tradition.<br><a href="https://ehrmanblog.org/jesus-miracles-in-john-and-the-synoptics/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Jesus' Miracles in John and the Synoptics</a><br><br>
 
-The I AM statements are the same story. <em>"I am the light of the world." "I am the way, the truth, and the life." "Before Abraham was, I am."</em> None of those appear in Matthew, Mark, or Luke. Not once. Ehrman puts it directly: <em>"In the Synoptic Gospels, Jesus is hesitant, afraid even, to speak about himself. In John, however, Jesus not only embraces talk about his divinity, but he also publicly declares it."</em> So the question is simple: if Jesus was openly declaring his divine identity throughout his ministry, why did three separate writers independently choose to leave out every single instance of it? Either they suppressed the most important statements Jesus ever made about himself — or those statements were never part of the original tradition and developed later in John's community. <a href="https://ehrmanblog.org/differences-between-john-and-the-synoptics/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Differences Between John and the Synoptics</a><br><br>
+<strong>The I AM statements appear only in John.</strong><br>
+"I am the light of the world." "I am the way, the truth, and the life." "Before Abraham was, I am." None of those appear in Matthew, Mark, or Luke. Not once. Ehrman puts it directly: in the Synoptic Gospels, Jesus is hesitant, almost afraid, to speak about himself. In John, Jesus not only embraces talk about divinity — he publicly declares it. The question writes itself. If Jesus was openly declaring his divine identity throughout his ministry, why did three separate writers leave out every single instance of it? Either they suppressed the most important statements Jesus ever made about himself, or those statements were never part of the original tradition and developed later in John's community.<br><a href="https://ehrmanblog.org/is-this-the-same-teacher/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Is This the Same Teacher?</a> &nbsp;·&nbsp; <a href="https://ehrmanblog.org/jesus-as-divine-in-the-synoptics/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Bart Ehrman — Jesus as Divine in the Synoptics</a><br><br>
 
-Look at how Jesus dies. In Matthew 27:46 and Mark 15:34 his last words are: <em>"My God, my God, why have you forsaken me?"</em> Abandonment. Agony. A genuine cry of doubt. In John 19:30 he says: <em>"It is finished."</em> Calm. Complete. In control. These are not two descriptions of the same emotional state. They are two completely different people dying. A God incarnate who knows he is rising in three days does not cry out feeling forsaken by God. The Jesus of Matthew and Mark and the Jesus of John die as different people.<br><br>
+<strong>The earliest Gospel actively contradicts the divinity claim.</strong><br>
+In Mark 10 verse 18, Jesus says: "Why do you call me good? No one is good except God alone." The earliest Gospel has Jesus refusing the title "good" because it belongs to God alone. Jesus, in his own words, in the earliest source, distinguishes himself from God.<br><br>
 
-Then there is the passage you may know best from John: the woman caught in adultery. <em>"Let he who is without sin cast the first stone."</em> That story was added to the Gospel by scribes centuries after it was written. It does not appear in any Greek manuscript of John before the fifth century. The two earliest manuscripts that contain the full Gospel — Papyrus 66 and Papyrus 75, dated 175 to 225 CE — do not have it. Daniel B. Wallace of Dallas Theological Seminary, a conservative evangelical scholar, confirmed: <em>"The great majority of scholars hold that the pericope adulterae is not original to John's Gospel. The first manuscript of John to include this story is Codex Bezae, which dates to the fifth century."</em> Scribes inserted a passage into John in the 400s. The question worth sitting with is: if that was inserted, what else was? <a href="https://danielbwallace.com/2013/06/26/where-is-the-story-of-the-woman-caught-in-adultery-really-from/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Daniel B. Wallace, Dallas Theological Seminary</a><br><br>
+<strong>Three Gospels can't agree on his last words.</strong><br>
+In Matthew 27 verse 46 and Mark 15 verse 34, the dying Jesus cries: "My God, my God, why have you forsaken me?" A cry of abandonment. In Luke 23 verse 46 his last words are: "Father, into thy hands I commend my spirit." A surrender of trust. In John 19, verse 30 he says: "It is finished." Calm. Complete. In control. Three Gospels. Three completely different death scenes. The Jesus of Matthew and Mark dies feeling forsaken by God. The Jesus of Luke dies trusting the Father. The Jesus of John dies as if delivering a stage cue. A divine incarnation who knows he is rising in three days doesn't cry out feeling forsaken. These aren't four accounts of one event. They're different theological portraits of how the early Christian community needed Jesus to die.<br><br>
 
-The prologue of John has its own scribal problem. John 1:18 reads: <em>"No one has ever seen God; the only begotten [blank] has made him known."</em> In the oldest manuscripts — Papyrus 66, Papyrus 75, Codex Sinaiticus, and Codex Vaticanus — the word in that blank is theos, meaning God. In later medieval manuscripts it was changed to huios, meaning Son. The single most theologically loaded verse in the Johannine prologue had its key word altered by scribes. <a href="https://beliefmap.org/bible/john/1-18-only-begotten" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ BeliefMap — John 1:18 Textual Variant, citing Metzger, NET Bible, Pillar Commentary</a><br><br>
+<strong>The Pericope Adulterae was inserted by scribes.</strong><br>
+The passage you may know best from John — the woman caught in adultery, "let he who is without sin cast the first stone" — was added to the Gospel by scribes centuries after it was written. It doesn't appear in any Greek manuscript of John before the fifth century. The two earliest manuscripts that contain the full Gospel, Papyrus 66 and Papyrus 75 dated 175 to 225 CE, don't have it. Codex Sinaiticus and Codex Vaticanus, both fourth century, don't have it. Daniel B. Wallace of Dallas Theological Seminary, a conservative evangelical scholar and founder of the Center for the Study of New Testament Manuscripts, confirmed that the great majority of scholars hold the pericope adulterae is not original to John, and that the first manuscript of John to include this story is Codex Bezae, which dates to the fifth century. Scribes inserted a passage into the canonical Gospel in the 400s. The question worth sitting with: if that was inserted, what else was?<br><a href="https://www.csntm.org" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Daniel B. Wallace — Center for the Study of New Testament Manuscripts</a><br><br>
 
-And after all of that — the Logos theology, the I AM statements, the pre-existence — John 20:17 has post-resurrection Jesus say to Mary Magdalene: <em>"I ascend unto my Father and your Father — and to my God and your God."</em> At the peak of the supposed divine revelation, Jesus calls the Father his God. God does not have a God above Him. The author of John, in his own text, recorded a statement from Jesus that contradicts the theology he placed at the beginning of the same book.<br><br>
+<strong>The Johannine prologue is textually unstable.</strong><br>
+John 1 verse 18 reads: "No one has ever seen God; the only begotten [blank] has made him known." The blank is the problem. The same verse, in the same position, with the same Christological function, reads differently depending on which manuscript you're holding. The single most theologically charged word in John's prologue was not preserved consistently across the manuscript tradition. Scribes changed what Jesus was called — in the verse that carries the entire weight of the Johannine Logos theology. The NET Bible's translator notes document the instability in full.<br><a href="https://netbible.org/bible/John+1" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ NET Bible — Translator's Notes on John 1 verse 18</a><br><br>
 
-The Quran's account of Jesus is consistent throughout. He is Al-Masih, the Messiah (3:45). Kalimatullah, the Word of Allah (4:171). Ruhun minhu, a Spirit from Him (4:171). Born of a virgin. Performing miracles by the permission of Allah. Taken up by Allah. The Quran honors Jesus with titles given to no other prophet and never once contradicts itself about who he is. Peter's own testimony in Acts 2:22 describes Jesus as <em>"a man approved of God among you by miracles and wonders and signs, which God did by him"</em> — God working through him, not him acting as God. That matches Matthew. That matches Mark. That matches Luke. That matches the Quran. John stands alone. And the manuscript evidence shows exactly why.`,
+<strong>John destroys itself. Three times.</strong><br>
+After all of it. The Logos theology. The I AM statements. The pre-existence claims. John 20 verse 17 records the post-resurrection Jesus saying to Mary Magdalene: "I ascend unto my Father and your Father, and to my God and your God." At the peak of the supposed divine revelation, Jesus calls the Father his God. God does not have a God above Him. The author of John, in his own text, recorded a statement from Jesus that demolishes the theology he placed at the beginning of the same book.<br><br>
+
+John 14 verse 28 has Jesus saying: "The Father is greater than I." Not equal. Greater.<br><br>
+
+John 17 verse 3 has Jesus praying to the Father and calling him "the only true God." If the Father is the only true God, by Jesus's own words in John, Jesus is not that God.<br><br>
+
+Three verses. Same Gospel. Same author. The Trinitarian reading doesn't survive John itself.<br><br>
+
+<strong>Pre-empting the hypostatic union dodge.</strong><br>
+Apologists who can no longer defend the text will pivot to theology. They'll argue that Jesus speaking of "my God" is the human nature speaking, while the divine nature remained one with the Father. This is the hypostatic union, a doctrine formalised at the Council of Chalcedon in 451 CE, more than four hundred years after Jesus. It's not in the text. The text doesn't say "Jesus, speaking from his human nature, said." The text says Jesus said it. The hypostatic union is post-Nicene theological scaffolding built specifically to escape what the Gospels actually say. Inventing a fifth-century doctrine to rescue a first-century text proves the text doesn't say what they need it to say.<br><br>
+
+<strong>The Quranic account of Jesus.</strong><br>
+The Quran's account of Jesus is consistent throughout. He is Al-Masih, the Messiah (3:45). Kalimatullah, the Word of Allah (4:171). <em>Ruhun minhu</em>, a Spirit from Him (4:171). Servant of Allah, by his own words from the cradle (19:30). Born of a virgin. Performing miracles by the permission of Allah. Taken up by Allah. The Quran honors Jesus with titles given to no other prophet and never once contradicts itself about who he is.<br><br>
+
+Peter's own testimony in Acts 2 verse 22 describes Jesus as "a man approved of God among you by miracles and wonders and signs, which God did by him." God working through him. Not him acting as God. That matches Matthew. That matches Mark. That matches Luke. That matches Acts. That matches the Quran (61:6). John stands alone. And the manuscript evidence shows exactly why.<br><br>
+
+<strong>Pre-empting the tu quoque.</strong><br>
+A final move some apologists will try: "by your own standard, the Quran has the same problem." It doesn't. The Quran was written down during the Prophet's lifetime by scribes he appointed, memorised in full by direct companions who heard it from him, and standardised approximately twenty years after his death using living witnesses. The Sana'a manuscripts, the oldest surviving fragments of the Quran, show only orthographic variants. No theological variants. No missing endings. No anonymous redactors. The four Gospels were written in Greek decades after Jesus, by unnamed authors, in different communities, with documented later additions including the pericope adulterae and the Markan resurrection ending. The two textual histories aren't analogous. The Quran's preservation is precisely what the Gospels lack.<br><a href="https://en.wikipedia.org/wiki/Uthmanic_codex" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Uthmanic Codex — Wikipedia</a> &nbsp;·&nbsp; <a href="https://en.wikipedia.org/wiki/Sanaa_manuscript" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;">↗ Sana'a Manuscript — Wikipedia</a><br><br>
+
+<strong>The verdict.</strong><br>
+People can reject all of this. Rejecting it doesn't make it incorrect. Every claim here is sourced to mainstream Christian and academic scholarship. Catholic. Protestant. Evangelical. Secular. The Trinitarian argument from John was built on a text whose author the Church can't identify, whose content the earliest Christian witnesses contradict, whose preservation includes documented late insertions and unstable readings, and which contains within itself multiple verses where Jesus distinguishes himself from God. The Quran said this fourteen hundred years ago. The manuscripts have caught up.`,
     verse: {
-      arabic: "وَإِذْ قَالَ عِيسَى ابْنُ مَرْيَمَ يَا بَنِي إِسْرَائِيلَ إِنِّي رَسُولُ اللَّهِ إِلَيْكُم",
-      translation: "And when Jesus son of Mary said: O Children of Israel, I am the messenger of Allah to you.",
-      ref: "Surah As-Saf 61:6 — The Quran's Jesus identifies himself as a messenger of Allah — consistent with how Jesus describes himself in Matthew, Mark, and Luke. The divine identity claims exist in John alone, are absent from the three earlier Synoptic Gospels, from Acts 2:22, and are contradicted by John 20:17 where post-resurrection Jesus calls the Father his God."
+      arabic: "قَالَ إِنِّي عَبْدُ اللَّهِ آتَانِيَ الْكِتَابَ وَجَعَلَنِي نَبِيًّا",
+      translation: "He said: Indeed, I am the servant of Allah. He has given me the Scripture and made me a prophet.",
+      ref: "Surah Maryam 19:30"
     }
   },
   {
@@ -2472,6 +2852,137 @@ Produce one manuscript — dated, verified, academically accepted — that conta
       arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ",
       translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
       ref: "Surah Al-Hijr 15:9 — A promise with 1,400 years of physical, scientific, and academic verification. The Birmingham Quran manuscript was carbon-dated to 568–645 CE by Oxford University. Non-Muslim scholars William Muir, John Burton, and Stanley Lane-Poole all confirmed the Quran's textual purity. Ten million people have it memorized simultaneously. The challenge stands: produce one verified manuscript with different meaning. It has never been done."
+    }
+  },
+  {
+    id: 25,
+    myth: "Muhammad married Zaynab, his adopted son's ex-wife, out of lust and invented a revelation to justify it",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Critics — Christian apologists, Orientalists, and ex-Muslims — argue that Prophet Muhammad desired Zaynab bint Jahsh, the wife of his adopted son Zayd, that Zayd divorced her so Muhammad could marry her, and that Muhammad then produced a self-serving revelation (Surah 33:37) to permit the marriage, proving he used divine revelation to satisfy personal desire.",
+    rebuttal: `The charge collapses on three grounds: the explicit text of the Quran, the historical record of the marriage, and the Bible's own far more scandalous parallels involving the figures Christians revere most.<br><br>
+
+<strong>1. The Quran states the purpose of the marriage in the verse itself. It is legislative, not romantic.</strong><br>
+Surah 33:37 names the reason directly: the marriage took place so that there would be no discomfort upon the believers concerning the wives of their adopted sons once those marriages had ended. The verse legislates. It abolishes the pre-Islamic custom of tabanni, under which an adopted son was treated as a biological son, which made marrying his former wife taboo. The Quran had already dismantled that custom in 33:5: call adopted children by the names of their real fathers, for that is more just before Allah, and if their fathers are unknown they are your brothers in religion. And 33:40 seals it: Muhammad is not the father of any of your men, but the Messenger of Allah and the seal of the prophets. The marriage to Zaynab was the public enactment of a legal reform the Quran had already announced. The purpose is in the text. No one has to guess at a hidden motive.<br><br>
+
+<strong>2. Muhammad arranged Zaynab's marriage to Zayd in the first place. This one fact dismantles the lust claim.</strong><br>
+Zaynab was Muhammad's own cousin, the daughter of his paternal aunt. He knew exactly who she was and what she looked like his entire life. And it was Muhammad himself who arranged her marriage to Zayd, his freed slave and adopted son, an arrangement Zaynab and her noble family initially resisted because of the difference in social rank. If Muhammad had desired Zaynab, he had every opportunity to marry her himself and instead gave her in marriage to Zayd. A man does not marry off a woman he secretly covets to his own adopted son. The lust narrative requires Muhammad to have burned for a woman he personally arranged to hand to someone else. <a href="https://en.wikipedia.org/wiki/Zaynab_bint_Jahsh" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Zaynab bint Jahsh, biographical record of the arranged marriage to Zayd</em></a><br><br>
+
+<strong>3. The lustful version of the story is absent from the earliest biographies, and its details were borrowed from the Bible.</strong><br>
+The lurid story, Muhammad glimpsing Zaynab undressed and falling for her, appears in none of the five earliest biographers of the Prophet: Urwah ibn al-Zubayr, Ibn Shihab al-Zuhri, Musa ibn Uqbah, Mamar ibn Rashid, and Ibn Ishaq, every one of whom died within roughly 140 years of the migration. Anyone can verify this in their surviving works. The lovestruck story surfaces only later, in a handful of obscure exegetical reports carrying weak chains of transmission. Detailed historiographic analysis of how the story developed shows its lurid details were drawn by deliberate parallel with the Biblical account of David and Bathsheba. The story critics tell about Muhammad was retrofitted onto the Quran by later transmitters borrowing the structure of a scandal that sits, fully, in the Bible itself.<br><br>
+
+<strong>4. The Bible commands its prophets into marriages far more shocking than this one. This is where the charge turns around completely.</strong><br>
+Every element critics attack in Muhammad's marriage exists in equal or worse form in the Bible, attached to figures Christians revere, several of them in the direct bloodline of Jesus.<br><br>
+
+God commanded the prophet Hosea to marry a prostitute. Hosea chapter 1 verse 2 records the direct command: take to yourself a wife of whoredom. This was a divine command placing a prophet into a socially shocking marriage to teach the community a theological lesson, the exact structure critics object to in Muhammad's case, except the woman here was a working prostitute, not a lawfully divorced believer. Christian scholarship states this without flinching. <a href="https://www.crossway.org/articles/why-did-god-command-hosea-to-marry-a-prostitute-hosea-1-3/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Crossway: Why Did God Command Hosea to Marry a Prostitute</em></a> &nbsp;·&nbsp; <a href="https://www.gotquestions.org/Hosea-marry-prostitute.html" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ GotQuestions: Why did God tell Hosea to marry a prostitute</em></a><br><br>
+
+The Torah commands a man to marry his dead brother's widow. Deuteronomy chapter 25 verses 5 to 10 makes levirate marriage obligatory, even though marriage to a brother's wife is otherwise explicitly forbidden in Leviticus chapter 18 verse 16. Divine law overrode a standing marriage prohibition to preserve a dead man's lineage and protect the widow's inheritance, the same legal logic that drives the abolition of the adoption taboo. Jewish and Christian institutions document this directly. <a href="https://www.encyclopedia.com/religion/encyclopedias-almanacs-transcripts-and-maps/levirate-marriage-and-halizah" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Encyclopedia.com / Jewish Encyclopedia on levirate marriage</em></a> &nbsp;·&nbsp; <a href="https://enterthebible.org/passage/deuteronomy-255-10-levirate-marriage/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ Luther Seminary, Enter the Bible: the law protected the widow and inheritance</em></a><br><br>
+
+The bloodline of Jesus runs through a father-in-law and his daughter-in-law. Genesis chapter 38 records that Judah the patriarch fathered a child with his widowed daughter-in-law Tamar, whom he had mistaken for a prostitute. Their son Perez appears in the genealogy of Jesus in Matthew chapter 1 verse 3. <a href="https://www.myjewishlearning.com/article/levirate-marriage-and-halitzah/" target="_blank" rel="noopener" style="color:#c9a84c;text-decoration:none;font-size:.8rem;"><em>↗ My Jewish Learning on Judah and Tamar</em></a><br><br>
+
+And King David, the model king of the Bible, saw Bathsheba bathing, took her while she was another man's wife, and arranged her husband Uriah's death in battle before marrying her. Second Samuel chapters 11 and 12 record it in full. Their son Solomon also sits in the line of Jesus. That is actual adultery and actual murder by a revered prophet-king. Note this carefully: this is the Bible's own portrayal of David, presented here as the Christian's own scripture. Islam honors Dawud as a noble prophet and rejects this account. The point is only that the standard a critic applies to Muhammad's lawful marriage would condemn the most celebrated king in their own Bible many times over.<br><br>
+
+<strong>5. Even the hadith corpus critics cherry-pick portrays Zaynab as honored, not victimised.</strong><br>
+The same body of narrations critics raid for the lovestruck story also records Zaynab boasting to the Prophet's other wives that while their families had arranged their marriages, her marriage was arranged by Allah from above the seven heavens. Critics quote the corpus selectively, lifting the lurid report while ignoring the one that shows Zaynab herself regarded the marriage as the highest honor any of the wives received.<br><br>
+
+<strong>6. The deeper wisdom: the reform protected the vulnerable.</strong><br>
+The abolition of false adoption was one pillar of the Quran's wider architecture of justice toward the vulnerable. The Quran forbids exploiting orphans in the strongest terms: those who devour the wealth of orphans unjustly swallow fire into their bellies (4:10); give orphans their property and do not consume it unjustly (4:2); and do not oppress the orphan (93:9). In pre-Islamic Arabia, the adoption system blurred lineage and inheritance, opening the door to exactly this kind of exploitation, where a guardian could absorb a child's name, lineage, and wealth. By restoring every child to their true father and name (33:5), the reform protected the integrity of inheritance and the rights of the vulnerable. The marriage critics reduce to lust was the keystone of a reform that protected orphans.<br><br>
+
+<strong>Verdict.</strong><br>
+The Quran states the marriage's purpose openly. Muhammad arranged Zaynab's prior marriage to Zayd himself, which no man does to a woman he covets. The lustful version of the story is absent from the earliest sources, and its details were lifted from the Bible's account of David and Bathsheba. And the Bible itself contains a prophet commanded by God to marry a prostitute, a divine law mandating marriage to a brother's widow, the line of the Messiah running through a father-in-law and his daughter-in-law, and a revered king who committed adultery and arranged a murder. The standard used to attack Muhammad's lawful, divinely legislated marriage would demolish half the heroes of the Bible. People can reject this. Rejecting it does not make it incorrect.`,
+    verse: {
+      arabic: "فَلَمَّا قَضَىٰ زَيْدٌ مِّنْهَا وَطَرًا زَوَّجْنَاكَهَا لِكَيْ لَا يَكُونَ عَلَى الْمُؤْمِنِينَ حَرَجٌ فِي أَزْوَاجِ أَدْعِيَائِهِمْ",
+      translation: "So when Zayd had no longer any need for her, We married her to you, in order that there not be upon the believers any discomfort concerning the wives of their adopted sons.",
+      ref: "Surah Al-Ahzab 33:37"
+    }
+  },
+  {
+    id: 17,
+    myth: "The Bible is the perfectly preserved, error-free Word of God — the Quran is the one full of contradictions",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: false,
+    claim: "Christian apologists attack the Quran by claiming it contains contradictions, while asserting the Bible is the internally consistent, perfectly preserved Word of God. The standard they apply to the Quran is the one their own scripture cannot survive.",
+    rebuttal: `The Quran sets its own test in 4:82: <em>\"Then do they not reflect upon the Quran? If it had been from other than Allah, they would have found within it much contradiction.\"</em> The challenge is a falsifiable criterion. Apply that same standard to the Bible — and the Bible fails it in every category: chronology, authorship, theology, biography, and the most important event in Christianity. These are not interpretation disputes. They are direct, irreconcilable contradictions within the same text.<br><br>
+
+<strong>CATEGORY 1 — CHRONOLOGICAL CONTRADICTIONS</strong><br><br>
+
+<strong>Ahaziah's age.</strong> 2 Kings 8 verse 26 says Ahaziah was twenty-two years old when he began to reign. 2 Chronicles 22 verse 2 says he was forty-two. Both cannot be true. This is not a translation issue — the Hebrew manuscripts themselves record different numbers. The father (Jehoram, see 2 Chronicles 21 verse 20) died at age forty, so a forty-two-year-old son would be two years older than his own father. This is not a copyist's honest mistake that apologists can dismiss — it is a mathematical impossibility preserved in the text that Christians claim is inerrant.<br><br>
+
+<strong>Jehoiachin's age.</strong> 2 Kings 24 verse 8 records Jehoiachin as eighteen years old when he began to reign. 2 Chronicles 36 verse 9 records him as eight years old. The difference is ten years. This discrepancy has no resolution within the text itself. Both books are claiming to record the same historical event.<br><br>
+
+<strong>David's census — two numbers.</strong> 2 Samuel 24 verse 9 records the census total as 800,000 men for Israel and 500,000 for Judah. 1 Chronicles 21 verse 5 records 1,100,000 for Israel and 470,000 for Judah. The numbers differ by 300,000 for Israel and 30,000 for Judah in the same census. These are not estimates — they are presented as precise military tallies.<br><br>
+
+<strong>David's census — the punishment offer.</strong> In 2 Samuel 24 verse 13, God offers David a choice of seven years of famine. In 1 Chronicles 21 verse 12, the same divine offer is three years of famine. Either the Bible records God correctly or it does not.<br><br>
+
+<strong>Solomon's horse stalls.</strong> 1 Kings 4 verse 26 records forty thousand stalls of horses. 2 Chronicles 9 verse 25 records four thousand stalls. A difference of 36,000 stalls in what both books present as the same reign of the same king.<br><br>
+
+<strong>CATEGORY 2 — WHO DID WHAT</strong><br><br>
+
+<strong>Who killed Goliath?</strong> 1 Samuel 17 establishes that David killed Goliath. Then 2 Samuel 21 verse 19 states, in the Hebrew, that Elhanan killed Goliath. The KJV adds the italicised words <em>\"the brother of\"</em> to make it say brother of Goliath — but those words are not in the Hebrew. They were inserted by translators trying to resolve a contradiction. 1 Chronicles 20 verse 5 reads \"Elhanan the son of Jair slew Lahmi the brother of Goliath.\" The parallel accounts cannot agree on who killed whom. The addition of words not present in the source text to manufacture harmony is itself a form of corruption.<br><br>
+
+<strong>Who incited David to take the census?</strong> 2 Samuel 24 verse 1 explicitly states that God moved David to number Israel. 1 Chronicles 21 verse 1 explicitly states that Satan stood up against Israel and provoked David to number Israel. God and Satan are not the same actor. The same triggering event has two incompatible causes recorded by two books of what is claimed to be one unified Word of God.<br><br>
+
+<strong>CATEGORY 3 — THEOLOGICAL CONTRADICTIONS</strong><br><br>
+
+<strong>Does God repent?</strong> 1 Samuel 15 verse 11 and 1 Samuel 15 verse 35 both state that God repented of having made Saul king. But 1 Samuel 15 verse 29 — in the same chapter — states: <em>\"the Strength of Israel will not lie nor repent: for he is not a man, that he should repent.\"</em> God both repents and cannot repent. In the same chapter. By the same author. On the same subject.<br><br>
+
+<strong>The Proverbs self-contradiction.</strong> Proverbs 26 verse 4 commands: <em>\"Answer not a fool according to his folly, lest thou also be like unto him.\"</em> Proverbs 26 verse 5 commands: <em>\"Answer a fool according to his folly, lest he be wise in his own conceit.\"</em> Back-to-back verses. One says do not answer. One says answer. Apologists call this a rhetorical device presenting two perspectives. But that argument concedes the point — the Bible is presenting contradictory human wisdom, not binding divine command. If that logic applies to Proverbs, it must also apply to the passages on faith, on war, on women, and on salvation.<br><br>
+
+<strong>Does God tempt people?</strong> James 1 verse 13 states: <em>\"God cannot be tempted with evil, neither tempteth he any man.\"</em> Genesis 22 verse 1 states: <em>\"God did tempt Abraham.\"</em> The New Testament flatly contradicts the Old Testament on a direct question about the character of God.<br><br>
+
+<strong>Is sin inherited?</strong> Exodus 20 verse 5 declares God will visit <em>\"the iniquity of the fathers upon the children unto the third and fourth generation.\"</em> Ezekiel 18 verse 20 states: <em>\"The son shall not bear the iniquity of the father.\"</em> Deuteronomy 24 verse 16 further confirms: <em>\"The fathers shall not be put to death for the children, neither shall the children be put to death for the fathers: every man shall be put to death for his own sin.\"</em> The two principles are direct opposites — and both are presented as the word of the same God.<br><br>
+
+<strong>Can man see God?</strong> John 1 verse 18 states: <em>\"No man hath seen God at any time.\"</em> Exodus 33 verse 20 states: <em>\"no man see me, and live.\"</em> Yet Genesis 32 verse 30 records Jacob saying: <em>\"I have seen God face to face, and my life is preserved.\"</em> Exodus 33 verse 11 records that God spoke to Moses <em>\"face to face, as a man speaketh unto his friend.\"</em> Isaiah 6 verse 1 records Isaiah saying: <em>\"I saw also the Lord sitting upon a throne.\"</em> The New Testament says no man has ever seen God. The Old Testament records multiple men seeing God directly. These are not metaphorical usages — Jacob explicitly names it, and Moses is described in relational terms that parallel direct vision.<br><br>
+
+<strong>Faith or works?</strong> Romans 3 verse 28 states: <em>\"a man is justified by faith without the deeds of the law.\"</em> Galatians 2 verse 16 repeats: <em>\"by the works of the law shall no flesh be justified.\"</em> James 2 verse 24 states: <em>\"by works a man is justified, and not by faith only.\"</em> Paul and James are in direct contradiction on the mechanism of salvation. Apologists spend entire seminary courses attempting to harmonise these passages. The dissonance is real — and the stakes are not trivial. This is about what saves a human being.<br><br>
+
+<strong>CATEGORY 4 — BIOGRAPHICAL CONTRADICTIONS</strong><br><br>
+
+<strong>Did Saul know David before Goliath?</strong> 1 Samuel 16 verses 21 to 23 records David entering Saul's service as his armourbearer — Saul loved him greatly and David came and stood before him. Then immediately in 1 Samuel 17 verses 55 to 58, after David has just killed Goliath, Saul asks his commander Abner: <em>\"Whose son is this youth?\"</em> Abner replies he does not know. How does Saul ask who this boy is after already knowing him and loving him as an armourbearer? No harmonisation resolves this — the narrative sequence breaks within the same book.<br><br>
+
+<strong>Abraham's only son.</strong> Genesis 22 verse 2 has God commanding Abraham to sacrifice <em>\"thy son, thine only son Isaac.\"</em> But Isaac was never Abraham's only son. Genesis 16 verse 16 records Ishmael being born to Abraham from Hagar — Ishmael was Abraham's firstborn by more than a decade. At the time of the command in Genesis 22, Abraham had two sons. The word <em>\"only\"</em> is factually incorrect within the Bible's own narrative. Apologists argue Ishmael had been sent away — but being absent does not make a living son non-existent. Genesis 17 verse 18 records Abraham praying specifically for Ishmael: <em>\"O that Ishmael might live before thee!\"</em> He remained Abraham's son.<br><br>
+
+<strong>CATEGORY 5 — THE RESURRECTION: MOST IRRECONCILABLE OF ALL</strong><br><br>
+
+The resurrection is the cornerstone event of Christianity — Paul in 1 Corinthians 15:14 writes that if Christ is not raised, faith is vain. If any event in the Bible should be recorded with precision and consistency, it is this one. The four Gospels cannot agree on a single detail.<br><br>
+
+<strong>How many angels at the tomb?</strong> Matthew 28 verse 2 records one angel who descended and rolled back the stone. Mark 16 verse 5 records one young man sitting inside the tomb. Luke 24 verse 4 records two men standing. John 20 verse 12 records two angels sitting — one at the head, one at the feet. Matthew says one outside on the stone. Mark says one inside seated. Luke says two inside standing. John says two inside seated in specific positions. These are four different accounts of the same scene.<br><br>
+
+<strong>Who came to the tomb?</strong> John 20 verse 1 records Mary Magdalene came alone, while it was still dark. Matthew 28 verse 1 records Mary Magdalene and the other Mary. Mark 16 verse 1 records Mary Magdalene, Mary the mother of James, and Salome. Luke 24 verse 10 records Mary Magdalene, Joanna, Mary the mother of James, and other unnamed women. One woman. Two women. Three women. Four or more women.<br><br>
+
+<strong>Was the stone already rolled away?</strong> Mark 16 verse 4 and Luke 24 verse 2 record the women arriving to find the stone already rolled away. Matthew 28 verse 2 describes the angel rolling it away while they were there. These are different sequences of the same event.<br><br>
+
+<strong>What time did they arrive?</strong> Mark 16 verse 2 says they arrived at the rising of the sun. John 20 verse 1 says it was still dark. Rising of the sun and still dark are not the same condition.<br><br>
+
+<strong>CATEGORY 6 — PAUL ON THE ROAD TO DAMASCUS</strong><br><br>
+
+Acts 9 verse 7 states the men travelling with Paul stood speechless, hearing a voice but seeing no man. Acts 22 verse 9 — Paul recounting the same event — states the men saw the light and were afraid but heard not the voice. Acts 26 verse 14 — Paul recounting it again — states that all fell to the earth. Acts 9:7 says the men stood. The same event, recorded in the same book, by the same author, in two direct recountings by the same eyewitness, produces contradictory reports: Did the men hear the voice or not? Did they stand or fall?<br><br>
+
+<strong>CATEGORY 7 — JUDAS'S DEATH</strong><br><br>
+
+Matthew 27 verse 5 records Judas throwing down the silver in the temple, departing, and hanging himself. Acts 1 verse 18 records Judas purchasing a field with the reward of iniquity and falling headlong so that his bowels gushed out. Matthew 27 verses 6 to 7 record the chief priests — not Judas — purchasing the potter's field. In Matthew, Judas hangs himself and the priests buy the field. In Acts, Judas buys the field himself and dies by falling. The mechanism of death, the purchaser of the field, and the sequence of events all differ.<br><br>
+
+<strong>CATEGORY 8 — THE CRUCIFIXION</strong><br><br>
+
+<strong>The hour.</strong> Mark 15 verse 25 records Jesus being crucified at the third hour. John 19 verse 14 records that at the sixth hour, Jesus had not yet been handed over — Pilate was still presenting him to the Jews. The third hour and the sixth hour are not the same time.<br><br>
+
+<strong>The day.</strong> Mark 14 verses 12 to 16 establishes the Last Supper occurs on the first day of Passover when the lamb is killed, meaning the crucifixion is after Passover has begun. John's entire timeline places the crucifixion before Passover begins — Jesus dies when the Passover lambs are being slaughtered, not after. The Synoptic Gospels and John place the crucifixion on different days in the Passover calendar.<br><br>
+
+<strong>Who carried the cross?</strong> Matthew 27 verse 32, Mark 15 verse 21, and Luke 23 verse 26 all record Simon of Cyrene being compelled to carry the cross. John 19 verse 17 records Jesus bearing his own cross to Golgotha. Simon does not appear in John at all.<br><br>
+
+<strong>The last words.</strong> Matthew 27 verse 46 and Mark 15 verse 34 record Jesus crying: <em>\"My God, my God, why hast thou forsaken me?\"</em> Luke 23 verse 46 records his last words as: <em>\"Father, into thy hands I commend my spirit.\"</em> John 19 verse 30 records his last words as: <em>\"It is finished.\"</em> Three completely different final statements attributed to the same moment.<br><br>
+
+<strong>THE CONCLUSION — THE QURAN'S STANDARD STANDS</strong><br><br>
+
+Apply the Quranic test: <em>\"If it had been from other than Allah, they would have found within it much contradiction.\"</em> The Bible has been tested here — not on peripheral matters, but on the core events of its own narrative: creation, the census of a king, the census toll, the hour and day of the crucifixion, the death of a key figure in the faith, the experience of its own authors, and the resurrection itself. The contradictions are not alleged by enemies. They are visible in the text that 2 Timothy 3 verse 16 calls fully God-breathed.<br><br>
+
+The Quran does not claim the Bible is entirely false. It states the Bible has been corrupted — that what humans have in their hands is not the original revelation. The contradictions above are not proof that the prophets lied. They are proof that human hands altered, redacted, and stitched together what was once divine guidance. The Quran alone remains the preserved speech of God — the only scripture that can still pass its own falsifiability test.`,
+    verse: {
+      arabic: "أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا",
+      translation: "Then do they not reflect upon the Quran? If it had been from other than Allah, they would have found within it much contradiction.",
+      ref: "Surah An-Nisa 4:82 — the Quran sets its own falsifiable test for divine origin. The Bible cannot pass it."
     }
   },
   {
@@ -3019,9 +3530,9 @@ function renderEntries(filtered) {
                 <span class="tts-trigger-icon">◈</span> Listen to this rebuttal
               </button>
               <div class="section-label" style="margin-top:1.4rem;">The Claim</div>
-              <div class="myth-claim">"${linkVerseRefs(entry.claim)}"</div>
+              <div class="myth-claim">"${linkBibleRefs(linkVerseRefs(entry.claim))}"</div>
               <div class="section-label">The Rebuttal</div>
-              <div class="rebuttal-text">${linkVerseRefs(entry.rebuttal)}</div>
+              <div class="rebuttal-text">${linkBibleRefs(linkVerseRefs(entry.rebuttal))}</div>
               ${entry.verse ? `
               <div class="section-label">Quranic Foundation</div>
               <div class="quran-verse">
@@ -3075,9 +3586,9 @@ function renderEntries(filtered) {
               <span class="tts-trigger-icon">◈</span> Listen to this rebuttal
             </button>
             <div class="section-label" style="margin-top:1.4rem;">The Claim</div>
-            <div class="myth-claim">"${linkVerseRefs(entry.claim)}"</div>
+            <div class="myth-claim">"${linkBibleRefs(linkVerseRefs(entry.claim))}"</div>
             <div class="section-label">The Rebuttal</div>
-            <div class="rebuttal-text">${linkVerseRefs(entry.rebuttal)}</div>
+            <div class="rebuttal-text">${linkBibleRefs(linkVerseRefs(entry.rebuttal))}</div>
             ${entry.verse ? `
             <div class="section-label">Quranic Foundation</div>
             <div class="quran-verse">
@@ -3320,6 +3831,11 @@ const verseDB = {
     translation: "Establish prayer, give zakah, and bow with those who bow.",
     ref: "Surah Al-Baqarah 2:43"
   },
+  "2:79": {
+    arabic: "فَوَيْلٌ لِّلَّذِينَ يَكْتُبُونَ الْكِتَابَ بِأَيْدِيهِمْ ثُمَّ يَقُولُونَ هَٰذَا مِنْ عِندِ اللَّهِ لِيَشْتَرُوا بِهِ ثَمَنًا قَلِيلًا",
+    translation: "So woe to those who write the Scripture with their own hands, then say, This is from Allah, in order to exchange it for a small price.",
+    ref: "Surah Al-Baqarah 2:79"
+  },
   "2:238": {
     arabic: "حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَىٰ",
     translation: "Maintain with care the prayers and the middle prayer and stand before Allah, devoutly obedient.",
@@ -3345,6 +3861,11 @@ const verseDB = {
     translation: "And I have come confirming what was before me of the Torah.",
     ref: "Surah Ali Imran 3:50"
   },
+  "4:157": {
+    arabic: "وَمَا قَتَلُوهُ وَمَا صَلَبُوهُ وَلَٰكِن شُبِّهَ لَهُمْ",
+    translation: "And they did not kill him, nor did they crucify him, but it was made to appear so to them.",
+    ref: "Surah An-Nisa 4:157"
+  },
   "4:171": {
     arabic: "إِنَّمَا الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ رَسُولُ اللَّهِ وَكَلِمَتُهُ وَلَا تَقُولُوا ثَلَاثَةٌ",
     translation: "The Messiah, Jesus son of Mary, was but a messenger of Allah and His word. Do not say Trinity — desist, it is better for you. Indeed Allah is but one God.",
@@ -3359,6 +3880,11 @@ const verseDB = {
     arabic: "مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا",
     translation: "Whoever kills a soul unless for a soul or for corruption in the land — it is as if he had slain mankind entirely. And whoever saves one — it is as if he had saved mankind entirely.",
     ref: "Surah Al-Maidah 5:32 — The Quran's foundational statement on human life. Every verse about warfare exists within this moral ceiling."
+  },
+  "5:48": {
+    arabic: "وَأَنزَلْنَا إِلَيْكَ الْكِتَابَ بِالْحَقِّ مُصَدِّقًا لِّمَا بَيْنَ يَدَيْهِ مِنَ الْكِتَابِ وَمُهَيْمِنًا عَلَيْهِ",
+    translation: "And We have revealed to you the Book in truth, confirming that which preceded it of the Scripture and as a criterion over it.",
+    ref: "Surah Al-Ma'idah 5:48"
   },
   "2:190": {
     arabic: "وَقَاتِلُوا فِي سَبِيلِ اللَّهِ الَّذِينَ يُقَاتِلُونَكُمْ وَلَا تَعْتَدُوا ۚ إِنَّ اللَّهَ لَا يُحِبُّ الْمُعْتَدِينَ",
@@ -3410,6 +3936,16 @@ const verseDB = {
     translation: "This day I have perfected for you your religion and completed My favour upon you and have approved for you Islam as religion.",
     ref: "Surah Al-Ma'idah 5:3"
   },
+  "33:5": {
+    arabic: "ادْعُوهُمْ لِآبَائِهِمْ هُوَ أَقْسَطُ عِندَ اللَّهِ ۚ فَإِن لَّمْ تَعْلَمُوا آبَاءَهُمْ فَإِخْوَانُكُمْ فِي الدِّينِ وَمَوَالِيكُمْ",
+    translation: "Call them by the names of their fathers; it is more just in the sight of Allah. But if you do not know their fathers, then they are your brothers in religion and those entrusted to you.",
+    ref: "Surah Al-Ahzab 33:5"
+  },
+  "33:37": {
+    arabic: "فَلَمَّا قَضَىٰ زَيْدٌ مِّنْهَا وَطَرًا زَوَّجْنَاكَهَا لِكَيْ لَا يَكُونَ عَلَى الْمُؤْمِنِينَ حَرَجٌ فِي أَزْوَاجِ أَدْعِيَائِهِمْ إِذَا قَضَوْا مِنْهُنَّ وَطَرًا",
+    translation: "So when Zayd had no longer any need for her, We married her to you, in order that there not be upon the believers any discomfort concerning the wives of their adopted sons when they no longer have need of them.",
+    ref: "Surah Al-Ahzab 33:37"
+  },
   "33:40": {
     arabic: "مَّا كَانَ مُحَمَّدٌ أَبَا أَحَدٍ مِّن رِّجَالِكُمْ وَلَٰكِن رَّسُولَ اللَّهِ وَخَاتَمَ النَّبِيِّينَ",
     translation: "Muhammad is not the father of any of your men, but he is the Messenger of Allah and the seal of the prophets.",
@@ -3420,10 +3956,20 @@ const verseDB = {
     translation: "Muhammad is not but a messenger. Other messengers have passed before him.",
     ref: "Surah Ali Imran 3:144"
   },
+  "4:2": {
+    arabic: "وَآتُوا الْيَتَامَىٰ أَمْوَالَهُمْ ۖ وَلَا تَتَبَدَّلُوا الْخَبِيثَ بِالطَّيِّبِ ۖ وَلَا تَأْكُلُوا أَمْوَالَهُمْ إِلَىٰ أَمْوَالِكُمْ ۚ إِنَّهُ كَانَ حُوبًا كَبِيرًا",
+    translation: "And give the orphans their properties and do not substitute the defective for the good, and do not consume their properties into your own. Indeed, that is ever a great sin.",
+    ref: "Surah An-Nisa 4:2"
+  },
   "4:5": {
     arabic: "وَلَا تُؤْتُوا السُّفَهَاءَ أَمْوَالَكُمُ الَّتِي جَعَلَ اللَّهُ لَكُمْ قِيَامًا",
     translation: "Do not give the mentally immature your wealth which Allah has made a means of support for you.",
     ref: "Surah An-Nisa 4:5"
+  },
+  "4:10": {
+    arabic: "إِنَّ الَّذِينَ يَأْكُلُونَ أَمْوَالَ الْيَتَامَىٰ ظُلْمًا إِنَّمَا يَأْكُلُونَ فِي بُطُونِهِمْ نَارًا ۖ وَسَيَصْلَوْنَ سَعِيرًا",
+    translation: "Indeed, those who devour the property of orphans unjustly are only consuming fire into their bellies, and they will be burned in a Blaze.",
+    ref: "Surah An-Nisa 4:10"
   },
   "4:6": {
     arabic: "وَابْتَلُوا الْيَتَامَىٰ حَتَّىٰ إِذَا بَلَغُوا النِّكَاحَ فَإِنْ آنَسْتُم مِّنْهُمْ رُشْدًا فَادْفَعُوا إِلَيْهِمْ أَمْوَالَهُمْ",
@@ -3465,6 +4011,16 @@ const verseDB = {
     translation: "Establish prayer at the decline of the sun until the darkness of night, and the Quran of dawn — indeed, the recitation of dawn is witnessed.",
     ref: "Surah Al-Isra 17:78"
   },
+  "17:88": {
+    arabic: "قُل لَّئِنِ اجْتَمَعَتِ الْإِنسُ وَالْجِنُّ عَلَىٰ أَن يَأْتُوا بِمِثْلِ هَٰذَا الْقُرْآنِ لَا يَأْتُونَ بِمِثْلِهِ وَلَوْ كَانَ بَعْضُهُمْ لِبَعْضٍ ظَهِيرًا",
+    translation: "Say: If mankind and the jinn gathered together to produce the like of this Quran, they could not produce the like of it, even if they were to each other assistants.",
+    ref: "Surah Al-Isra 17:88"
+  },
+  "19:30": {
+    arabic: "قَالَ إِنِّي عَبْدُ اللَّهِ آتَانِيَ الْكِتَابَ وَجَعَلَنِي نَبِيًّا",
+    translation: "He said: Indeed, I am the servant of Allah. He has given me the Scripture and made me a prophet.",
+    ref: "Surah Maryam 19:30"
+  },
   "22:78": {
     arabic: "وَمَا جَعَلَ عَلَيْكُمْ فِي الدِّينِ مِنْ حَرَجٍ",
     translation: "He has chosen you and has not placed upon you in the religion any difficulty.",
@@ -3504,6 +4060,11 @@ const verseDB = {
     arabic: "عَبَسَ وَتَوَلَّىٰ أَن جَاءَهُ الْأَعْمَىٰ",
     translation: "He frowned and turned away because there came to him the blind man.",
     ref: "Surah Abasa 80:1–2"
+  },
+  "93:9": {
+    arabic: "فَأَمَّا الْيَتِيمَ فَلَا تَقْهَرْ",
+    translation: "So as for the orphan, do not oppress him.",
+    ref: "Surah Ad-Duha 93:9"
   },
   "112:1": {
     arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ",
@@ -3862,7 +4423,10 @@ async function submitNotify() {
 function openVersePopup(ref) {
   const verse = verseDB[ref];
   if (!verse) return;
-  document.getElementById('versePopupArabic').textContent = verse.arabic;
+  const ar = document.getElementById('versePopupArabic');
+  ar.style.display = '';
+  ar.textContent = verse.arabic;
+  document.getElementById('versePopupEyebrow').textContent = '◈ Quranic Reference';
   document.getElementById('versePopupTranslation').textContent = '"' + verse.translation + '"';
   document.getElementById('versePopupRef').textContent = '— ' + verse.ref;
   document.getElementById('versePopup').classList.add('visible');
@@ -3909,6 +4473,126 @@ function linkVerseRefs(text) {
     }
     return match;
   });
+}
+
+// ── BIBLE REFERENCE DATABASE (KJV, public domain) ──
+const bibleDB = {
+  "2 Kings 8 verse 26": { ref: "2 Kings 8:26", text: "Two and twenty years old was Ahaziah when he began to reign; and he reigned one year in Jerusalem." },
+  "2 Chronicles 22 verse 2": { ref: "2 Chronicles 22:2", text: "Forty and two years old was Ahaziah when he began to reign, and he reigned one year in Jerusalem." },
+  "2 Chronicles 21 verse 20": { ref: "2 Chronicles 21:20", text: "Thirty and two years old was he when he began to reign, and he reigned in Jerusalem eight years, and departed without being desired." },
+  "2 Kings 24 verse 8": { ref: "2 Kings 24:8", text: "Jehoiachin was eighteen years old when he began to reign, and he reigned in Jerusalem three months." },
+  "2 Chronicles 36 verse 9": { ref: "2 Chronicles 36:9", text: "Jehoiachin was eight years old when he began to reign, and he reigned three months and ten days in Jerusalem." },
+  "2 Samuel 24 verse 9": { ref: "2 Samuel 24:9", text: "...there were in Israel eight hundred thousand valiant men that drew the sword; and the men of Judah were five hundred thousand men." },
+  "1 Chronicles 21 verse 5": { ref: "1 Chronicles 21:5", text: "And all they of Israel were a thousand thousand and an hundred thousand men that drew sword: and Judah was four hundred threescore and ten thousand men that drew sword." },
+  "2 Samuel 24 verse 13": { ref: "2 Samuel 24:13", text: "Shall seven years of famine come unto thee in thy land? or wilt thou flee three months before thine enemies...?" },
+  "1 Chronicles 21 verse 12": { ref: "1 Chronicles 21:12", text: "Either three years' famine; or three months to be destroyed before thy foes...; or else three days the sword of the LORD..." },
+  "1 Kings 4 verse 26": { ref: "1 Kings 4:26", text: "And Solomon had forty thousand stalls of horses for his chariots, and twelve thousand horsemen." },
+  "2 Chronicles 9 verse 25": { ref: "2 Chronicles 9:25", text: "And Solomon had four thousand stalls for horses and chariots, and twelve thousand horsemen..." },
+  "2 Samuel 21 verse 19": { ref: "2 Samuel 21:19 — KJV adds the italic words 'the brother of'; the Hebrew reads simply 'slew Goliath the Gittite'", text: "...Elhanan the son of Jaareoregim, a Bethlehemite, slew the brother of Goliath the Gittite, the staff of whose spear was like a weaver's beam." },
+  "1 Chronicles 20 verse 5": { ref: "1 Chronicles 20:5", text: "...Elhanan the son of Jair slew Lahmi the brother of Goliath the Gittite, whose spear staff was like a weaver's beam." },
+  "1 Samuel 15 verse 11": { ref: "1 Samuel 15:11", text: "It repenteth me that I have set up Saul to be king: for he is turned back from following me, and hath not performed my commandments." },
+  "1 Samuel 15 verse 35": { ref: "1 Samuel 15:35", text: "...and the LORD repented that he had made Saul king over Israel." },
+  "1 Samuel 15 verse 29": { ref: "1 Samuel 15:29", text: "And also the Strength of Israel will not lie nor repent: for he is not a man, that he should repent." },
+  "Proverbs 26 verse 4": { ref: "Proverbs 26:4", text: "Answer not a fool according to his folly, lest thou also be like unto him." },
+  "Proverbs 26 verse 5": { ref: "Proverbs 26:5", text: "Answer a fool according to his folly, lest he be wise in his own conceit." },
+  "1 Samuel 16 verses 21 to 23": { ref: "1 Samuel 16:21-23", text: "And David came to Saul, and stood before him: and he loved him greatly; and he became his armourbearer." },
+  "1 Samuel 17 verses 55 to 58": { ref: "1 Samuel 17:55-58", text: "...Saul said unto Abner...Whose son is this youth? And Abner said, As thy soul liveth, O king, I cannot tell." },
+  "2 Samuel 24 verse 1": { ref: "2 Samuel 24:1", text: "And again the anger of the LORD was kindled against Israel, and he moved David against them to say, Go, number Israel and Judah." },
+  "1 Chronicles 21 verse 1": { ref: "1 Chronicles 21:1", text: "And Satan stood up against Israel, and provoked David to number Israel." },
+  "Genesis 1 verse 27": { ref: "Genesis 1:27", text: "So God created man in his own image...male and female created he them." },
+  "Genesis 2 verse 7": { ref: "Genesis 2:7", text: "And the LORD God formed man of the dust of the ground, and breathed into his nostrils the breath of life; and man became a living soul." },
+  "Genesis 2 verse 9": { ref: "Genesis 2:9", text: "And out of the ground made the LORD God to grow every tree that is pleasant to the sight, and good for food..." },
+  "Genesis 2 verse 19": { ref: "Genesis 2:19", text: "And out of the ground the LORD God formed every beast of the field, and every fowl of the air; and brought them unto Adam to see what he would call them." },
+  "Genesis 6 verses 19 to 20": { ref: "Genesis 6:19-20", text: "And of every living thing of all flesh, two of every sort shalt thou bring into the ark, to keep them alive with thee; they shall be male and female." },
+  "Genesis 7 verses 2 to 3": { ref: "Genesis 7:2-3", text: "Of every clean beast thou shalt take to thee by sevens, the male and his female: and of beasts that are not clean by two, the male and his female." },
+  "Genesis 22 verse 2": { ref: "Genesis 22:2", text: "Take now thy son, thine only son Isaac, whom thou lovest, and get thee into the land of Moriah; and offer him there for a burnt offering." },
+  "Genesis 16 verse 16": { ref: "Genesis 16:16", text: "And Abram was fourscore and six years old, when Hagar bare Ishmael to Abram." },
+  "Genesis 17 verse 18": { ref: "Genesis 17:18", text: "And Abraham said unto God, O that Ishmael might live before thee!" },
+  "John 1 verse 18": { ref: "John 1:18", text: "No man hath seen God at any time; the only begotten Son, which is in the bosom of the Father, he hath declared him." },
+  "Exodus 33 verse 20": { ref: "Exodus 33:20", text: "And he said, Thou canst not see my face: for there shall no man see me, and live." },
+  "Genesis 32 verse 30": { ref: "Genesis 32:30", text: "And Jacob called the name of the place Peniel: for I have seen God face to face, and my life is preserved." },
+  "Exodus 33 verse 11": { ref: "Exodus 33:11", text: "And the LORD spake unto Moses face to face, as a man speaketh unto his friend." },
+  "Isaiah 6 verse 1": { ref: "Isaiah 6:1", text: "In the year that king Uzziah died I saw also the Lord sitting upon a throne, high and lifted up, and his train filled the temple." },
+  "James 1 verse 13": { ref: "James 1:13", text: "Let no man say when he is tempted, I am tempted of God: for God cannot be tempted with evil, neither tempteth he any man." },
+  "Genesis 22 verse 1": { ref: "Genesis 22:1", text: "And it came to pass after these things, that God did tempt Abraham, and said unto him, Abraham: and he said, Behold, here I am." },
+  "Exodus 20 verse 5": { ref: "Exodus 20:5", text: "...for I the LORD thy God am a jealous God, visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate me." },
+  "Ezekiel 18 verse 20": { ref: "Ezekiel 18:20", text: "The soul that sinneth, it shall die. The son shall not bear the iniquity of the father, neither shall the father bear the iniquity of the son." },
+  "Deuteronomy 24 verse 16": { ref: "Deuteronomy 24:16", text: "The fathers shall not be put to death for the children, neither shall the children be put to death for the fathers: every man shall be put to death for his own sin." },
+  "Matthew 28 verse 2": { ref: "Matthew 28:2", text: "And, behold, there was a great earthquake: for the angel of the Lord descended from heaven, and came and rolled back the stone from the door, and sat upon it." },
+  "Mark 16 verse 5": { ref: "Mark 16:5", text: "And entering into the sepulchre, they saw a young man sitting on the right side, clothed in a long white garment; and they were affrighted." },
+  "Luke 24 verse 4": { ref: "Luke 24:4", text: "And...as they were much perplexed thereabout, behold, two men stood by them in shining garments." },
+  "John 20 verse 12": { ref: "John 20:12", text: "And seeth two angels in white sitting, the one at the head, and the other at the feet, where the body of Jesus had lain." },
+  "John 20 verse 1": { ref: "John 20:1", text: "The first day of the week cometh Mary Magdalene early, when it was yet dark, unto the sepulchre, and seeth the stone taken away from the sepulchre." },
+  "Matthew 28 verse 1": { ref: "Matthew 28:1", text: "...came Mary Magdalene and the other Mary to see the sepulchre." },
+  "Mark 16 verse 1": { ref: "Mark 16:1", text: "...Mary Magdalene, and Mary the mother of James, and Salome, had bought sweet spices, that they might come and anoint him." },
+  "Luke 24 verse 10": { ref: "Luke 24:10", text: "It was Mary Magdalene, and Joanna, and Mary the mother of James, and other women that were with them, which told these things unto the apostles." },
+  "Mark 16 verse 4": { ref: "Mark 16:4", text: "And when they looked, they saw that the stone was rolled away: for it was very great." },
+  "Luke 24 verse 2": { ref: "Luke 24:2", text: "And they found the stone rolled away from the sepulchre." },
+  "Mark 16 verse 2": { ref: "Mark 16:2", text: "And very early in the morning the first day of the week, they came unto the sepulchre at the rising of the sun." },
+  "Acts 9 verse 7": { ref: "Acts 9:7", text: "And the men which journeyed with him stood speechless, hearing a voice, but seeing no man." },
+  "Acts 22 verse 9": { ref: "Acts 22:9", text: "And they that were with me saw indeed the light, and were afraid; but they heard not the voice of him that spake to me." },
+  "Acts 26 verse 14": { ref: "Acts 26:14", text: "And when we were all fallen to the earth, I heard a voice speaking unto me..." },
+  "Matthew 27 verse 5": { ref: "Matthew 27:5", text: "And he cast down the pieces of silver in the temple, and departed, and went and hanged himself." },
+  "Acts 1 verse 18": { ref: "Acts 1:18", text: "Now this man purchased a field with the reward of iniquity; and falling headlong, he burst asunder in the midst, and all his bowels gushed out." },
+  "Matthew 27 verses 6 to 7": { ref: "Matthew 27:6-7", text: "And the chief priests took the silver pieces...And they...bought with them the potter's field, to bury strangers in." },
+  "Mark 15 verse 25": { ref: "Mark 15:25", text: "And it was the third hour, and they crucified him." },
+  "John 19 verse 14": { ref: "John 19:14", text: "And it was the preparation of the passover, and about the sixth hour: and he saith unto the Jews, Behold your King!" },
+  "Mark 14 verses 12 to 16": { ref: "Mark 14:12-16", text: "And the first day of unleavened bread, when they killed the passover, his disciples said unto him, Where wilt thou that we...prepare that thou mayest eat the passover?" },
+  "Matthew 27 verse 32": { ref: "Matthew 27:32", text: "And as they came out, they found a man of Cyrene, Simon by name: him they compelled to bear his cross." },
+  "Mark 15 verse 21": { ref: "Mark 15:21", text: "And they compel one Simon a Cyrenian, who passed by...to bear his cross." },
+  "Luke 23 verse 26": { ref: "Luke 23:26", text: "And...they laid hold upon one Simon, a Cyrenian...and on him they laid the cross, that he might bear it after Jesus." },
+  "John 19 verse 17": { ref: "John 19:17", text: "And he bearing his cross went forth into a place called the place of a skull, which is called in the Hebrew Golgotha." },
+  "Matthew 27 verse 46": { ref: "Matthew 27:46", text: "...Jesus cried with a loud voice, saying, Eli, Eli, lama sabachthani? that is to say, My God, my God, why hast thou forsaken me?" },
+  "Mark 15 verse 34": { ref: "Mark 15:34", text: "...Jesus cried with a loud voice, saying, Eloi, Eloi, lama sabachthani?...My God, my God, why hast thou forsaken me?" },
+  "Luke 23 verse 46": { ref: "Luke 23:46", text: "And when Jesus had cried with a loud voice, he said, Father, into thy hands I commend my spirit: and...he gave up the ghost." },
+  "John 19 verse 30": { ref: "John 19:30", text: "...he said, It is finished: and he bowed his head, and gave up the ghost." },
+  "Luke 2 verse 2": { ref: "Luke 2:2", text: "(And this taxing was first made when Cyrenius [Quirinius] was governor of Syria.)" },
+  "Matthew 2 verses 13 to 16": { ref: "Matthew 2:13-16", text: "Then Herod...slew all the children that were in Bethlehem, and in all the coasts thereof, from two years old and under..." },
+  "Luke 2 verse 39": { ref: "Luke 2:39", text: "And when they had performed all things according to the law of the Lord, they returned into Galilee, to their own city Nazareth." },
+  "Matthew 1 verse 16": { ref: "Matthew 1:16", text: "And Jacob begat Joseph the husband of Mary, of whom was born Jesus, who is called Christ." },
+  "Luke 3 verse 23": { ref: "Luke 3:23", text: "And Jesus...being (as was supposed) the son of Joseph, which was the son of Heli." },
+  "James 2 verse 24": { ref: "James 2:24", text: "Ye see then how that by works a man is justified, and not by faith only." },
+  "Romans 3 verse 28": { ref: "Romans 3:28", text: "Therefore we conclude that a man is justified by faith without the deeds of the law." },
+  "Galatians 2 verse 16": { ref: "Galatians 2:16", text: "Knowing that a man is not justified by the works of the law, but by the faith of Jesus Christ...for by the works of the law shall no flesh be justified." },
+  "2 Timothy 3 verse 16": { ref: "2 Timothy 3:16", text: "All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness." },
+  "1 Corinthians 7 verse 12": { ref: "1 Corinthians 7:12", text: "But to the rest speak I, not the Lord: If any brother hath a wife that believeth not...let him not put her away." },
+  "1 Corinthians 7 verse 25": { ref: "1 Corinthians 7:25", text: "Now concerning virgins I have no commandment of the Lord: yet I give my judgment, as one that hath obtained mercy of the Lord to be faithful." },
+  "2 Corinthians 11 verse 17": { ref: "2 Corinthians 11:17", text: "That which I speak, I speak it not after the Lord, but as it were foolishly, in this confidence of boasting." }
+};
+
+// ── BIBLE POPUP (reuses the same modal as the Quran popup) ──
+function openBiblePopup(key) {
+  const v = bibleDB[key];
+  if (!v) return;
+  const ar = document.getElementById('versePopupArabic');
+  ar.textContent = '';
+  ar.style.display = 'none';
+  document.getElementById('versePopupEyebrow').textContent = '◈ Biblical Reference';
+  document.getElementById('versePopupTranslation').textContent = '"' + v.text + '"';
+  document.getElementById('versePopupRef').textContent = '— ' + v.ref + ' (KJV)';
+  document.getElementById('versePopup').classList.add('visible');
+}
+
+// ── BIBLE LINKER ──
+// Matches the exact word-form phrases stored as keys in bibleDB and wraps them
+// in clickable buttons. Longest-first + tokenisation prevents prefix collisions
+// (e.g. "Genesis 2 verse 9" inside "Genesis 2 verse 19"). Never touches Quran refs.
+function linkBibleRefs(text) {
+  const keys = Object.keys(bibleDB).sort((a, b) => b.length - a.length);
+  const swaps = [];
+  keys.forEach((phrase, i) => {
+    if (text.indexOf(phrase) !== -1) {
+      const token = ' B' + i + ' ';
+      text = text.split(phrase).join(token);
+      swaps.push({ token, phrase });
+    }
+  });
+  swaps.forEach(({ token, phrase }) => {
+    const safe = phrase.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const btn = '<button class="verse-ref-btn" onclick="openBiblePopup(\'' + safe + '\');event.stopPropagation()">📖 ' + phrase + '</button>';
+    text = text.split(token).join(btn);
+  });
+  return text;
 }
 
 // ── TTS READER ENGINE — powered by ElevenLabs ──
@@ -4101,7 +4785,7 @@ function toggleJarvis() {
   jarvisOpen = !jarvisOpen;
   document.getElementById('jarvis-panel').classList.toggle('open', jarvisOpen);
   if (jarvisOpen) {
-    setTimeout(() => document.getElementById('jarvisInput').focus(), 300);
+    setTimeout(() => { const el = document.getElementById('jarvisInput'); if (el) el.focus(); }, 300);
   }
 }
 
@@ -4265,11 +4949,14 @@ async function jarvisSend() {
   document.getElementById('jarvisInput').focus();
 }
 
-// Auto-resize textarea
-document.getElementById('jarvisInput').addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-});
+// Auto-resize textarea (no-op when Jibril is locked/coming soon)
+const _jarvisInputEl = document.getElementById('jarvisInput');
+if (_jarvisInputEl) {
+  _jarvisInputEl.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
+}
 </script>
 
 <script>
@@ -4314,6 +5001,556 @@ document.addEventListener('keydown', function(e) {
     closeTreeModal();
   }
 });
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   AL-HAQQ v2.0 — MASTERY UPDATE
+   Mastery ranks · bookmarks · daily myth · streaks · drill mode ·
+   teaser paywall · copy comment reply · reading size · polish
+   Pure additive layer: wraps the existing render pipeline,
+   injects all new UI at runtime, stores everything in localStorage.
+   ═══════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  /* ── storage ── */
+  var S = {
+    get: function (k, fb) {
+      try { var v = JSON.parse(localStorage.getItem(k)); return (v === null || v === undefined) ? fb : v; }
+      catch (e) { return fb; }
+    },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  var mastered = new Set(S.get('ahq_mastered', []));
+  var savedSet = new Set(S.get('ahq_saved', []));
+  var reviewPile = new Set(S.get('ahq_review', []));
+  var savedOnly = false;
+
+  function persist() {
+    S.set('ahq_mastered', Array.from(mastered));
+    S.set('ahq_saved', Array.from(savedSet));
+    S.set('ahq_review', Array.from(reviewPile));
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ── entry pools ── */
+  function nonEmpty() {
+    return entries.filter(function (e) { return e.claim && e.rebuttal && !e.interactive; });
+  }
+  function accessible() {
+    return nonEmpty().filter(function (e) { return !e.locked || hasAccess(); });
+  }
+
+  /* ── ranks ── */
+  var RANKS = [[18, 'Guardian of Truth'], [12, 'Debater'], [7, 'Defender'], [3, 'Student of the Ayat'], [0, 'Seeker']];
+  function rankFor(n, total) {
+    if (total > 0 && n >= total) return 'Hafiz al-Haqq';
+    for (var i = 0; i < RANKS.length; i++) { if (n >= RANKS[i][0]) return RANKS[i][1]; }
+    return 'Seeker';
+  }
+
+  /* ── streak ── */
+  function dayKey(d) { return d.toISOString().slice(0, 10); }
+  function tickStreak() {
+    var today = new Date();
+    var tk = dayKey(today);
+    var last = S.get('ahq_last_day', null);
+    var streak = S.get('ahq_streak', 0);
+    if (last !== tk) {
+      var y = new Date(today); y.setDate(y.getDate() - 1);
+      streak = (last === dayKey(y)) ? streak + 1 : 1;
+      S.set('ahq_streak', streak);
+      S.set('ahq_last_day', tk);
+    }
+    return streak;
+  }
+
+  /* ── toast ── */
+  var toastEl = null, toastTimer = null;
+  function toast(msg) {
+    if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'v2-toast'; document.body.appendChild(toastEl); }
+    toastEl.textContent = msg;
+    toastEl.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('visible'); }, 2200);
+  }
+
+  function flashBtn(btn, label) {
+    if (!btn) return;
+    var old = btn.innerHTML;
+    btn.innerHTML = label;
+    setTimeout(function () { btn.innerHTML = old; }, 1700);
+  }
+
+  /* ── unlock card (teaser paywall) ── */
+  function unlockCardHTML() {
+    var total = nonEmpty().length;
+    return '<div class="v2-unlock-card">' +
+      '<div class="v2-unlock-head">🔒 The full rebuttal is for Founding Members</div>' +
+      '<ul class="v2-unlock-list">' +
+      '<li>All ' + total + ' rebuttals, fully sourced</li>' +
+      '<li>Drill Mode on every entry</li>' +
+      '<li>Jibril, the research AI</li>' +
+      '<li>New myths dismantled weekly</li>' +
+      '</ul>' +
+      '<button class="v2-unlock-btn">Unlock everything · $2.99/mo</button>' +
+      '<div class="v2-unlock-fine">Price locked for life · cancel anytime · rises to $6.99 after 1,000 members</div>' +
+      '</div>';
+  }
+
+  /* ── decorate rendered cards ── */
+  function decorate() {
+    document.querySelectorAll('.entry').forEach(function (el) {
+      var id = parseInt(el.dataset.id, 10);
+      var entry = entries.find(function (e) { return e.id === id; });
+      if (!entry || entry.interactive) return;
+
+      var header = el.querySelector('.entry-header');
+      if (header && !header.querySelector('.v2-star')) {
+        var star = document.createElement('button');
+        star.className = 'v2-star' + (savedSet.has(id) ? ' on' : '');
+        star.textContent = savedSet.has(id) ? '★' : '☆';
+        star.title = 'Save to your arsenal';
+        star.setAttribute('aria-label', 'Save this entry');
+        star.addEventListener('click', function (ev) { ev.stopPropagation(); toggleSave(id, star); });
+        var tog = header.querySelector('.entry-toggle');
+        header.insertBefore(star, tog || null);
+      }
+
+      var meta = el.querySelector('.entry-meta');
+      if (meta) {
+        var hasTag = meta.querySelector('.v2-mastered-tag');
+        if (mastered.has(id) && !hasTag) {
+          var b = document.createElement('span');
+          b.className = 'difficulty v2-mastered-tag';
+          b.textContent = '✓ Mastered';
+          meta.appendChild(b);
+        } else if (!mastered.has(id) && hasTag) {
+          hasTag.remove();
+        }
+      }
+
+      if (el.classList.contains('locked')) {
+        if (entry.claim && entry.rebuttal && !el.querySelector('.v2-teaser')) {
+          var overlay = el.querySelector('.lock-overlay');
+          if (overlay) {
+            var plain = entry.rebuttal.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+            overlay.classList.add('v2-unlock');
+            overlay.innerHTML = '<div class="v2-teaser">' + esc(plain.slice(0, 300)) + '…</div>' + unlockCardHTML();
+          }
+        }
+      } else {
+        var actions = el.querySelector('.entry-actions');
+        if (actions && !actions.querySelector('.v2-master-btn')) {
+          var mb = document.createElement('button');
+          mb.className = 'action-btn v2-master-btn' + (mastered.has(id) ? ' on' : '');
+          mb.innerHTML = mastered.has(id) ? '✓ Mastered' : '◇ Mark as mastered';
+          mb.addEventListener('click', function (ev) { ev.stopPropagation(); toggleMaster(id, mb, el); });
+          actions.appendChild(mb);
+
+          var cr = document.createElement('button');
+          cr.className = 'action-btn';
+          cr.innerHTML = '💬 Copy comment reply';
+          cr.addEventListener('click', function (ev) { ev.stopPropagation(); copyReply(id, cr); });
+          actions.appendChild(cr);
+        }
+      }
+    });
+  }
+
+  function toggleSave(id, starBtn) {
+    if (savedSet.has(id)) {
+      savedSet.delete(id);
+      if (starBtn) { starBtn.classList.remove('on'); starBtn.textContent = '☆'; }
+      toast('Removed from your arsenal');
+    } else {
+      savedSet.add(id);
+      if (starBtn) { starBtn.classList.add('on'); starBtn.textContent = '★'; }
+      toast('★ Saved to your arsenal');
+    }
+    persist();
+    if (savedOnly) window.filterEntries();
+  }
+
+  function toggleMaster(id, btn, card) {
+    if (mastered.has(id)) {
+      mastered.delete(id);
+      if (btn) { btn.classList.remove('on'); btn.innerHTML = '◇ Mark as mastered'; }
+      toast('Moved back to training');
+    } else {
+      mastered.add(id);
+      reviewPile.delete(id);
+      if (btn) { btn.classList.add('on'); btn.innerHTML = '✓ Mastered'; }
+      var total = nonEmpty().length;
+      var n = countMastered();
+      toast(n >= total ? '🏆 Hafiz al-Haqq. Every myth mastered.' : '✓ Locked into memory · ' + n + ' of ' + total);
+    }
+    persist();
+    if (card) {
+      var meta = card.querySelector('.entry-meta');
+      if (meta) {
+        var tag = meta.querySelector('.v2-mastered-tag');
+        if (mastered.has(id) && !tag) {
+          var b = document.createElement('span');
+          b.className = 'difficulty v2-mastered-tag';
+          b.textContent = '✓ Mastered';
+          meta.appendChild(b);
+        } else if (!mastered.has(id) && tag) {
+          tag.remove();
+        }
+      }
+    }
+    updateStrip();
+  }
+
+  function countMastered() {
+    var n = 0;
+    nonEmpty().forEach(function (e) { if (mastered.has(e.id)) n++; });
+    return n;
+  }
+
+  /* ── copy comment reply ── */
+  function copyReply(id, btn) {
+    var e = entries.find(function (x) { return x.id === id; });
+    if (!e || !e.rebuttal) return;
+    var plain = e.rebuttal
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+      .replace(/[ \t]+/g, ' ')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    if (plain.length > 900) {
+      var cut = plain.slice(0, 900);
+      var dot = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('? '), cut.lastIndexOf('! '));
+      plain = dot > 300 ? cut.slice(0, dot + 1) : cut + '…';
+    }
+    var txt = plain +
+      '\n\nFull breakdown with sources: https://alhaqq.it.com/?myth=' + id +
+      '\n\nPeople can reject this. Rejecting it does not make it incorrect.';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () {
+        flashBtn(btn, '✓ Reply copied'); toast('Reply copied · paste it under their comment');
+      }).catch(function () { toast('Copy failed · try the share button'); });
+    } else {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = txt; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        flashBtn(btn, '✓ Reply copied'); toast('Reply copied · paste it under their comment');
+      } catch (err) { toast('Copy failed · try the share button'); }
+    }
+  }
+
+  /* ── progress strip ── */
+  function buildStrip() {
+    var stats = document.querySelector('.stats-bar');
+    if (!stats || document.getElementById('v2Strip')) return;
+    var strip = document.createElement('div');
+    strip.className = 'v2-strip';
+    strip.id = 'v2Strip';
+    strip.innerHTML =
+      '<div class="v2-strip-box">' +
+        '<div class="v2-ring" id="v2Ring"><span id="v2RingPct">0%</span></div>' +
+        '<div class="v2-strip-info">' +
+          '<div class="v2-rank">Rank: <em id="v2Rank">Seeker</em></div>' +
+          '<div class="v2-strip-sub" id="v2RankSub">0 of 0 myths mastered</div>' +
+        '</div>' +
+        '<div class="v2-streak"><strong id="v2Streak">1</strong> DAY STREAK 🔥</div>' +
+        '<div class="v2-strip-actions">' +
+          '<button class="v2-drillbtn" id="v2DrillOpen">⚔ Drill Mode</button>' +
+          '<div class="v2-font" title="Reading size">' +
+            '<button id="v2FontDown" aria-label="Smaller text">A−</button>' +
+            '<button id="v2FontUp" aria-label="Larger text">A+</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    stats.parentNode.insertBefore(strip, stats.nextSibling);
+    document.getElementById('v2DrillOpen').addEventListener('click', openDrill);
+    document.getElementById('v2FontDown').addEventListener('click', function () { stepFont(-1); });
+    document.getElementById('v2FontUp').addEventListener('click', function () { stepFont(1); });
+  }
+
+  function updateStrip() {
+    var ring = document.getElementById('v2Ring');
+    if (!ring) return;
+    var total = nonEmpty().length;
+    var n = countMastered();
+    var pct = total ? Math.round((n / total) * 100) : 0;
+    ring.style.background = 'conic-gradient(var(--gold) ' + pct + '%, rgba(201,168,76,0.12) 0)';
+    document.getElementById('v2RingPct').textContent = pct + '%';
+    document.getElementById('v2Rank').textContent = rankFor(n, total);
+    document.getElementById('v2RankSub').textContent = n + ' of ' + total + ' myths mastered';
+    document.getElementById('v2Streak').textContent = S.get('ahq_streak', 1);
+  }
+
+  /* ── reading size ── */
+  var FONT_STEPS = ['md', 'lg', 'xl'];
+  function applyFont(step) {
+    if (step === 'md') document.body.removeAttribute('data-reading');
+    else document.body.setAttribute('data-reading', step);
+    S.set('ahq_fontsize', step);
+  }
+  function stepFont(dir) {
+    var cur = S.get('ahq_fontsize', 'md');
+    var i = Math.min(FONT_STEPS.length - 1, Math.max(0, FONT_STEPS.indexOf(cur) + dir));
+    applyFont(FONT_STEPS[i]);
+    toast('Reading size: ' + FONT_STEPS[i].toUpperCase());
+  }
+
+  /* ── daily myth ── */
+  function buildDaily() {
+    var pool = nonEmpty();
+    if (!pool.length || document.querySelector('.v2-daily')) return;
+    var idx = Math.floor(Date.now() / 86400000) % pool.length;
+    var e = pool[idx];
+    var labels = { christian: 'Christian Claim', sunni: 'Sunni Challenge', secular: 'Secular Critique', orientalist: 'Orientalist' };
+    var dateStr = new Date().toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+    var lockedNote = (e.locked && !hasAccess()) ? ' · 🔒 Founding Members' : '';
+    var host = document.querySelector('.founding-banner') || document.getElementById('database');
+    var d = document.createElement('div');
+    d.className = 'v2-daily';
+    d.innerHTML =
+      '<div class="v2-daily-box">' +
+        '<div style="flex:1;min-width:220px;">' +
+          '<div class="v2-daily-eyebrow">◈ Today\'s Myth · ' + dateStr + '</div>' +
+          '<div class="v2-daily-title">' + esc(e.myth) + '</div>' +
+          '<div class="v2-daily-sub">' + (labels[e.source] || '') + ' · ' + esc(e.difficulty) + lockedNote + '</div>' +
+        '</div>' +
+        '<button class="v2-daily-btn">Read the takedown →</button>' +
+      '</div>';
+    host.parentNode.insertBefore(d, host);
+    d.querySelector('.v2-daily-btn').addEventListener('click', function () { jumpToEntry(e.id); });
+  }
+
+  function resetFilters() {
+    savedOnly = false;
+    currentFilter = 'all';
+    currentDifficulty = 'all';
+    var si = document.getElementById('searchInput');
+    if (si) si.value = '';
+    document.querySelectorAll('.controls .filters').forEach(function (row) {
+      row.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+      var first = row.querySelector('.filter-btn');
+      if (first) first.classList.add('active');
+    });
+    var sc = document.getElementById('v2SavedChip');
+    if (sc) sc.classList.remove('active');
+  }
+
+  function jumpToEntry(id) {
+    var el = document.querySelector('.entry[data-id="' + id + '"]');
+    if (!el) { resetFilters(); window.filterEntries(); el = document.querySelector('.entry[data-id="' + id + '"]'); }
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!el.classList.contains('locked')) {
+      setTimeout(function () { if (!el.classList.contains('open')) toggleEntry(id); }, 380);
+    } else {
+      el.classList.add('v2-pulse');
+      setTimeout(function () { el.classList.remove('v2-pulse'); }, 1600);
+    }
+  }
+
+  /* ── saved chip ── */
+  function buildSavedChip() {
+    if (document.getElementById('v2SavedChip')) return;
+    var rows = document.querySelectorAll('.controls .filters');
+    var row = rows[rows.length - 1];
+    if (!row) return;
+    var chip = document.createElement('button');
+    chip.className = 'filter-btn';
+    chip.id = 'v2SavedChip';
+    chip.textContent = '★ Saved';
+    chip.addEventListener('click', function () {
+      savedOnly = !savedOnly;
+      chip.classList.toggle('active', savedOnly);
+      if (savedOnly && savedSet.size === 0) toast('Nothing saved yet · tap ☆ on any entry');
+      window.filterEntries();
+    });
+    row.appendChild(chip);
+  }
+
+  /* ── drill mode ── */
+  var drillCurrent = null, drillSession = 0;
+
+  function buildDrill() {
+    if (document.getElementById('v2Drill')) return;
+    var d = document.createElement('div');
+    d.className = 'v2-drill';
+    d.id = 'v2Drill';
+    d.innerHTML =
+      '<div class="v2-drill-inner">' +
+        '<div class="v2-drill-top">' +
+          '<div><div class="v2-drill-label">⚔ Drill Mode · Debate Training</div>' +
+          '<div class="v2-drill-count" id="v2DrillCount"></div></div>' +
+          '<button class="v2-drill-close" id="v2DrillClose" aria-label="Close drill mode">✕</button>' +
+        '</div>' +
+        '<div class="v2-drill-card">' +
+          '<div class="v2-drill-meta" id="v2DrillMeta"></div>' +
+          '<div class="v2-drill-myth" id="v2DrillMyth"></div>' +
+          '<div class="v2-drill-claim" id="v2DrillClaim"></div>' +
+          '<div class="v2-drill-prompt" id="v2DrillPrompt">Build your rebuttal in your head, out loud, or on paper. Then check it.</div>' +
+          '<button class="v2-drill-reveal" id="v2DrillReveal">Reveal the rebuttal</button>' +
+          '<div class="v2-drill-answer" id="v2DrillAnswer">' +
+            '<div class="v2-drill-rebuttal" id="v2DrillRebuttal"></div>' +
+            '<div class="v2-drill-actions">' +
+              '<button class="v2-drill-got" id="v2DrillGot">✓ I had it · locked in</button>' +
+              '<button class="v2-drill-again" id="v2DrillAgain">↻ Drill this one again</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(d);
+    document.getElementById('v2DrillClose').addEventListener('click', closeDrill);
+    document.getElementById('v2DrillReveal').addEventListener('click', drillReveal);
+    document.getElementById('v2DrillGot').addEventListener('click', function () { drillMark(true); });
+    document.getElementById('v2DrillAgain').addEventListener('click', function () { drillMark(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && d.classList.contains('visible')) closeDrill();
+    });
+  }
+
+  function weightedPick() {
+    var pool = accessible();
+    var bag = [];
+    pool.forEach(function (e) {
+      var w = reviewPile.has(e.id) ? 3 : (mastered.has(e.id) ? 1 : 2);
+      for (var i = 0; i < w; i++) bag.push(e);
+    });
+    var p = bag[Math.floor(Math.random() * bag.length)];
+    if (drillCurrent && pool.length > 1) {
+      var guard = 0;
+      while (p.id === drillCurrent.id && guard++ < 10) p = bag[Math.floor(Math.random() * bag.length)];
+    }
+    return p;
+  }
+
+  function openDrill() {
+    if (accessible().length < 1) { toast('No entries available to drill yet'); return; }
+    drillSession = 0;
+    document.getElementById('v2Drill').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+    drillNext();
+  }
+
+  function drillNext() {
+    drillCurrent = weightedPick();
+    if (!drillCurrent) { closeDrill(); return; }
+    var labels = { christian: 'Christian Claim', sunni: 'Sunni Challenge', secular: 'Secular Critique', orientalist: 'Orientalist' };
+    document.getElementById('v2DrillMeta').innerHTML =
+      '<span class="tag tag-' + drillCurrent.source + '">' + (labels[drillCurrent.source] || '') + '</span>' +
+      '<span class="difficulty" data-diff="' + esc(drillCurrent.difficulty) + '">' + esc(drillCurrent.difficulty) + '</span>' +
+      (reviewPile.has(drillCurrent.id) ? '<span class="difficulty">↻ Review</span>' : '');
+    document.getElementById('v2DrillMyth').textContent = drillCurrent.myth;
+    document.getElementById('v2DrillClaim').textContent = '"' + drillCurrent.claim.replace(/<[^>]+>/g, '') + '"';
+    document.getElementById('v2DrillCount').textContent = 'Card ' + (drillSession + 1) + ' this session · ' + accessible().length + ' in your training pool';
+    document.getElementById('v2DrillAnswer').classList.remove('visible');
+    document.getElementById('v2DrillReveal').style.display = 'block';
+    document.getElementById('v2DrillPrompt').style.display = 'block';
+    document.querySelector('#v2Drill .v2-drill-inner').scrollTop = 0;
+    document.getElementById('v2Drill').scrollTop = 0;
+  }
+
+  function drillReveal() {
+    var html = drillCurrent.rebuttal;
+    if (typeof linkVerseRefs === 'function') { try { html = linkVerseRefs(html); } catch (e) {} }
+    if (drillCurrent.verse) {
+      html += '<div class="quran-verse" style="margin-top:1.4rem;">' +
+        '<div class="quran-arabic">' + drillCurrent.verse.arabic + '</div>' +
+        '<div class="quran-translation">"' + drillCurrent.verse.translation + '"</div>' +
+        '<div class="quran-ref">— ' + drillCurrent.verse.ref + '</div></div>';
+    }
+    document.getElementById('v2DrillRebuttal').innerHTML = html;
+    document.getElementById('v2DrillAnswer').classList.add('visible');
+    document.getElementById('v2DrillReveal').style.display = 'none';
+    document.getElementById('v2DrillPrompt').style.display = 'none';
+  }
+
+  function drillMark(got) {
+    if (drillCurrent) {
+      if (got) { mastered.add(drillCurrent.id); reviewPile.delete(drillCurrent.id); }
+      else { reviewPile.add(drillCurrent.id); }
+      persist();
+    }
+    drillSession++;
+    updateStrip();
+    drillNext();
+  }
+
+  function closeDrill() {
+    document.getElementById('v2Drill').classList.remove('visible');
+    document.body.style.overflow = '';
+    window.filterEntries();
+    if (drillSession > 0) toast('Session done · ' + drillSession + ' card' + (drillSession === 1 ? '' : 's') + ' drilled');
+  }
+
+  /* ── scroll progress + back-to-top ── */
+  function buildScrollUI() {
+    if (document.querySelector('.v2-topbar')) return;
+    var bar = document.createElement('div');
+    bar.className = 'v2-topbar';
+    document.body.appendChild(bar);
+    var fab = document.createElement('button');
+    fab.className = 'v2-fab';
+    fab.innerHTML = '↑';
+    fab.setAttribute('aria-label', 'Back to top');
+    fab.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    document.body.appendChild(fab);
+    window.addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      fab.classList.toggle('visible', window.scrollY > 650);
+    }, { passive: true });
+  }
+
+  /* ── pipeline hooks ── */
+  var _origRender = window.renderEntries;
+  window.renderEntries = function (filtered) {
+    _origRender(filtered);
+    decorate();
+    updateStrip();
+  };
+
+  window.filterEntries = function () {
+    var q = document.getElementById('searchInput').value.toLowerCase();
+    var filtered = entries.filter(function (e) {
+      var matchFilter = currentFilter === 'all' || e.source === currentFilter;
+      var matchDifficulty = currentDifficulty === 'all' || (e.difficulty || '').toLowerCase() === currentDifficulty;
+      var rebuttalText = (e.rebuttal || '').replace(/<[^>]+>/g, ' ').toLowerCase();
+      var matchSearch = !q || e.myth.toLowerCase().includes(q) || rebuttalText.includes(q) || (e.claim && e.claim.toLowerCase().includes(q));
+      var matchSaved = !savedOnly || savedSet.has(e.id);
+      return matchFilter && matchDifficulty && matchSearch && matchSaved;
+    });
+    window.renderEntries(filtered);
+  };
+
+  /* unlock CTA delegation (cards re-render constantly) */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.v2-unlock-btn');
+    if (b) { e.stopPropagation(); if (typeof openModal === 'function') openModal(); }
+  });
+
+  /* ── init ── */
+  function init() {
+    tickStreak();
+    buildStrip();
+    buildDaily();
+    buildSavedChip();
+    buildDrill();
+    buildScrollUI();
+    applyFont(S.get('ahq_fontsize', 'md'));
+    window.filterEntries();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
 </script>
 
 </body>

@@ -1,0 +1,29 @@
+[build]
+  functions      = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
+
+# Inject OG meta tags on every HTML page request
+[[edge_functions]]
+  function = "inject-og"
+  path     = "/"
+
+[[edge_functions]]
+  function = "inject-og"
+  path     = "/index.html"
+
+# Cache-busting headers for HTML files
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Long cache for static assets
+[[headers]]
+  for = "/icon-*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

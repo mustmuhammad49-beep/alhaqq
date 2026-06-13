@@ -1,0 +1,13 @@
+# Local Netlify folder
+.netlify
+
+# Environment variables — never commit
+.env
+.env.*
+.env.local
+
+# Claude Code local settings (may contain API keys)
+.claude/settings.local.json
+
+# Node dependencies
+node_modules/
