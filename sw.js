@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alhaqq-v26';
+const CACHE_NAME = 'alhaqq-v27';
 const STATIC_ASSETS = [
   '/manifest.json'
 ];
