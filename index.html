@@ -2164,6 +2164,23 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
   .v2-fab { bottom: 5.2rem; right: 1rem; }
 }
 
+
+  /* ── LATEST ENTRY BADGE & FLASH ── */
+  .tag-new {
+    color: #7cdba4;
+    border-color: rgba(124,219,164,0.5);
+    background: rgba(124,219,164,0.08);
+    font-weight: 600;
+    letter-spacing: .18em;
+  }
+  @keyframes latestFlash {
+    0%   { box-shadow: 0 0 0 0 rgba(124,219,164,0); }
+    20%  { box-shadow: 0 0 0 6px rgba(124,219,164,0.35); }
+    80%  { box-shadow: 0 0 0 6px rgba(124,219,164,0.15); }
+    100% { box-shadow: 0 0 0 0 rgba(124,219,164,0); }
+  }
+  .entry.latest-flash { animation: latestFlash 1.8s ease; }
+
 </style>
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#c9a84c">
@@ -2221,7 +2238,10 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
     <button class="filter-btn diff-btn" onclick="setDifficulty('common', this)">Common</button>
     <button class="filter-btn diff-btn" onclick="setDifficulty('advanced', this)">Advanced</button>
     <button class="filter-btn diff-btn" onclick="setDifficulty('complex', this)">Complex</button>
-  </div>
+  
+  <div class="filters" style="margin-top:.45rem;">
+    <button class="filter-btn" style="color:#7cdba4;border-color:rgba(124,219,164,0.4);" onclick="goToLatest()">✦ Latest Entry</button>
+  </div></div>
 </div>
 
 <!-- STATS -->
@@ -3559,6 +3579,7 @@ function renderEntries(filtered) {
   let count = 0;
   let lockedCount = 0;
 
+  const _maxId = Math.max(...entries.map(e => e.id));
   filtered.forEach(entry => {
     count++;
     const renderLocked = entry.locked && !hasAccess();
@@ -3707,6 +3728,17 @@ function renderEntries(filtered) {
       `;
     }
 
+    // Mark and badge the newest entry
+    if (entry.id === _maxId) {
+      div.dataset.latest = "true";
+      const _meta = div.querySelector('.entry-meta');
+      if (_meta) {
+        const _badge = document.createElement('span');
+        _badge.className = 'tag tag-new';
+        _badge.textContent = 'NEW';
+        _meta.appendChild(_badge);
+      }
+    }
     db.appendChild(div);
   });
 
@@ -3741,6 +3773,28 @@ function filterEntries() {
   });
   renderEntries(filtered);
 }
+
+function goToLatest() {
+  currentFilter = 'all';
+  currentDifficulty = 'all';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.filter-btn:not(.diff-btn)').forEach(b => b.classList.remove('active'));
+  const allBtn = document.querySelector('.filter-btn:not(.diff-btn)');
+  if (allBtn) allBtn.classList.add('active');
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+  const allDiff = document.querySelector('.diff-btn');
+  if (allDiff) allDiff.classList.add('active');
+  filterEntries();
+  setTimeout(() => {
+    const card = document.querySelector('[data-latest="true"]');
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('latest-flash');
+      setTimeout(() => card.classList.remove('latest-flash'), 2000);
+    }
+  }, 120);
+}
+
 
 function setFilter(filter, btn) {
   currentFilter = filter;
