@@ -713,8 +713,27 @@ let sessionTopics = new Set();
 let isLoading = false;
 let conversationHistory = [];
 
+// ── MEMBERSHIP ──
+function isMember() {
+  return localStorage.getItem('alhaqq_owner') === '1' || !!localStorage.getItem('alhaqq_sub_token');
+}
+
+function redeemAccessCode(e) {
+  if (e) e.preventDefault();
+  const code = prompt('Enter your access code:');
+  if (code === null) return;
+  if (code.trim().toUpperCase() === 'ALHAQQ2026') {
+    localStorage.setItem('alhaqq_owner', '1');
+    updateUsageBadge();
+    addSystemMessage('✓ Access unlocked. Founding Member — train without limits.');
+  } else {
+    alert('Invalid code. Please check and try again.');
+  }
+}
+// ── END MEMBERSHIP ──
+
 // ── USAGE LIMITER ──
-const DAILY_LIMIT = 15; // max rebuttals per subscriber per day
+const FREE_DAILY_LIMIT = 2;
 const LIMIT_KEY = 'alhaqq_usage';
 
 function getTodayKey() {
@@ -731,22 +750,49 @@ function getUsageToday() {
 }
 
 function incrementUsage() {
+  if (isMember()) return;
   const count = getUsageToday() + 1;
   localStorage.setItem(LIMIT_KEY, JSON.stringify({ date: getTodayKey(), count }));
   updateUsageBadge();
 }
 
 function updateUsageBadge() {
-  const used = getUsageToday();
-  const remaining = Math.max(0, DAILY_LIMIT - used);
   const badge = document.getElementById('usageBadge');
   if (!badge) return;
-  badge.textContent = `${remaining} rebuttals remaining today`;
-  badge.style.color = remaining <= 3 ? 'var(--red)' : remaining <= 7 ? 'var(--gold)' : 'var(--text-dim)';
+  if (isMember()) {
+    badge.textContent = 'Unlimited';
+    badge.style.color = 'var(--gold)';
+    return;
+  }
+  const used = getUsageToday();
+  const remaining = Math.max(0, FREE_DAILY_LIMIT - used);
+  badge.textContent = `${remaining} free rebuttal${remaining === 1 ? '' : 's'} remaining today`;
+  badge.style.color = remaining <= 0 ? 'var(--red)' : 'var(--gold)';
 }
 
 function isLimitReached() {
-  return getUsageToday() >= DAILY_LIMIT;
+  return !isMember() && getUsageToday() >= FREE_DAILY_LIMIT;
+}
+
+function showLimitReachedMessage() {
+  const messages = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'message message-system';
+  div.innerHTML = `
+    <div class="msg-label msg-label-system">
+      <div class="msg-dot msg-dot-system"></div>
+      System
+    </div>
+    <div class="msg-text-system">
+      That is your 2 free rebuttals for today. Founding Members train here without limits.
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.6rem;align-items:center;">
+        <button onclick="window.open('https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00','_blank')" style="font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.9rem 1.4rem;background:var(--gold);color:var(--ink);border:none;cursor:pointer;font-weight:700;">⭐ Become a Founding Member · $2.99/mo locked for life</button>
+        <a href="#" onclick="redeemAccessCode(event)" style="color:var(--gold-dim);text-decoration:underline;font-size:0.8rem;">Already a member? Enter access code</a>
+      </div>
+    </div>
+  `;
+  messages.appendChild(div);
+  div.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }
 // ── END USAGE LIMITER ──
 
@@ -793,7 +839,7 @@ async function sendArgument() {
 
   // Check daily limit
   if (isLimitReached()) {
-    addSystemMessage(`You have reached your daily limit of ${DAILY_LIMIT} rebuttals. Your limit resets at midnight. This protects fair access for all subscribers. JazakAllah Khayran.`);
+    showLimitReachedMessage();
     return;
   }
 

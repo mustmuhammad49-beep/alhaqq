@@ -537,6 +537,104 @@
     text-transform: uppercase;
   }
 
+  /* ── LIVE DEBATE MODE ── */
+  #liveMode {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    z-index: 500;
+    overflow-y: auto;
+  }
+
+  #liveMode.visible { display: block; }
+
+  .live-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    background: var(--ink);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .live-search {
+    flex: 1;
+    min-height: 44px;
+    padding: 0.9rem 1rem;
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .live-search:focus { border-color: var(--gold-dim); }
+
+  .live-close {
+    min-width: 44px;
+    min-height: 44px;
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .live-cards {
+    padding: 1.2rem 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .live-card {
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 1.3rem 1.4rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .live-myth-label {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+  }
+
+  .live-answer {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--text-main);
+  }
+
+  .live-verse-chip {
+    display: inline-block;
+    margin-top: 0.7rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    border: 1px solid var(--gold-dim);
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+  }
+
   /* ── SUBSCRIPTION MODAL ── */
   .modal-backdrop {
     position: fixed;
@@ -1433,6 +1531,58 @@
     padding: 0 2rem;
   }
 
+  .next-drop-card {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 1.4rem 1.8rem;
+    background: var(--ink-2);
+    border-left: 4px solid var(--gold);
+  }
+
+  .next-drop-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .next-drop-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .next-drop-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 0.9rem;
+  }
+
+  .next-drop-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.3rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .next-drop-btn:hover { background: var(--gold-light); }
+
   .founding-box {
     background: linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(138,111,46,0.12) 100%);
     border: 2px solid var(--gold);
@@ -1589,6 +1739,24 @@
 
   .action-btn:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
   .action-btn.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .teaser-cta {
+    display: block;
+    width: 100%;
+    margin-top: 1.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.9rem 1rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .teaser-cta:hover { background: var(--gold-light); }
 
   /* ── NOTIFY MODAL ── */
   .notify-backdrop {
@@ -2205,6 +2373,7 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
       <a href="alhaqq-debate-simulator.html" style="text-decoration:none;">
         <button class="btn-login" style="color:var(--accent-light);border-color:rgba(61,168,118,0.5);">⚔ Debate Simulator</button>
       </a>
+      <button class="btn-login" style="color:var(--gold);border-color:rgba(201,168,76,0.5);" onclick="openLiveMode()">⚔ Live Mode</button>
       <button class="btn-subscribe" onclick="window.open('https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00','_blank')">⭐ Founding Member — $2.99/mo</button>
     </div>
   </div>
@@ -2267,6 +2436,14 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
       <div class="founding-urgency" id="foundingUrgency">Be among the first 1,000</div>
     </div>
   </div>
+</div>
+
+<!-- NEXT DROP CARD -->
+<div class="next-drop-card">
+  <div class="next-drop-eyebrow">◈ Next Drop · <span id="nextDropDay"></span></div>
+  <div class="next-drop-title" id="nextDropTitle"></div>
+  <div class="next-drop-sub">Members read it the day it lands.</div>
+  <button class="next-drop-btn" onclick="openModal()">Subscribe →</button>
 </div>
 
 <!-- DATABASE -->
@@ -2477,19 +2654,36 @@ This feature is in active development. It will be unlocked when fully verified a
       <li><span>✓</span> Downloadable reference cards</li>
       <li><span>✓</span> Submit myths for research</li>
       <li><span>✓</span> Early access to video scripts</li>
+      <li><span>✓</span> Copy-paste comment replies for every myth</li>
     </ul>
     <button class="btn-subscribe-full" onclick="window.open('https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00','_blank')">Claim Founding Member Spot</button>
     <p class="modal-note">Secure payment · Instant access · Price locked forever</p>
+    <p class="modal-note" style="margin-top:0.6rem;"><a href="#" onclick="redeemAccessCode(event)" style="color:var(--gold-dim);text-decoration:underline;">Already a member? Enter access code</a></p>
   </div>
 </div>
 
+<!-- LIVE DEBATE MODE -->
+<div id="liveMode">
+  <div class="live-topbar">
+    <input type="text" id="liveSearchInput" class="live-search" placeholder="Type the attack..." oninput="renderLiveCards()">
+    <button class="live-close" onclick="closeLiveMode()">✕</button>
+  </div>
+  <div class="live-cards" id="liveCards"></div>
+</div>
+
 <script>
+const NEXT_DROP = { title: "The Quran endorses slavery — Islam is incompatible with human rights", day: "Friday" };
+document.getElementById('nextDropDay').textContent = NEXT_DROP.day;
+document.getElementById('nextDropTitle').textContent = NEXT_DROP.title;
+
 const entries = [
  {
  id: 1,
  myth: "Islam was spread by the sword — Muslims forced people to convert",
  source: "christian",
  difficulty: "Common",
+ quickAnswer: "There is no compulsion in religion. 2:256. Forced belief is not belief and Allah judges hearts, not armies.",
+ reply: "2:256 says there is no compulsion in religion. You cannot force belief into a heart, Allah judges what is inside it. Christians and Jews lived under Muslim rule for over a thousand years and stayed Christian and Jewish. If the sword was the method it did a terrible job.",
  locked: false,
  claim: "Critics allege that Islam spread primarily through military conquest and coercion, leaving people no choice but to convert or face death.",
  rebuttal: "The Quran is explicit: there is absolutely no compulsion in the matter of faith. Belief forced at swordpoint is not belief — Allah knows what is in the heart. The historical expansion of Muslim governance and the spread of Islam as a faith are two entirely different things. Non-Muslims lived under Muslim rule for centuries without converting. If the sword was the tool, the populations would have vanished. Instead, diverse communities of Christians, Jews, and others thrived within Muslim-majority lands for generations. The Quran's position is settled: faith is a matter between a person and Allah alone — no ruler, no army, and no threat can manufacture it.",
@@ -2504,6 +2698,8 @@ const entries = [
  myth: "Muslims worship Muhammad — Islam is no different from prophet worship",
  source: "christian",
  difficulty: "Common",
+ quickAnswer: "Allah rebukes Muhammad to his face in 80:1. You do not rebuke your own god. Messenger, nothing more.",
+ reply: "Open Surah 80. Allah rebukes Muhammad for turning away from a blind man. Nobody rebukes their own god. The Quran calls him a messenger over and over and commands worship of Allah alone. Veneration is not worship and the Quran draws that line itself.",
  locked: true,
  claim: "Some allege that Muslim veneration of the Prophet Muhammad constitutes worship, making it a form of shirk or polytheism.",
  rebuttal: "The Quran directly addresses this. Muhammad was a human messenger — nothing more, nothing less. Allah commands that obedience to the messenger is obedience to Allah's message, not worship of a man. The Quran even rebukes Muhammad directly in Surah Abasa (80:1) when he turned away from a blind man — a divine correction that no worshipped figure would ever receive. Allah makes it clear in 3:144 that Muhammad was a messenger, and that messengers die. The moment any person is elevated beyond their station as a servant of Allah, that elevation becomes a door to shirk — and the Quran closes that door permanently. Muhammad himself is reported in the Quran as saying he is only a human being like you, receiving revelation. The worship belongs to Allah. The respect belongs to the Prophet. The two are not the same.",
@@ -2542,6 +2738,8 @@ The Arabic word <em>yusalli</em> operates the same way. When a human being perfo
  myth: "The Quran permits men to beat their wives — the word daraba proves it",
  source: "secular",
  difficulty: "Advanced",
+ quickAnswer: "Daraba also means separate. 2:231 forbids harming wives. Allah does not contradict Himself.",
+ reply: "Daraba has multiple meanings inside the Quran itself, including to separate and to set forth an example. 2:231 commands men not to hold wives in order to harm them. Allah does not command harm in one verse and forbid it in another. Take the meaning that matches the Book, not the one that matches your accusation.",
  locked: false,
  claim: "Critics cite the word 'daraba' in 4:34 as definitive proof that the Quran sanctions domestic violence, selecting the meaning 'to strike' from a word that carries over a dozen meanings in Arabic.",
  rebuttal:`This is the daraba method — and it is the same dishonest reading exposed in the entry above on yusalli. The full list of meanings the word daraba carries in Arabic and across the Quran is as follows: to travel or go out (4:101), to set forth a parable or example (14:24), to strike a coin or mint, to impose or assign, to seal or cover, to draw or trace a line, to separate or part ways, to ignore or turn away from, to condemn, to put forward. That is the range. Disbelievers reach into that list and select the most violent option — "to strike" — and apply it to a verse about marital conflict requiring careful, graduated de-escalation.<br><br>
@@ -2560,6 +2758,8 @@ The correct reading of daraba in 4:34 is to separate — to physically part from
  myth: "Islam borrowed everything from Judaism and Christianity — it's not an original revelation",
  source: "orientalist",
  difficulty: "Advanced",
+ quickAnswer: "Same Author, same message through every prophet. 42:13. That is confirmation, not copying.",
+ reply: "One God sent one message through every prophet, so of course the message matches. The Quran says it openly in 42:13, He ordained for you the same religion He gave Noah, Abraham, Moses and Jesus. Consistency from the same Author. Plagiarism requires a different author. You are describing confirmation.",
  locked: true,
  claim: "Orientalist scholars argue Muhammad compiled the Quran from Jewish rabbinical texts and Christian apocrypha, making it a derivative human work.",
  rebuttal:`Start by naming the source of this charge, because it has a documented birth date — and it has been abandoned by the very field that created it.<br><br>
@@ -2599,6 +2799,8 @@ The charge that the Quran is a derivative human work compiled from rabbinical te
  myth: "Rejecting Hadith means rejecting Islam itself — you cannot be Muslim without Hadith",
  source: "sunni",
  difficulty: "Advanced",
+ quickAnswer: "6:114. Shall I seek other than Allah as judge when He sent the Book fully detailed? Case closed.",
+ reply: "6:114 asks, shall I seek other than Allah as a judge when He is the one who sent down the Book fully detailed? The Quran calls itself complete, detailed and fully explained. If it needed a second book those verses would be false. I take the Quran's word over the compilers.",
  locked: false,
  claim: "Sunni scholars argue that the Quran alone is insufficient and that rejecting Hadith constitutes apostasy or fundamental misunderstanding of the deen.",
  rebuttal: "The Quran explicitly states it is complete, detailed, and sufficient. Allah did not leave His Book incomplete requiring human supplements. In 6:114, Allah asks: 'Shall I seek other than Allah as a judge while it is He who has revealed to you the Book explained in detail?' The Book is explained in detail — by Allah's own words. The Quran also warns in 45:6: 'These are the verses of Allah which We recite to you in truth. Then in what hadith after Allah and His verses will they believe?' That verse names the problem directly. Furthermore, the earliest Hadith collections were compiled 200 to 300 years after the Prophet's death — through chains of human memory, political upheaval, and documented fabrication. The Quran, by contrast, was preserved in writing from the time of revelation. A believer who trusts Allah's preserved Book over centuries-old human narrations is not rejecting Islam. They are following it precisely as Allah commanded.",
@@ -3227,6 +3429,8 @@ People can reject this. Rejecting it does not make it incorrect.`,
  myth: "The Quran has no prayer times — you need Hadith to know when to pray",
  source: "sunni",
  difficulty: "Advanced",
+ quickAnswer: "The Quran names its own times. 11:114, 17:78, 24:58. Read before you claim absence.",
+ reply: "The Quran gives the times itself. 11:114 establishes prayer at the two ends of the day and the approach of night. 17:78 runs from the sun's decline to the darkness of night plus the dawn recitation. 24:58 names dawn and isha by name. The claim dies the moment you actually read.",
  locked: true,
  claim: "Sunni scholars argue that without Hadith, a Muslim cannot know when to pray — that the Quran provides no timing for the five daily prayers, making Hadith an indispensable supplement to the Book of Allah.",
  rebuttal:`The Quran does not give you clock times. It gives you something more honest and more merciful — windows of time. And within those windows, it names three prayers explicitly, leaving the believer with the natural world as their timepiece rather than a man-made schedule.<br><br>
@@ -3265,6 +3469,8 @@ The prayer times are in the Quran. They are inscribed in the movement of the sun
  myth: "Muhammad married a child — Islam condones child marriage",
  source: "christian",
  difficulty: "Common",
+ quickAnswer: "4:6. Allah's standard is marriageable age plus sound judgement. A child meets neither. The story fails Allah's own test.",
+ reply: "The Quran sets the standard in 4:6, marriageable age plus sound judgement before any transfer of responsibility. A child satisfies neither condition. Whatever historical traditions say, I hold the Quran above them. The Book's own standard rules out the interpretation you are pushing.",
  locked: true,
  claim: "Critics claim the Prophet Muhammad married Aisha at age 6 or 9, and use this to argue that Islam institutionally sanctions child marriage and the abuse of minors.",
  rebuttal:`This argument is dismantled by the Quran itself — and the Quran's criteria make the accusation impossible to sustain for any believer who takes Allah's words seriously.<br><br>
@@ -3643,6 +3849,14 @@ The verdict is not Muslim opinion. It is the conclusion of Christian and secular
 let currentFilter = 'all';
 let currentDifficulty = 'all';
 
+function makeTeaser(rebuttalHtml) {
+  const text = (rebuttalHtml || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const sentenceMatch = text.match(/[^.!?]+[.!?]+/g);
+  const twoSentences = sentenceMatch ? sentenceMatch.slice(0, 2).join(' ').trim() : text;
+  const charLimit = text.length > 240 ? text.slice(0, 240).trim() + '…' : text;
+  return twoSentences.length <= charLimit.length ? twoSentences : charLimit;
+}
+
 function renderEntries(filtered) {
   const db = document.getElementById('database');
   db.innerHTML = '';
@@ -3663,26 +3877,44 @@ function renderEntries(filtered) {
 
     if (renderLocked) {
       const isEmpty = !entry.claim && !entry.rebuttal;
-      div.innerHTML = `
-        <div class="entry-header" onclick="${isEmpty ? '' : 'openModal()'}">
-          <div style="flex:1">
-            <div class="entry-meta">
-              <span class="tag ${tagClass}">${tagLabel}</span>
-              <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
-              ${isEmpty ? `<span class="difficulty" style="background:rgba(201,168,76,0.12);color:#c9a84c;border-color:rgba(201,168,76,0.4);letter-spacing:.06em;">⏳ Coming Soon</span>` : ''}
+      if (isEmpty) {
+        div.innerHTML = `
+          <div class="entry-header">
+            <div style="flex:1">
+              <div class="entry-meta">
+                <span class="tag ${tagClass}">${tagLabel}</span>
+                <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
+              </div>
+              <div class="entry-myth">${entry.myth}</div>
+              <div style="margin-top:0.8rem;font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);">◈ In the research queue · new entries drop weekly for members</div>
+              <a href="#" onclick="openModal();event.stopPropagation();return false;" style="display:inline-block;margin-top:0.6rem;font-family:'Lora',serif;font-size:0.78rem;color:var(--gold);text-decoration:underline;">Get it the day it drops →</a>
             </div>
-            <div class="entry-myth">${entry.myth}</div>
           </div>
-          <div class="entry-toggle">${isEmpty ? '⏳' : '🔒'}</div>
-        </div>
-        <div class="lock-overlay" style="${isEmpty ? 'background:rgba(13,13,15,0.92);' : ''}">
-          ${isEmpty
-            ? '⏳ <span style="opacity:.9">Rebuttal in research — subscribe to be notified when it drops</span>'
-            : '🔒 Subscribe to unlock this rebuttal'}
-          ${isEmpty ? `<br><button onclick="openNotify();event.stopPropagation();" style="margin-top:.7rem;background:transparent;border:1px solid rgba(201,168,76,0.5);color:#c9a84c;font-family:\'Cinzel\',serif;font-size:.6rem;letter-spacing:.12em;padding:.4rem .9rem;border-radius:3px;cursor:pointer;">Notify me when ready →</button>` : ''}
-        </div>
-      `;
-      if (!isEmpty) div.onclick = openModal;
+        `;
+      } else {
+        const teaser = makeTeaser(entry.rebuttal);
+        div.innerHTML = `
+          <div class="entry-header">
+            <div style="flex:1">
+              <div class="entry-meta">
+                <span class="tag ${tagClass}">${tagLabel}</span>
+                <span class="difficulty" data-diff="${entry.difficulty}">${entry.difficulty}</span>
+              </div>
+              <div class="entry-myth">${entry.myth}</div>
+            </div>
+          </div>
+          <div class="entry-content">
+            <div class="section-label" style="margin-top:1.4rem;">The Claim</div>
+            <div class="myth-claim">"${entry.claim}"</div>
+            <div class="section-label">The Rebuttal</div>
+            <div style="position:relative;max-height:110px;overflow:hidden;">
+              <div class="rebuttal-text">${teaser}</div>
+              <div style="position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(180deg, transparent, var(--ink-2));"></div>
+            </div>
+            <button class="teaser-cta" onclick="openModal()">Read the full takedown →</button>
+          </div>
+        `;
+      }
     } else if (entry.locked && hasAccess() && !entry.interactive) {
       // Owner view: locked entry with content — render as unlocked
       const isEmpty = !entry.claim && !entry.rebuttal;
@@ -3736,6 +3968,7 @@ function renderEntries(filtered) {
                 <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📝 Copy script</button>
                 <button class="action-btn" id="pin-btn-${entry.id}" onclick="copyPinnedComment(${entry.id}, event)">📌 Copy pinned comment</button>
                 <button class="action-btn" id="desc-btn-${entry.id}" onclick="copyDescription(${entry.id}, event)">📋 Copy video description</button>
+                ${entry.reply ? `<button class="action-btn" id="reply-btn-${entry.id}" onclick="copyEntryReply(${entry.id}, event)">💬 Copy Reply</button>` : ''}
               </div>
             </div>
           </div>
@@ -3792,6 +4025,7 @@ function renderEntries(filtered) {
               <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📝 Copy script</button>
               <button class="action-btn" id="pin-btn-${entry.id}" onclick="copyPinnedComment(${entry.id}, event)">📌 Copy pinned comment</button>
               <button class="action-btn" id="desc-btn-${entry.id}" onclick="copyDescription(${entry.id}, event)">📋 Copy video description</button>
+              ${entry.reply ? `<button class="action-btn" id="reply-btn-${entry.id}" onclick="copyEntryReply(${entry.id}, event)">💬 Copy Reply</button>` : ''}
             </div>
           </div>
         </div>
@@ -3884,6 +4118,43 @@ function openModal() { document.getElementById('modal').classList.add('visible')
 function closeModal() { document.getElementById('modal').classList.remove('visible'); }
 function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
 
+function openLiveMode() {
+  if (!isMember()) { openModal(); return; }
+  document.getElementById('liveSearchInput').value = '';
+  renderLiveCards();
+  document.getElementById('liveMode').classList.add('visible');
+  setTimeout(() => document.getElementById('liveSearchInput').focus(), 100);
+}
+
+function closeLiveMode() {
+  document.getElementById('liveMode').classList.remove('visible');
+}
+
+function renderLiveCards() {
+  const q = (document.getElementById('liveSearchInput').value || '').toLowerCase();
+  const list = entries.filter(e => e.quickAnswer && (!q || e.myth.toLowerCase().includes(q) || e.quickAnswer.toLowerCase().includes(q)));
+  const container = document.getElementById('liveCards');
+  if (!list.length) {
+    container.innerHTML = '<div style="padding:3rem 1rem;text-align:center;color:var(--text-dim);font-family:\'Lora\',serif;font-style:italic;">No matches. Try another word.</div>';
+    return;
+  }
+  container.innerHTML = list.map(e => `
+    <div class="live-card" onclick="toggleLiveCard(${e.id})">
+      <div class="live-myth-label">${e.myth}</div>
+      <div class="live-answer">${e.quickAnswer}</div>
+      ${e.verse ? `<div class="live-verse-chip">${(e.verse.ref || '').split('—')[0].split('.')[0].trim()}</div>` : ''}
+      <div class="live-full" id="live-full-${e.id}" style="display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+        <div class="rebuttal-text">${linkBibleRefs(linkVerseRefs(e.rebuttal))}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleLiveCard(id) {
+  const el = document.getElementById(`live-full-${id}`);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
 // ── OWNER LOGIN ──
 // ── AUTH HELPERS ──
 
@@ -3897,6 +4168,25 @@ function isSubscriber() {
 
 function hasAccess() {
   return isOwner() || isSubscriber();
+}
+
+function isMember() {
+  return hasAccess();
+}
+
+function redeemAccessCode(e) {
+  if (e) e.preventDefault();
+  const code = prompt('Enter your access code:');
+  if (code === null) return;
+  if (code.trim().toUpperCase() === 'ALHAQQ2026') {
+    localStorage.setItem('alhaqq_owner', '1');
+    applyOwnerState();
+    closeModal();
+    showToast('✓ Access unlocked. Welcome in.');
+    filterEntries();
+  } else {
+    alert('Invalid code. Please check and try again.');
+  }
 }
 
 function openSignIn() {
@@ -4917,10 +5207,15 @@ function fallbackCopy(text, id) {
   }).catch(() => showToast());
 }
 
-function showToast() {
+function showToast(msg) {
   const toast = document.getElementById('shareToast');
+  if (!toast.dataset.default) toast.dataset.default = toast.textContent;
+  toast.textContent = msg || toast.dataset.default;
   toast.classList.add('visible');
-  setTimeout(() => toast.classList.remove('visible'), 2500);
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    toast.textContent = toast.dataset.default;
+  }, 2500);
 }
 
 // ── DOWNLOAD REFERENCE CARD ──
@@ -5038,6 +5333,20 @@ More rebuttals at alhaqq.it.com
 
 #Islam #Quran #QuranOnly #Muslim #IslamicApologetics #DebunkingMyths #AlHaqq #IslamicFacts #Dawah`;
   _copyText(desc, `desc-btn-${id}`, 'Copy Description');
+}
+
+function copyEntryReply(id, event) {
+  if (event) event.stopPropagation();
+  if (!isMember()) { openModal(); return; }
+  const entry = entries.find(e => e.id === id);
+  if (!entry || !entry.reply) return;
+  const finish = () => showToast('✓ Reply copied. Go get them.');
+  navigator.clipboard.writeText(entry.reply).then(finish).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = entry.reply; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    finish();
+  });
 }
 
 // (duplicate deep-link handler removed — handled by handleMythDeepLink above)
