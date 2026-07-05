@@ -3954,10 +3954,17 @@ function renderClipSection(entry) {
   `;
 }
 
-let _tiktokScriptLoaded = false;
 function ensureTikTokScript() {
-  if (_tiktokScriptLoaded) return;
-  _tiktokScriptLoaded = true;
+  // TikTok's embed.js only scans the DOM for blockquote.tiktok-embed nodes
+  // that exist at the moment it runs. Blockquotes injected later (e.g. a
+  // second clip tapped after the script already loaded) need an explicit
+  // re-render call, or a fresh script re-invocation as a fallback.
+  if (window.tiktokEmbed?.lib?.render) {
+    window.tiktokEmbed.lib.render();
+    return;
+  }
+  const old = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
+  if (old) old.remove();
   const s = document.createElement('script');
   s.src = 'https://www.tiktok.com/embed.js';
   s.async = true;
