@@ -98,11 +98,12 @@ export default async (request, context) => {
 
   const newHtml = html.replace('</head>', injected + '\n</head>');
 
+  const headers = new Headers(response.headers);
+  headers.set('content-type', 'text/html; charset=utf-8');
+  headers.set('x-al-haqq-og', mythId ? `entry-${mythId}` : 'default');
+
   return new Response(newHtml, {
     status: response.status,
-    headers: {
-      'content-type': 'text/html; charset=utf-8',
-      'x-al-haqq-og': mythId ? `entry-${mythId}` : 'default',
-    }
+    headers
   });
 };
