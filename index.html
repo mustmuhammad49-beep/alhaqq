@@ -446,7 +446,7 @@
     transition: max-height 0.4s ease;
   }
 
-  .entry.open .entry-body { max-height: 4000px; }
+  .entry.open .entry-body { max-height: 20000px; }
 
   .entry-content {
     padding-top: 1.4rem;
@@ -5312,8 +5312,6 @@ else if (isSubscriber()) applySubscriberState(localStorage.getItem('alhaqq_sub_e
       setTimeout(() => {
         entryEl.classList.add('open');
         entryEl.querySelector('.entry-toggle') && (entryEl.querySelector('.entry-toggle').textContent = '×');
-        const body = entryEl.querySelector('.entry-body');
-        if (body) body.style.maxHeight = '4000px';
       }, 400);
     }
   }, 300);
