@@ -1720,6 +1720,62 @@
     flex-wrap: wrap;
   }
 
+  .clip-section {
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .clip-section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.9rem;
+  }
+
+  .clip-card-wrap { margin-bottom: 1rem; }
+  .clip-card-wrap:last-child { margin-bottom: 0; }
+
+  .clip-card-index {
+    font-family: 'Lora', serif;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+
+  .clip-placeholder {
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-height: 480px;
+    max-width: 340px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    cursor: pointer;
+  }
+
+  .clip-placeholder-play {
+    color: var(--gold);
+    font-size: 2.6rem;
+    line-height: 1;
+  }
+
+  .clip-placeholder-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .clip-embed-wrap { max-width: 340px; margin: 0 auto; }
+
   .action-btn {
     flex: 1;
     min-width: 140px;
@@ -2710,6 +2766,7 @@ const entries = [
  myth: "Muslims worship Muhammad — Islam is no different from prophet worship",
  source: "christian",
  difficulty: "Common",
+ clipId: "7648048240750906645",
  quickAnswer: "Allah rebukes Muhammad to his face in 80:1. You do not rebuke your own god. Messenger, nothing more.",
  reply: "Open Surah 80. Allah rebukes Muhammad for turning away from a blind man. Nobody rebukes their own god. The Quran calls him a messenger over and over and commands worship of Allah alone. Veneration is not worship and the Quran draws that line itself.",
  locked: true,
@@ -2750,6 +2807,7 @@ The Arabic word <em>yusalli</em> operates the same way. When a human being perfo
  myth: "The Quran permits men to beat their wives — the word daraba proves it",
  source: "secular",
  difficulty: "Advanced",
+ clipId: "7636076687356103957",
  quickAnswer: "Daraba also means separate. 2:231 forbids harming wives. Allah does not contradict Himself.",
  reply: "Daraba has multiple meanings inside the Quran itself, including to separate and to set forth an example. 2:231 commands men not to hold wives in order to harm them. Allah does not command harm in one verse and forbid it in another. Take the meaning that matches the Book, not the one that matches your accusation.",
  locked: false,
@@ -2847,6 +2905,7 @@ The Quran also makes clear that Allah did not make this religion a burden: <em>"
  myth: "Islam is the most violent religion on the face of the earth",
  source: "christian",
  difficulty: "Common",
+ clipId: ["7646529134750977301","7647221551334460693"],
  locked: false,
  claim: "Critics — Christian apologists, secular commentators, and ex-Muslims — claim that Islam is uniquely violent because of its scripture, pointing to verses about fighting, historical conquests, and modern conflicts involving Muslim-majority groups as evidence that violence is commanded by the Quran itself.",
  rebuttal:`This argument fails on every level — textually, historically, and academically. The Quran does not command violence. It regulates defensive warfare within a strict moral framework. Here is what the Quran actually says — verse by verse.<br><br>
@@ -2889,6 +2948,7 @@ The Quran also makes clear that Allah did not make this religion a burden: <em>"
  myth: "The Quran makes a scientific mistake about embryology — bones don't form before flesh",
  source: "secular",
  difficulty: "Advanced",
+ clipId: ["7633888658260495637","7631309920545148181"],
  locked: false,
  claim: "Atheists and ex-Muslims argue that Surah Al-Mu'minun 23:14 claims the embryo develops bones first which are then coated with flesh — and that modern embryology proves this sequence is wrong because organs develop simultaneously. Some add that the Quran plagiarised Galen's outdated Greek embryology, or that the entire miracle claim was fabricated by Keith Moore on Saudi funding.",
  rebuttal:`Surah Al-Mu'minun 23:14 describes human embryonic development in a precise sequence: a drop (<em>nutfah</em>), then a clinging substance (<em>alaqah</em>), then a chewed-like lump (<em>mudghah</em>), then bones (<em>izam</em>), then the bones clothed with flesh (<em>lahm</em>). The Quran was revealed in the 7th century — more than a thousand years before the microscope was invented in 1677, before any human being could observe an embryo at these stages. Modern peer-reviewed embryology confirms each stage occurs in exactly this order, and the descriptions match the observable morphology at each stage. Every atheist objection collapses under examination.<br><br>
@@ -2957,6 +3017,7 @@ This sequence was revealed in 7th-century Arabia, a thousand years before the mi
  myth: "The four Gospels were written by Matthew, Mark, Luke, and John — eyewitnesses and companions of Jesus",
  source: "christian",
  difficulty: "Advanced",
+ clipId: "7650183479149301012",
  locked: true,
  claim: "Christians assert that the four New Testament Gospels were written by Matthew, Mark, Luke, and John — either direct eyewitnesses to Jesus or close companions of those who were. This claim is foundational to Christian apologetics, because named eyewitness testimony is presented as the basis for Gospel reliability and therefore the basis for the entire Christian theological edifice.",
  rebuttal:`The Gospels do not name their authors inside the text. Granted. And it changes nothing, because that was never the real question.<br><br>
@@ -3096,6 +3157,7 @@ People can reject this. Rejecting it does not make it incorrect.`,
  myth: "Muhammad married Zaynab, his adopted son's ex-wife, out of lust and invented a revelation to justify it",
  source: "christian",
  difficulty: "Advanced",
+ clipId: "7633208410900614421",
  locked: true,
  claim: "Critics — Christian apologists, Orientalists, and ex-Muslims — argue that Prophet Muhammad desired Zaynab bint Jahsh, the wife of his adopted son Zayd, that Zayd divorced her so Muhammad could marry her, and that Muhammad then produced a self-serving revelation (Surah 33:37) to permit the marriage, proving he used divine revelation to satisfy personal desire.",
  rebuttal:`The charge collapses on three grounds: the explicit text of the Quran, the historical record of the marriage, and the Bible's own far more scandalous parallels involving the figures Christians revere most.<br><br>
@@ -3251,6 +3313,7 @@ People can reject this. Rejecting it does not make it incorrect.`,
  myth: "Jibril wasn't the angel Gabriel — Muhammad just assumed it and got the whole thing wrong",
  source: "christian",
  difficulty: "Advanced",
+ clipId: "7658094993654959380",
  locked: false,
  claim: "Critics argue that the Jibril of the Quran is not the angel Gabriel of the Bible. They say Muhammad simply borrowed the name, assumed his spirit was the biblical Gabriel with no basis, and got the identity wrong, or worse, that the being who appeared to him was a deceiving spirit, not the holy angel. Either way, they claim the connection is a mistake Muhammad invented.",
  rebuttal: `Start with the simplest fact, the one that ends the "Muhammad assumed it" claim before it begins: Jibril is not a different name. It is the same name. "Jibril," or Jibra'il, is the Arabic form of the Hebrew "Gavri'el," and it carries the identical meaning, the strength of God, or man of God. <em><a href="https://en.wikipedia.org/wiki/Gabriel_(given_name)" target="_blank" rel="noopener" style="color:#c9a84c;">Gabriel: name origin, with Jibril listed as a variant ↗</a></em> Even neutral reference works list Jibril directly as a form of Gabriel. So the Prophet did not invent a being and slap a borrowed label on him. He named the same angel the Jewish and Christian scriptures already named, in the same Abrahamic family of languages, exactly as you would expect for the same figure known to the same tradition.<br><br>
@@ -3363,6 +3426,7 @@ People can reject this. Rejecting it does not make it incorrect.`,
   myth: "The Islamic Dilemma: the Quran confirms the Bible, so Islam refutes itself either way",
   source: "christian",
   difficulty: "Advanced",
+  clipId: "7636899023051377940",
   locked: false,
   claim: "The flagship Christian argument: the Quran cannot even tell its own stories without the Bible, and it repeatedly confirms the scriptures in the hands of Jews and Christians. So the Muslim is trapped. If the Bible is reliable, it contradicts the Quran on the crucifixion and on who Jesus is, and Islam is false. If the Bible is corrupt, then the Quran spent its pages confirming a corrupt book, and Islam is still false. Either way, the Quran needs the Bible, and the Bible buries the Quran.",
   rebuttal: `The Islamic Dilemma sounds airtight until you read the verses it stands on. Start by granting the true part: the Quran speaks to people who already knew the stories of the prophets, and it does not re-narrate names and coordinates. Freely admitted. Every scripture speaks into the knowledge of its audience. But the argument needs something far bigger than that. It needs the Quran to be unable to function without the Bible, and it needs "confirming" to mean certifying every word of the manuscripts in their hands. That claim fails five separate ways, and then the mirror finishes it.<br><br>
@@ -3481,6 +3545,7 @@ The prayer times are in the Quran. They are inscribed in the movement of the sun
  myth: "Muhammad married a child — Islam condones child marriage",
  source: "christian",
  difficulty: "Common",
+ clipId: "7637617086843456788",
  quickAnswer: "4:6. Allah's standard is marriageable age plus sound judgement. A child meets neither. The story fails Allah's own test.",
  reply: "The Quran sets the standard in 4:6, marriageable age plus sound judgement before any transfer of responsibility. A child satisfies neither condition. Whatever historical traditions say, I hold the Quran above them. The Book's own standard rules out the interpretation you are pushing.",
  locked: true,
@@ -3869,6 +3934,62 @@ function makeTeaser(rebuttalHtml) {
   return twoSentences.length <= charLimit.length ? twoSentences : charLimit;
 }
 
+function renderClipSection(entry) {
+  if (!entry.clipId) return '';
+  const ids = Array.isArray(entry.clipId) ? entry.clipId : [entry.clipId];
+  const cards = ids.map((clipId, i) => `
+    <div class="clip-card-wrap">
+      ${ids.length > 1 ? `<div class="clip-card-index">Clip ${i + 1}</div>` : ''}
+      <div class="clip-placeholder" data-clip-id="${clipId}" onclick="loadClipCard(this)">
+        <div class="clip-placeholder-play">▶</div>
+        <div class="clip-placeholder-text">Tap to play</div>
+      </div>
+    </div>
+  `).join('');
+  return `
+    <div class="clip-section">
+      <div class="clip-section-label">▶ Watch This Used Live</div>
+      ${cards}
+    </div>
+  `;
+}
+
+let _tiktokScriptLoaded = false;
+function ensureTikTokScript() {
+  if (_tiktokScriptLoaded) return;
+  _tiktokScriptLoaded = true;
+  const s = document.createElement('script');
+  s.src = 'https://www.tiktok.com/embed.js';
+  s.async = true;
+  document.body.appendChild(s);
+}
+
+function loadClipCard(el) {
+  if (!el || el.dataset.loaded === 'true') return;
+  el.dataset.loaded = 'true';
+  const clipId = el.dataset.clipId;
+  const videoUrl = `https://www.tiktok.com/@builtongrit1/video/${clipId}`;
+  const wrap = document.createElement('div');
+  wrap.className = 'clip-embed-wrap';
+  wrap.innerHTML = `<blockquote class="tiktok-embed" cite="${videoUrl}" data-video-id="${clipId}" style="max-width: 340px; min-width: 288px;"><section></section></blockquote>`;
+  el.replaceWith(wrap);
+  ensureTikTokScript();
+}
+
+function observeClipPlaceholders(entryEl) {
+  const placeholders = entryEl.querySelectorAll('.clip-placeholder:not([data-loaded="true"])');
+  if (!placeholders.length) return;
+  const io = new IntersectionObserver((entries, observer) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        loadClipCard(en.target);
+        observer.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  placeholders.forEach(p => io.observe(p));
+}
+
 function renderEntries(filtered) {
   const db = document.getElementById('database');
   db.innerHTML = '';
@@ -3974,6 +4095,7 @@ function renderEntries(filtered) {
                 <div class="quran-translation">"${entry.verse.translation}"</div>
                 <div class="quran-ref">— ${entry.verse.ref}</div>
               </div>` : ''}
+              ${renderClipSection(entry)}
               <div class="entry-actions">
                 <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share link</button>
                 <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Reference card</button>
@@ -4031,6 +4153,7 @@ function renderEntries(filtered) {
               <div class="quran-translation">"${entry.verse.translation}"</div>
               <div class="quran-ref">— ${entry.verse.ref}</div>
             </div>` : ''}
+            ${renderClipSection(entry)}
             <div class="entry-actions">
               <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share link</button>
               <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Reference card</button>
@@ -4071,7 +4194,10 @@ function toggleEntry(id) {
   const el = document.querySelector(`.entry[data-id="${id}"]`);
   const wasOpen = el.classList.contains('open');
   document.querySelectorAll('.entry.open').forEach(e => e.classList.remove('open'));
-  if (!wasOpen) el.classList.add('open');
+  if (!wasOpen) {
+    el.classList.add('open');
+    observeClipPlaceholders(el);
+  }
 }
 
 function toggleVerse(headerEl) {
