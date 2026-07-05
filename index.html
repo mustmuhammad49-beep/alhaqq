@@ -2448,6 +2448,9 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
   <div class="next-drop-title" id="nextDropTitle"></div>
   <div class="next-drop-sub">Members read it the day it lands.</div>
   <button class="next-drop-btn" onclick="openModal()">Subscribe →</button>
+  <div style="margin-top:0.7rem;">
+    <a href="#" onclick="openNotify(); return false;" style="font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dim);text-decoration:none;">Free: Top 10 card pack →</a>
+  </div>
 </div>
 
 <!-- DATABASE -->
@@ -2506,13 +2509,18 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
 <div class="notify-backdrop" id="notifyModal" onclick="closeNotifyOutside(event)">
   <div class="notify-modal">
     <button class="notify-close" onclick="closeNotify()">✕</button>
-    <h3>Get Notified When New Rebuttals Drop</h3>
-    <p>A new myth is dismantled every week. Enter your email and be the first to know — free, no spam, unsubscribe any time.</p>
+    <h3>Get the Free Top 10 Card Pack</h3>
+    <p>The ten attacks you will face most, each answered in one breath with the verse. Plus new rebuttals the day they drop. Free, no spam, unsubscribe any time.</p>
     <div class="notify-form">
       <input class="notify-input" id="notifyEmail" type="email" placeholder="your@email.com">
       <button class="notify-submit" onclick="submitNotify()">Notify Me →</button>
     </div>
-    <div class="notify-success" id="notifySuccess">✓ You're on the list. Barak Allahu Feek.</div>
+    <div class="notify-success" id="notifySuccess">
+      ✓ You're on the list. Barak Allahu Feek.
+      <div id="notifyCardPackLink" style="margin-top:0.9rem;">
+        <a href="/top10.html" style="color:var(--gold);font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">→ Open your Top 10 card pack</a>
+      </div>
+    </div>
     <p class="notify-fine-print">No spam · Weekly updates only · Unsubscribe anytime</p>
   </div>
 </div>
@@ -5421,6 +5429,24 @@ function closeNotifyOutside(e) {
   if (e.target === document.getElementById('notifyModal')) closeNotify();
 }
 
+function readNotifyLog() {
+  try { return JSON.parse(localStorage.getItem('alhaqq_notify')) || []; } catch (e) { return []; }
+}
+
+function writeNotifyLog(log) {
+  try { localStorage.setItem('alhaqq_notify', JSON.stringify(log)); } catch (e) {}
+}
+
+async function syncToBrevo(email, source) {
+  const res = await fetch('/.netlify/functions/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, source })
+  });
+  const data = await res.json().catch(() => ({ ok: false }));
+  return !!data.ok;
+}
+
 async function submitNotify() {
   const email = document.getElementById('notifyEmail').value.trim();
   if (!email || !email.includes('@')) {
@@ -5432,8 +5458,9 @@ async function submitNotify() {
   const btn = document.querySelector('#notifyModal .notify-submit');
   if (btn) { btn.textContent = 'Subscribing…'; btn.disabled = true; }
 
+  // Also fire the legacy Netlify Forms submission so the dashboard keeps a copy
   try {
-    await fetch('/', {
+    fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
@@ -5445,10 +5472,54 @@ async function submitNotify() {
     // Silent — works on production even if fetch throws
   }
 
+  let synced = false;
+  try {
+    synced = await syncToBrevo(email, 'notify_modal');
+  } catch (e) {
+    synced = false;
+  }
+
+  const log = readNotifyLog();
+  log.push({ email, synced });
+  writeNotifyLog(log);
+
+  // Never lose the lead and never block the visitor — success + card pack link show either way
   document.getElementById('notifySuccess').style.display = 'block';
   document.querySelector('#notifyModal .notify-form').style.display = 'none';
-  setTimeout(() => closeNotify(), 3000);
+  if (btn) { btn.textContent = 'Notify Me →'; btn.disabled = false; }
 }
+
+async function flushLegacyNotifyLog() {
+  const log = readNotifyLog();
+  if (!log.length) return;
+
+  let changed = false;
+  for (const entry of log) {
+    const isObject = typeof entry === 'object' && entry !== null;
+    if (isObject && entry.synced === true) continue;
+
+    const email = isObject ? entry.email : entry;
+    if (!email) continue;
+
+    try {
+      const ok = await syncToBrevo(email, 'legacy_sync');
+      if (ok) {
+        if (isObject) {
+          entry.synced = true;
+        } else {
+          log[log.indexOf(entry)] = { email, synced: true };
+        }
+        changed = true;
+      }
+    } catch (e) {
+      // Fire and forget — leave unsynced, retry on next page load
+    }
+  }
+
+  if (changed) writeNotifyLog(log);
+}
+
+flushLegacyNotifyLog();
 
 // ── VERSE POPUP FUNCTIONS ──
 function openVersePopup(ref) {

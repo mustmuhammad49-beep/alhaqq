@@ -1,6 +1,7 @@
-const CACHE_NAME = 'alhaqq-v48';
+const CACHE_NAME = 'alhaqq-v49';
 const STATIC_ASSETS = [
-  '/manifest.json'
+  '/manifest.json',
+  '/top10.html'
 ];
 
 self.addEventListener('install', e => {

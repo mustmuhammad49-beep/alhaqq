@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 10 Attacks and Answers — Al-Haqq</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #8a6f2e;
+    --ink: #0d0d0f;
+    --ink-2: #1a1a1f;
+    --ink-3: #242430;
+    --text-main: #f0ead8;
+    --text-dim: #a89f8a;
+    --accent: #2a7a5a;
+    --accent-light: #3da876;
+    --border: rgba(201,168,76,0.2);
+    --border-strong: rgba(201,168,76,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--text-main);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  header { text-align: center; margin-bottom: 1.2rem; }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .subline {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .mobile-hint {
+    text-align: center;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    opacity: 0.8;
+    margin: 1rem 0 1.6rem;
+  }
+
+  .pdf-btn-wrap { text-align: center; margin-bottom: 2.4rem; }
+
+  .pdf-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--border-strong);
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .pdf-btn:hover { background: rgba(201,168,76,0.1); }
+
+  .card {
+    background: var(--ink-2);
+    border-left: 4px solid var(--gold);
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .card-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.7rem;
+  }
+
+  .card h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+  }
+
+  .answer-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .card p.answer {
+    font-family: 'Lora', serif;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+  }
+
+  .verse-chip {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .watermark {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .unlock-btn {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.5rem;
+    background: var(--gold);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+
+  .unlock-btn:hover { background: var(--gold-light); }
+
+  @media print {
+    body { background: #fff; color: #1a1a1a; }
+    .pdf-btn-wrap { display: none; }
+    .mobile-hint { display: none; }
+    .card {
+      background: #faf8f2;
+      border-left: 4px solid var(--gold-dim);
+      color: #1a1a1a;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .card h2, .card p.answer { color: #1a1a1a; }
+    .verse-chip { color: var(--gold-dim); border-color: var(--gold-dim); }
+    .eyebrow, .card-eyebrow, .answer-label { color: var(--gold-dim); }
+    .subline { color: #4a4a4a; }
+    footer { border-top: 1px solid #ccc; }
+    .watermark { color: var(--gold-dim); }
+    .unlock-btn { background: var(--gold-dim); color: #fff; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">◈ AL-HAQQ</div>
+    <h1>TOP 10 ATTACKS AND ANSWERS</h1>
+    <p class="subline">The ten you will hear most. One answer each. Straight from the Book.</p>
+  </header>
+
+  <p class="mobile-hint">Save this page to your home screen. Carry it into the comments.</p>
+
+  <div class="pdf-btn-wrap">
+    <button class="pdf-btn" onclick="window.print()">⬇ Save as PDF</button>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 01</div>
+    <h2>Islam was spread by the sword — Muslims forced people to convert</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">2:256 says there is no compulsion in religion. You cannot force belief into a heart, Allah judges what is inside it. Christians and Jews lived under Muslim rule for over a thousand years and stayed Christian and Jewish. If the sword was the method it did a terrible job.</p>
+    <div class="verse-chip">Surah Al-Baqarah 2:256</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 02</div>
+    <h2>Muslims worship Muhammad — Islam is no different from prophet worship</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">Open Surah 80. Allah rebukes Muhammad for turning away from a blind man. Nobody rebukes their own god. The Quran calls him a messenger over and over and commands worship of Allah alone. Veneration is not worship and the Quran draws that line itself.</p>
+    <div class="verse-chip">Surah Ali 'Imran 3:144</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 03</div>
+    <h2>What is the Quran? Recitation, the Speech of Allah, a Book, and Oral Transmission</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">The Quran does not describe itself as only one kind of thing. It describes itself four ways at the same time: as a recitation said out loud, as the actual speech of God, as a written Book, and as a text carried in human memory word for word.</p>
+    <div class="verse-chip">Surah Al-Hijr 15:9</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 04</div>
+    <h2>Islam borrowed everything from Judaism and Christianity — it's not an original revelation</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">One God sent one message through every prophet, so of course the message matches. The Quran says it openly in 42:13, He ordained for you the same religion He gave Noah, Abraham, Moses and Jesus. Consistency from the same Author. Plagiarism requires a different author. You are describing confirmation.</p>
+    <div class="verse-chip">Surah Hud 11:13</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 05</div>
+    <h2>Rejecting Hadith means rejecting Islam itself — you cannot be Muslim without Hadith</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">6:114 asks, shall I seek other than Allah as a judge when He is the one who sent down the Book fully detailed? The Quran calls itself complete, detailed and fully explained. If it needed a second book those verses would be false. I take the Quran's word over the compilers.</p>
+    <div class="verse-chip">Surah Al-An'am 6:38</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 06</div>
+    <h2>The Quran has no prayer times — you need Hadith to know when to pray</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">The Quran gives the times itself. 11:114 establishes prayer at the two ends of the day and the approach of night. 17:78 runs from the sun's decline to the darkness of night plus the dawn recitation. 24:58 names dawn and isha by name. The claim dies the moment you actually read.</p>
+    <div class="verse-chip">Surah Al-Isra 17:78</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 07</div>
+    <h2>Muhammad married a child — Islam condones child marriage</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">The Quran sets the standard in 4:6, marriageable age plus sound judgement before any transfer of responsibility. A child satisfies neither condition. Whatever historical traditions say, I hold the Quran above them. The Book's own standard rules out the interpretation you are pushing.</p>
+    <div class="verse-chip">Surah An-Nisa 4:6</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 08</div>
+    <h2>The Quran says Allah prays — doesn't that prove Islam is incoherent?</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">This objection reveals a method — and once the method is exposed, the entire category of these arguments collapses. Context and actor determine meaning: Arabic, like English, contains words that carry multiple meanings depending entirely on who is performing the action and in what context.</p>
+    <div class="verse-chip">Surah Ali Imran 3:7</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 09</div>
+    <h2>The Quran makes a scientific mistake about embryology — bones don't form before flesh</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">Surah Al-Mu'minun 23:14 describes human embryonic development in a precise sequence: a drop (nutfah), then a clinging substance (alaqah), then a chewed-like lump (mudghah), then bones (izam), then the bones clothed with flesh (lahm). The Quran was revealed in the 7th century — more than a thousand years before the microscope was invented in 1677, before any human being could observe an embryo at these stages.</p>
+    <div class="verse-chip">Surah Al-Mu'minun 23:14</div>
+  </div>
+
+  <div class="card">
+    <div class="card-eyebrow">ATTACK 10</div>
+    <h2>The Bible is the perfectly preserved, internally consistent Word of God, while the Quran has contradictions</h2>
+    <div class="answer-label">THE ANSWER</div>
+    <p class="answer">Christian apologists love to hold up 4:82, where the Quran stakes its own claim: "Then do they not reflect upon the Quran? If it had been from other than Allah, they would have found within it much contradiction." Good — that is a fair test, and a falsifiable one.</p>
+    <div class="verse-chip">Surah An-Nisa 4:82</div>
+  </div>
+
+  <footer>
+    <div class="watermark">AL-HAQQ · The Truth Stands Clear · alhaqq.it.com</div>
+    <a class="unlock-btn" href="https://alhaqq-truth.netlify.app">⭐ Unlock all 200+ rebuttals</a>
+  </footer>
+
+</div>
+</body>
+</html>
