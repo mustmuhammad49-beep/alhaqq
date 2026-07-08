@@ -6986,10 +6986,31 @@ document.addEventListener('keydown', function(e) {
   var reviewPile = new Set(S.get('ahq_review', []));
   var savedOnly = false;
 
+  /* ── spaced repetition (Leitner boxes) ── */
+  var SR_INT = { 1: 1, 2: 3, 3: 7, 4: 16, 5: 45 }; // days until a card is due again, per box
+  var DAY_MS = 86400000;
+  var boxes = S.get('ahq_boxes', null);
+  if (!boxes || typeof boxes !== 'object') {
+    // one-time, non-destructive migration from the old mastered/review sets
+    boxes = {};
+    mastered.forEach(function (id) { boxes[id] = { box: 5, due: Date.now() + SR_INT[5] * DAY_MS }; });
+    reviewPile.forEach(function (id) { boxes[id] = { box: 1, due: Date.now() }; });
+    S.set('ahq_boxes', boxes);
+  }
+  function dueList() {
+    return accessible().filter(function (e) { return boxes[e.id] && boxes[e.id].due <= Date.now(); });
+  }
+  function newList() {
+    return accessible().filter(function (e) { return !boxes[e.id]; });
+  }
+  function dueCount() { return dueList().length; }
+  function newCount() { return newList().length; }
+
   function persist() {
     S.set('ahq_mastered', Array.from(mastered));
     S.set('ahq_saved', Array.from(savedSet));
     S.set('ahq_review', Array.from(reviewPile));
+    S.set('ahq_boxes', boxes);
   }
 
   function esc(s) {
@@ -7376,16 +7397,27 @@ document.addEventListener('keydown', function(e) {
   }
 
   function weightedPick() {
-    var pool = accessible();
-    var bag = [];
-    pool.forEach(function (e) {
-      var w = reviewPile.has(e.id) ? 3 : (mastered.has(e.id) ? 1 : 2);
-      for (var i = 0; i < w; i++) bag.push(e);
-    });
+    var due = dueList(), fresh = newList(), bag = [];
+    if (due.length) {
+      // shakier cards (lower box) surface more often
+      due.forEach(function (e) {
+        var w = 6 - (boxes[e.id] ? boxes[e.id].box : 1);
+        for (var i = 0; i < w; i++) bag.push(e);
+      });
+    } else if (fresh.length) {
+      return fresh[Math.floor(Math.random() * fresh.length)];
+    } else {
+      // nothing due and nothing new — keep training, low boxes weighted higher
+      accessible().forEach(function (e) {
+        var w = boxes[e.id] ? (6 - boxes[e.id].box) : 2;
+        for (var i = 0; i < w; i++) bag.push(e);
+      });
+    }
+    if (!bag.length) return accessible()[0] || null;
     var p = bag[Math.floor(Math.random() * bag.length)];
-    if (drillCurrent && pool.length > 1) {
+    if (drillCurrent && bag.length > 1) {
       var guard = 0;
-      while (p.id === drillCurrent.id && guard++ < 10) p = bag[Math.floor(Math.random() * bag.length)];
+      while (p.id === drillCurrent.id && guard++ < 12) p = bag[Math.floor(Math.random() * bag.length)];
     }
     return p;
   }
@@ -7393,6 +7425,12 @@ document.addEventListener('keydown', function(e) {
   function openDrill() {
     if (accessible().length < 1) { toast('No entries available to drill yet'); return; }
     drillSession = 0;
+    var lbl = document.querySelector('.v2-drill-label');
+    if (lbl) {
+      var d = dueCount(), n = newCount();
+      lbl.innerHTML = '⚔ Drill Mode · Debate Training' +
+        (d ? ' <span style="color:#c9a84c;">· ' + d + ' due</span>' : (n ? ' <span style="color:#c9a84c;">· ' + n + ' new</span>' : ''));
+    }
     document.getElementById('v2Drill').classList.add('visible');
     document.body.style.overflow = 'hidden';
     drillNext();
@@ -7433,8 +7471,18 @@ document.addEventListener('keydown', function(e) {
 
   function drillMark(got) {
     if (drillCurrent) {
-      if (got) { mastered.add(drillCurrent.id); reviewPile.delete(drillCurrent.id); }
-      else { reviewPile.add(drillCurrent.id); }
+      var id = drillCurrent.id;
+      var cur = boxes[id] ? boxes[id].box : 0;
+      if (got) {
+        var nb = Math.min(cur + 1, 5);
+        boxes[id] = { box: nb, due: Date.now() + SR_INT[nb] * DAY_MS };
+        if (nb >= 5) { mastered.add(id); } else { mastered.delete(id); }
+        reviewPile.delete(id);
+      } else {
+        boxes[id] = { box: 1, due: Date.now() };
+        reviewPile.add(id);
+        mastered.delete(id);
+      }
       persist();
     }
     drillSession++;
