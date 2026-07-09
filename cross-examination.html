@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Cross Examination — Prototype</title>
+<style>
+  :root{--bg:#0a0b0d;--panel:#121419;--panel2:#171a21;--gold:#d4af37;--gold-soft:#c9a227;--gold-dim:#7a6a2f;--ink:#eef0f3;--muted:#9aa0aa;--red:#e0564b;--blue:#7fb0c9;--line:#2a2e37;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+  body{min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+  .wrap{width:100%;max-width:560px;padding:18px 16px 40px;display:flex;flex-direction:column;min-height:100vh;}
+  header{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:18px;}
+  .brand{display:flex;align-items:center;gap:9px;}
+  .shield{font-size:18px;}
+  .brand h1{font-size:14px;letter-spacing:.16em;margin:0;color:var(--gold);font-weight:700;text-transform:uppercase;}
+  .lap{font-size:11px;color:var(--muted);letter-spacing:.08em;}
+  .lap b{color:var(--gold-soft);}
+  .cascade-tag{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);border:1px solid var(--gold-dim);border-radius:999px;padding:5px 12px;margin-bottom:18px;background:rgba(212,175,55,.05);}
+  .cascade-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 20px;flex:1;display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.4);animation:rise .28s ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .step-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;}
+  .question{font-size:21px;line-height:1.42;font-weight:600;margin:0 0 6px;}
+  .question .ref{color:var(--gold-soft);font-weight:600;}
+  .subq{font-size:14.5px;color:var(--muted);line-height:1.5;margin:10px 0 0;}
+  .why-toggle{margin:16px 0 4px;background:rgba(212,175,55,.05);border:1px solid var(--gold-dim);color:var(--gold-soft);font-size:12.5px;letter-spacing:.04em;display:inline-flex;align-items:center;gap:7px;cursor:pointer;padding:9px 13px;border-radius:9px;align-self:flex-start;}
+  .why-toggle .chev{transition:transform .2s;}
+  .why-toggle.open .chev{transform:rotate(90deg);}
+  .why-body{display:none;border-left:2px solid var(--gold-dim);padding:10px 0 6px 14px;margin:10px 0 2px;color:var(--muted);font-size:13.5px;line-height:1.55;}
+  .why-body.show{display:block;animation:rise .2s ease;}
+  .why-body .pin{display:block;margin-top:9px;color:var(--ink);border-top:1px dashed var(--line);padding-top:9px;}
+  .why-body .pin b{color:var(--gold-soft);}
+  .answers{margin-top:auto;display:flex;flex-direction:column;gap:11px;padding-top:24px;}
+  .ans{width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--ink);font-size:16.5px;font-weight:600;line-height:1.35;border-radius:12px;padding:17px 17px;cursor:pointer;transition:border-color .15s,background .15s,transform .05s;display:flex;align-items:center;justify-content:space-between;gap:13px;}
+  .ans:hover{border-color:var(--gold);background:#1c2029;}
+  .ans:active{transform:scale(.99);}
+  .ans .arr{flex:0 0 auto;color:var(--gold-dim);font-size:18px;transition:color .15s,transform .15s;}
+  .ans:hover .arr{color:var(--gold);transform:translateX(2px);}
+  .ans small{display:block;font-size:12.5px;font-weight:400;color:var(--muted);margin-top:4px;line-height:1.4;}
+  .doors{margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+  .door-sep{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);margin:6px 0 2px;display:flex;align-items:center;gap:8px;}
+  .door-sep::before,.door-sep::after{content:"";flex:1;height:1px;background:var(--line);}
+  .door{width:100%;text-align:left;background:none;border:1px dashed var(--gold-dim);color:var(--gold-soft);font-size:13.5px;font-weight:500;border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:border-color .15s,color .15s,background .15s;}
+  .door:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,.04);}
+  .door .ic{font-size:14px;opacity:.8;}
+  .basin .verdict{font-size:23px;line-height:1.32;font-weight:800;color:var(--gold);margin:2px 0 14px;letter-spacing:-.01em;}
+  .basin.fatal .verdict{color:var(--red);}
+  .basin.defn .verdict{color:var(--blue);}
+  .basin .detail{font-size:15.5px;line-height:1.58;color:var(--ink);margin-bottom:16px;}
+  .takeaway{background:rgba(224,86,75,.08);border:1px solid #6e302b;border-radius:11px;padding:14px 15px;margin:4px 0 4px;}
+  .takeaway .tk-h{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:7px;}
+  .takeaway .tk-b{font-size:15.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+  .versebox{background:rgba(212,175,55,.06);border:1px solid var(--gold-dim);border-radius:12px;padding:14px 15px;margin:14px 0 8px;}
+  .versebox .vt{font-size:15px;line-height:1.5;font-style:italic;color:var(--ink);}
+  .versebox .vr{display:block;margin-top:8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);font-style:normal;font-weight:600;}
+  .killline{font-size:14px;color:var(--ink);margin:16px 0 0;line-height:1.55;font-weight:500;}
+  .handoff{margin-top:24px;}
+  .next-btn{width:100%;background:linear-gradient(180deg,var(--gold),var(--gold-soft));color:#1a1400;font-size:16px;font-weight:700;border:none;border-radius:12px;padding:17px 16px;cursor:pointer;letter-spacing:.01em;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center;transition:transform .05s,filter .15s;}
+  .next-btn:hover{filter:brightness(1.06);}
+  .next-btn:active{transform:scale(.99);}
+  .next-btn .arr{font-size:18px;}
+  .loopnote{text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-top:12px;}
+  footer{display:flex;gap:10px;margin-top:16px;}
+  .ctrl{flex:1;background:none;border:1px solid var(--line);color:var(--muted);font-size:13px;border-radius:10px;padding:11px;cursor:pointer;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:7px;transition:border-color .15s,color .15s;}
+  .ctrl:hover{border-color:var(--gold-dim);color:var(--gold-soft);}
+  .ctrl:disabled{opacity:.35;cursor:default;}
+  .intro .question{font-size:22px;}
+  .intro .lead{color:var(--muted);font-size:15px;line-height:1.56;margin:10px 0 0;}
+  .pill-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;}
+  .pill{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-soft);border:1px solid var(--gold-dim);border-radius:999px;padding:5px 11px;}
+  .trail-toggle{align-self:flex-start;margin:0 0 12px;background:none;border:1px solid var(--line);color:var(--muted);font-size:11px;letter-spacing:.06em;border-radius:8px;padding:6px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
+  .trail-toggle:hover{border-color:var(--gold-dim);color:var(--gold-soft);}
+  .rcp-toggle{width:100%;margin-top:18px;border-radius:11px;padding:13px 14px;cursor:pointer;font-size:13.5px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(212,175,55,.07);border:1px solid var(--gold-dim);color:var(--gold-soft);}
+  .rcp-toggle.dodge{background:rgba(224,86,75,.10);border-color:#6e302b;color:var(--red);}
+  .rcp-toggle:hover{filter:brightness(1.08);}
+  .receipt{margin-top:12px;border:1px solid var(--line);border-left:3px solid var(--gold-dim);border-radius:10px;padding:14px 15px;background:#0e1014;display:none;}
+  .receipt.show{display:block;animation:rise .2s ease;}
+  .rcp-title{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:12px;}
+  .rcp-step{padding:9px 0;border-bottom:1px dashed var(--line);}
+  .rcp-step:last-of-type{border-bottom:none;}
+  .rcp-q{font-size:12.5px;color:var(--muted);line-height:1.45;margin-bottom:4px;}
+  .rcp-a{font-size:14.5px;color:var(--ink);font-weight:600;line-height:1.4;}
+  .rcp-a.esc{color:var(--gold-soft);font-weight:500;font-style:italic;}
+  .rcp-dodge{margin-top:14px;border:1px solid #6e302b;background:rgba(224,86,75,.08);border-radius:9px;padding:12px 13px;}
+  .rcp-dodge-h{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:9px;}
+  .rcp-dodge-row{font-size:13.5px;color:var(--ink);line-height:1.5;padding:7px 0;border-top:1px dashed #5e2b27;}
+  .rcp-dodge-row:first-of-type{border-top:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="brand"><span class="shield">🛡️</span><h1>The Cross Examination</h1></div><div class="lap" id="lap"></div></header>
+  <div id="tag" class="cascade-tag" style="display:none;"><span class="dot"></span><span id="tagtext"></span></div>
+  <div id="card" class="card"></div>
+  <footer><button class="ctrl" id="back">‹ Back one step</button><button class="ctrl" id="restart">↺ Restart</button></footer>
+</div>
+
+<script>
+const NODES = {
+
+  intro:{
+    type:'intro', cascade:null,
+    title:"One simple idea.",
+    lead:"Nobody is above God. So God never has to obey anyone, never prays to anyone, and can never die. But the Bible shows Jesus doing all three. Every question here is a yes or no their own Bible already answered. Follow the choices and you reach the same plain end every time: the Jesus in their book is not God — and that is the one thing their whole religion needs to be true.",
+    pills:["Nobody is above God","Jesus obeyed, prayed, died","So Jesus is not God"],
+    start:"w1"
+  },
+
+  w1:{
+    type:'question', cascade:'THE WILL', step:'The spine \xb7 1',
+    q:`In the garden, did Jesus say to the Father, <span class="ref">“Not my will, but yours, be done”</span>?`,
+    why:`You are only asking if their own verse is real.
+      <span class="pin">Luke 22:42 says it in red letters: <b>“not my will, but yours, be done.”</b> Is that verse true, or made up? If it is true, he said it. The only way to say no is to cut it out of their own Bible.</span>`,
+    answers:[{label:"Those are his words in the garden.", to:'w2'},{label:"That line isn't really in the Gospel.", to:'c_deny_words'}]
+  },
+  c_deny_words:{ type:'basin', cascade:'THE WILL', close:true,
+    verdict:"That line is in their own Bible.",
+    detail:`Those exact words — “not my will, but yours” — are sitting right there in their own Gospel. To say he never said it, they would have to rip the page out of their own Bible.`,
+    verse:{t:`"Father... not my will, but yours, be done."`, r:"Luke 22:42"},
+    kill:"So the words stand. Now:", next:{label:"Are “my will” and “your will” two wills?", to:'w2'}, loop:"→ the will" },
+  w2:{
+    type:'question', cascade:'THE WILL', step:'The spine \xb7 2',
+    q:`In that sentence, are <b>“my will”</b> and <b>“your will”</b> two different wills?`,
+    why:`Make them read it exactly as written.
+      <span class="pin">He says <b>“not MY will, but YOURS.”</b> That is two wills — his, and the Father's — and one gives way to the other. Their own church even ruled there are two wills. So: two, or are they calling the words false?</span>`,
+    answers:[{label:"He names his own will and the Father's.", to:'w3'},{label:"Christ has just one will, not two.", to:'c_one_will'}]
+  },
+  c_one_will:{ type:'basin', cascade:'THE WILL', close:true,
+    verdict:"Their own church says there are two wills.",
+    detail:`They said Jesus has only one will. But their own church leaders ruled long ago that he has two. And even if there were only one, that one will still said “not mine, but yours” — so it still bowed to someone. Either way, he obeyed.`,
+    verse:{t:`"...not my will, but yours." One will, bowing to another.`, r:"Luke 22:42"},
+    kill:"Either way, he obeyed. So:", next:{label:"Did Jesus obey the Father's will?", to:'w3'}, loop:"→ the will" },
+  w3:{
+    type:'question', cascade:'THE WILL', step:'The spine \xb7 3',
+    q:`Did Jesus <b>obey</b> the Father — put his own will aside for what the Father wanted?`,
+    why:`Two of their own verses say it flat out.
+      <span class="pin"><b>“Not my will, but yours”</b> (Luke 22:42), and <b>“I came not to do my own will but the will of him who sent me”</b> (John 6:38). Are these true? If so, that is obeying — and to say no, they have to call both verses false.</span>`,
+    answers:[{label:"He laid his own will down for the Father's.", to:'w_geth'},{label:"He wasn't truly obeying there.", to:'c_deny_submit'}]
+  },
+  c_deny_submit:{ type:'basin', cascade:'THE WILL', close:true,
+    verdict:"Read his words again.",
+    detail:`“Not my will, but yours, be done.” That is obeying — he puts his own wish aside for what the Father wants. He says it again in John 6:38. To say he didn't obey, they would have to rewrite the sentence.`,
+    verse:{t:`"...not to do my own will, but the will of him who sent me."`, r:"John 6:38"},
+    kill:"So he obeyed. Now the one question their answers can't fix:", next:{label:"When he obeyed, who did he obey?", to:'w_geth'}, loop:"→ the will" },
+
+  w_geth:{
+    type:'question', cascade:'THE WILL', step:'The spine \xb7 the floor with no exit',
+    thirdTarget:'b_will_properties',
+    q:`In the garden, Jesus chose to obey — he put his own will aside and did what the Father wanted. A will is just the <b>power</b> to choose; the <b>person</b> is the one who chooses with it (your legs are the power to walk, but <b>you</b> walk, not your legs). So when the person of Christ chose to obey, was he obeying <b>someone above him</b>, or <b>himself</b>?`,
+    why:`This is the one spot their clever answers can't fix, so don't let them turn it into a side point.
+      <span class="pin">A will is only the power to choose — the person is the one who actually chooses with it. So obeying belongs to the person, not to a “side” or a tool. And their own verse names who the person obeyed: “not my will but <b>YOURS</b>” — someone else. Is that verse true? If yes, the person obeyed another, and that other one is greater.</span>`,
+    answers:[
+      {label:"He yielded to the Father, who is above him.", to:'b_will_above'},
+      {label:"He submitted to his own divine will.", to:'b_will_self'},
+      {label:"Only his will obeyed — not the person.", to:'b_will_faculty'}
+    ]
+  },
+  b_will_above:{ type:'basin', cascade:'THE WILL', fatal:true,
+    verdict:"Then Jesus bowed to someone bigger than him.",
+    detail:`They chose it themselves: in the garden, Jesus obeyed the Father, because the Father is above him.<br><br>But God is the highest. Nobody is above God. If Jesus has someone above him that he has to obey, then Jesus is not the highest. So Jesus is not God. He is acting like a servant who listens to his boss.`,
+    take:`Their own Bible just showed Jesus obeying someone above him. God obeys no one. So the Jesus in their book is not God — and their whole religion only stands if he is. So it does not stand.`,
+    verse:{t:`"...the Father is greater than I."`, r:"John 14:28"},
+    kill:"Every path in here ends in this same spot. Try a different one and watch it land here too.",
+    next:{label:"Try the death of God instead.", to:'d1'}, loop:"↻ all roads lead to the will" },
+  b_will_self:{ type:'basin', cascade:'THE WILL', fatal:true,
+    verdict:"You can't obey yourself. That isn't a real answer.",
+    detail:`They said Jesus was really just obeying himself. But think about it plainly: you cannot take an order from yourself. If you tell yourself to do something and then do it, nobody obeyed anybody. That is not what obeying means.<br><br>And his own words block this anyway. He said “not MY will, but YOURS.” The word “yours” means someone else. So he obeyed another person — which makes that person greater, and Jesus the smaller one.`,
+    take:`So Jesus obeyed someone above him. Nobody is above God. So the Jesus in their Bible is not God — and without that, their whole religion falls apart.`,
+    verse:{t:`"...not my will, but yours, be done." He names someone else.`, r:"Luke 22:42"},
+    kill:"Every road ends right here. Take another one and see.",
+    next:{label:"Try whether God can pray instead.", to:'p1'}, loop:"↻ all roads lead to the will" },
+  b_will_properties:{ type:'basin', cascade:'THE WILL', defn:true,
+    verdict:"That trick doesn't work on a choice.",
+    detail:`Their clever fix is to move things between Jesus's “God side” and “human side.” But obeying is not a thing you can move to a side. Obeying is a choice, and a choice is made by the <b>person</b>, not by a side. The person Jesus chose to obey. And a person cannot obey himself.<br><br>So their best escape grabs nothing here. The question is still sitting there, with no good answer.`,
+    verse:{t:`"...not my will, but yours, be done."`, r:"Luke 22:42"},
+    kill:"So they have to answer the only question left, and both answers lose:",
+    next:{label:"Did he obey someone above him, or himself?", to:'w_geth'}, loop:"→ the floor with no exit" },
+  b_will_faculty:{ type:'basin', cascade:'THE WILL', fatal:true,
+    verdict:"A “will” can't obey by itself. Only a person can.",
+    detail:`They said the will obeyed, not the person. But think about what a will even is. A will is just the <b>power</b> to choose — the way your legs are the power to walk. Your legs don't decide to walk; <b>you</b> decide, using your legs. The same way, a will doesn't choose by itself; the <b>person</b> chooses, using the will.<br><br>And here is the part that traps them. If the will really chose all by itself, then the will is a chooser — and a chooser is a person. That would mean two persons inside Jesus. But their own church banned that: they say Jesus is <b>one</b> person, never two. So by their own rule, the will is not the chooser. The person is. And the person, they say, is fully God.`,
+    take:`So a fully-God person chose to obey someone above him. A person with someone above him is not the highest God. And their religion only stands if Jesus is the highest God. So it does not stand.`,
+    verse:{t:`"...not my will, but yours, be done."`, r:"Luke 22:42"},
+    kill:"So it always comes back to the person — and the person obeyed.",
+    next:{label:"So who did the person obey — above him, or himself?", to:'w_geth'}, loop:"→ the floor with no exit" },
+
+  d1:{
+    type:'question', cascade:'DEATH', step:'A road in \xb7 death',
+    q:`According to their own Bible, did Jesus <b>die</b> on the cross?`,
+    why:`Their whole religion is built on this one verse.
+      <span class="pin">Paul says if Christ did not rise — which means he first died — then <b>“your faith is pointless; you are still in your sins”</b> (1 Corinthians 15:17). Is that true? If so, he died. To say no is to throw out their own gospel.</span>`,
+    answers:[{label:"He truly died on the cross.", to:'d2'},{label:"He did not actually die.", to:'c_no_death'}]
+  },
+  c_no_death:{ type:'basin', cascade:'DEATH', fatal:true,
+    verdict:"Then there is no Christianity at all.",
+    detail:`They said Jesus did not really die. But their entire religion is built on Jesus dying on the cross and coming back. Their own Bible says if he did not die and rise, then believing is pointless and nobody is saved.`,
+    take:`So to dodge one question, they just deleted their own religion. Either way, it does not stand.`,
+    verse:{t:`"And if Christ has not been raised, your faith is futile..."`, r:"1 Corinthians 15:17"},
+    kill:"Their book demands the death. So we hold them to it: who died?",
+    next:{label:"Was the one who died God, or only a man?", to:'d2'}, loop:"→ same road" },
+  d2:{
+    type:'question', cascade:'DEATH', step:'A road in \xb7 death',
+    q:`The one who died on the cross — was he <b>God</b>, or <b>only a man</b>?`,
+    why:`Their own belief decides this.
+      <span class="pin">Their creed says Jesus is one person, fully God and fully human. So the one who died is that one person — God. To say “only a man” splits Jesus into pieces, which their own church says you cannot do.</span>`,
+    answers:[{label:"The person who died was God himself.", to:'d_god'},{label:"It was his human nature that died, not his divinity.", to:'d_man'}]
+  },
+  d_god:{
+    type:'question', cascade:'DEATH', step:'Death \xb7 the squeeze',
+    q:`God died. But their own Bible says God <span class="ref">can never die</span> — He lives forever (1 Tim 6:16, 1:17). So which do they drop — that God <b>lives forever</b>, or that he <b>really died</b>?`,
+    why:`Both answers sink them. Make them pick one.
+      <span class="pin">Their Bible says God “alone has immortality” and “cannot die” (1 Timothy 6:16, 1:17). If God died, then either that verse is false, or the death wasn't real. Which part of their Bible are they calling wrong?</span>`,
+    answers:[{label:"God himself truly tasted death for us.", to:'b_god_mortal'},{label:"His divine nature never actually died.", to:'b_no_real_death'}]
+  },
+  d_man:{
+    type:'question', cascade:'DEATH', step:'Death \xb7 the squeeze',
+    q:`Only the man died. But their creed says Jesus is <b>one person you cannot split</b>. For only the man to die while God did not, Jesus had to be <b>split in two</b>. Was he?`,
+    why:`Yes traps them in a banned idea; no drops them straight into the dying-God problem.
+      <span class="pin">Their own church (Chalcedon, 451) ruled Jesus is one person you may never split apart. If they say he split, that is the banned idea. If they say he never splits, then God died right along with the man.</span>`,
+    answers:[{label:"His humanity died while his divinity did not.", to:'b_nestorian'},{label:"The two natures are never separated, even in death.", to:'d_god'}]
+  },
+  b_god_mortal:{ type:'basin', cascade:'DEATH', fatal:true,
+    verdict:"Their Bible says God can't die. They just said He did.",
+    detail:`They said God Himself died on the cross. But their own Bible says God can never die — living forever is part of what makes Him God.<br><br>So two things they believe just crashed into each other. The Bible says God cannot die. They just said God died. Both can't be true, and it is their own book that says God cannot die.`,
+    take:`A God who can die is not really God. So the one on the cross was not the all-powerful God — and their religion is built on him being exactly that. So it does not stand.`,
+    verse:{t:`"...the King eternal, immortal, invisible, the only God..."`, r:"1 Timothy 1:17"},
+    kill:"But it all comes back to one moment they still have to face. In the garden, Jesus obeyed the Father.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+  b_no_real_death:{ type:'basin', cascade:'DEATH', fatal:true,
+    verdict:"Then the cross was just for show.",
+    detail:`To keep God from dying, they said only the human part died, not God. But if God did not really die, then the cross did not really pay for anything. Christians say the cross works because God gave His life. Take God out of the death, and it is just a man dying — which saves nobody.`,
+    take:`So they kept God safe and broke the cross instead. The cross is the heart of their religion. Break it, and the religion does not stand.`,
+    verse:{t:`"...without the shedding of blood there is no forgiveness."`, r:"Hebrews 9:22"},
+    kill:"And this same Jesus, in the garden, obeyed the Father.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+  b_nestorian:{ type:'basin', cascade:'DEATH', fatal:true,
+    verdict:"They just split Jesus in two. Their own church banned that.",
+    detail:`They said one part of Jesus died and the other part didn't — as if he splits into two. But their own church leaders ruled long ago that you are NOT allowed to split Jesus like that. They called it a serious mistake.<br><br>And it still doesn't help. If only the man part died, then it was just a man dying — and a man dying cannot save the world.`,
+    take:`So they broke their own rule AND lost the cross in one move. Either way, their religion does not stand.`,
+    verse:{t:`One person, never split apart. They just split him.`, r:"Council of Chalcedon, 451"},
+    kill:"And this same Jesus obeyed the Father in the garden.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+
+  p1:{
+    type:'question', cascade:'PRAYER', step:'A road in \xb7 prayer',
+    q:`Did Jesus <b>fall on his face</b> and pray to the Father?`,
+    why:`This is something the text plainly says he did.
+      <span class="pin">Matthew 26:39: <b>“he fell with his face to the ground and prayed.”</b> Is that verse true, or made up? If true, he did it. To say no, they delete the verse.</span>`,
+    answers:[{label:"He fell on his face and prayed.", to:'p2'},{label:"That isn't what the text describes.", to:'c_deny_pray'}]
+  },
+  c_deny_pray:{ type:'basin', cascade:'PRAYER', close:true,
+    verdict:"It's written down that he did.",
+    detail:`Their own Gospel says plainly that Jesus dropped to the ground and prayed. To say he didn't, they would have to erase the page.`,
+    verse:{t:`"...he fell with his face to the ground and prayed..."`, r:"Matthew 26:39"},
+    kill:"So he prayed. Now the real question:", next:{label:"Can the highest God pray to anyone?", to:'p2'}, loop:"→ same road" },
+  p2:{
+    type:'question', cascade:'PRAYER', step:'Prayer \xb7 the squeeze',
+    q:`Can the highest God — God Almighty — <b>pray to</b> anyone?`,
+    why:`Praying means asking someone higher than you. So this answers itself.
+      <span class="pin">Isaiah 44:6: <b>“I am the first and the last; there is no god but me.”</b> Is that true? If so, nobody is higher than God, so God has no one to pray to. To say God can pray, they'd have to put someone above God — and call Isaiah a liar.</span>`,
+    answers:[{label:"There is no one above God for him to pray to.", to:'b_prayer_settle'},{label:"Within the Trinity, the Son can address the Father.", to:'b_god_prays'}]
+  },
+  b_god_prays:{ type:'basin', cascade:'PRAYER', fatal:true,
+    verdict:"If God prays, then someone is above God.",
+    detail:`They said God can pray. But praying means asking someone higher than you for help. So if God prays, there has to be someone above God. And their own Bible says there is nobody above God — He is the highest, the first and the last.<br><br>So “God prays” can't be true. Which means the one praying in the garden was not the highest God. He was someone lower, looking up.`,
+    take:`The one they call God was bowing and asking, like a servant. So the Jesus in their Bible is not God — and their religion is built on him being God. So it does not stand.`,
+    verse:{t:`"I am the first and I am the last; besides me there is no god."`, r:"Isaiah 44:6"},
+    kill:"And that same person obeyed the Father in the garden too.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+  b_prayer_settle:{ type:'basin', cascade:'PRAYER', fatal:true,
+    verdict:"Then the one praying wasn't God.",
+    detail:`They agreed God can't pray, because nobody is above God. But their own Bible shows Jesus praying — dropping to the ground, begging, calling the Father “my God.”<br><br>So put it together. God does not pray. Jesus prayed. So Jesus is not the highest God. He was the one looking up, not the one being prayed to.`,
+    take:`Praying to God is something a servant does, not God Himself. So the Jesus in their Bible is not God — and that breaks their religion at the root.`,
+    verse:{t:`"...to my God and your God."`, r:"John 20:17"},
+    kill:"And the one who prays and looks up also obeyed — in the garden.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+
+  third_door:{
+    type:'question', cascade:'THE REAL ANSWERS', noDoors:true,
+    q:`The real answers their side gives.`,
+    subq:`These are the actual answers their smartest teachers use, each one in plain words. Pick whichever one they want — every one is welcome here.`,
+    answers:[
+      {label:"Communication of properties", to:'b_def_properties', sub:"one person with a God side and a human side"},
+      {label:"The hypostatic union", to:'b_def_hypostatic', sub:"fully God and fully human in one person"},
+      {label:"Kenosis — “he emptied himself”", to:'b_def_kenosis', sub:"the Son set aside some of his God powers"},
+      {label:"It is a mystery beyond logic", to:'b_def_mystery', sub:"too deep to explain, just believed"},
+      {label:"Equal in nature, just lower in rank", to:'rank_q', sub:"like a principal and a teacher — same kind, different rank"}
+    ]
+  },
+  b_def_properties:{ type:'basin', cascade:'THE REAL ANSWERS', defn:true,
+    verdict:"Communication of properties.",
+    detail:`<b>What it means:</b> they say Jesus is one person with two sides — a God side and a human side. Because he is one person, you can describe him using either side. The human side died, so they say “God died.” The God side can't die, so they also say “God did not die.” They call both true at once.<br><br>It works like peeling a sticker off one side and putting it on the other. But obeying is not a sticker. It is a choice. And a choice is made by the <b>person</b>, not a side. In the garden, the person chose to obey. And a person cannot obey himself.`,
+    verse:{t:`"...not my will, but yours, be done."`, r:"Luke 22:42"},
+    kill:"So even their best answer grabs nothing here. The real question is still sitting there:",
+    next:{label:"When Jesus obeyed, who did he obey?", to:'w_geth'}, loop:"↓ into the will" },
+  b_def_hypostatic:{ type:'basin', cascade:'THE REAL ANSWERS', defn:true,
+    verdict:"The hypostatic union.",
+    detail:`<b>What it means:</b> it just says Jesus is one person who is fully God and fully human at the same time — the two joined together, not blended, and not split apart.<br><br>Fine, he is one person with two natures. But that still does not tell us how that one person can kneel and obey someone and stay equal to him. Obeying is something the person does, not a nature. Saying “two natures, one person” does not answer the garden.`,
+    verse:{t:`"...not my will, but yours, be done."`, r:"Luke 22:42"},
+    kill:"Naming it does not answer it. The question is still waiting:",
+    next:{label:"When Jesus obeyed, who did he obey?", to:'w_geth'}, loop:"↓ into the will" },
+  b_def_kenosis:{ type:'basin', cascade:'THE REAL ANSWERS', defn:true,
+    verdict:"Kenosis — “he emptied himself.”",
+    detail:`<b>What it means:</b> from one line in Philippians, the idea that when the Son became a man he “emptied himself” — set down some of his God powers for a while. That is how they explain him looking weak, getting hungry, or not knowing things.<br><br>But this makes it <b>worse</b>, not better. If the Son set aside some of his power so he could obey the Father, then he made himself lower than the Father on purpose. That is admitting he is the lesser one — which is exactly what we're showing.`,
+    verse:{t:`"...he humbled himself and became obedient..."`, r:"Philippians 2:8"},
+    kill:"If he made himself lower to obey, then he IS lower. So:",
+    next:{label:"When Jesus obeyed, who did he obey?", to:'w_geth'}, loop:"↓ into the will" },
+  b_def_mystery:{ type:'basin', cascade:'THE REAL ANSWERS', defn:true,
+    verdict:"“It is a mystery beyond logic.”",
+    detail:`<b>What it means:</b> the idea that this is just too deep for the human mind — a holy mystery you accept by faith and don't try to figure out.<br><br>But “it's a mystery” is not an answer — it is admitting you don't have one. They already agreed there are two wills. So they should be able to say what each one did in the garden. “It can't be explained” means their belief has no room for the simplest scene in the whole Bible: a man on his knees, obeying. That is not deep. That is a hole where the answer should be.`,
+    verse:{t:`"...not my will, but yours, be done."`, r:"Luke 22:42"},
+    kill:"“I don't know” is not a way out. The question is still waiting:",
+    next:{label:"When Jesus obeyed, who did he obey?", to:'w_geth'}, loop:"↓ into the will" },
+
+  council_menu:{
+    type:'question', cascade:'NAME YOUR OPTION', noDoors:true,
+    q:`They say there's another answer we left out. There isn't — and it wasn't us who limited it. It was their own church.`,
+    subq:`In all of history, the church found only three ways to explain Jesus and the Father, and banned all but one. Pick the one they hold — and try to name any other option that isn't on this list.`,
+    answers:[
+      {label:"The Son is lower than the Father", to:'b_arian', sub:"their church banned this long ago (Nicaea, 325)"},
+      {label:"Jesus is split into two separate parts", to:'b_nestor_menu', sub:"their church banned this too (Ephesus, 431)"},
+      {label:"One person, two sides (the official answer)", to:'b_def_properties', sub:"the “properties” answer — which breaks at the garden"}
+    ]
+  },
+  b_arian:{ type:'basin', cascade:'NAME YOUR OPTION', fatal:true,
+    verdict:"They just agreed Jesus is lower than God.",
+    detail:`They picked the answer that says the Son is lower than the Father, not fully God. That is exactly what this whole thing is showing. And their own church banned that idea hundreds of years ago.<br><br>So to escape, they agreed with the point — and stepped outside their own church to do it.`,
+    take:`If Jesus is lower than God, then Jesus is not God. And their religion only stands if he is God. So it does not stand.`,
+    verse:{t:`The church says the Son is "true God from true God." They just said no.`, r:"Nicene Creed, 325"},
+    kill:"And the proof he is lower is the garden — he obeyed the Father.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+  b_nestor_menu:{ type:'basin', cascade:'NAME YOUR OPTION', fatal:true,
+    verdict:"They split Jesus in two to escape. That's banned too.",
+    detail:`They picked the answer that splits Jesus into two separate parts, so one part can be the lower one. Their own church banned that long ago. So they broke a second rule trying to get out — and they still have to answer the question.`,
+    take:`Split him or not, a person did the obeying in the garden. And a person who obeys someone above him is not the highest God. So their religion does not stand.`,
+    verse:{t:`One person, never split apart. They just split him.`, r:"Council of Chalcedon, 451"},
+    kill:"Whichever part they say obeyed, a person did the obeying — in the garden.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+
+  rank_q:{
+    type:'question', cascade:'RANK VS NATURE', noDoors:true, step:'The strongest dodge',
+    q:`Fair — a principal outranks a teacher, but they are equally human. So here is the real question. The principal is higher because the <b>school board put him there</b> — someone above them both handed out the ranks. So who put the Father above the Son? <b>Someone above them both</b>, or <b>no one</b>?`,
+    why:`Don't argue about the ranks — ask where the rank comes from.
+      <span class="pin">A higher rank between two equals always comes from someone higher up who hands it out (a school board puts the principal over the teacher). So either there is someone above both the Father and the Son who set their ranks — a bigger God — or no one set it, and the difference is just in what they are. There is no third place a rank can come from.</span>`,
+    answers:[
+      {label:"Someone above them both set it.", to:'b_rank_boss'},
+      {label:"No one set it — that's just how they are.", to:'b_rank_nature'},
+      {label:"No one set it — he chose to be lower himself.", to:'rank_choice'}
+    ]
+  },
+  b_rank_boss:{ type:'basin', cascade:'RANK VS NATURE', fatal:true,
+    verdict:"Then there's a bigger God above your God.",
+    detail:`They said someone above both the Father and the Son handed out their ranks. But think about who that would have to be. To be the boss over God the Father AND God the Son, that someone would have to be higher than both of them — a greater God sitting above your God.<br><br>Christians say there is nobody above God. So this answer breaks their own belief: it invents a bigger God above the Father and the Son.`,
+    take:`Either way, the Father and the Son are not the top — something is above them. So neither one is the highest God. And their whole religion needs Jesus to be the highest God. So it does not stand.`,
+    verse:{t:`"I am the first and I am the last; besides me there is no god."`, r:"Isaiah 44:6"},
+    kill:"And it still comes back to the garden, where Jesus obeyed.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+  b_rank_nature:{ type:'basin', cascade:'RANK VS NATURE', fatal:true,
+    verdict:"Then they're not equal after all.",
+    detail:`They said nobody set the ranks — the Father is just higher and the Son is just lower, on their own. But look at what that means. If one is truly higher and one is truly lower, and nobody put them there, then being higher and being lower is just part of who they <b>are</b>.<br><br>One is, by his very nature, the boss. The other is, by his very nature, under the boss. That is a difference in their nature — not just their job. So they are NOT equal in nature, which is the very thing they were trying to say.<br><br>The principal trick only works because a school board sits above the teacher and the principal and hands out the ranks. Take the school board away — and nothing sits above God — and a higher rank can only mean a higher being.`,
+    take:`So the Son is lower in his very being, not just his job. A Son who is lower in nature is not fully God. And their religion only stands if Jesus is fully God. So it does not stand.`,
+    verse:{t:`"...the Father is greater than I."`, r:"John 14:28"},
+    kill:"And remember who did the obeying in the garden — not a “side,” a person. The person they call fully God. So a fully-God person obeyed someone above him.",
+    next:{label:"Sit with that, then look again.", to:'w_geth'}, loop:"↓ into the will" },
+
+  rank_choice:{
+    type:'question', cascade:'RANK VS NATURE', noDoors:true, step:'The chosen-submission dodge',
+    q:`Okay — he chose it freely, like choosing to work under a principal. But here is the catch: you can only choose to work <b>under</b> someone who is <b>already the boss</b>. The principal was the boss before you ever walked in — your choice didn't make him boss, you just stepped under a boss already there. So when the Son chose to obey the Father, was the Father <b>already higher</b> before the Son chose, or <b>not</b>?`,
+    why:`Choosing to submit only proves the other was already above you.
+      <span class="pin">You cannot choose to obey someone who has no authority over you — the principal already holds the office before you apply. So if the Son chose to obey, the Father was already in the higher place. The choice does not explain where that higher place came from: either the Father was always higher (so they differ in what they are), or someone made him higher (a bigger God).</span>`,
+    answers:[
+      {label:"The Father was already higher before he chose.", to:'b_choice_already'},
+      {label:"No — they were equal until the Son chose.", to:'b_choice_equal'}
+    ]
+  },
+  b_choice_already:{ type:'basin', cascade:'RANK VS NATURE', fatal:true,
+    verdict:"Then the choice explains nothing.",
+    detail:`They said the Father was already higher before the Son chose. So the Son's choice did not make the Father higher — the Father was already over him. The choosing changes nothing about where that higher place came from.<br><br>So we are right back at the real question: why was the Father already higher? Either that is just what he is — and then they are not equal in nature — or someone above them made him higher — and then there is a bigger God. Choosing to step under a boss does not explain where the boss got his power.<br><br>And think about this: can the highest God choose to have someone above him? If “highest” is something he can take off whenever he likes, it was never really part of him. For the real God, being the highest is not a coat he puts on and off. It is what He is.`,
+    take:`Either way, the Son ends up truly under the Father. A Son who is truly under the Father is not the highest God. And their religion only stands if Jesus is the highest God. So it does not stand.`,
+    verse:{t:`"...the Father is greater than I."`, r:"John 14:28"},
+    kill:"And a person did the choosing and the obeying — the person they call fully God.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" },
+  b_choice_equal:{ type:'basin', cascade:'RANK VS NATURE', fatal:true,
+    verdict:"Then it wasn't obeying — but their own Bible says it was.",
+    detail:`They said the two were fully equal until the Son chose. But then the Son did not really <b>obey</b> a higher authority — he just agreed to do something, as an equal. That is teamwork, not obeying.<br><br>But their own Bible does not say teamwork. It says the Father <b>sent</b> the Son: “I came to do the will of him who sent me.” The one who sends is the boss. The one who gets sent is under him. And it is <b>always</b> the Father sending and the Son being sent — never the other way around.<br><br>Two people who are truly equal do not have one always sending and one always obeying, for no reason. The only reason it is always the Father on top is that the Father really is the greater one.`,
+    take:`So the Son is the lower one for real, not just by agreement. The lower one is not the highest God. And their religion only stands if Jesus is the highest God. So it does not stand.`,
+    verse:{t:`"...not to do my own will, but the will of him who sent me."`, r:"John 6:38"},
+    kill:"And whoever did the obeying in the garden was a person — the person they call fully God.",
+    next:{label:"So who did Jesus obey in the garden?", to:'w_geth'}, loop:"↓ into the will" }
+};
+
+let history=[]; let path=[]; let seen={}; let dodgeLog=[]; let currentId=null;
+const card=document.getElementById('card'), tag=document.getElementById('tag'), tagtext=document.getElementById('tagtext'),
+      lapEl=document.getElementById('lap'), backBtn=document.getElementById('back'), restartBtn=document.getElementById('restart');
+const stripTags=s=>s.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+
+function go(id,isChoice){
+  const node=NODES[id]; if(!node) return;
+  history.push({id,choice:!!isChoice}); currentId=id;
+  render(node); updateChrome(node);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function choose(nodeId,answerLabel,to){
+  if(seen[nodeId] && seen[nodeId]!==answerLabel) dodgeLog.push({nodeId,from:seen[nodeId],to:answerLabel});
+  seen[nodeId]=answerLabel;
+  path.push({nodeId,a:answerLabel});
+  go(to,true);
+}
+function chooseEscape(nodeId,phrase,to){ path.push({nodeId,a:phrase,escape:true}); go(to,true); }
+function updateChrome(node){
+  backBtn.disabled=history.length<=1;
+  if(node.cascade){ tag.style.display='inline-flex'; tagtext.textContent=node.cascade; } else { tag.style.display='none'; }
+  const w=history.filter(h=>h.id==='w_geth').length;
+  lapEl.innerHTML = w>1 ? `the will \xd7<b>${w}</b> \xb7 still falling` : ``;
+}
+function render(node){
+  if(node.type==='intro') return renderIntro(node);
+  if(node.type==='question') return renderQuestion(node);
+  if(node.type==='basin') return renderBasin(node);
+}
+function receiptInner(showDodge){
+  const rows=path.map(s=>{
+    const q=stripTags(NODES[s.nodeId].q);
+    if(s.escape) return `<div class="rcp-step"><div class="rcp-q">On: ${q}</div><div class="rcp-a esc">↳ they ${s.a}</div></div>`;
+    return `<div class="rcp-step"><div class="rcp-q">Asked: ${q}</div><div class="rcp-a">They answered: “${s.a}”</div></div>`;
+  }).join('');
+  let dodge='';
+  if(showDodge && dodgeLog.length){
+    dodge=`<div class="rcp-dodge"><div class="rcp-dodge-h">⚠ They changed their answer</div>`+
+      dodgeLog.map(d=>`<div class="rcp-dodge-row">On <b>${stripTags(NODES[d.nodeId].q)}</b> — they first chose “${d.from}”, then switched to “${d.to}” once they saw where it led.</div>`).join('')+
+      `</div>`;
+  }
+  return `<div class="rcp-title">The path they chose — in their own words</div>${rows}${dodge}`;
+}
+function trailHTML(){
+  if(!path.length) return '';
+  return `<button class="trail-toggle" id="trailBtn">▸ their trail \xb7 ${path.length} ${path.length===1?'choice':'choices'}</button><div class="receipt" id="trailRcp">${receiptInner(false)}</div>`;
+}
+function renderIntro(n){
+  card.className='card intro';
+  card.innerHTML=`<div class="step-label">Field manual</div><p class="question">${n.title}</p><p class="lead">${n.lead}</p>
+    <div class="pill-row">${n.pills.map(p=>`<span class="pill">${p}</span>`).join('')}</div>
+    <div class="answers"><button class="ans" id="beginBtn"><span>Begin the cross examination</span><span class="arr">▶</span></button></div>`;
+  document.getElementById('beginBtn').onclick=()=>go(n.start,false);
+}
+function renderQuestion(n){
+  card.className='card';
+  const why=n.why?`<button class="why-toggle"><span class="chev">▸</span> why this matters</button><div class="why-body">${n.why}</div>`:'';
+  const sub=n.subq?`<p class="subq">${n.subq}</p>`:'';
+  const ans=n.answers.map(a=>`<button class="ans"><span>${a.label}${a.sub?`<small>${a.sub}</small>`:''}</span><span class="arr">›</span></button>`).join('');
+  let doors='';
+  if(!n.noDoors){
+    doors=`<div class="doors"><div class="door-sep">reaching for an escape?</div>
+      <button class="door"><span>There is another answer to this.</span><span class="ic">↘</span></button>
+      <button class="door"><span>This is a false choice — you left one out.</span><span class="ic">↘</span></button></div>`;
+  }
+  card.innerHTML=`${trailHTML()}<div class="step-label">${n.step||''}</div><p class="question">${n.q}</p>${sub}${why}<div class="answers">${ans}</div>${doors}`;
+  const ansBtns=card.querySelectorAll('.answers .ans');
+  n.answers.forEach((a,i)=>{ if(ansBtns[i]) ansBtns[i].onclick=()=>choose(currentId,a.label,a.to); });
+  if(!n.noDoors){
+    const d=card.querySelectorAll('.door');
+    if(d[0]) d[0].onclick=()=>chooseEscape(currentId,'looked for another answer', n.thirdTarget||'third_door');
+    if(d[1]) d[1].onclick=()=>chooseEscape(currentId,'called it a false choice', n.fourthTarget||'council_menu');
+  }
+  bindWhy(); bindTrail();
+}
+function renderBasin(n){
+  card.className='card basin '+(n.fatal?'fatal':'')+(n.defn?'defn':'');
+  const label=n.defn?'Their real answer':(n.fatal?'The verdict':'That answer fails');
+  const take = n.take?`<div class="takeaway"><div class="tk-h">The takeaway</div><div class="tk-b">${n.take}</div></div>`:'';
+  const steps=path.length, hasDodge=dodgeLog.length>0;
+  const rcp = steps?`<button class="rcp-toggle ${hasDodge?'dodge':''}" id="rcpBtn">${hasDodge?`⚠ They changed their answer — show the path (${steps})`:`Show the path they chose (${steps})`}</button><div class="receipt ${hasDodge?'show':''}" id="rcpBox">${receiptInner(true)}</div>`:'';
+  card.innerHTML=`<div class="step-label">${label}</div><p class="verdict">${n.verdict}</p><p class="detail">${n.detail}</p>${take}
+    <div class="versebox"><div class="vt">${n.verse.t}<span class="vr">${n.verse.r}</span></div></div>
+    ${n.kill?`<p class="killline">${n.kill}</p>`:''}
+    ${rcp}
+    <div class="handoff"><button class="next-btn" id="nextBtn"><span>${n.next.label}</span><span class="arr">→</span></button>
+    ${n.loop?`<div class="loopnote">${n.loop}</div>`:''}</div>`;
+  document.getElementById('nextBtn').onclick=()=>go(n.next.to,false);
+  const rb=document.getElementById('rcpBtn');
+  if(rb) rb.onclick=()=>document.getElementById('rcpBox').classList.toggle('show');
+}
+function bindWhy(){ const t=card.querySelector('.why-toggle'); if(!t) return; t.onclick=()=>{t.classList.toggle('open');card.querySelector('.why-body').classList.toggle('show');}; }
+function bindTrail(){ const t=document.getElementById('trailBtn'); if(!t) return; t.onclick=()=>document.getElementById('trailRcp').classList.toggle('show'); }
+backBtn.onclick=()=>{
+  if(history.length<=1) return;
+  const leaving=history.pop(); if(leaving.choice) path.pop();
+  const prev=history[history.length-1].id; currentId=prev;
+  render(NODES[prev]); updateChrome(NODES[prev]); window.scrollTo({top:0,behavior:'smooth'});
+};
+restartBtn.onclick=()=>{ history=[]; path=[]; seen={}; dodgeLog=[]; go('intro',false); };
+go('intro',false);
+</script>
+</body>
+</html>
