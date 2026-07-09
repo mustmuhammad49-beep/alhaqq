@@ -2555,6 +2555,20 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
   </div>
 </div>
 
+<!-- CROSS EXAMINATION PROMO -->
+<div style="position:relative;z-index:5;max-width:900px;margin:0 auto;padding:0 2rem 3rem;">
+  <div style="background:linear-gradient(135deg,rgba(201,168,76,0.1) 0%,rgba(13,13,15,0) 100%);border:1px solid rgba(201,168,76,0.3);border-left:4px solid var(--gold);padding:1.8rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+    <div>
+      <div style="font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">⚔ Debate Training Tool</div>
+      <div style="font-family:'Cinzel',serif;font-size:1rem;font-weight:700;color:var(--text-main);margin-bottom:0.4rem;">The Cross Examination</div>
+      <div style="font-family:'Lora',serif;font-style:italic;font-size:0.82rem;color:var(--text-dim);">A decision-tree cross-examination of Trinitarian Christianity. Every path converges at the garden scene. Use it live or train before a debate.</div>
+    </div>
+    <a href="cross-examination.html" target="_blank" rel="noopener" style="text-decoration:none;flex-shrink:0;">
+      <button style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.9rem 1.6rem;background:var(--gold);color:var(--ink);border:none;cursor:pointer;font-weight:700;transition:all 0.2s;" onmouseover="this.style.background='var(--gold-light)'" onmouseout="this.style.background='var(--gold)'">⚔ Open Tool →</button>
+    </a>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <p>Al-Haqq Database · <strong>Truth Requires No Compromise</strong> · Founded on the Quran Alone</p>
@@ -2764,6 +2778,18 @@ document.getElementById('nextDropDay').textContent = NEXT_DROP.day;
 document.getElementById('nextDropTitle').textContent = NEXT_DROP.title;
 
 const entries = [
+ {
+ id: 40,
+ myth: "The Cross Examination — Interactive Debate Training",
+ source: "christian",
+ difficulty: "Advanced",
+ locked: false,
+ interactive: true,
+ interactiveSubtitle: "Tap to open the Cross Examination tool · a decision-tree cross-examination of Trinitarian Christianity · every path converges at the garden scene · use it live or train before a debate",
+ claim: "A decision-tree cross-examination of Trinitarian Christianity. Every path converges at the garden scene. Use it in live debates or to train before them.",
+ rebuttal: "",
+ verse: null
+ },
  {
  id: 1,
  myth: "Islam was spread by the sword — Muslims forced people to convert",
@@ -6406,6 +6432,7 @@ if ('serviceWorker' in navigator) {
 <script>
 function openInteractiveEntry(id) {
   if (id === 38) { openSalatWalkthrough(); return; }
+  if (id === 40) { window.open('cross-examination.html', '_blank'); return; }
   openTreeModal();
 }
 
