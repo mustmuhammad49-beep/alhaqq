@@ -2763,6 +2763,17 @@ This feature is in active development. It will be unlocked when fully verified a
   </div>
 </div>
 
+<div class="modal-backdrop" id="cardModal" onclick="closeCardModalOutside(event)">
+  <div class="modal" style="max-width:420px;padding:1.5rem;">
+    <button class="modal-close" onclick="closeReceiptCard()">✕</button>
+    <img id="cardPreviewImg" alt="Al-Haqq receipt card" style="width:100%;height:auto;display:block;margin-bottom:1.2rem;border:1px solid var(--border-strong);">
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+      <button class="action-btn" id="cardSaveBtn" onclick="saveReceiptCard()">⬇ Save Card</button>
+      <button class="action-btn" id="cardShareBtn" onclick="shareReceiptCard()" style="display:none;">📤 Share Card</button>
+    </div>
+  </div>
+</div>
+
 <!-- LIVE DEBATE MODE -->
 <div id="liveMode">
   <div class="live-topbar">
@@ -4337,7 +4348,9 @@ function renderEntries(filtered) {
               ${renderClipSection(entry)}
               <div class="entry-actions">
                 <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share link</button>
+                <button class="action-btn" id="link-btn-${entry.id}" onclick="copyEntryLink(${entry.id}, event)">🔗 Link</button>
                 <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Reference card</button>
+                ${entry.verse ? `<button class="action-btn" id="card-btn-${entry.id}" onclick="generateReceiptCard(${entry.id}, event)">🎴 Card</button>` : ''}
                 <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📝 Copy script</button>
                 <button class="action-btn" id="pin-btn-${entry.id}" onclick="copyPinnedComment(${entry.id}, event)">📌 Copy pinned comment</button>
                 <button class="action-btn" id="desc-btn-${entry.id}" onclick="copyDescription(${entry.id}, event)">📋 Copy video description</button>
@@ -4400,7 +4413,9 @@ function renderEntries(filtered) {
             ${renderClipSection(entry)}
             <div class="entry-actions">
               <button class="action-btn" id="share-btn-${entry.id}" onclick="shareEntry(${entry.id}, event)">⬡ Share link</button>
+              <button class="action-btn" id="link-btn-${entry.id}" onclick="copyEntryLink(${entry.id}, event)">🔗 Link</button>
               <button class="action-btn" onclick="downloadCard(${entry.id}, event)">↓ Reference card</button>
+              ${entry.verse ? `<button class="action-btn" id="card-btn-${entry.id}" onclick="generateReceiptCard(${entry.id}, event)">🎴 Card</button>` : ''}
               <button class="action-btn" id="copy-btn-${entry.id}" onclick="copyScript(${entry.id}, event)">📝 Copy script</button>
               <button class="action-btn" id="pin-btn-${entry.id}" onclick="copyPinnedComment(${entry.id}, event)">📌 Copy pinned comment</button>
               <button class="action-btn" id="desc-btn-${entry.id}" onclick="copyDescription(${entry.id}, event)">📋 Copy video description</button>
@@ -4441,6 +4456,9 @@ function toggleEntry(id) {
   if (!wasOpen) {
     el.classList.add('open');
     observeClipPlaceholders(el);
+    history.replaceState(null, '', '#e' + id);
+  } else {
+    history.replaceState(null, '', location.pathname + location.search);
   }
 }
 
@@ -5753,13 +5771,15 @@ else if (isSubscriber()) applySubscriberState(localStorage.getItem('alhaqq_sub_e
 }());
 
 // ── SHARE ──
+const DEEP_LINK_BASE = 'https://alhaqq.it.com/';
+
 function shareEntry(id, event) {
   event.stopPropagation();
   const entry = entries.find(e => e.id === id);
   if (!entry) return;
 
-  // Build a shareable text + simulated URL
-  const shareUrl = `${window.location.href.split('?')[0]}?myth=${id}`;
+  // Build a shareable text + deep-link URL
+  const shareUrl = `${DEEP_LINK_BASE}#e${id}`;
   const shareText = `"${entry.myth}" — Debunked with the Quran alone.\n\nRead the full rebuttal: ${shareUrl}\n\nAl-Haqq · The Truth Database`;
 
   if (navigator.share) {
@@ -5794,6 +5814,38 @@ function showToast(msg) {
     toast.classList.remove('visible');
     toast.textContent = toast.dataset.default;
   }, 2500);
+}
+
+// ── COPY DEEP LINK ──
+function copyEntryLink(id, event) {
+  if (event) event.stopPropagation();
+  const url = `${DEEP_LINK_BASE}#e${id}`;
+  const btn = document.getElementById(`link-btn-${id}`);
+  const finish = () => {
+    showToast('✓ Link copied. Drop it in the fight.');
+    if (btn) {
+      const orig = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.textContent = '✓ Link copied';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = orig;
+      }, 2500);
+    }
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(finish).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      finish();
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = url; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    finish();
+  }
 }
 
 // ── DOWNLOAD REFERENCE CARD ──
@@ -5836,6 +5888,242 @@ Founded on the Quran Alone
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+// ── RECEIPT CARD (canvas-rendered branded verse image) ──
+let _cardBlob = null;
+let _cardBlobUrl = null;
+let _cardEntryId = null;
+
+function wrapCanvasText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let line = '';
+  for (const word of words) {
+    const test = line ? line + ' ' + word : word;
+    if (line && ctx.measureText(test).width > maxWidth) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawSpacedText(ctx, text, cx, y, spacing) {
+  const chars = text.split('');
+  const widths = chars.map(c => ctx.measureText(c).width);
+  const total = widths.reduce((a, b) => a + b, 0) + spacing * (chars.length - 1);
+  let x = cx - total / 2;
+  const prevAlign = ctx.textAlign;
+  ctx.textAlign = 'left';
+  chars.forEach((c, i) => {
+    ctx.fillText(c, x, y);
+    x += widths[i] + spacing;
+  });
+  ctx.textAlign = prevAlign;
+}
+
+async function generateReceiptCard(id, event) {
+  if (event) event.stopPropagation();
+  const entry = entries.find(e => e.id === id);
+  if (!entry || !entry.verse) return;
+
+  const btn = document.getElementById(`card-btn-${id}`);
+  const origLabel = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.textContent = '◈ Rendering…'; }
+
+  try {
+    await Promise.all([
+      document.fonts.load("700 64px Cinzel"),
+      document.fonts.load("400 36px Cinzel"),
+      document.fonts.load("400 34px Cinzel"),
+      document.fonts.load("400 30px Cinzel"),
+      document.fonts.load("400 88px Amiri"),
+      document.fonts.load("400 72px Amiri"),
+      document.fonts.load("italic 400 44px Lora"),
+      document.fonts.load("italic 400 38px Lora")
+    ]);
+    await document.fonts.ready;
+
+    const W = 1080, H = 1350, CX = W / 2;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    ctx.textBaseline = 'alphabetic';
+    ctx.direction = 'ltr';
+
+    // Background
+    ctx.fillStyle = '#0d0d0f';
+    ctx.fillRect(0, 0, W, H);
+
+    // Double gold frame
+    ctx.strokeStyle = '#c9a84c';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(40, 40, W - 80, H - 80);
+    ctx.save();
+    ctx.globalAlpha = 0.4;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(56, 56, W - 112, H - 112);
+    ctx.restore();
+
+    // Title
+    ctx.fillStyle = '#c9a84c';
+    ctx.font = '700 64px Cinzel';
+    ctx.textAlign = 'center';
+    drawSpacedText(ctx, 'AL-HAQQ', CX, 170, 10);
+
+    // Ornament
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    ctx.font = '400 36px Cinzel';
+    ctx.textAlign = 'center';
+    ctx.fillText('◈', CX, 240);
+    ctx.restore();
+
+    // Arabic — word-wrapped, step down if it exceeds 4 lines
+    let arabicSize = 88;
+    ctx.direction = 'rtl';
+    ctx.textAlign = 'center';
+    ctx.font = `400 ${arabicSize}px Amiri`;
+    let arabicLines = wrapCanvasText(ctx, entry.verse.arabic, 880);
+    if (arabicLines.length > 4) {
+      arabicSize = 72;
+      ctx.font = `400 ${arabicSize}px Amiri`;
+      arabicLines = wrapCanvasText(ctx, entry.verse.arabic, 880);
+    }
+    const arabicLH = arabicSize * 1.7;
+
+    // Translation — word-wrapped, step down if it exceeds 6 lines
+    let transSize = 44;
+    ctx.direction = 'ltr';
+    ctx.font = `italic 400 ${transSize}px Lora`;
+    let transLines = wrapCanvasText(ctx, `"${entry.verse.translation}"`, 860);
+    if (transLines.length > 6) {
+      transSize = 38;
+      ctx.font = `italic 400 ${transSize}px Lora`;
+      transLines = wrapCanvasText(ctx, `"${entry.verse.translation}"`, 860);
+    }
+    const transLH = transSize * 1.6;
+
+    // Ref — capped at 2 lines, truncated if still too long
+    ctx.font = '400 34px Cinzel';
+    ctx.direction = 'ltr';
+    let refLines = wrapCanvasText(ctx, entry.verse.ref.toUpperCase(), 900);
+    if (refLines.length > 2) {
+      refLines = refLines.slice(0, 2);
+      refLines[1] = refLines[1].replace(/\s+\S*$/, '') + '…';
+    }
+
+    // Draw Arabic
+    let y = 420;
+    ctx.fillStyle = '#f0ead8';
+    ctx.direction = 'rtl';
+    ctx.textAlign = 'center';
+    ctx.font = `400 ${arabicSize}px Amiri`;
+    arabicLines.forEach(line => { ctx.fillText(line, CX, y); y += arabicLH; });
+
+    // Divider
+    y += 30;
+    ctx.strokeStyle = '#c9a84c';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(CX - 110, y);
+    ctx.lineTo(CX + 110, y);
+    ctx.stroke();
+    y += 50;
+
+    // Draw translation
+    ctx.fillStyle = '#a89f8a';
+    ctx.direction = 'ltr';
+    ctx.font = `italic 400 ${transSize}px Lora`;
+    transLines.forEach(line => { ctx.fillText(line, CX, y); y += transLH; });
+
+    // Draw ref
+    y += 30;
+    ctx.save();
+    ctx.globalAlpha = 0.8;
+    ctx.fillStyle = '#c9a84c';
+    ctx.font = '400 34px Cinzel';
+    refLines.forEach(line => { ctx.fillText(line, CX, y); y += 40; });
+    ctx.restore();
+
+    // Watermark
+    ctx.save();
+    ctx.globalAlpha = 0.6;
+    ctx.fillStyle = '#c9a84c';
+    ctx.font = '400 30px Cinzel';
+    ctx.fillText('alhaqq.it.com', CX, 1290);
+    ctx.restore();
+
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    openCardOverlay(blob, id);
+  } catch (err) {
+    showToast('Card generation failed');
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = origLabel; }
+  }
+}
+
+function openCardOverlay(blob, id) {
+  if (_cardBlobUrl) URL.revokeObjectURL(_cardBlobUrl);
+  _cardBlob = blob;
+  _cardBlobUrl = URL.createObjectURL(blob);
+  _cardEntryId = id;
+
+  document.getElementById('cardPreviewImg').src = _cardBlobUrl;
+  document.getElementById('cardModal').classList.add('visible');
+
+  const shareBtn = document.getElementById('cardShareBtn');
+  let canShareFiles = false;
+  if (navigator.canShare) {
+    try {
+      canShareFiles = navigator.canShare({ files: [new File([blob], 'card.png', { type: 'image/png' })] });
+    } catch (e) { canShareFiles = false; }
+  }
+  if (shareBtn) shareBtn.style.display = canShareFiles ? 'inline-flex' : 'none';
+}
+
+function safeVerseFilename(ref) {
+  return ref.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'card';
+}
+
+function saveReceiptCard() {
+  if (!_cardBlobUrl) return;
+  const entry = entries.find(e => e.id === _cardEntryId);
+  const name = entry && entry.verse ? `alhaqq-${safeVerseFilename(entry.verse.ref)}.png` : 'alhaqq-card.png';
+  const a = document.createElement('a');
+  a.href = _cardBlobUrl;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+async function shareReceiptCard() {
+  if (!_cardBlob || !_cardEntryId) return;
+  const file = new File([_cardBlob], 'alhaqq-card.png', { type: 'image/png' });
+  try {
+    await navigator.share({
+      files: [file],
+      title: 'Al-Haqq',
+      text: `Full rebuttal: ${DEEP_LINK_BASE}#e${_cardEntryId}`
+    });
+  } catch (e) { /* user cancelled or share unsupported for this payload */ }
+}
+
+function closeReceiptCard() {
+  document.getElementById('cardModal').classList.remove('visible');
+  if (_cardBlobUrl) { URL.revokeObjectURL(_cardBlobUrl); _cardBlobUrl = null; }
+  _cardBlob = null;
+  _cardEntryId = null;
+}
+
+function closeCardModalOutside(e) {
+  if (e.target === document.getElementById('cardModal')) closeReceiptCard();
 }
 
 // ── COPY FOR TIKTOK ──
@@ -6445,7 +6733,8 @@ function closeWelcomeOutside(e) {
 // Show on first visit only
 // Show welcome modal on first visit
 // Script runs at bottom of body — DOM is always ready at this point
-if (!localStorage.getItem('alhaqq_welcomed')) {
+// Skip it for deep links (#e{id}) — a shared link should show its target immediately, not an overlay
+if (!localStorage.getItem('alhaqq_welcomed') && !/^#e\d+$/.test(location.hash)) {
   setTimeout(function() {
     document.getElementById('welcomeModal').classList.add('visible');
     document.body.style.overflow = 'hidden';
@@ -6459,6 +6748,30 @@ document.addEventListener('keydown', function(e) {
 
 // Initial render
 renderEntries(entries);
+
+// ── DEEP LINK: #e{id} ──
+// Allows shared URLs like alhaqq.it.com/#e15 to auto-scroll/expand the target entry
+(function handleHashDeepLink() {
+  const m = location.hash.match(/^#e(\d+)$/);
+  if (!m) return;
+  const id = parseInt(m[1], 10);
+  const entry = entries.find(e => e.id === id);
+  if (!entry) return; // unknown id — ignore silently, load normally
+
+  setTimeout(() => {
+    const el = document.querySelector(`.entry[data-id="${id}"]`);
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Locked entries land in their teaser/locked state — never force them open
+    if (!el.classList.contains('locked')) {
+      setTimeout(() => {
+        if (!el.classList.contains('open')) toggleEntry(id);
+      }, 400);
+    }
+  }, 300);
+}());
 
 // ── JIBRIL ──
 let jarvisOpen = false;
