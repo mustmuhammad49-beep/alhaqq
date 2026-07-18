@@ -6088,7 +6088,8 @@ function openCardOverlay(blob, id) {
 }
 
 function safeVerseFilename(ref) {
-  return ref.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'card';
+  const slug = ref.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'card';
+  return slug.length > 60 ? slug.slice(0, 60).replace(/-+$/, '') : slug;
 }
 
 function saveReceiptCard() {
