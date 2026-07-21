@@ -2449,15 +2449,16 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
     </div>
     <div class="header-actions">
       <button class="da-lamp-btn dim" id="daLampBtn" title="The Misbaha Path" aria-label="Daily Attack streak">
-        <svg viewBox="0 0 40 44" class="da-lamp-svg" aria-hidden="true">
-          <path d="M4 40 L4 20 Q4 6 20 6 Q36 6 36 20 L36 40" fill="none" stroke="var(--gold)" stroke-width="2"/>
-          <line x1="20" y1="28" x2="20" y2="34" stroke="var(--gold)" stroke-width="2"/>
-          <path d="M10 34 Q20 42 30 34" fill="none" stroke="var(--gold)" stroke-width="2"/>
-          <path id="daLampFlame" class="da-flame" d="M20 15 C24 19 24 26 20 29 C16 26 16 19 20 15 Z" fill="var(--gold)"/>
-          <path id="daLampShield" d="M6 22 Q20 10 34 22" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 3" style="display:none;"/>
-          <text id="daLampStar" x="29" y="13" font-size="8" fill="var(--gold)" style="display:none;">✦</text>
+        <svg viewBox="0 0 48 56" class="da-lamp-svg" aria-hidden="true">
+          <path d="M8 52 V24 Q8 8 24 6 Q40 8 40 24 V52" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <path d="M18 48 H30" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <path d="M24 48 V41" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <path d="M16 34 H32 L29 41 H19 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <path id="daLampFlame" class="da-flame" d="M24 22 C27.5 26 27 30 24 31.5 C21 30 20.5 26 24 22 Z" fill="var(--gold)"/>
+          <path id="daLampShield" d="M10 30 Q24 14 38 30" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="3 4" style="display:none;"/>
+          <text id="daLampStar" x="34" y="14" font-size="10" fill="var(--gold)" style="display:none;">✦</text>
         </svg>
-        <span class="da-lamp-badge" id="daLampBadge">0 DAYS</span>
+        <span class="da-lamp-badge" id="daLampBadge">0</span>
       </button>
       <button class="btn-login" onclick="openSignIn()">Sign In</button>
       <a href="alhaqq-debate-simulator.html" style="text-decoration:none;">
@@ -8183,31 +8184,50 @@ document.addEventListener('keydown', function(e) {
   .da-lamp-btn {
     position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 2px;
+    justify-content: center;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 2px 4px;
+    width: 34px;
+    height: 38px;
+    padding: 2px;
   }
-  .da-lamp-svg { width: 26px; height: 30px; }
-  .da-flame { opacity: .35; transform-origin: 20px 22px; }
-  .da-lamp-btn.burning .da-flame { opacity: 1; animation: daFlicker 1.6s ease-in-out infinite; }
+  .da-lamp-svg { width: 30px; height: 36px; }
+  .da-flame { opacity: .35; transform-origin: 24px 28px; }
+  .da-lamp-btn.burning .da-flame { opacity: 1; animation: daFlicker 1.8s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) { .da-lamp-btn.burning .da-flame { animation: none; opacity: 1; } }
   @keyframes daFlicker {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    30% { transform: scale(1.08, 0.94) rotate(-2deg); }
-    60% { transform: scale(0.94, 1.08) rotate(2deg); }
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(.92) translateY(.5px); opacity: .85; }
   }
+  .da-lamp-btn.burning::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    background: radial-gradient(circle at 50% 45%, rgba(201,168,76,.28), transparent 65%);
+    animation: daGlowPulse 2.6s ease-in-out infinite;
+    z-index: -1;
+  }
+  @media (prefers-reduced-motion: reduce) { .da-lamp-btn.burning::before { animation: none; } }
+  @keyframes daGlowPulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
   .da-lamp-badge {
+    position: absolute;
+    top: -3px;
+    right: -4px;
+    background: var(--gold);
+    color: var(--ink);
     font-family: 'Cinzel', serif;
-    font-size: .52rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
+    font-size: .58rem;
+    font-weight: 800;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity .2s;
   }
-  .da-lamp-btn.burning .da-lamp-badge { color: var(--gold); }
+  .da-lamp-btn.burning .da-lamp-badge { opacity: 1; }
+  .da-lamp-btn.dim .da-lamp-badge { opacity: .6; background: #8a7434; }
 
   /* ── DAILY ATTACK · HOME CARD ── */
   .da-card {
@@ -8260,7 +8280,10 @@ document.addEventListener('keydown', function(e) {
   .da-card-btn.done { background: var(--ink-3); color: var(--gold); border: 1px solid var(--border); }
 
   /* ── DAILY ATTACK · OVERLAY ── */
-  #daOverlay { display: none; position: fixed; inset: 0; z-index: 600; background: var(--ink); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  #daOverlay {
+    --ink-2: #15151a; --ink-3: #1d1d24; --border: #2a2a33; --text-dim: #9a937f;
+    display: none; position: fixed; inset: 0; z-index: 600; background: var(--ink); overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
   #daOverlay.visible { display: block; }
   .da-topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; padding: .9rem 3.5rem; background: var(--ink); border-bottom: 1px solid var(--border); }
   .da-topbar-title { font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); }
@@ -8271,10 +8294,12 @@ document.addEventListener('keydown', function(e) {
   .da-screen { display: none; flex-direction: column; align-items: center; text-align: center; }
   .da-screen.active { display: flex; }
 
-  .da-tries { display: flex; gap: .5rem; margin-bottom: 1.4rem; }
-  .da-try-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--border); background: transparent; }
-  .da-try-dot.used-win { background: var(--gold); border-color: var(--gold); }
-  .da-try-dot.used-wrong { background: #a83232; border-color: #a83232; }
+  .da-tries { display: flex; align-items: center; gap: .5rem; margin-bottom: 1.4rem; }
+  .da-try-dot { font-size: .8rem; line-height: 1; color: var(--gold); }
+  .da-try-dot.used-win { color: var(--gold); text-shadow: 0 0 8px rgba(201,168,76,.8); }
+  .da-try-dot.used-wrong { color: #a83232; font-size: .85rem; }
+  .da-try-dot.moot { color: var(--border); }
+  .da-tries-label { font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); margin-left: .3rem; }
 
   .da-word-ar { font-family: 'Amiri', serif; font-size: clamp(3rem, 14vw, 5rem); color: var(--gold); line-height: 1; margin-bottom: .3rem; }
   .da-word-translit { font-family: 'Cinzel', serif; font-size: .78rem; letter-spacing: .3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.2rem; }
@@ -8314,10 +8339,37 @@ document.addEventListener('keydown', function(e) {
 
   .da-footer-line { font-family: 'Lora', serif; font-style: italic; font-size: .74rem; color: var(--text-dim); margin-top: .4rem; }
 
-  .da-stamp { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.3rem; letter-spacing: .1em; text-transform: uppercase; margin: .8rem 0 .4rem; }
-  .da-stamp.violation { color: #a83232; }
-  .da-stamp.misfit { color: var(--text-dim); }
-  .da-stamp.win { color: var(--gold); }
+  .da-stamp-wrap { display: flex; justify-content: center; margin: .8rem 0 .4rem; animation: daStampSlam .45s cubic-bezier(.2,1.6,.4,1) both; }
+  @media (prefers-reduced-motion: reduce) { .da-stamp-wrap { animation: none; } }
+  @keyframes daStampSlam { from { transform: scale(2.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .da-stamp {
+    position: relative;
+    overflow: hidden;
+    font-family: 'Cinzel', serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: .55rem 1.2rem;
+    border: 3px double currentColor;
+    transform: rotate(-6deg);
+  }
+  .da-stamp::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 46px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: .35;
+    animation: daShine 2.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .da-stamp::after { animation: none; display: none; } }
+  @keyframes daShine { 0% { transform: translateX(-130%) skewX(-20deg); } 100% { transform: translateX(260%) skewX(-20deg); } }
+  .da-stamp.violation { color: #a83232; background: rgba(168,50,50,.08); box-shadow: 0 0 30px rgba(168,50,50,.35); animation: daCrimsonPulse 2.2s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .da-stamp.violation { animation: none; } }
+  @keyframes daCrimsonPulse { 0%, 100% { box-shadow: 0 0 22px rgba(168,50,50,.3); } 50% { box-shadow: 0 0 44px rgba(168,50,50,.55); } }
+  .da-stamp.misfit { color: var(--text-dim); background: var(--ink-2); }
+  .da-stamp.win { color: var(--gold); background: rgba(201,168,76,.08); box-shadow: 0 0 36px rgba(201,168,76,.4); }
+  .da-particle-glyph { position: absolute; pointer-events: none; font-family: 'Cinzel', serif; animation: daFloatp 2.5s ease-out forwards; }
+  @keyframes daFloatp { 0% { transform: translateY(0) rotate(0deg); opacity: .9; } 100% { transform: translateY(-26px) rotate(18deg); opacity: 0; } }
   .da-cap { font-family: 'Lora', serif; font-size: .9rem; color: var(--text-main); margin-bottom: .2rem; }
   .da-cap2 { font-family: 'Lora', serif; font-style: italic; font-size: .82rem; color: var(--text-dim); margin-bottom: .6rem; }
 
@@ -8374,21 +8426,38 @@ document.addEventListener('keydown', function(e) {
   /* ── MISBAHA PATH ── */
   .da-misbaha-title { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: .3rem; }
   .da-misbaha-sub { font-family: 'Lora', serif; font-style: italic; font-size: .8rem; color: var(--text-dim); margin-bottom: 1.6rem; }
-  .da-string { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  .da-bead-row { display: flex; align-items: center; gap: .8rem; cursor: pointer; }
-  .da-bead { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .75rem; flex-shrink: 0; }
+  .da-string { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 420px; text-align: left; }
+  .da-string::before { content: ''; position: absolute; left: 13px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--gold), #8a7434 60%, var(--border)); }
+  .da-bead-row { position: relative; display: flex; align-items: center; gap: .9rem; padding: .45rem 0; cursor: pointer; }
+  .da-bead {
+    position: relative; z-index: 1; width: 26px; height: 26px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: .65rem; font-weight: 700; color: var(--text-dim); flex-shrink: 0;
+  }
   .da-bead.solved { background: var(--gold); color: var(--ink); border: none; }
-  .da-bead.shielded { border: 1px dashed var(--gold); color: var(--gold); }
+  .da-bead.shielded { background: #8a7434; color: var(--ink); border: none; }
   .da-bead.missed { background: transparent; color: var(--text-dim); }
-  .da-bead.today { border: 2px solid var(--gold); animation: daPulse 1.6s ease-in-out infinite; }
+  .da-bead.today {
+    width: 34px; height: 34px; margin-left: -4px; background: var(--gold); color: var(--ink);
+    font-size: .8rem; font-weight: 800; border: none; animation: daBeadGlow 2.2s ease-in-out infinite;
+  }
   @media (prefers-reduced-motion: reduce) { .da-bead.today { animation: none; } }
-  @keyframes daPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,.4); } 50% { box-shadow: 0 0 0 6px rgba(201,168,76,0); } }
-  .da-bead.milestone { border-color: var(--gold); }
+  @keyframes daBeadGlow {
+    0%, 100% { box-shadow: 0 0 12px rgba(201,168,76,.5), 0 0 30px rgba(201,168,76,.25); }
+    50% { box-shadow: 0 0 20px rgba(201,168,76,.85), 0 0 50px rgba(201,168,76,.4); }
+  }
+  .da-bead.milestone { width: 34px; height: 34px; margin-left: -4px; background: var(--ink); color: var(--gold); font-size: 1.15rem; text-shadow: 0 0 14px rgba(201,168,76,.5); }
   .da-bead-label { font-family: 'Lora', serif; font-size: .78rem; color: var(--text-dim); }
-  .da-bead-row.locked .da-bead-label { color: var(--text-dim); opacity: .5; }
-  .da-bead-row.locked::after { content: '🔒'; font-size: .7rem; margin-left: .4rem; opacity: .6; }
-
-  .da-particle { position: absolute; border-radius: 50%; pointer-events: none; }
+  .da-bead-label b { color: var(--gold); font-weight: 700; }
+  .da-bead-row.locked .da-bead-label { opacity: .55; }
+  .da-bead-row.locked .da-bead::after { content: '🔒'; position: absolute; bottom: -3px; right: -5px; font-size: .55rem; line-height: 1; }
+  .da-bead-gate {
+    position: relative; z-index: 1; margin: .5rem 0 .5rem 30px;
+    background: var(--ink-2); border: 1px solid var(--gold); padding: .8rem 1rem; text-align: center; max-width: 360px;
+  }
+  .da-bead-gate-title { font-family: 'Cinzel', serif; font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  .da-bead-gate-sub { font-family: 'Lora', serif; font-size: .72rem; color: var(--text-dim); margin-top: .3rem; }
 </style>
 
 <!-- DAILY ATTACK OVERLAY -->
@@ -8475,7 +8544,11 @@ document.addEventListener('keydown', function(e) {
 
   /* ── audio ── */
   let daCtx = null;
-  function daGetCtx() { if (!daCtx) { try { daCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { daCtx = null; } } return daCtx; }
+  function daGetCtx() {
+    if (!daCtx) { try { daCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { daCtx = null; } }
+    if (daCtx && daCtx.state === 'suspended') { daCtx.resume().catch(() => {}); }
+    return daCtx;
+  }
   function daMuted() { return localStorage.getItem(DA_MUTE_KEY) === '1'; }
   function daTone(freq, durMs, type, vol, delayMs) {
     if (daMuted()) return;
@@ -8498,24 +8571,24 @@ document.addEventListener('keydown', function(e) {
   function daVibrate(pattern) { try { if (navigator.vibrate && !daReducedMotion()) navigator.vibrate(pattern); } catch (e) {} }
   function daReducedMotion() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
-  function daSpawnParticles(container, color, count) {
+  const DA_GLYPHS = { violation: ['✕'], win: ['◈', '✦', '۞'] };
+  const DA_GLYPH_COLORS = { violation: ['#a83232'], win: ['var(--gold)', '#8a7434'] };
+  function daSpawnGlyphs(container, kind, count) {
     if (daReducedMotion() || !container) return;
-    const rect = container.getBoundingClientRect();
+    const glyphs = DA_GLYPHS[kind]; const colors = DA_GLYPH_COLORS[kind];
+    if (!glyphs) return;
     for (let i = 0; i < count; i++) {
-      const p = document.createElement('div');
-      p.className = 'da-particle';
-      const size = 3 + Math.random() * 4;
-      p.style.width = size + 'px'; p.style.height = size + 'px';
-      p.style.background = color;
-      p.style.left = (rect.width / 2) + 'px'; p.style.top = (rect.height / 2) + 'px';
-      container.appendChild(p);
-      const angle = Math.random() * Math.PI * 2;
-      const dist = 40 + Math.random() * 60;
-      const anim = p.animate([
-        { transform: 'translate(-50%,-50%) translate(0,0)', opacity: 1 },
-        { transform: 'translate(-50%,-50%) translate(' + Math.cos(angle) * dist + 'px,' + Math.sin(angle) * dist + 'px)', opacity: 0 }
-      ], { duration: 700 + Math.random() * 300, easing: 'ease-out' });
-      anim.onfinish = () => p.remove();
+      const s = document.createElement('span');
+      s.className = 'da-particle-glyph';
+      s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      s.style.color = colors[Math.floor(Math.random() * colors.length)];
+      s.style.fontSize = (10 + Math.random() * 8) + 'px';
+      s.style.left = (10 + Math.random() * 80) + '%';
+      s.style.top = (18 + Math.random() * 55) + '%';
+      s.style.animationDelay = (Math.random() * 0.9) + 's';
+      s.style.animationDuration = (2.2 + Math.random() * 0.8) + 's';
+      container.appendChild(s);
+      setTimeout(() => s.remove(), 3200);
     }
   }
 
@@ -8545,8 +8618,8 @@ document.addEventListener('keydown', function(e) {
         wrap.classList.remove('violation', 'misfit', 'win');
         void wrap.offsetWidth;
         wrap.classList.add(kind);
-        if (kind === 'violation') daSpawnParticles(wrap, '#a83232', 10);
-        if (kind === 'win') daSpawnParticles(wrap, 'var(--gold)', 14);
+        if (kind === 'violation') daSpawnGlyphs(wrap, 'violation', 6);
+        if (kind === 'win') daSpawnGlyphs(wrap, 'win', 8);
       },
       reset: function () {
         const wrap = document.getElementById('daSceneWrap');
@@ -8562,7 +8635,8 @@ document.addEventListener('keydown', function(e) {
 
   function daBuildStageHTML(scenario) {
     return '<div class="da-tries" id="daTries">' +
-        [0, 1, 2].map(i => '<span class="da-try-dot" data-i="' + i + '"></span>').join('') +
+        [0, 1, 2].map(i => '<span class="da-try-dot" data-i="' + i + '">◈</span>').join('') +
+        '<span class="da-tries-label" id="daTriesLabel">THREE TRIES</span>' +
       '</div>' +
       '<div class="da-word-ar">' + scenario.word + '</div>' +
       '<div class="da-word-translit">' + daEsc(scenario.translit) + '</div>' +
@@ -8577,7 +8651,7 @@ document.addEventListener('keydown', function(e) {
   }
 
   function daResolvePanelHTML(choice) {
-    return '<div class="da-stamp ' + choice.kind + '">' + daEsc(choice.stamp) + '</div>' +
+    return '<div class="da-stamp-wrap"><div class="da-stamp ' + choice.kind + '">' + daEsc(choice.stamp) + '</div></div>' +
       '<div class="da-cap">' + daEsc(choice.cap) + '</div>' +
       (choice.cap2 ? '<div class="da-cap2">' + daEsc(choice.cap2) + '</div>' : '') +
       '<div class="da-verse-card">' +
@@ -8598,6 +8672,7 @@ document.addEventListener('keydown', function(e) {
 
   DA.choose = function (idx) {
     if (!daSession || daSession.locked) return;
+    if (!daMuted()) daGetCtx();
     const scenario = daSession.scenario;
     const choice = scenario.choices[idx];
     daSession.locked = true;
@@ -8617,6 +8692,19 @@ document.addEventListener('keydown', function(e) {
       panel.innerHTML = daResolvePanelHTML(choice);
 
       daSession.doorHistory.push(choice.kind);
+
+      const triesUsed = daSession.doorHistory.length;
+      const label = document.getElementById('daTriesLabel');
+      if (choice.kind === 'win') {
+        const dot = document.querySelector('#daTries [data-i="' + idx + '"]');
+        if (dot) { dot.textContent = '◈'; dot.className = 'da-try-dot used-win'; }
+        document.querySelectorAll('#daTries .da-try-dot').forEach(d => {
+          if (d.className === 'da-try-dot') d.className = 'da-try-dot moot';
+        });
+        if (label) label.textContent = 'SOLVED IN ' + triesUsed;
+      } else {
+        if (label) label.textContent = (3 - triesUsed) + (3 - triesUsed === 1 ? ' TRY LEFT' : ' REMAIN');
+      }
 
       const nav = document.getElementById('daResolveNav');
       if (choice.kind === 'win') {
@@ -8640,7 +8728,7 @@ document.addEventListener('keydown', function(e) {
     const tries = document.getElementById('daTries');
     if (tries) {
       const dot = tries.querySelector('[data-i="' + idx + '"]');
-      if (dot) dot.className = 'da-try-dot used-wrong';
+      if (dot) { dot.textContent = '✕'; dot.className = 'da-try-dot used-wrong'; }
     }
   };
 
@@ -8763,21 +8851,35 @@ document.addEventListener('keydown', function(e) {
     const today = daToday();
     const totalDays = daDaysBetween(state.anchor, today) + 1;
     const member = isMember();
-    let rows = '';
-    for (let i = 0; i < totalDays; i++) {
+    let rows = '<div class="da-bead-row" style="opacity:.6;cursor:default;">' +
+      '<span class="da-bead" style="border:2px dashed var(--border);">' + (totalDays + 1) + '</span>' +
+      '<span class="da-bead-label">Tomorrow</span>' +
+    '</div>';
+    let gateInserted = false;
+    let dim = 0;
+    for (let i = totalDays - 1; i >= 0; i--) {
       const d = daAddDays(state.anchor, i);
       const dayNo = i + 1;
       const isToday = d === today;
       const solved = !!state.results[d];
       const shielded = state.shieldedDates.indexOf(d) !== -1;
+      const scenario = daScenarioForDate(d, state);
       let cls = 'missed';
       if (solved) cls = 'solved'; else if (shielded) cls = 'shielded'; else if (isToday) cls = 'today';
       const milestone = dayNo % 5 === 0;
       const locked = !isToday && !member && !solved;
-      const glyph = milestone ? '۞' : (solved ? '✓' : (isToday ? '' : ''));
-      rows += '<div class="da-bead-row' + (locked ? ' locked' : '') + '" onclick="DA.beadClick(\'' + d + '\',' + isToday + ',' + solved + ',' + locked + ')">' +
+      const glyph = milestone ? '۞' : dayNo;
+      const label = isToday
+        ? 'Today &middot; <b>' + daEsc(scenario.translit) + '</b>'
+        : daEsc(scenario.translit) + ' &middot; <span style="font-family:\'Amiri\',serif;">' + scenario.word + '</span>';
+      if (locked && !gateInserted) {
+        rows += '<div class="da-bead-gate"><div class="da-bead-gate-title">&#9733; Members Replay Everything</div><div class="da-bead-gate-sub">Every bead, every word, every verse.</div></div>';
+        gateInserted = true;
+      }
+      const rowStyle = (gateInserted && locked) ? ' style="opacity:' + Math.max(.3, 1 - (++dim * .18)) + '"' : '';
+      rows += '<div class="da-bead-row' + (locked ? ' locked' : '') + '"' + rowStyle + ' onclick="DA.beadClick(\'' + d + '\',' + isToday + ',' + solved + ',' + locked + ')">' +
         '<span class="da-bead ' + cls + (milestone ? ' milestone' : '') + '">' + glyph + '</span>' +
-        '<span class="da-bead-label">Day ' + dayNo + (isToday ? ' · Today' : '') + '</span>' +
+        '<span class="da-bead-label">' + label + '</span>' +
       '</div>';
     }
     el.innerHTML =
@@ -8813,7 +8915,7 @@ document.addEventListener('keydown', function(e) {
         '<div class="da-card-eyebrow">Daily Attack · Solved</div>' +
         '<div class="da-card-title">' + scenario.word + ' · ' + daEsc(scenario.translit) + '</div>' +
         '<div class="da-card-sub">' + daEsc(scenario.verdictTitle) + '</div>' +
-        '<button class="da-card-btn done" onclick="DA.open()">View Verdict</button>';
+        '<button class="da-card-btn done" onclick="DA.open()">Play Again</button>';
     } else {
       card.innerHTML =
         '<div class="da-card-eyebrow">Daily Attack</div>' +
@@ -8829,7 +8931,7 @@ document.addEventListener('keydown', function(e) {
     const s = daLampState(state);
     btn.classList.remove('dim', 'burning');
     btn.classList.add(s.burning ? 'burning' : 'dim');
-    document.getElementById('daLampBadge').textContent = s.days + (s.days === 1 ? ' DAY' : ' DAYS');
+    document.getElementById('daLampBadge').textContent = s.days;
     const shieldEl = document.getElementById('daLampShield');
     if (shieldEl) shieldEl.style.display = s.shielded ? 'block' : 'none';
     const starEl = document.getElementById('daLampStar');
@@ -8844,16 +8946,9 @@ document.addEventListener('keydown', function(e) {
 
   function daBoot(state, dateStr) {
     const scenario = daScenarioForDate(dateStr, state);
-    const already = state.results[dateStr];
-    if (already) {
-      daSession = { scenario: scenario, dateStr: dateStr, doorHistory: already.doorHistory.slice(), locked: true, replay: true };
-      daRenderVerdict(scenario, daSession.doorHistory, state);
-      daShowScreen('daVerdictScreen');
-    } else {
-      daSession = { scenario: scenario, dateStr: dateStr, doorHistory: [], locked: false, replay: false };
-      daRenderStage(scenario);
-      daShowScreen('daStageScreen');
-    }
+    daSession = { scenario: scenario, dateStr: dateStr, doorHistory: [], locked: false, replay: !!state.results[dateStr] };
+    daRenderStage(scenario);
+    daShowScreen('daStageScreen');
     document.getElementById('daOverlay').classList.add('visible');
     document.body.style.overflow = 'hidden';
   }
