@@ -1971,7 +1971,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     padding: 0.7rem 1.4rem;
-    z-index: 400;
+    z-index: 650;
     opacity: 0;
     transition: all 0.3s;
     pointer-events: none;
@@ -2448,6 +2448,17 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
       <span class="logo-latin">Al-Haqq · The Truth Database</span>
     </div>
     <div class="header-actions">
+      <button class="da-lamp-btn dim" id="daLampBtn" title="The Misbaha Path" aria-label="Daily Attack streak">
+        <svg viewBox="0 0 40 44" class="da-lamp-svg" aria-hidden="true">
+          <path d="M4 40 L4 20 Q4 6 20 6 Q36 6 36 20 L36 40" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <line x1="20" y1="28" x2="20" y2="34" stroke="var(--gold)" stroke-width="2"/>
+          <path d="M10 34 Q20 42 30 34" fill="none" stroke="var(--gold)" stroke-width="2"/>
+          <path id="daLampFlame" class="da-flame" d="M20 15 C24 19 24 26 20 29 C16 26 16 19 20 15 Z" fill="var(--gold)"/>
+          <path id="daLampShield" d="M6 22 Q20 10 34 22" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 3" style="display:none;"/>
+          <text id="daLampStar" x="29" y="13" font-size="8" fill="var(--gold)" style="display:none;">✦</text>
+        </svg>
+        <span class="da-lamp-badge" id="daLampBadge">0 DAYS</span>
+      </button>
       <button class="btn-login" onclick="openSignIn()">Sign In</button>
       <a href="alhaqq-debate-simulator.html" style="text-decoration:none;">
         <button class="btn-login" style="color:var(--accent-light);border-color:rgba(61,168,118,0.5);">⚔ Debate Simulator</button>
@@ -2516,6 +2527,9 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
     </div>
   </div>
 </div>
+
+<!-- DAILY ATTACK CARD -->
+<div class="da-card" id="dailyAttackCard"></div>
 
 <!-- NEXT DROP CARD -->
 <div class="next-drop-card">
@@ -5679,7 +5693,37 @@ const verseDB = {
   "80:15": { arabic: "بِأَيْدِي سَفَرَةٍ", translation: "By the hands of messenger-scribes.", ref: "Surah Abasa 80:15" }
 };
 
-
+// ── DAILY ATTACK · SCENARIO POOL ──
+const DA_POOL = [
+{
+ no:1, word:"ضَرَبَ", translit:"DARABA", entryId:15, sceneId:"couple",
+ hook:"Your own book tells men to beat their wives. 4:34. Explain that.",
+ sub:"One Arabic word decides it. Three tries.",
+ choices:[
+  {label:"TO BEAT", kind:"violation",
+   cap:"HE RAISES HIS HAND...", cap2:"THE BOOK INTERRUPTS", stamp:"VIOLATION",
+   ar:"وَلَا تُمْسِكُوهُنَّ ضِرَارًا لِّتَعْتَدُوا",
+   en:"Do not hold on to them in order to harm them.",
+   ref:"SURAH AL-BAQARAH 2:231", ref2:"AR-RUM 30:21",
+   explain:"You picked the critics' meaning. The Book itself throws the flag. It cannot command harm here and forbid harm there. Something is wrong with that translation."},
+  {label:"TO TRAVEL", kind:"misfit",
+   cap:"...AND HE LEFT THE COUNTRY", stamp:"DOES NOT FIT",
+   ar:"وَإِذَا ضَرَبْتُمْ فِي الْأَرْضِ",
+   en:"And when you travel through the land...",
+   ref:"SURAH AN-NISA 4:94",
+   explain:"Daraba really does mean travel in 4:94. But this verse is not sending anyone on a trip. Real meaning, wrong door."},
+  {label:"TO SEPARATE", kind:"win",
+   cap:"THEY PART. NO HARM. NO CONTRADICTION.", stamp:"PASSES THE BOOK",
+   ar:"أَفَنَضْرِبُ عَنكُمُ الذِّكْرَ صَفْحًا",
+   en:"Shall We then turn the Reminder away from you?",
+   ref:"SURAH AZ-ZUKHRUF 43:5",
+   explain:"Same root, and Allah uses it for turning away, not striking. And look at 4:34 itself: advise, then distance in the beds, then separate. Three steps of growing space. The Book stays consistent from the first word to the last."}
+ ],
+ reply:"Daraba has more than five meanings inside the Quran itself. Strike a rock in 2:60. Strike an example in 14:24. Travel in 4:94. Turn away in 43:5. And 2:231 already commands men never to hold wives to harm them. Allah does not command harm in one verse and forbid it in another. Pick the meaning that matches the Book, not the one that matches your accusation.",
+ verdictTitle:"HONEST TRANSLATOR"
+}
+];
+const DA_NEXT_TEASE = "A new challenge is loading.";
 
 // ── FOUNDING MEMBER COUNTER ──
 const FOUNDING_TOTAL = 1000;
@@ -6735,7 +6779,7 @@ function closeWelcomeOutside(e) {
 // Show welcome modal on first visit
 // Script runs at bottom of body — DOM is always ready at this point
 // Skip it for deep links (#e{id}) — a shared link should show its target immediately, not an overlay
-if (!localStorage.getItem('alhaqq_welcomed') && !/^#e\d+$/.test(location.hash)) {
+if (!localStorage.getItem('alhaqq_welcomed') && !/^#e\d+$/.test(location.hash) && location.hash !== '#attack') {
   setTimeout(function() {
     document.getElementById('welcomeModal').classList.add('visible');
     document.body.style.overflow = 'hidden';
@@ -8134,5 +8178,731 @@ document.addEventListener('keydown', function(e) {
 
 </script>
 
+<style>
+  /* ── DAILY ATTACK · LAMP ── */
+  .da-lamp-btn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 4px;
+  }
+  .da-lamp-svg { width: 26px; height: 30px; }
+  .da-flame { opacity: .35; transform-origin: 20px 22px; }
+  .da-lamp-btn.burning .da-flame { opacity: 1; animation: daFlicker 1.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .da-lamp-btn.burning .da-flame { animation: none; opacity: 1; } }
+  @keyframes daFlicker {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.08, 0.94) rotate(-2deg); }
+    60% { transform: scale(0.94, 1.08) rotate(2deg); }
+  }
+  .da-lamp-badge {
+    font-family: 'Cinzel', serif;
+    font-size: .52rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .da-lamp-btn.burning .da-lamp-badge { color: var(--gold); }
+
+  /* ── DAILY ATTACK · HOME CARD ── */
+  .da-card {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto 1.2rem;
+    padding: 1.4rem 1.8rem;
+    background: var(--ink-2);
+    border-left: 4px solid var(--gold);
+  }
+  .da-card:empty { display: none; }
+  .da-card-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .5rem;
+  }
+  .da-card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 700;
+    margin-bottom: .5rem;
+    line-height: 1.5;
+  }
+  .da-card-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: .82rem;
+    color: var(--text-dim);
+    margin-bottom: .9rem;
+  }
+  .da-card-btn {
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: .7rem 1.3rem;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all .2s;
+  }
+  .da-card-btn:hover { background: var(--gold-light); }
+  .da-card-btn.done { background: var(--ink-3); color: var(--gold); border: 1px solid var(--border); }
+
+  /* ── DAILY ATTACK · OVERLAY ── */
+  #daOverlay { display: none; position: fixed; inset: 0; z-index: 600; background: var(--ink); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  #daOverlay.visible { display: block; }
+  .da-topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: center; padding: .9rem 3.5rem; background: var(--ink); border-bottom: 1px solid var(--border); }
+  .da-topbar-title { font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); }
+  .da-close, .da-mute { position: fixed; top: .75rem; z-index: 3; width: 42px; height: 42px; border-radius: 50%; background: var(--ink-2); border: 1px solid var(--border); color: var(--text-main); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .da-close { right: .75rem; }
+  .da-mute { left: .75rem; font-size: 1rem; }
+  .da-screens { position: relative; min-height: 70vh; padding: 1.6rem 1.2rem 4rem; max-width: 640px; margin: 0 auto; }
+  .da-screen { display: none; flex-direction: column; align-items: center; text-align: center; }
+  .da-screen.active { display: flex; }
+
+  .da-tries { display: flex; gap: .5rem; margin-bottom: 1.4rem; }
+  .da-try-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--border); background: transparent; }
+  .da-try-dot.used-win { background: var(--gold); border-color: var(--gold); }
+  .da-try-dot.used-wrong { background: #a83232; border-color: #a83232; }
+
+  .da-word-ar { font-family: 'Amiri', serif; font-size: clamp(3rem, 14vw, 5rem); color: var(--gold); line-height: 1; margin-bottom: .3rem; }
+  .da-word-translit { font-family: 'Cinzel', serif; font-size: .78rem; letter-spacing: .3em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.2rem; }
+  .da-hook { font-family: 'Lora', serif; font-size: 1rem; color: var(--text-main); line-height: 1.7; max-width: 480px; margin: 0 auto .3rem; }
+  .da-sub { font-family: 'Lora', serif; font-style: italic; font-size: .8rem; color: var(--text-dim); margin-bottom: 1.4rem; }
+
+  .da-scene-wrap { width: 100%; max-width: 380px; margin: 0 auto 1.4rem; position: relative; }
+  .da-scene-wrap svg { width: 100%; height: auto; display: block; }
+  .da-scene-divider { transition: stroke-width .4s ease, filter .4s ease; }
+  .da-scene-wrap.win .da-scene-divider { stroke-width: 3; filter: drop-shadow(0 0 4px var(--gold)); }
+  .da-scene-figure { transition: transform .6s ease; }
+  .da-scene-wrap.win .da-fig-l { transform: translateX(-14px); }
+  .da-scene-wrap.win .da-fig-r { transform: translateX(14px); }
+  .da-scene-wrap.misfit .da-fig-r { transform: translate(60px, -6px); opacity: .3; }
+  .da-arm-r { transform-origin: 235px 120px; transition: transform .35s ease; }
+  .da-scene-wrap.violation .da-arm-r { transform: rotate(-58deg); }
+  .da-scene-wrap.violation .da-flash { opacity: 1; }
+  .da-flash { fill: #a83232; opacity: 0; transition: opacity .15s ease; }
+
+  .da-choices { display: flex; flex-direction: column; gap: .7rem; width: 100%; max-width: 420px; margin-bottom: 1rem; }
+  .da-choice-btn {
+    font-family: 'Cinzel', serif;
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .9rem 1rem;
+    background: var(--ink-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .da-choice-btn:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+  .da-choice-btn:disabled { opacity: .3; cursor: default; }
+  .da-choice-btn.stamped-wrong { border-color: #a83232; color: #a83232; opacity: .55; }
+  .da-choice-btn.stamped-win { border-color: var(--gold); color: var(--gold); }
+
+  .da-footer-line { font-family: 'Lora', serif; font-style: italic; font-size: .74rem; color: var(--text-dim); margin-top: .4rem; }
+
+  .da-stamp { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.3rem; letter-spacing: .1em; text-transform: uppercase; margin: .8rem 0 .4rem; }
+  .da-stamp.violation { color: #a83232; }
+  .da-stamp.misfit { color: var(--text-dim); }
+  .da-stamp.win { color: var(--gold); }
+  .da-cap { font-family: 'Lora', serif; font-size: .9rem; color: var(--text-main); margin-bottom: .2rem; }
+  .da-cap2 { font-family: 'Lora', serif; font-style: italic; font-size: .82rem; color: var(--text-dim); margin-bottom: .6rem; }
+
+  .da-verse-card { background: var(--ink-2); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 1.1rem 1.3rem; margin: .8rem 0; max-width: 460px; }
+  .da-verse-ar { font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--gold); line-height: 1.9; margin-bottom: .5rem; }
+  .da-verse-en { font-family: 'Lora', serif; font-style: italic; font-size: .85rem; color: var(--text-main); margin-bottom: .5rem; }
+  .da-verse-ref { font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); }
+
+  .da-explain { font-family: 'Lora', serif; font-size: .9rem; color: var(--text-main); line-height: 1.75; max-width: 460px; margin: .6rem 0 1.2rem; }
+
+  .da-nav-btn {
+    font-family: 'Cinzel', serif;
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .8rem 1.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--ink-2);
+    color: var(--text-main);
+    margin: .3rem;
+  }
+  .da-nav-btn.primary { background: var(--gold); color: var(--ink); border: none; font-weight: 700; }
+
+  .da-verdict-title { font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--gold); font-weight: 700; margin-bottom: .8rem; }
+  .da-chip-row { display: flex; gap: .5rem; margin-bottom: 1.2rem; }
+  .da-chip { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; border: 1px solid var(--border); }
+  .da-chip.win { background: var(--gold); color: var(--ink); border: none; }
+  .da-chip.wrong { color: #a83232; border-color: #a83232; }
+
+  .da-share-card { background: var(--ink-2); border: 1px solid var(--border); padding: 1.2rem; margin-bottom: 1rem; max-width: 420px; width: 100%; }
+  .da-share-word { font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .15em; color: var(--gold); margin-bottom: .6rem; }
+  .da-history-strip { display: flex; gap: 5px; justify-content: center; margin-top: .6rem; }
+  .da-history-bead { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--border); }
+  .da-history-bead.solved { background: var(--gold); border-color: var(--gold); }
+  .da-history-bead.shielded { border: 1px dashed var(--gold); }
+  .da-history-bead.missed { background: transparent; }
+  .da-history-bead.future { border-color: transparent; }
+
+  .da-reply-panel { background: var(--ink-2); border: 1px solid var(--border); padding: 1.1rem 1.3rem; margin-bottom: 1.2rem; max-width: 460px; text-align: left; }
+  .da-reply-label { font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+  .da-reply-text { font-family: 'Lora', serif; font-size: .88rem; color: var(--text-main); line-height: 1.75; margin-bottom: .9rem; }
+  .da-reply-actions { display: flex; gap: .6rem; flex-wrap: wrap; }
+  .da-reply-actions button { flex: 1; min-width: 140px; }
+
+  .da-bridge-btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+
+  .da-lockpanel { background: var(--ink-2); border: 1px dashed var(--border); padding: 1.1rem 1.3rem; margin-top: 1rem; max-width: 460px; }
+  .da-lock-eyebrow { font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .5rem; }
+  .da-countdown { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--gold); font-weight: 700; margin-bottom: .4rem; }
+  .da-lock-tease { font-family: 'Lora', serif; font-style: italic; font-size: .78rem; color: var(--text-dim); }
+
+  /* ── MISBAHA PATH ── */
+  .da-misbaha-title { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: .3rem; }
+  .da-misbaha-sub { font-family: 'Lora', serif; font-style: italic; font-size: .8rem; color: var(--text-dim); margin-bottom: 1.6rem; }
+  .da-string { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .da-bead-row { display: flex; align-items: center; gap: .8rem; cursor: pointer; }
+  .da-bead { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .75rem; flex-shrink: 0; }
+  .da-bead.solved { background: var(--gold); color: var(--ink); border: none; }
+  .da-bead.shielded { border: 1px dashed var(--gold); color: var(--gold); }
+  .da-bead.missed { background: transparent; color: var(--text-dim); }
+  .da-bead.today { border: 2px solid var(--gold); animation: daPulse 1.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .da-bead.today { animation: none; } }
+  @keyframes daPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,.4); } 50% { box-shadow: 0 0 0 6px rgba(201,168,76,0); } }
+  .da-bead.milestone { border-color: var(--gold); }
+  .da-bead-label { font-family: 'Lora', serif; font-size: .78rem; color: var(--text-dim); }
+  .da-bead-row.locked .da-bead-label { color: var(--text-dim); opacity: .5; }
+  .da-bead-row.locked::after { content: '🔒'; font-size: .7rem; margin-left: .4rem; opacity: .6; }
+
+  .da-particle { position: absolute; border-radius: 50%; pointer-events: none; }
+</style>
+
+<!-- DAILY ATTACK OVERLAY -->
+<div id="daOverlay">
+  <button class="da-mute" id="daMuteBtn" onclick="DA.toggleMute()" aria-label="Mute sound">🔊</button>
+  <div class="da-topbar">
+    <span class="da-topbar-title">Daily Attack</span>
+  </div>
+  <button class="da-close" onclick="DA.close()" aria-label="Close">✕</button>
+  <div class="da-screens">
+
+    <div class="da-screen" id="daStageScreen"></div>
+    <div class="da-screen" id="daVerdictScreen"></div>
+    <div class="da-screen" id="daMisbahaScreen"></div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const DA_KEY = 'alhaqq_da';
+  const DA_MUTE_KEY = 'alhaqq_da_mute';
+
+  function daPad(n) { return n < 10 ? '0' + n : '' + n; }
+  function daDateStr(d) { return d.getFullYear() + '-' + daPad(d.getMonth() + 1) + '-' + daPad(d.getDate()); }
+  function daToday() { return daDateStr(new Date()); }
+  function daParse(s) { const p = s.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+  function daDaysBetween(a, b) { return Math.round((daParse(b) - daParse(a)) / 86400000); }
+  function daAddDays(s, n) { const d = daParse(s); d.setDate(d.getDate() + n); return daDateStr(d); }
+  function daWeekKey(s) { const d = daParse(s); const onejan = new Date(d.getFullYear(), 0, 1); const week = Math.ceil((((d - onejan) / 86400000) + onejan.getDay() + 1) / 7); return d.getFullYear() + '-W' + week; }
+
+  function daLoad() {
+    let s;
+    try { s = JSON.parse(localStorage.getItem(DA_KEY)); } catch (e) { s = null; }
+    if (!s) s = {};
+    if (!s.anchor) s.anchor = daToday();
+    if (!s.streak) s.streak = 0;
+    if (!s.lastDone) s.lastDone = null;
+    if (!s.mercyWeek) s.mercyWeek = null;
+    if (!s.shieldedDates) s.shieldedDates = [];
+    if (!s.results) s.results = {};
+    return s;
+  }
+  function daSave(s) { localStorage.setItem(DA_KEY, JSON.stringify(s)); }
+
+  function daScenarioForDate(dateStr, state) {
+    let idx = daDaysBetween(state.anchor, dateStr) % DA_POOL.length;
+    if (idx < 0) idx += DA_POOL.length;
+    return DA_POOL[idx];
+  }
+
+  function daApplyCompletion(state, dateStr, doorHistory) {
+    if (state.results[dateStr]) return state;
+    if (state.lastDone === dateStr) return state;
+    const yesterday = daAddDays(dateStr, -1);
+    if (!state.lastDone) {
+      state.streak = 1;
+    } else if (state.lastDone === yesterday) {
+      state.streak += 1;
+    } else {
+      const gap = daDaysBetween(state.lastDone, dateStr);
+      const missedDate = daAddDays(dateStr, -1);
+      const wk = daWeekKey(missedDate);
+      if (gap === 2 && state.mercyWeek !== wk) {
+        state.mercyWeek = wk;
+        state.shieldedDates.push(missedDate);
+        state.streak += 1;
+      } else {
+        state.streak = 1;
+      }
+    }
+    state.lastDone = dateStr;
+    state.results[dateStr] = { solved: true, tries: doorHistory.length, doorHistory: doorHistory };
+    daSave(state);
+    return state;
+  }
+
+  function daLampState(state) {
+    const today = daToday();
+    const burning = !!state.results[today];
+    const shielded = state.mercyWeek === daWeekKey(today);
+    return { days: state.streak, burning: burning, shielded: shielded, milestone: state.streak > 0 && state.streak % 5 === 0 };
+  }
+
+  /* ── audio ── */
+  let daCtx = null;
+  function daGetCtx() { if (!daCtx) { try { daCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { daCtx = null; } } return daCtx; }
+  function daMuted() { return localStorage.getItem(DA_MUTE_KEY) === '1'; }
+  function daTone(freq, durMs, type, vol, delayMs) {
+    if (daMuted()) return;
+    const ctx = daGetCtx(); if (!ctx) return;
+    const t0 = ctx.currentTime + (delayMs || 0) / 1000;
+    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+    osc.type = type || 'sine'; osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(vol || 0.2, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + durMs / 1000);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t0); osc.stop(t0 + durMs / 1000 + 0.02);
+  }
+  function daSThump() { daTone(90, 160, 'sine', 0.5, 0); }
+  function daSWin() { daTone(523, 140, 'triangle', 0.3, 0); daTone(659, 140, 'triangle', 0.3, 100); daTone(784, 220, 'triangle', 0.3, 200); }
+  function daSWrong() { daTone(220, 180, 'square', 0.18, 0); daTone(110, 200, 'square', 0.18, 90); }
+  function daSWomp() { daTone(180, 220, 'sine', 0.25, 0); daTone(90, 260, 'sine', 0.25, 120); }
+  function daSFanfare() { daTone(523, 160, 'triangle', 0.28, 0); daTone(659, 160, 'triangle', 0.28, 130); daTone(784, 160, 'triangle', 0.28, 260); daTone(1046, 320, 'triangle', 0.3, 390); }
+
+  function daVibrate(pattern) { try { if (navigator.vibrate && !daReducedMotion()) navigator.vibrate(pattern); } catch (e) {} }
+  function daReducedMotion() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  function daSpawnParticles(container, color, count) {
+    if (daReducedMotion() || !container) return;
+    const rect = container.getBoundingClientRect();
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'da-particle';
+      const size = 3 + Math.random() * 4;
+      p.style.width = size + 'px'; p.style.height = size + 'px';
+      p.style.background = color;
+      p.style.left = (rect.width / 2) + 'px'; p.style.top = (rect.height / 2) + 'px';
+      container.appendChild(p);
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 40 + Math.random() * 60;
+      const anim = p.animate([
+        { transform: 'translate(-50%,-50%) translate(0,0)', opacity: 1 },
+        { transform: 'translate(-50%,-50%) translate(' + Math.cos(angle) * dist + 'px,' + Math.sin(angle) * dist + 'px)', opacity: 0 }
+      ], { duration: 700 + Math.random() * 300, easing: 'ease-out' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+
+  /* ── scene: couple ── */
+  const SCENES = {
+    couple: {
+      html: function () {
+        return '<div class="da-scene-wrap" id="daSceneWrap" style="position:relative;">' +
+          '<svg viewBox="0 0 360 220">' +
+            '<rect class="da-flash" x="0" y="0" width="360" height="220"/>' +
+            '<line class="da-scene-divider" x1="180" y1="20" x2="180" y2="200" stroke="var(--gold)" stroke-width="1.5"/>' +
+            '<g class="da-scene-figure da-fig-l">' +
+              '<circle cx="120" cy="80" r="16" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+              '<path d="M100 100 Q120 96 140 100 L136 170 Q120 178 104 170 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+            '</g>' +
+            '<g class="da-scene-figure da-fig-r">' +
+              '<circle cx="240" cy="80" r="16" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+              '<path d="M220 100 Q240 96 260 100 L256 170 Q240 178 224 170 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+              '<line class="da-arm-r" x1="235" y1="120" x2="200" y2="120" stroke="var(--gold)" stroke-width="2"/>' +
+            '</g>' +
+          '</svg>' +
+        '</div>';
+      },
+      run: function (kind) {
+        const wrap = document.getElementById('daSceneWrap');
+        if (!wrap) return;
+        wrap.classList.remove('violation', 'misfit', 'win');
+        void wrap.offsetWidth;
+        wrap.classList.add(kind);
+        if (kind === 'violation') daSpawnParticles(wrap, '#a83232', 10);
+        if (kind === 'win') daSpawnParticles(wrap, 'var(--gold)', 14);
+      },
+      reset: function () {
+        const wrap = document.getElementById('daSceneWrap');
+        if (wrap) wrap.classList.remove('violation', 'misfit', 'win');
+      }
+    }
+  };
+
+  /* ── stage screen ── */
+  let daSession = null;
+
+  function daEsc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  function daBuildStageHTML(scenario) {
+    return '<div class="da-tries" id="daTries">' +
+        [0, 1, 2].map(i => '<span class="da-try-dot" data-i="' + i + '"></span>').join('') +
+      '</div>' +
+      '<div class="da-word-ar">' + scenario.word + '</div>' +
+      '<div class="da-word-translit">' + daEsc(scenario.translit) + '</div>' +
+      '<div class="da-hook">' + daEsc(scenario.hook) + '</div>' +
+      '<div class="da-sub">' + daEsc(scenario.sub) + '</div>' +
+      SCENES[scenario.sceneId].html() +
+      '<div class="da-choices" id="daChoices">' +
+        scenario.choices.map((c, i) => '<button class="da-choice-btn" id="daChoiceBtn' + i + '" onclick="DA.choose(' + i + ')">' + daEsc(c.label) + '</button>').join('') +
+      '</div>' +
+      '<div id="daResolvePanel"></div>' +
+      '<div class="da-footer-line">Three doors. The Book only opens one.</div>';
+  }
+
+  function daResolvePanelHTML(choice) {
+    return '<div class="da-stamp ' + choice.kind + '">' + daEsc(choice.stamp) + '</div>' +
+      '<div class="da-cap">' + daEsc(choice.cap) + '</div>' +
+      (choice.cap2 ? '<div class="da-cap2">' + daEsc(choice.cap2) + '</div>' : '') +
+      '<div class="da-verse-card">' +
+        '<div class="da-verse-ar">' + choice.ar + '</div>' +
+        '<div class="da-verse-en">' + daEsc(choice.en) + '</div>' +
+        '<div class="da-verse-ref">' + daEsc(choice.ref) + (choice.ref2 ? ' &middot; ' + daEsc(choice.ref2) : '') + '</div>' +
+      '</div>' +
+      '<div class="da-explain">' + daEsc(choice.explain) + '</div>' +
+      '<div id="daResolveNav"></div>';
+  }
+
+  function daRenderStage(scenario) {
+    const el = document.getElementById('daStageScreen');
+    el.innerHTML = daBuildStageHTML(scenario);
+  }
+
+  window.DA = window.DA || {};
+
+  DA.choose = function (idx) {
+    if (!daSession || daSession.locked) return;
+    const scenario = daSession.scenario;
+    const choice = scenario.choices[idx];
+    daSession.locked = true;
+    scenario.choices.forEach((c, i) => { document.getElementById('daChoiceBtn' + i).disabled = true; });
+
+    SCENES[scenario.sceneId].run(choice.kind);
+
+    setTimeout(function () {
+      if (choice.kind === 'violation') { daSThump(); daVibrate([40, 30, 40]); }
+      else if (choice.kind === 'misfit') { daSWomp(); daVibrate(30); }
+      else { daSWin(); daVibrate([20, 20, 20, 20, 60]); }
+
+      const btn = document.getElementById('daChoiceBtn' + idx);
+      btn.classList.add(choice.kind === 'win' ? 'stamped-win' : 'stamped-wrong');
+
+      const panel = document.getElementById('daResolvePanel');
+      panel.innerHTML = daResolvePanelHTML(choice);
+
+      daSession.doorHistory.push(choice.kind);
+
+      const nav = document.getElementById('daResolveNav');
+      if (choice.kind === 'win') {
+        nav.innerHTML = '<button class="da-nav-btn primary" onclick="DA.finish()">See Verdict</button>';
+      } else {
+        nav.innerHTML = '<button class="da-nav-btn primary" onclick="DA.retry(' + idx + ')">Try Again</button>';
+      }
+    }, 550);
+  };
+
+  DA.retry = function (idx) {
+    const scenario = daSession.scenario;
+    SCENES[scenario.sceneId].reset();
+    document.getElementById('daResolvePanel').innerHTML = '';
+    scenario.choices.forEach((c, i) => {
+      const b = document.getElementById('daChoiceBtn' + i);
+      if (i === idx) return;
+      b.disabled = false;
+    });
+    daSession.locked = false;
+    const tries = document.getElementById('daTries');
+    if (tries) {
+      const dot = tries.querySelector('[data-i="' + idx + '"]');
+      if (dot) dot.className = 'da-try-dot used-wrong';
+    }
+  };
+
+  DA.finish = function () {
+    const scenario = daSession.scenario;
+    const state = daLoad();
+    daApplyCompletion(state, daSession.dateStr, daSession.doorHistory);
+    daSFanfare();
+    daRenderVerdict(scenario, daSession.doorHistory, state);
+    daShowScreen('daVerdictScreen');
+    daRenderHomeCard(state);
+    daRenderLamp(state);
+  };
+
+  /* ── verdict screen ── */
+  function daHistoryStripHTML(state) {
+    const today = daToday();
+    let out = '';
+    for (let i = 6; i >= 0; i--) {
+      const d = daAddDays(today, -i);
+      let cls = 'future';
+      if (daDaysBetween(state.anchor, d) >= 0) {
+        if (state.results[d]) cls = 'solved';
+        else if (state.shieldedDates.indexOf(d) !== -1) cls = 'shielded';
+        else if (d < today) cls = 'missed';
+        else cls = 'today';
+      }
+      out += '<span class="da-history-bead ' + cls + '"></span>';
+    }
+    return out;
+  }
+
+  function daRenderVerdict(scenario, doorHistory, state) {
+    const el = document.getElementById('daVerdictScreen');
+    const chips = doorHistory.map(k => '<span class="da-chip ' + (k === 'win' ? 'win' : 'wrong') + '">' + (k === 'win' ? '✓' : '✗') + '</span>').join('');
+    const shareText = 'Al-Haqq Daily Attack #' + scenario.no + '\n' + scenario.word + ' (' + scenario.translit + ')\n' + doorHistory.map(k => k === 'win' ? '🟡' : '🔴').join('') + '\n' + DEEP_LINK_BASE + '#attack';
+    el.innerHTML =
+      '<div class="da-verdict-title">' + daEsc(scenario.verdictTitle) + '</div>' +
+      '<div class="da-chip-row">' + chips + '</div>' +
+      '<div class="da-share-card">' +
+        '<div class="da-share-word">' + scenario.word + ' · ' + daEsc(scenario.translit) + '</div>' +
+        '<div class="da-history-strip">' + daHistoryStripHTML(state) + '</div>' +
+      '</div>' +
+      '<div class="da-reply-panel">' +
+        '<div class="da-reply-label">Loaded Reply</div>' +
+        '<div class="da-reply-text" id="daReplyText">' + daEsc(scenario.reply) + '</div>' +
+        '<div class="da-reply-actions">' +
+          '<button class="da-nav-btn" onclick="DA.copyReply()">Copy Reply</button>' +
+          '<button class="da-nav-btn" onclick="DA.shareVerdict()">Share Verdict</button>' +
+        '</div>' +
+      '</div>' +
+      '<button class="da-nav-btn da-bridge-btn" onclick="DA.openBridge(' + scenario.entryId + ')">Read The Full Entry</button>' +
+      '<div class="da-lockpanel">' +
+        '<div class="da-lock-eyebrow">Tomorrow\'s Attack</div>' +
+        '<div class="da-countdown" id="daCountdown">--:--:--</div>' +
+        '<div class="da-lock-tease">' + daEsc(DA_NEXT_TEASE) + '</div>' +
+      '</div>' +
+      '<div class="da-footer-line">One word, defended. Same fight tomorrow.</div>';
+    el.dataset.shareText = shareText;
+    daTickCountdowns();
+  }
+
+  DA.copyReply = function () {
+    const t = document.getElementById('daReplyText').textContent;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(t).then(() => showToast('✓ Reply copied. Go get them.')).catch(() => showToast('✓ Reply copied. Go get them.'));
+    } else { showToast('✓ Reply copied. Go get them.'); }
+  };
+
+  DA.shareVerdict = function () {
+    const el = document.getElementById('daVerdictScreen');
+    const text = el.dataset.shareText || '';
+    if (navigator.share) {
+      navigator.share({ text: text }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => showToast('✓ Verdict copied to share.')).catch(() => {});
+    } else { showToast('✓ Verdict copied to share.'); }
+  };
+
+  DA.openBridge = function (entryId) {
+    DA.close();
+    setTimeout(() => {
+      const el = document.querySelector('.entry[data-id="' + entryId + '"]');
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!el.classList.contains('locked')) {
+        setTimeout(() => { if (!el.classList.contains('open')) toggleEntry(entryId); }, 400);
+      }
+    }, 300);
+  };
+
+  /* ── countdown ── */
+  function daMsUntilMidnight() {
+    const now = new Date();
+    const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    return next - now;
+  }
+  function daFormatCountdown(ms) {
+    if (ms < 0) ms = 0;
+    const h = Math.floor(ms / 3600000);
+    const m = Math.floor((ms % 3600000) / 60000);
+    const s = Math.floor((ms % 60000) / 1000);
+    return daPad(h) + ':' + daPad(m) + ':' + daPad(s);
+  }
+  let daCountdownTimer = null;
+  function daTickCountdowns() {
+    if (daCountdownTimer) clearInterval(daCountdownTimer);
+    const tick = () => {
+      const el = document.getElementById('daCountdown');
+      if (!el) { clearInterval(daCountdownTimer); return; }
+      el.textContent = daFormatCountdown(daMsUntilMidnight());
+    };
+    tick();
+    daCountdownTimer = setInterval(tick, 1000);
+  }
+
+  /* ── misbaha path ── */
+  function daRenderMisbaha(state) {
+    const el = document.getElementById('daMisbahaScreen');
+    const today = daToday();
+    const totalDays = daDaysBetween(state.anchor, today) + 1;
+    const member = isMember();
+    let rows = '';
+    for (let i = 0; i < totalDays; i++) {
+      const d = daAddDays(state.anchor, i);
+      const dayNo = i + 1;
+      const isToday = d === today;
+      const solved = !!state.results[d];
+      const shielded = state.shieldedDates.indexOf(d) !== -1;
+      let cls = 'missed';
+      if (solved) cls = 'solved'; else if (shielded) cls = 'shielded'; else if (isToday) cls = 'today';
+      const milestone = dayNo % 5 === 0;
+      const locked = !isToday && !member && !solved;
+      const glyph = milestone ? '۞' : (solved ? '✓' : (isToday ? '' : ''));
+      rows += '<div class="da-bead-row' + (locked ? ' locked' : '') + '" onclick="DA.beadClick(\'' + d + '\',' + isToday + ',' + solved + ',' + locked + ')">' +
+        '<span class="da-bead ' + cls + (milestone ? ' milestone' : '') + '">' + glyph + '</span>' +
+        '<span class="da-bead-label">Day ' + dayNo + (isToday ? ' · Today' : '') + '</span>' +
+      '</div>';
+    }
+    el.innerHTML =
+      '<div class="da-misbaha-title">The Misbaha Path</div>' +
+      '<div class="da-misbaha-sub">Every day is a bead. Every bead is a fight you finished.</div>' +
+      '<div class="da-string">' + rows + '</div>';
+  }
+
+  DA.beadClick = function (dateStr, isToday, solved, locked) {
+    const state = daLoad();
+    if (isToday) { daBoot(state, dateStr); return; }
+    if (locked) { if (typeof openModal === 'function') openModal(); return; }
+    if (solved) { daReplayScenario(dateStr, state); }
+  };
+
+  function daReplayScenario(dateStr, state) {
+    const scenario = daScenarioForDate(dateStr, state);
+    const rec = state.results[dateStr];
+    daSession = { scenario: scenario, dateStr: dateStr, doorHistory: (rec && rec.doorHistory) ? rec.doorHistory.slice() : [], locked: true, replay: true };
+    daRenderVerdict(scenario, daSession.doorHistory, state);
+    daShowScreen('daVerdictScreen');
+  }
+
+  /* ── home card + lamp ── */
+  function daRenderHomeCard(state) {
+    const card = document.getElementById('dailyAttackCard');
+    if (!card) return;
+    const today = daToday();
+    const done = !!state.results[today];
+    const scenario = daScenarioForDate(today, state);
+    if (done) {
+      card.innerHTML =
+        '<div class="da-card-eyebrow">Daily Attack · Solved</div>' +
+        '<div class="da-card-title">' + scenario.word + ' · ' + daEsc(scenario.translit) + '</div>' +
+        '<div class="da-card-sub">' + daEsc(scenario.verdictTitle) + '</div>' +
+        '<button class="da-card-btn done" onclick="DA.open()">View Verdict</button>';
+    } else {
+      card.innerHTML =
+        '<div class="da-card-eyebrow">Daily Attack</div>' +
+        '<div class="da-card-title">' + daEsc(scenario.hook) + '</div>' +
+        '<div class="da-card-sub">' + daEsc(scenario.sub) + '</div>' +
+        '<button class="da-card-btn" onclick="DA.open()">Defend The Word</button>';
+    }
+  }
+
+  function daRenderLamp(state) {
+    const btn = document.getElementById('daLampBtn');
+    if (!btn) return;
+    const s = daLampState(state);
+    btn.classList.remove('dim', 'burning');
+    btn.classList.add(s.burning ? 'burning' : 'dim');
+    document.getElementById('daLampBadge').textContent = s.days + (s.days === 1 ? ' DAY' : ' DAYS');
+    const shieldEl = document.getElementById('daLampShield');
+    if (shieldEl) shieldEl.style.display = s.shielded ? 'block' : 'none';
+    const starEl = document.getElementById('daLampStar');
+    if (starEl) starEl.style.display = s.milestone ? 'block' : 'none';
+  }
+
+  /* ── overlay open/close ── */
+  function daShowScreen(id) {
+    document.querySelectorAll('#daOverlay .da-screen').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function daBoot(state, dateStr) {
+    const scenario = daScenarioForDate(dateStr, state);
+    const already = state.results[dateStr];
+    if (already) {
+      daSession = { scenario: scenario, dateStr: dateStr, doorHistory: already.doorHistory.slice(), locked: true, replay: true };
+      daRenderVerdict(scenario, daSession.doorHistory, state);
+      daShowScreen('daVerdictScreen');
+    } else {
+      daSession = { scenario: scenario, dateStr: dateStr, doorHistory: [], locked: false, replay: false };
+      daRenderStage(scenario);
+      daShowScreen('daStageScreen');
+    }
+    document.getElementById('daOverlay').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  DA.open = function () {
+    const state = daLoad();
+    daBoot(state, daToday());
+  };
+
+  DA.showMisbaha = function () {
+    const state = daLoad();
+    daRenderMisbaha(state);
+    document.getElementById('daOverlay').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+    daShowScreen('daMisbahaScreen');
+  };
+
+  DA.close = function () {
+    document.getElementById('daOverlay').classList.remove('visible');
+    document.body.style.overflow = '';
+    if (daCountdownTimer) { clearInterval(daCountdownTimer); daCountdownTimer = null; }
+  };
+
+  DA.toggleMute = function () {
+    const muted = daMuted();
+    localStorage.setItem(DA_MUTE_KEY, muted ? '0' : '1');
+    document.getElementById('daMuteBtn').textContent = muted ? '🔊' : '🔇';
+  };
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.getElementById('daOverlay').classList.contains('visible')) DA.close();
+  });
+
+  document.getElementById('daLampBtn') && document.getElementById('daLampBtn').addEventListener('click', DA.showMisbaha);
+
+  /* ── init ── */
+  function daInit() {
+    const state = daLoad();
+    daRenderHomeCard(state);
+    daRenderLamp(state);
+    document.getElementById('daMuteBtn').textContent = daMuted() ? '🔇' : '🔊';
+    if (location.hash === '#attack') {
+      setTimeout(() => { daBoot(daLoad(), daToday()); }, 300);
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', daInit);
+  else daInit();
+})();
+</script>
 </body>
 </html>
