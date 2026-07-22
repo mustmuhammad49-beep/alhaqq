@@ -6668,11 +6668,15 @@ function openBiblePopup(key) {
 // (e.g. "Genesis 2 verse 9" inside "Genesis 2 verse 19"). Never touches Quran refs.
 function linkBibleRefs(text) {
   const keys = Object.keys(bibleDB).sort((a, b) => b.length - a.length);
+  const escapeRegex = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const swaps = [];
   keys.forEach((phrase, i) => {
-    if (text.indexOf(phrase) !== -1) {
+    // Negative lookahead on a trailing digit stops "verse 1" from matching
+    // inside "verse 19" when only the shorter phrase exists as a bibleDB key.
+    const re = new RegExp(escapeRegex(phrase) + '(?!\\d)');
+    if (re.test(text)) {
       const token = '\0B' + i + '\0';
-      text = text.split(phrase).join(token);
+      text = text.replace(new RegExp(escapeRegex(phrase) + '(?!\\d)', 'g'), token);
       swaps.push({ token, phrase });
     }
   });
