@@ -46,6 +46,12 @@ export default async (request, context) => {
   const url = new URL(request.url);
   const mythId = parseInt(url.searchParams.get('myth') || '0', 10);
 
+  // Plain visits to "/" now land on the marketing page, which ships its own
+  // SEO/OG tags. Shared myth links (/?myth=N) still resolve to the database.
+  if (url.pathname === '/' && !mythId) {
+    return fetch(new URL('/landing.html', request.url));
+  }
+
   // Fetch the original HTML
   const response = await context.next();
 
