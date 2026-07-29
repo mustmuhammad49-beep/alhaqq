@@ -48,7 +48,10 @@ export default async (request, context) => {
 
   // Plain visits to "/" now land on the marketing page, which ships its own
   // SEO/OG tags. Shared myth links (/?myth=N) still resolve to the database.
-  if (url.pathname === '/' && !mythId) {
+  // Auth-flow redirects (sign-in from the landing page, post-Stripe-checkout)
+  // also need the database's own JS, so they bypass the marketing shortcut too.
+  const isAuthRedirect = url.searchParams.has('signin') || url.searchParams.has('subscribed');
+  if (url.pathname === '/' && !mythId && !isAuthRedirect) {
     return fetch(new URL('/landing.html', request.url));
   }
 
