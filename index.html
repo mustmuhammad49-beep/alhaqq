@@ -4779,6 +4779,15 @@ function applySubscriberState(email) {
   if (subBtn) { subBtn.textContent = '⭐ Active Member'; subBtn.style.background = '#2a7a5a'; subBtn.style.cursor = 'default'; subBtn.onclick = null; }
 }
 
+// ── DETECT ?signin=1 FROM THE LANDING PAGE'S "SIGN IN" LINK ──
+(function checkSignInRedirect() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('signin') === '1' && !isOwner() && !isSubscriber()) {
+    history.replaceState({}, '', window.location.pathname);
+    setTimeout(() => openSignIn(), 400);
+  }
+}());
+
 // ── DETECT ?subscribed=1 REDIRECT FROM STRIPE ──
 // Stripe should be configured to redirect to: https://alhaqq.it.com?subscribed=1
 (function checkSubscribeRedirect() {

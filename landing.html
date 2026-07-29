@@ -157,6 +157,27 @@
     color: var(--text-dim);
     text-transform: uppercase;
   }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-signin {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 10px 4px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 160ms var(--ease-out);
+  }
+  .nav-signin:hover { color: var(--gold-light); }
+  .nav-signin:active { transform: scale(0.97); }
   .nav-cta {
     font-family: 'Cinzel', serif;
     font-size: 0.68rem;
@@ -967,7 +988,10 @@
       <span class="logo-arabic">الحق</span>
       <span class="logo-latin">Al-Haqq</span>
     </a>
-    <a href="https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00" target="_blank" rel="noopener" class="nav-cta">Get Al-Haqq</a>
+    <div class="nav-right">
+      <a href="index.html?signin=1" class="nav-signin">Sign In</a>
+      <a href="https://buy.stripe.com/eVq7sKbvWeBU33W07Pd3i00" target="_blank" rel="noopener" class="nav-cta">Get Al-Haqq</a>
+    </div>
   </div>
 </nav>
 
