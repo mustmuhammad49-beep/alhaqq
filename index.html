@@ -46,6 +46,15 @@
 }
 </script>
 
+<script>
+(function() {
+  try {
+    if (localStorage.getItem('alhaqq-theme') === 'white') {
+      document.documentElement.setAttribute('data-theme', 'white');
+    }
+  } catch (e) {}
+})();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -64,6 +73,32 @@
     --border: rgba(201,168,76,0.2);
     --border-strong: rgba(201,168,76,0.5);
   }
+
+  /* ── HIGH-CONTRAST WHITE THEME (reading mode) ── */
+  [data-theme="white"] {
+    --gold: #1a1a1a;
+    --gold-light: #333333;
+    --gold-dim: #444444;
+    --ink: #ffffff;
+    --ink-2: #f5f5f5;
+    --ink-3: #ececec;
+    --text-main: #0d0d0f;
+    --text-dim: #555555;
+    --border: #d0d0d0;
+    --border-strong: #a8a8a8;
+  }
+
+  [data-theme="white"] header { background: rgba(240,240,240,0.9); }
+  [data-theme="white"] .reader-bar { background: rgba(245,245,245,0.98); }
+  [data-theme="white"] .verse-exp { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.12); }
+  [data-theme="white"] .verse-exp:hover { border-color: rgba(0,0,0,0.22); }
+  [data-theme="white"] .verse-exp.open { border-color: rgba(0,0,0,0.28); }
+  [data-theme="white"] .verse-exp-ref { color: #1a1a1a; }
+  [data-theme="white"] .verse-exp-arrow { color: #1a1a1a; }
+  [data-theme="white"] .tag-foundation { color: #1a1a1a; border-color: rgba(0,0,0,0.35); }
+  [data-theme="white"] .difficulty[data-diff="Intermediate"] { color: #1a1a1a; background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.22); }
+  [data-theme="white"] a[style*="color:#c9a84c"] { color: #1a1a1a !important; }
+  [data-theme="white"] #signin-btn { background: linear-gradient(135deg,#1a1a1a,#333333) !important; color: #ffffff !important; }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -170,6 +205,28 @@
   .btn-login:hover {
     color: var(--gold);
     border-color: var(--border-strong);
+  }
+
+  .theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--gold);
+    font-size: 0.95rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .theme-toggle-btn:hover {
+    color: var(--gold-light);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
   }
 
   /* ── HERO ── */
@@ -2460,6 +2517,7 @@ body[data-reading="xl"] .rebuttal-text, body[data-reading="xl"] .myth-claim { fo
         </svg>
         <span class="da-lamp-badge" id="daLampBadge">0</span>
       </button>
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch to high-contrast white theme" aria-label="Toggle reading theme">☀</button>
       <button class="btn-login" onclick="openSignIn()">Sign In</button>
       <a href="alhaqq-debate-simulator.html" style="text-decoration:none;">
         <button class="btn-login" style="color:var(--accent-light);border-color:rgba(61,168,118,0.5);">⚔ Debate Simulator</button>
@@ -3020,7 +3078,7 @@ The Quran also makes clear that Allah did not make this religion a burden: <em>"
  source: "secular",
  difficulty: "Advanced",
  clipId: ["7633888658260495637","7631309920545148181"],
- locked: false,
+ locked: true,
  claim: "Atheists and ex-Muslims argue that Surah Al-Mu'minun 23:14 claims the embryo develops bones first which are then coated with flesh — and that modern embryology proves this sequence is wrong because organs develop simultaneously. Some add that the Quran plagiarised Galen's outdated Greek embryology, or that the entire miracle claim was fabricated by Keith Moore on Saudi funding.",
  rebuttal:`<strong>Before anything, refuse the framing. This is not a miracle, and it is not a mistake. Both sides overread the verse, and once you see how, the attack falls apart.</strong><br><br>
 
@@ -4622,6 +4680,29 @@ function redeemAccessCode(e) {
     alert('Invalid code. Please check and try again.');
   }
 }
+
+function applyTheme(theme) {
+  const isWhite = theme === 'white';
+  if (isWhite) {
+    document.documentElement.setAttribute('data-theme', 'white');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  const btn = document.getElementById('themeToggleBtn');
+  if (btn) {
+    btn.textContent = isWhite ? '☾' : '☀';
+    btn.title = isWhite ? 'Switch to gold theme' : 'Switch to high-contrast white theme';
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') === 'white' ? 'white' : 'gold';
+  const next = current === 'white' ? 'gold' : 'white';
+  try { localStorage.setItem('alhaqq-theme', next); } catch (e) {}
+  applyTheme(next);
+}
+
+applyTheme(document.documentElement.getAttribute('data-theme') === 'white' ? 'white' : 'gold');
 
 function openSignIn() {
   if (isOwner()) {
