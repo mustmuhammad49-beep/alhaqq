@@ -46,13 +46,20 @@ export default async (request, context) => {
   const url = new URL(request.url);
   const mythId = parseInt(url.searchParams.get('myth') || '0', 10);
   const isAuthRedirect = url.searchParams.has('signin') || url.searchParams.has('subscribed');
+  // Netlify's pretty-URL post-processing rewrites href="index.html" links
+  // down to href="/" site-wide, so landing.html's "Browse the database" CTA
+  // can't link to the hub by path alone — it links to "/?app=1" instead, and
+  // this flag lets that plain-looking "/" request fall through to the hub
+  // instead of bouncing back to landing.html.
+  const wantsHub = url.searchParams.has('app');
 
   // Plain visits to "/" land on the marketing page, which explains the
   // product and pricing before anyone hits a paywall, and ships its own
   // SEO/OG tags. Shared myth links (/?myth=N) still resolve to the database.
   // Auth-flow redirects (sign-in, post-Stripe-checkout) also need the
-  // database's own JS, so they bypass the marketing shortcut too.
-  if (url.pathname === '/' && !mythId && !isAuthRedirect) {
+  // database's own JS, so they bypass the marketing shortcut too. Explicit
+  // "browse the hub" links (?app=1) bypass it as well.
+  if (url.pathname === '/' && !mythId && !isAuthRedirect && !wantsHub) {
     return fetch(new URL('/landing.html', request.url));
   }
 
