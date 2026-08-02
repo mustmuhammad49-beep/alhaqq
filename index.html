@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Al-Haqq — The Celestial Table</title>
+<script>
+(function() {
+  try {
+    if (localStorage.getItem('alhaqq-theme') === 'white') {
+      document.documentElement.setAttribute('data-theme', 'white');
+    }
+  } catch (e) {}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -31,6 +40,23 @@
     --border:rgba(201,168,76,0.2); --border-strong:rgba(201,168,76,0.5);
     --text-main:var(--parchment); --text-dim:rgba(245,240,232,0.6);
   }
+
+  /* ── HIGH-CONTRAST WHITE THEME (reading mode) ── */
+  [data-theme="white"]{
+    --gold:#1a1a1a; --gold-light:#333333; --gold-dim:#444444;
+    --ink:#ffffff; --ink-2:#f5f5f5; --parchment:#1a1a1a;
+    --text-main:#0d0d0f; --text-dim:#555555;
+    --border:#d8d8d8; --border-strong:#a8a8a8;
+  }
+  [data-theme="white"] .readpanel,[data-theme="white"] .jpanel{
+    background:linear-gradient(180deg,#ffffff,#f7f7f5); box-shadow:0 40px 120px rgba(0,0,0,.16);
+  }
+  [data-theme="white"] .readclose{color:rgba(0,0,0,.35)}
+  [data-theme="white"] .readclose:hover{color:var(--gold)}
+  [data-theme="white"] .reader-bar{background:rgba(250,250,250,0.98)}
+  [data-theme="white"] .verse-popup-backdrop{background:rgba(0,0,0,0.5)}
+  [data-theme="white"] #covenantTreeModal{background:#ffffff}
+
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{background:var(--ink);color:var(--parchment);font-family:'Lora',Georgia,serif;overflow:hidden}
@@ -117,6 +143,13 @@
     color:rgba(245,240,232,.4);font-size:1.1rem;line-height:1;padding:.4rem
   }
   .readclose:hover{color:var(--gold)}
+  .theme-toggle-btn{
+    position:absolute;top:1.05rem;right:3.3rem;width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;border:1px solid var(--border);border-radius:50%;
+    color:var(--gold);font-size:.9rem;line-height:1;cursor:pointer;transition:all .2s
+  }
+  .theme-toggle-btn:hover{color:var(--gold-light);border-color:var(--border-strong);transform:translateY(-1px)}
   .read-eyebrow{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
   .readpanel h2{font-family:'Cinzel',serif;font-size:1.3rem;letter-spacing:.03em;color:var(--parchment);margin:.7rem 0 1rem;line-height:1.4}
   .read-claim{font-style:italic;color:rgba(245,240,232,.6);font-size:.92rem;line-height:1.75;margin-bottom:1.4rem}
@@ -317,6 +350,7 @@
   <div class="veil" id="readveil">
     <div class="readpanel" id="readpanel">
       <button class="readclose" id="readclose">✕</button>
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Switch to high-contrast white theme" aria-label="Toggle reading theme">☀</button>
       <div class="read-eyebrow" id="readEyebrow"></div>
       <h2 id="readMyth"></h2>
       <div class="read-rule"></div>

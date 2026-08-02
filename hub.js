@@ -1062,6 +1062,25 @@ function closeReadPanel(){
 document.getElementById('readclose').onclick = closeReadPanel;
 readVeil.addEventListener('pointerdown', e => { if (e.target === readVeil) closeReadPanel(); });
 
+function applyTheme(theme){
+  const isWhite = theme === 'white';
+  if (isWhite) document.documentElement.setAttribute('data-theme', 'white');
+  else document.documentElement.removeAttribute('data-theme');
+  const btn = document.getElementById('themeToggleBtn');
+  if (btn){
+    btn.textContent = isWhite ? '☾' : '☀';
+    btn.title = isWhite ? 'Switch to gold theme' : 'Switch to high-contrast white theme';
+  }
+}
+function toggleTheme(){
+  const current = document.documentElement.getAttribute('data-theme') === 'white' ? 'white' : 'gold';
+  const next = current === 'white' ? 'gold' : 'white';
+  try { localStorage.setItem('alhaqq-theme', next); } catch (e) {}
+  applyTheme(next);
+}
+document.getElementById('themeToggleBtn').onclick = toggleTheme;
+applyTheme(document.documentElement.getAttribute('data-theme') === 'white' ? 'white' : 'gold');
+
 const signVeil = document.getElementById('signveil');
 const signPill = document.getElementById('signPill');
 
