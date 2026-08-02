@@ -29,6 +29,7 @@
     --gold:#c9a84c; --gold-light:#e8c97a; --gold-dim:#8a6f2e;
     --ink:#0d0d0f; --ink-2:#1a1a1f; --parchment:#f5f0e8;
     --border:rgba(201,168,76,0.2); --border-strong:rgba(201,168,76,0.5);
+    --text-main:var(--parchment); --text-dim:rgba(245,240,232,0.6);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
@@ -125,6 +126,121 @@
   .read-arabic{font-family:'Amiri',serif;direction:rtl;text-align:right;color:#e8dcc0;font-size:1.3rem;line-height:2;margin-bottom:.8rem}
   .read-translation{font-style:italic;color:rgba(245,240,232,.75);font-size:.92rem;line-height:1.7;margin-bottom:.6rem}
   .read-ref{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.08em;color:var(--gold);text-transform:uppercase}
+
+  /* ── ENTRY BODY (ported from database.html reading pipeline) ── */
+  .section-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+  .myth-claim{font-family:'Lora',serif;font-style:italic;color:var(--text-dim);font-size:.9rem;line-height:1.7;margin-bottom:1.4rem;padding-left:1rem;border-left:2px solid var(--border)}
+  .rebuttal-text{font-family:'Lora',serif;font-size:.95rem;line-height:1.8;color:var(--text-main);margin-bottom:1.2rem}
+  .quran-verse{background:rgba(201,168,76,0.06);border:1px solid var(--border);padding:1rem 1.2rem;margin:1rem 0}
+  .quran-arabic{font-family:'Amiri',serif;font-size:1.3rem;color:var(--gold);text-align:right;line-height:2;margin-bottom:.6rem;direction:rtl}
+  .quran-translation{font-family:'Lora',serif;font-style:italic;font-size:.85rem;color:var(--text-dim);line-height:1.6}
+  .quran-ref{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:var(--gold-dim);margin-top:.4rem;text-transform:uppercase}
+
+  /* ── TTS READER BAR ── */
+  .reader-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(13,13,15,0.98);border-top:1px solid var(--border-strong);padding:.9rem 2rem;display:flex;align-items:center;gap:1.2rem;transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+  .reader-bar.visible{transform:translateY(0)}
+  .reader-icon{width:36px;height:36px;border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1rem;flex-shrink:0}
+  .reader-info{flex:1;min-width:0}
+  .reader-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
+  .reader-myth-title{font-family:'Lora',serif;font-size:.8rem;color:var(--text-main);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .reader-progress{width:100%;height:2px;background:var(--border);margin-top:.4rem;position:relative;overflow:hidden}
+  .reader-progress-fill{height:100%;background:var(--gold);width:0%;transition:width .3s linear}
+  .reader-controls{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+  .reader-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.45rem .9rem;background:transparent;border:1px solid var(--border);color:var(--text-dim);cursor:pointer;transition:all .2s;white-space:nowrap}
+  .reader-btn:hover{color:var(--gold);border-color:var(--border-strong)}
+  .reader-btn.active{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+  .reader-btn-stop{color:#c97a7a;border-color:rgba(201,122,122,0.3)}
+  .reader-btn-stop:hover{background:rgba(201,122,122,0.1);border-color:#c97a7a;color:#c97a7a}
+  .tts-trigger{display:inline-flex;align-items:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--gold);border:none;padding:.8rem 1.6rem;cursor:pointer;transition:all .2s;margin-top:1.4rem;font-weight:700;width:100%;justify-content:center}
+  .tts-trigger:hover{background:var(--gold-light);transform:translateY(-1px)}
+  .tts-trigger-icon{font-size:1rem}
+
+  /* ── VERSE POPUP ── */
+  .verse-popup-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:200;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .25s}
+  .verse-popup-backdrop.visible{opacity:1;pointer-events:all}
+  .verse-popup{background:var(--ink-2);border:1px solid var(--border-strong);max-width:520px;width:100%;padding:2.5rem 2rem;position:relative;transform:translateY(16px) scale(0.98);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+  .verse-popup-backdrop.visible .verse-popup{transform:translateY(0) scale(1)}
+  .verse-popup-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-dim);font-size:1.1rem;cursor:pointer;transition:color .2s;line-height:1}
+  .verse-popup-close:hover{color:var(--gold)}
+  .verse-popup-eyebrow{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+  .verse-popup-arabic{font-family:'Amiri',serif;font-size:1.6rem;color:var(--gold);text-align:right;line-height:2.2;direction:rtl;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+  .verse-popup-translation{font-family:'Lora',serif;font-style:italic;font-size:1rem;color:var(--text-main);line-height:1.8;margin-bottom:1rem}
+  .verse-popup-ref{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:var(--gold-dim);text-transform:uppercase}
+  .verse-ref-btn{display:inline-flex;align-items:center;gap:.3rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;color:var(--gold);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);padding:.15rem .5rem;cursor:pointer;transition:all .2s;vertical-align:middle;margin:0 .1rem;white-space:nowrap}
+  .verse-ref-btn:hover{background:rgba(201,168,76,0.18);border-color:var(--gold)}
+
+  /* ── EXPANDABLE CITATION CARDS ── */
+  .verse-exp{border:1px solid rgba(201,168,76,0.22);border-radius:3px;margin-bottom:.5rem;overflow:hidden;background:rgba(13,13,15,0.45);transition:border-color .2s ease}
+  .verse-exp:hover{border-color:rgba(201,168,76,0.48)}
+  .verse-exp.open{border-color:rgba(201,168,76,0.55)}
+  .verse-exp-header{display:flex;align-items:center;gap:.55rem;padding:.52rem .75rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+  .verse-exp-ref{font-family:'Cinzel',serif;font-size:.72rem;font-weight:600;color:#e8c97a;letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
+  .verse-exp-desc{font-size:.72rem;color:#a89f8a;font-style:italic;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .verse-exp-arrow{color:#c9a84c;font-size:.7rem;flex-shrink:0;transition:transform .25s ease;line-height:1}
+  .verse-exp.open .verse-exp-arrow{transform:rotate(180deg)}
+  .verse-exp-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .verse-exp.open .verse-exp-body{max-height:500px}
+  .verse-exp-text{padding:.5rem .75rem .55rem;font-size:.83rem;color:#f5f0e8;font-style:italic;line-height:1.72;border-top:1px dashed rgba(201,168,76,0.15)}
+  .verse-exp-note{padding:0 .75rem .65rem;font-size:.75rem;color:#a89f8a;line-height:1.6}
+
+  /* ── CLIP CARDS ── */
+  .clip-section{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+  .clip-section-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.9rem}
+  .clip-card-wrap{margin-bottom:1rem}
+  .clip-card-wrap:last-child{margin-bottom:0}
+  .clip-card-index{font-family:'Lora',serif;font-size:.75rem;color:var(--text-dim);margin-bottom:.4rem}
+  .clip-placeholder{background:var(--ink-2);border:1px solid var(--border);border-radius:8px;min-height:480px;max-width:340px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;cursor:pointer}
+  .clip-placeholder-play{color:var(--gold);font-size:2.6rem;line-height:1}
+  .clip-placeholder-text{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+  .clip-embed-wrap{max-width:340px;margin:0 auto}
+
+  .entry-launch-overlay-btn{display:block;width:100%;margin:1rem 0 1.4rem;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:1rem 1rem;background:var(--gold);color:var(--ink);border:none;border-radius:4px;cursor:pointer;font-weight:700;transition:all .2s}
+  .entry-launch-overlay-btn:hover{background:var(--gold-light)}
+
+  /* ── QURAN-ONLY SALAT WALKTHROUGH ── */
+  #salatWalkthrough{display:none;position:fixed;inset:0;z-index:600;background:var(--ink);overflow-y:auto;-webkit-overflow-scrolling:touch}
+  #salatWalkthrough.visible{display:block}
+  .salat-topbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:.9rem 3.5rem;background:var(--ink);border-bottom:1px solid var(--border)}
+  .salat-dots{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+  .salat-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .2s, transform .2s;flex-shrink:0}
+  .salat-dot.active{background:var(--gold);transform:scale(1.3)}
+  .salat-close{position:fixed;top:.75rem;right:.75rem;z-index:3;width:42px;height:42px;border-radius:50%;background:var(--ink-2);border:1px solid var(--border);color:var(--text-main);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .salat-screens{position:relative;min-height:64vh;padding:2rem 1.2rem 6rem;max-width:640px;margin:0 auto}
+  .salat-screen{position:absolute;top:0;left:0;right:0;padding:2rem 1.2rem;display:flex;flex-direction:column;align-items:center;text-align:center;opacity:0;pointer-events:none;z-index:0;transition:opacity .3s ease}
+  .salat-screen.active{opacity:1;pointer-events:auto;z-index:1}
+  .salat-step-label{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+  .salat-svg-wrap{width:200px;height:200px;margin-bottom:1.6rem;flex-shrink:0}
+  .salat-svg-wrap svg{width:100%;height:100%;display:block}
+  .salat-english{font-family:'Lora',serif;font-size:1.15rem;line-height:1.7;max-width:34ch;color:var(--text-main);margin-bottom:1.3rem}
+  .salat-arabic{font-family:'Amiri',serif;font-size:1.4rem;direction:rtl;color:var(--gold);margin-bottom:1.4rem;line-height:2}
+  .salat-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;max-width:34ch}
+  .salat-chip{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;color:var(--gold-dim);border:1px solid var(--border);border-radius:20px;padding:.35rem .9rem}
+  .salat-nav{position:fixed;bottom:0;left:0;right:0;z-index:2;display:flex;gap:.8rem;padding:.9rem 1.2rem;background:var(--ink);border-top:1px solid var(--border);max-width:640px;margin:0 auto}
+  .salat-nav-btn{flex:1;min-height:48px;font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--ink-2);color:var(--text-main)}
+  .salat-nav-btn.primary{background:var(--gold);color:var(--ink);border:none;font-weight:700}
+  .salat-nav-btn:disabled{opacity:.3;cursor:default}
+  .salat-heading{font-family:'Cinzel',serif;font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+  .salat-sub{font-family:'Lora',serif;font-style:italic;color:var(--text-dim);font-size:.9rem;margin-bottom:1.4rem}
+  .salat-body-text{font-family:'Lora',serif;font-size:1.05rem;line-height:1.75;color:var(--text-main);max-width:42ch;margin-bottom:1.2rem}
+  .salat-defend-list{width:100%;max-width:480px;display:flex;flex-direction:column;gap:.7rem;text-align:left;margin-bottom:1rem}
+  .defend-card{border:1px solid var(--border);border-radius:6px;background:var(--ink-2);overflow:hidden}
+  .defend-q{font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.02em;color:var(--text-main);padding:.9rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:.6rem}
+  .defend-q .defend-caret{color:var(--gold);flex-shrink:0;transition:transform .2s}
+  .defend-card.open .defend-caret{transform:rotate(90deg)}
+  .defend-a{font-family:'Lora',serif;font-size:.92rem;line-height:1.7;color:var(--text-dim);padding:0 1.1rem;max-height:0;overflow:hidden;transition:max-height .25s ease}
+  .defend-locked-row{display:flex;align-items:center;gap:.6rem;font-family:'Cinzel',serif;font-size:.8rem;color:var(--text-dim);padding:.9rem 1.1rem;border:1px solid var(--border);border-radius:6px;background:var(--ink-2)}
+
+  /* ── INHERITANCE PROOF OVERLAY (entry 36) ── */
+  #inheritOverlay{display:none;position:fixed;inset:0;z-index:600;background:var(--ink);overflow-y:auto;-webkit-overflow-scrolling:touch}
+  #inheritOverlay.visible{display:block}
+  .inh-bar-outer{position:relative;width:100%;max-width:400px;height:28px;border:1px solid var(--border);margin:0 auto 1.1rem;overflow:visible;background:var(--ink-2)}
+  .inh-bar-seg{position:absolute;top:0;height:100%;width:0%;transition:width .9s ease}
+  .inh-seg-labels{display:flex;flex-wrap:wrap;gap:.4rem .9rem;justify-content:center;font-family:'Lora',serif;font-size:.78rem;color:var(--text-dim);max-width:400px;margin-bottom:1rem}
+  .inh-total-label{font-family:'Cinzel',serif;font-weight:700;font-size:1.6rem;color:#8a2f2f;margin-bottom:1.2rem}
+  .inh-heir-chips{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:1.4rem;max-width:38ch}
+  .inh-heir-chip{font-family:'Lora',serif;font-size:.85rem;color:var(--text-main);border:1px solid var(--border);border-radius:20px;padding:.35rem .95rem}
+  .inh-badge-gold{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:.4rem 1rem;border-radius:20px;margin-bottom:1rem}
+  .inh-note{font-family:'Lora',serif;font-style:italic;font-size:.78rem;color:var(--text-dim);margin-top:-.5rem;margin-bottom:1rem}
   .signin-pill{
     position:absolute;top:1.2rem;right:1.6rem;pointer-events:auto;cursor:pointer;
     background:rgba(14,12,10,.6);border:1px solid var(--border-strong);color:var(--gold-light);
@@ -203,16 +319,8 @@
       <button class="readclose" id="readclose">✕</button>
       <div class="read-eyebrow" id="readEyebrow"></div>
       <h2 id="readMyth"></h2>
-      <p class="read-claim" id="readClaim"></p>
       <div class="read-rule"></div>
-      <p class="read-quick" id="readQuick" style="display:none"></p>
-      <div class="read-answer" id="readAnswer"></div>
-      <div id="readVerseBlock" style="display:none">
-        <div class="read-rule"></div>
-        <p class="read-arabic" id="readArabic"></p>
-        <p class="read-translation" id="readTranslation"></p>
-        <p class="read-ref" id="readRef"></p>
-      </div>
+      <div id="readBody"></div>
     </div>
   </div>
   <button class="signin-pill" id="signPill">Sign In</button>
@@ -229,7 +337,65 @@
     </div>
   </div>
 </div>
+
+<!-- ── VERSE POPUP ── -->
+<div class="verse-popup-backdrop" id="versePopup" onclick="closeVersePopupOutside(event)">
+  <div class="verse-popup">
+    <button class="verse-popup-close" onclick="closeVersePopup()">✕</button>
+    <div class="verse-popup-eyebrow" id="versePopupEyebrow">◈ Quranic Reference</div>
+    <div class="verse-popup-arabic" id="versePopupArabic"></div>
+    <div class="verse-popup-translation" id="versePopupTranslation"></div>
+    <div class="verse-popup-ref" id="versePopupRef"></div>
+  </div>
+</div>
+
+<!-- TTS READER BAR -->
+<div class="reader-bar" id="readerBar">
+  <div class="reader-icon">◈</div>
+  <div class="reader-info">
+    <div class="reader-label">Now Reading</div>
+    <div class="reader-myth-title" id="readerTitle">—</div>
+    <div class="reader-progress"><div class="reader-progress-fill" id="readerProgress"></div></div>
+  </div>
+  <div class="reader-controls">
+    <button class="reader-btn" id="readerPlayPause" onclick="togglePlayPause()">⏸ Pause</button>
+    <button class="reader-btn reader-btn-stop" onclick="stopReader()">■ Stop</button>
+  </div>
+</div>
+
+<!-- ── COVENANT TREE MODAL ── -->
+<div id="covenantTreeModal" style="display:none;position:fixed;inset:0;z-index:500;background:#0d0d0f;flex-direction:column;">
+  <div style="position:absolute;top:.75rem;right:.75rem;z-index:502;display:flex;align-items:center;gap:.6rem;">
+    <span style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;color:rgba(201,168,76,.6);text-transform:uppercase;">The Covenant Tree</span>
+    <button onclick="closeTreeModal()" style="width:30px;height:30px;border-radius:50%;background:#1a1a1f;border:1px solid rgba(201,168,76,.35);color:#a89f8a;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.color='#c9a84c';this.style.borderColor='rgba(201,168,76,.7)';" onmouseout="this.style.color='#a89f8a';this.style.borderColor='rgba(201,168,76,.35)';">✕</button>
+  </div>
+  <iframe id="treeFrame" src="" style="width:100%;height:100%;border:none;display:block;" title="The Covenant Tree — Interactive Prophecy Chain"></iframe>
+</div>
+
+<!-- ── QURAN-ONLY SALAT WALKTHROUGH ── -->
+<div id="salatWalkthrough">
+  <div class="salat-topbar"><div class="salat-dots" id="salatDots"></div></div>
+  <button class="salat-close" onclick="closeSalatWalkthrough()">✕</button>
+  <div class="salat-screens" id="salatScreens"></div>
+  <div class="salat-nav">
+    <button class="salat-nav-btn" id="salatBackBtn" onclick="salatNav(-1)">← Back</button>
+    <button class="salat-nav-btn primary" id="salatNextBtn" onclick="salatNav(1)">Next →</button>
+  </div>
+</div>
+
+<!-- ── INHERITANCE PROOF OVERLAY (entry 36) ── -->
+<div id="inheritOverlay">
+  <div class="salat-topbar"><div class="salat-dots" id="inhDots"></div></div>
+  <button class="salat-close" onclick="closeInheritanceOverlay()">✕</button>
+  <div class="salat-screens" id="inhScreens"></div>
+  <div class="salat-nav">
+    <button class="salat-nav-btn" id="inhBackBtn" onclick="inhNav(-1)">← Back</button>
+    <button class="salat-nav-btn primary" id="inhNextBtn" onclick="inhNav(1)">Next →</button>
+  </div>
+</div>
+
 <script src="entries-data.js"></script>
+<script src="entry-render.js"></script>
 <script type="module" src="hub.js"></script>
 </body>
 </html>

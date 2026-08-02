@@ -17,6 +17,7 @@ const PER_PAGE = 5;
 function isOwner(){ try { return localStorage.getItem('alhaqq_owner') === '1'; } catch (e) { return false; } }
 function isSubscriber(){ try { return !!localStorage.getItem('alhaqq_sub_token'); } catch (e) { return false; } }
 function hasAccess(){ return isOwner() || isSubscriber(); }
+window.hasAccess = hasAccess;
 
 /* ─────────────────────────── canvas texture helpers ─────────────────────────── */
 function cv(w, h){ const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
@@ -473,7 +474,7 @@ function entryTexture(cat, entry, hover){
   diamond(ctx, L + 22, y + 22, 12, 'rgba(122,95,34,0.9)');
   y += 82;
   ctx.fillStyle = INK_SOFT; ctx.font = 'italic 36px Lora, serif';
-  lines(ctx, entry.claim || entry.quick, L2 - L, 8).forEach(l => { ctx.fillText(l, L, y); y += 50; });
+  lines(ctx, entry.claim || '', L2 - L, 8).forEach(l => { ctx.fillText(l, L, y); y += 50; });
   ctx.fillStyle = GOLD_INK; ctx.font = '700 25px Cinzel, serif';
   ctx.fillText(cat.title + ' · ' + entry.difficulty.toUpperCase() + ' · ENTRY ' + String(entry.id).padStart(2, '0'), L, 1300);
   ctx.font = '700 28px Cinzel, serif';
@@ -496,7 +497,11 @@ function entryTexture(cat, entry, hover){
       .forEach(l => { ctx.fillText(l, R, ry); ry += 50; });
   } else {
     ctx.fillStyle = INK; ctx.font = '500 36px Lora, serif';
-    lines(ctx, entry.quick || entry.answer, R2 - R, 8).forEach(l => { ctx.fillText(l, R, ry); ry += 50; });
+    const previewText = entry.quickAnswer
+      || (entry.interactive
+        ? (entry.interactiveSubtitle || 'Tap to open the interactive walkthrough →')
+        : String(entry.rebuttal || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+    lines(ctx, previewText, R2 - R, 8).forEach(l => { ctx.fillText(l, R, ry); ry += 50; });
   }
   if (entry.verse){
     ry = Math.max(ry + 40, 700);
@@ -1045,26 +1050,15 @@ function openReadPanel(entry, cat){
   document.getElementById('readEyebrow').textContent =
     cat.title + ' · ' + entry.difficulty.toUpperCase() + ' · ENTRY ' + String(entry.id).padStart(2, '0');
   document.getElementById('readMyth').textContent = entry.myth;
-  document.getElementById('readClaim').textContent = entry.claim || '';
-
-  const quickEl = document.getElementById('readQuick');
-  if (entry.quick){ quickEl.textContent = entry.quick; quickEl.style.display = ''; }
-  else quickEl.style.display = 'none';
-
-  document.getElementById('readAnswer').textContent = entry.answer || entry.quick || '';
-
-  const verseBlock = document.getElementById('readVerseBlock');
-  if (entry.verse){
-    document.getElementById('readArabic').textContent = entry.verse.arabic || '';
-    document.getElementById('readTranslation').textContent = '“' + (entry.verse.translation || '') + '”';
-    document.getElementById('readRef').textContent = (entry.verse.ref || '').toUpperCase();
-    verseBlock.style.display = '';
-  } else verseBlock.style.display = 'none';
+  document.getElementById('readBody').innerHTML = window.buildEntryBodyHTML(entry);
 
   document.getElementById('readpanel').scrollTop = 0;
   readVeil.classList.add('show');
 }
-function closeReadPanel(){ readVeil.classList.remove('show'); }
+function closeReadPanel(){
+  readVeil.classList.remove('show');
+  if (typeof window.stopReader === 'function') window.stopReader();
+}
 document.getElementById('readclose').onclick = closeReadPanel;
 readVeil.addEventListener('pointerdown', e => { if (e.target === readVeil) closeReadPanel(); });
 
