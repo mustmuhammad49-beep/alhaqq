@@ -45,16 +45,11 @@ function escAttr(str) {
 export default async (request, context) => {
   const url = new URL(request.url);
   const mythId = parseInt(url.searchParams.get('myth') || '0', 10);
-
-  // Plain visits to "/" now land on the marketing page, which ships its own
-  // SEO/OG tags. Shared myth links (/?myth=N) still resolve to the database.
-  // Auth-flow redirects (sign-in from the landing page, post-Stripe-checkout)
-  // also need the database's own JS, so they bypass the marketing shortcut too.
   const isAuthRedirect = url.searchParams.has('signin') || url.searchParams.has('subscribed');
-  if (url.pathname === '/' && !mythId && !isAuthRedirect) {
-    return fetch(new URL('/landing.html', request.url));
-  }
 
+  // Plain visits to "/" now land on the celestial hub (index.html) directly —
+  // the old marketing splash (landing.html) is no longer the default root and
+  // is only reachable if something links to it explicitly.
   // Shared myth links, sign-in, and post-checkout redirects need the real
   // database page (search/entries/auth JS) — index.html is now the celestial
   // hub, which doesn't have that logic, so route these to database.html instead.
@@ -81,9 +76,9 @@ export default async (request, context) => {
     }
   }
 
-  // Default (homepage)
+  // Default (homepage — the celestial hub)
   if (!title) {
-    title       = 'Al-Haqq — Islamic Myth Debunk Database';
+    title       = 'Al-Haqq — The Celestial Table';
     description = 'The most comprehensive database of Islamic myth rebuttals, grounded exclusively in the words of Allah. Every lie answered. Every myth dismantled. Quran-only.';
     canonical   = BASE_URL;
   }
