@@ -14,6 +14,10 @@ const ENTRIES = window.ALHAQQ_ENTRIES || [];
 const byCat = k => ENTRIES.filter(e => e.source === k);
 const PER_PAGE = 5;
 
+function isOwner(){ try { return localStorage.getItem('alhaqq_owner') === '1'; } catch (e) { return false; } }
+function isSubscriber(){ try { return !!localStorage.getItem('alhaqq_sub_token'); } catch (e) { return false; } }
+function hasAccess(){ return isOwner() || isSubscriber(); }
+
 /* ─────────────────────────── canvas texture helpers ─────────────────────────── */
 function cv(w, h){ const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 function tex(canvas){
@@ -420,9 +424,10 @@ function tocTexture(cat, page, hover){
     ctx.font = '700 36px Lora, serif';
     ls.forEach((l, k) => ctx.fillText(l, X + 76, y + k * 50));
     ctx.textAlign = 'right';
-    ctx.fillStyle = e.locked ? '#4a3408' : INK;
+    const rowLocked = e.locked && !hasAccess();
+    ctx.fillStyle = rowLocked ? '#4a3408' : INK;
     ctx.font = '700 25px Cinzel, serif';
-    ctx.fillText(e.locked ? '✦ LOCKED' : e.difficulty.toUpperCase(), X2, y);
+    ctx.fillText(rowLocked ? '✦ LOCKED' : e.difficulty.toUpperCase(), X2, y);
     ctx.textAlign = 'left';
     hRule(ctx, X, X2, rowY + rowH - 8, hot ? .45 : .22);
     regions.push({ x: X - 26, y: rowY, w: X2 - X + 52, h: rowH, id: 'row' + i, entry: e });
@@ -454,6 +459,7 @@ function tocTexture(cat, page, hover){
 function entryTexture(cat, entry, hover){
   const { c, ctx } = spreadCanvas();
   const regions = [];
+  const locked = entry.locked && !hasAccess();
   const L = 140, L2 = 900, R = 1180, R2 = 1900;
   ctx.textAlign = 'left';
 
@@ -481,10 +487,10 @@ function entryTexture(cat, entry, hover){
 
   /* right page — the answer */
   ctx.fillStyle = GOLD_INK; ctx.font = '700 30px Cinzel, serif';
-  ctx.fillText(entry.locked ? 'SEALED' : 'THE ANSWER', R, 190);
+  ctx.fillText(locked ? 'SEALED' : 'THE ANSWER', R, 190);
   hRule(ctx, R, R2, 222, .55);
   let ry = 296;
-  if (entry.locked){
+  if (locked){
     ctx.fillStyle = INK_SOFT; ctx.font = 'italic 36px Lora, serif';
     lines(ctx, 'This rebuttal is held in the full database. Founding members read every entry, every verse, and every new drop as it lands.', R2 - R, 6)
       .forEach(l => { ctx.fillText(l, R, ry); ry += 50; });
@@ -517,7 +523,7 @@ function entryTexture(cat, entry, hover){
   ctx.strokeStyle = hover === 'open' ? '#c9a84c' : '#7a5f22'; ctx.lineWidth = 2.5; ctx.strokeRect(bx, by, bw, bh);
   ctx.fillStyle = hover === 'open' ? '#fbf6ea' : GOLD_INK;
   ctx.font = '700 30px Cinzel, serif'; ctx.textAlign = 'center';
-  ctx.fillText(entry.locked ? 'UNLOCK THE DATABASE' : 'READ THE FULL ENTRY', bx + bw / 2, by + 53);
+  ctx.fillText(locked ? 'UNLOCK THE DATABASE' : 'READ THE FULL ENTRY', bx + bw / 2, by + 53);
   regions.push({ x: bx, y: by, w: bw, h: bh, id: 'open', entry });
   ctx.textAlign = 'left';
   return { texture: texSharp(c), regions };
@@ -1062,6 +1068,94 @@ function closeReadPanel(){ readVeil.classList.remove('show'); }
 document.getElementById('readclose').onclick = closeReadPanel;
 readVeil.addEventListener('pointerdown', e => { if (e.target === readVeil) closeReadPanel(); });
 
+const signVeil = document.getElementById('signveil');
+const signPill = document.getElementById('signPill');
+
+function applyAccessState(){
+  if (isOwner()) signPill.textContent = '👑 Owner';
+  else if (isSubscriber()) signPill.textContent = '★ Member';
+  else signPill.textContent = 'Sign In';
+  if (active) setSpread(active);
+}
+
+function openSignIn(){
+  if (isOwner()){
+    if (confirm('Signed in as site owner. Sign out?')){
+      localStorage.removeItem('alhaqq_owner');
+      location.reload();
+    }
+    return;
+  }
+  if (isSubscriber()){
+    if (confirm('You are signed in as a subscriber. Sign out?')){
+      localStorage.removeItem('alhaqq_sub_token');
+      localStorage.removeItem('alhaqq_sub_email');
+      location.reload();
+    }
+    return;
+  }
+  document.getElementById('signTitle').textContent = 'MEMBER ACCESS';
+  document.getElementById('signDesc').textContent = 'Enter the email you used to subscribe. Your access unlocks instantly.';
+  signVeil.classList.add('show');
+  setTimeout(() => document.getElementById('signEmail').focus(), 150);
+}
+function closeSignIn(){
+  signVeil.classList.remove('show');
+  document.getElementById('signEmail').value = '';
+  document.getElementById('signErr').textContent = '';
+  const btn = document.getElementById('signBtn');
+  btn.textContent = 'UNLOCK MY ACCESS'; btn.disabled = false; btn.style.opacity = '1';
+}
+async function submitSignIn(){
+  const email = document.getElementById('signEmail').value.trim().toLowerCase();
+  const errEl = document.getElementById('signErr');
+  const btn = document.getElementById('signBtn');
+  if (!email || !email.includes('@')){ errEl.textContent = 'Please enter a valid email address.'; return; }
+  btn.textContent = 'Verifying…'; btn.disabled = true; btn.style.opacity = '0.7'; errEl.textContent = '';
+  try {
+    const res = await fetch('/.netlify/functions/verify-subscriber', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    if (res.ok && data.access){
+      if (data.access === 'owner') localStorage.setItem('alhaqq_owner', '1');
+      else { localStorage.setItem('alhaqq_sub_token', data.token); localStorage.setItem('alhaqq_sub_email', email); }
+      closeSignIn();
+      applyAccessState();
+    } else {
+      errEl.textContent = data.error || 'Sign in failed. Please try again.';
+      btn.textContent = 'UNLOCK MY ACCESS'; btn.disabled = false; btn.style.opacity = '1';
+    }
+  } catch (err){
+    errEl.textContent = 'Could not connect. Check your internet and try again.';
+    btn.textContent = 'UNLOCK MY ACCESS'; btn.disabled = false; btn.style.opacity = '1';
+  }
+}
+signPill.onclick = openSignIn;
+document.getElementById('signclose').onclick = closeSignIn;
+signVeil.addEventListener('pointerdown', e => { if (e.target === signVeil) closeSignIn(); });
+document.getElementById('signBtn').onclick = submitSignIn;
+document.getElementById('signEmail').addEventListener('keydown', e => { if (e.key === 'Enter') submitSignIn(); });
+
+function checkSignInRedirect(){
+  const params = new URLSearchParams(location.search);
+  if (params.get('signin') === '1' && !hasAccess()){
+    history.replaceState({}, '', location.pathname);
+    openSignIn();
+  }
+}
+function checkSubscribeRedirect(){
+  const params = new URLSearchParams(location.search);
+  if (params.get('subscribed') === '1'){
+    history.replaceState({}, '', location.pathname);
+    document.getElementById('signTitle').textContent = '🎉 PAYMENT SUCCESSFUL';
+    document.getElementById('signDesc').textContent = 'Enter the email you used at checkout to unlock all entries now.';
+    signVeil.classList.add('show');
+    setTimeout(() => document.getElementById('signEmail').focus(), 150);
+  }
+}
+applyAccessState();
+
 function pointerFromEvent(e){
   pointer.x = (e.clientX / innerWidth) * 2 - 1;
   pointer.y = -(e.clientY / innerHeight) * 2 + 1;
@@ -1127,7 +1221,7 @@ el.addEventListener('pointerup', e => {
     else if (r.id === 'prev'){ active.page--; active.hover = null; flipTo(); }
     else if (r.id === 'back'){ active.view = 'toc'; active.hover = null; flipTo(); }
     else if (r.id === 'open'){
-      if (r.entry.locked) window.open('https://alhaqq.it.com/landing.html#pricing', '_blank', 'noopener');
+      if (r.entry.locked && !hasAccess()) window.open('https://alhaqq.it.com/landing.html#pricing', '_blank', 'noopener');
       else openReadPanel(r.entry, active.cat);
     }
     else if (r.entry){ active.view = 'entry'; active.entry = r.entry; active.hover = null; flipTo(); }
@@ -1166,6 +1260,7 @@ document.getElementById('jinput').addEventListener('keydown', e => { if (e.key =
 addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (readVeil.classList.contains('show')) closeReadPanel();
+  else if (signVeil.classList.contains('show')) closeSignIn();
   else { veil.classList.remove('show'); if (mode === 'reading') closeBook(); }
 });
 
@@ -1316,4 +1411,5 @@ camPos.set(Math.cos(orbit) * 9.5, 6.4, Math.sin(orbit) * 9.5);
   books.forEach(b => { setSpread(b); });
   setTimeout(() => document.getElementById('loader').classList.add('gone'), 260);
   tick();
+  setTimeout(() => { checkSignInRedirect(); checkSubscribeRedirect(); }, 500);
 });

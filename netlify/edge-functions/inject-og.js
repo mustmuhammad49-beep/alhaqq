@@ -63,10 +63,13 @@ export default async (request, context) => {
     return fetch(new URL('/landing.html', request.url));
   }
 
-  // Shared myth links, sign-in, and post-checkout redirects need the real
-  // database page (search/entries/auth JS) — index.html is the celestial
-  // hub, which doesn't have that logic, so route these to database.html instead.
-  const needsDatabase = (url.pathname === '/' || url.pathname === '/index.html') && (mythId || isAuthRedirect);
+  // Shared myth links need the real database page (search/entries/detail
+  // view) — index.html is the celestial hub, which doesn't have that
+  // per-entry deep-linking, so route these to database.html instead.
+  // Sign-in and post-checkout redirects now resolve in the hub itself
+  // (it has its own sign-in modal — see hub.js), so they no longer force
+  // database.html the way shared myth links do.
+  const needsDatabase = (url.pathname === '/' || url.pathname === '/index.html') && mythId;
   const response = needsDatabase
     ? await fetch(new URL(`/database.html${url.search}`, request.url))
     : await context.next();
