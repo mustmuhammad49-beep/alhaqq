@@ -47,11 +47,17 @@ export default async (request, context) => {
   const mythId = parseInt(url.searchParams.get('myth') || '0', 10);
   const isAuthRedirect = url.searchParams.has('signin') || url.searchParams.has('subscribed');
 
-  // Plain visits to "/" now land on the celestial hub (index.html) directly —
-  // the old marketing splash (landing.html) is no longer the default root and
-  // is only reachable if something links to it explicitly.
+  // Plain visits to "/" land on the marketing page, which explains the
+  // product and pricing before anyone hits a paywall, and ships its own
+  // SEO/OG tags. Shared myth links (/?myth=N) still resolve to the database.
+  // Auth-flow redirects (sign-in, post-Stripe-checkout) also need the
+  // database's own JS, so they bypass the marketing shortcut too.
+  if (url.pathname === '/' && !mythId && !isAuthRedirect) {
+    return fetch(new URL('/landing.html', request.url));
+  }
+
   // Shared myth links, sign-in, and post-checkout redirects need the real
-  // database page (search/entries/auth JS) — index.html is now the celestial
+  // database page (search/entries/auth JS) — index.html is the celestial
   // hub, which doesn't have that logic, so route these to database.html instead.
   const needsDatabase = (url.pathname === '/' || url.pathname === '/index.html') && (mythId || isAuthRedirect);
   const response = needsDatabase
