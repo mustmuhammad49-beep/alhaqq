@@ -1197,7 +1197,7 @@ async function startReader(id, event) {
   document.getElementById('readerBar').classList.add('visible');
   document.getElementById('readerPlayPause').textContent = '⏳ Loading…';
   document.getElementById('readerPlayPause').classList.add('active');
-  document.getElementById('readerProgress').style.width = '0%';
+  document.getElementById('readerProgress').style.transform = 'scaleX(0)';
 
   try {
     const res = await fetch('/.netlify/functions/tts', {
@@ -1220,13 +1220,13 @@ async function startReader(id, event) {
     // Progress bar via timeupdate
     ttsAudio.addEventListener('timeupdate', () => {
       if (ttsAudio.duration) {
-        const pct = (ttsAudio.currentTime / ttsAudio.duration) * 100;
-        document.getElementById('readerProgress').style.width = pct + '%';
+        const pct = ttsAudio.currentTime / ttsAudio.duration;
+        document.getElementById('readerProgress').style.transform = 'scaleX(' + pct + ')';
       }
     });
 
     ttsAudio.addEventListener('ended', () => {
-      document.getElementById('readerProgress').style.width = '100%';
+      document.getElementById('readerProgress').style.transform = 'scaleX(1)';
       setTimeout(() => stopReader(), 800);
     });
 
@@ -1256,10 +1256,10 @@ async function startReader(id, event) {
     utt.onboundary = (e) => {
       if (e.name === 'word') {
         wordIdx++;
-        document.getElementById('readerProgress').style.width = Math.min((wordIdx / wordCount) * 100, 100) + '%';
+        document.getElementById('readerProgress').style.transform = 'scaleX(' + Math.min(wordIdx / wordCount, 1) + ')';
       }
     };
-    utt.onend = () => { document.getElementById('readerProgress').style.width = '100%'; setTimeout(stopReader, 800); };
+    utt.onend = () => { document.getElementById('readerProgress').style.transform = 'scaleX(1)'; setTimeout(stopReader, 800); };
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utt);
   }
