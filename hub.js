@@ -1099,7 +1099,7 @@ el.addEventListener('pointerup', e => {
     else if (r.id === 'prev'){ active.page--; active.hover = null; flipTo(); }
     else if (r.id === 'back'){ active.view = 'toc'; active.hover = null; flipTo(); }
     else if (r.id === 'open'){
-      const url = r.entry.locked ? 'https://alhaqq.it.com/#pricing' : 'https://alhaqq.it.com/#entry-' + r.entry.id;
+      const url = r.entry.locked ? 'https://alhaqq.it.com/landing.html#pricing' : 'https://alhaqq.it.com/database.html#e' + r.entry.id;
       window.open(url, '_blank', 'noopener');
     }
     else if (r.entry){ active.view = 'entry'; active.entry = r.entry; active.hover = null; flipTo(); }
