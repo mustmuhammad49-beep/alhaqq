@@ -1006,6 +1006,7 @@ const hint = document.getElementById('hint');
 const backBtn = document.getElementById('back');
 const jLabel = document.getElementById('jibrilLabel');
 const veil = document.getElementById('veil');
+const readVeil = document.getElementById('readveil');
 
 const READ_POS = new THREE.Vector3(0, TABLE_TOP + 0.95, 3.3);
 
@@ -1033,6 +1034,33 @@ function closeBook(){
   hint.textContent = 'Drag to turn the table · choose a volume';
 }
 backBtn.onclick = closeBook;
+
+function openReadPanel(entry, cat){
+  document.getElementById('readEyebrow').textContent =
+    cat.title + ' · ' + entry.difficulty.toUpperCase() + ' · ENTRY ' + String(entry.id).padStart(2, '0');
+  document.getElementById('readMyth').textContent = entry.myth;
+  document.getElementById('readClaim').textContent = entry.claim || '';
+
+  const quickEl = document.getElementById('readQuick');
+  if (entry.quick){ quickEl.textContent = entry.quick; quickEl.style.display = ''; }
+  else quickEl.style.display = 'none';
+
+  document.getElementById('readAnswer').textContent = entry.answer || entry.quick || '';
+
+  const verseBlock = document.getElementById('readVerseBlock');
+  if (entry.verse){
+    document.getElementById('readArabic').textContent = entry.verse.arabic || '';
+    document.getElementById('readTranslation').textContent = '“' + (entry.verse.translation || '') + '”';
+    document.getElementById('readRef').textContent = (entry.verse.ref || '').toUpperCase();
+    verseBlock.style.display = '';
+  } else verseBlock.style.display = 'none';
+
+  document.getElementById('readpanel').scrollTop = 0;
+  readVeil.classList.add('show');
+}
+function closeReadPanel(){ readVeil.classList.remove('show'); }
+document.getElementById('readclose').onclick = closeReadPanel;
+readVeil.addEventListener('pointerdown', e => { if (e.target === readVeil) closeReadPanel(); });
 
 function pointerFromEvent(e){
   pointer.x = (e.clientX / innerWidth) * 2 - 1;
@@ -1099,8 +1127,8 @@ el.addEventListener('pointerup', e => {
     else if (r.id === 'prev'){ active.page--; active.hover = null; flipTo(); }
     else if (r.id === 'back'){ active.view = 'toc'; active.hover = null; flipTo(); }
     else if (r.id === 'open'){
-      const url = r.entry.locked ? 'https://alhaqq.it.com/landing.html#pricing' : 'https://alhaqq.it.com/database.html#e' + r.entry.id;
-      window.open(url, '_blank', 'noopener');
+      if (r.entry.locked) window.open('https://alhaqq.it.com/landing.html#pricing', '_blank', 'noopener');
+      else openReadPanel(r.entry, active.cat);
     }
     else if (r.entry){ active.view = 'entry'; active.entry = r.entry; active.hover = null; flipTo(); }
   }
@@ -1135,7 +1163,11 @@ document.getElementById('jsend').onclick = () => {
   window.open('https://alhaqq.it.com/' + (q ? '?ask=' + encodeURIComponent(q) : ''), '_blank', 'noopener');
 };
 document.getElementById('jinput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('jsend').click(); });
-addEventListener('keydown', e => { if (e.key === 'Escape'){ veil.classList.remove('show'); if (mode === 'reading') closeBook(); } });
+addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (readVeil.classList.contains('show')) closeReadPanel();
+  else { veil.classList.remove('show'); if (mode === 'reading') closeBook(); }
+});
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
