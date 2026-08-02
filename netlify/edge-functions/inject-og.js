@@ -55,8 +55,13 @@ export default async (request, context) => {
     return fetch(new URL('/landing.html', request.url));
   }
 
-  // Fetch the original HTML
-  const response = await context.next();
+  // Shared myth links, sign-in, and post-checkout redirects need the real
+  // database page (search/entries/auth JS) — index.html is now the celestial
+  // hub, which doesn't have that logic, so route these to database.html instead.
+  const needsDatabase = (url.pathname === '/' || url.pathname === '/index.html') && (mythId || isAuthRedirect);
+  const response = needsDatabase
+    ? await fetch(new URL(`/database.html${url.search}`, request.url))
+    : await context.next();
 
   // Only process HTML responses
   const contentType = response.headers.get('content-type') || '';
