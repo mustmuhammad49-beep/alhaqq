@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al-Haqq — The Celestial Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<style>
+  :root{
+    --gold:#c9a84c; --gold-light:#e8c97a; --gold-dim:#8a6f2e;
+    --ink:#0d0d0f; --ink-2:#1a1a1f; --parchment:#f5f0e8;
+    --border:rgba(201,168,76,0.2); --border-strong:rgba(201,168,76,0.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--ink);color:var(--parchment);font-family:'Lora',Georgia,serif;overflow:hidden}
+  canvas{display:block;position:fixed;inset:0}
+  .ui{position:fixed;inset:0;pointer-events:none;z-index:10}
+  .topbar{
+    position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem 1.6rem;
+  }
+  .logo{display:flex;flex-direction:column;gap:.15rem}
+  .logo-arabic{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold);letter-spacing:.05em;line-height:1}
+  .logo-latin{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.32em;color:rgba(245,240,232,.55);text-transform:uppercase}
+  .topnote{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(245,240,232,.35);text-align:right;line-height:1.9}
+  .hint{
+    position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);
+    font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(245,240,232,.55);transition:opacity .5s;text-align:center;
+    padding:.5rem 1.1rem;background:rgba(8,7,11,.62);backdrop-filter:blur(3px);border-radius:999px
+  }
+  .jibril-label{
+    position:absolute;left:50%;transform:translate(-50%,0);
+    font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--gold-light);text-shadow:0 0 22px rgba(232,201,122,.8),0 2px 12px #000;
+    pointer-events:auto;cursor:pointer;padding:.6rem 1.4rem;white-space:nowrap;
+    transition:opacity .45s,color .25s,text-shadow .25s
+  }
+  .jibril-label:hover{color:#fff;text-shadow:0 0 26px rgba(255,240,200,.95)}
+  .jibril-label .caret{display:block;font-size:.5rem;letter-spacing:.2em;color:rgba(232,201,122,.55);margin-top:.35rem}
+  .back{
+    position:absolute;top:1.15rem;left:50%;transform:translateX(-50%);
+    pointer-events:auto;cursor:pointer;background:rgba(14,12,10,.88);border:1px solid rgba(201,168,76,.85);
+    color:#f0dca4;font-family:'Cinzel',serif;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    padding:.72rem 1.6rem;border-radius:999px;opacity:0;transition:opacity .4s,background .2s,color .2s,box-shadow .2s;
+    box-shadow:0 6px 26px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.5) inset;
+    backdrop-filter:blur(6px)
+  }
+  .back.show{opacity:1}
+  .back:hover{background:var(--gold);color:#100e0a;box-shadow:0 0 30px rgba(201,168,76,.5)}
+  .booktip{
+    position:absolute;pointer-events:none;transform:translate(-50%,-140%);
+    font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--gold-light);opacity:0;transition:opacity .25s;white-space:nowrap;
+    text-shadow:0 2px 14px rgba(0,0,0,.9)
+  }
+  .booktip small{display:block;font-size:.5rem;letter-spacing:.18em;color:rgba(245,240,232,.5);margin-top:.3rem}
+  .veil{
+    position:absolute;inset:0;background:rgba(6,6,10,.72);backdrop-filter:blur(10px);
+    opacity:0;pointer-events:none;transition:opacity .45s;display:flex;align-items:center;justify-content:center;padding:1.5rem
+  }
+  .veil.show{opacity:1;pointer-events:auto}
+  .jpanel{
+    width:min(560px,100%);border:1px solid var(--border-strong);background:linear-gradient(180deg,#15151b,#0d0d0f);
+    padding:2.4rem 2rem;text-align:center;box-shadow:0 40px 120px rgba(0,0,0,.7)
+  }
+  .jpanel .gem{width:44px;height:44px;border:1px solid var(--gold);transform:rotate(45deg);margin:0 auto 1.6rem;
+    box-shadow:0 0 34px rgba(201,168,76,.35) inset,0 0 26px rgba(201,168,76,.25)}
+  .jpanel h2{font-family:'Cinzel',serif;font-size:1.15rem;letter-spacing:.14em;color:var(--parchment);margin-bottom:.7rem}
+  .jpanel p{font-style:italic;color:rgba(245,240,232,.6);font-size:.88rem;line-height:1.75;margin-bottom:1.6rem}
+  .jrow{display:flex;gap:.6rem}
+  .jrow input{
+    flex:1;background:#0d0d0f;border:1px solid var(--border);color:var(--parchment);
+    font-family:'Lora',serif;font-size:.9rem;padding:.85rem 1rem;outline:none;min-height:44px
+  }
+  .jrow input:focus{border-color:var(--border-strong)}
+  .jrow button{
+    background:var(--gold);color:var(--ink);border:none;cursor:pointer;min-height:44px;padding:0 1.3rem;
+    font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase
+  }
+  .jrow button:hover{background:var(--gold-light)}
+  .jclose{
+    margin-top:1.4rem;background:none;border:none;cursor:pointer;color:rgba(245,240,232,.4);
+    font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.24em;text-transform:uppercase
+  }
+  .jclose:hover{color:var(--gold)}
+  .loader{
+    position:fixed;inset:0;z-index:40;background:var(--ink);display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:1.1rem;transition:opacity .8s
+  }
+  .loader.gone{opacity:0;pointer-events:none;visibility:hidden}
+  .loader .gem{width:30px;height:30px;border:1px solid var(--gold);transform:rotate(45deg);animation:spin 3.4s linear infinite}
+  .loader span{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-dim)}
+  @keyframes spin{to{transform:rotate(405deg)}}
+  a{color:var(--gold)}a:hover{color:var(--gold-light)}
+  @media (max-width:700px){ .topnote{display:none} }
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><div class="gem"></div><span>Lighting the table</span></div>
+<div class="ui">
+  <div class="topbar">
+    <div class="logo"><span class="logo-arabic">الحق</span><span class="logo-latin">Al-Haqq · The Truth Database</span></div>
+    <div class="topnote">Quran-only rebuttals<br>43 entries · 5 volumes</div>
+  </div>
+  <button class="back" id="back">↩ Return to the table</button>
+  <div class="jibril-label" id="jibrilLabel">Speak to Jibril<span class="caret">✦</span></div>
+  <div class="booktip" id="booktip"></div>
+  <div class="hint" id="hint">Drag to turn the table · choose a volume</div>
+  <div class="veil" id="veil">
+    <div class="jpanel">
+      <div class="gem"></div>
+      <h2>Speak to Jibril</h2>
+      <p>Ask any objection in your own words. Jibril answers from the Quran alone — verse, translation, and reference.</p>
+      <div class="jrow">
+        <input id="jinput" placeholder="e.g. Does the Quran permit beating wives?">
+        <button id="jsend">Ask</button>
+      </div>
+      <button class="jclose" id="jclose">Close</button>
+    </div>
+  </div>
+</div>
+<script src="entries-data.js"></script>
+<script type="module" src="hub.js"></script>
+</body>
+</html>
