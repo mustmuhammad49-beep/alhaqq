@@ -1052,6 +1052,9 @@ function openReadPanel(entry, cat){
   document.getElementById('readMyth').textContent = entry.myth;
   document.getElementById('readBody').innerHTML = window.buildEntryBodyHTML(entry);
 
+  const gameBtn = document.getElementById('gameBubbleBtn');
+  if (gameBtn) gameBtn.style.display = entry.game ? 'flex' : 'none';
+
   document.getElementById('readpanel').scrollTop = 0;
   readVeil.classList.add('show');
 }

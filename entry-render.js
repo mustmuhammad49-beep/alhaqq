@@ -1436,11 +1436,13 @@ document.addEventListener('keydown', function (e) {
   const tree = document.getElementById('covenantTreeModal');
   const salat = document.getElementById('salatWalkthrough');
   const inherit = document.getElementById('inheritOverlay');
+  const daraba = document.getElementById('darabaGameOverlay');
   let handled = false;
   if (versePopup && versePopup.classList.contains('visible')) { closeVersePopup(); handled = true; }
   if (tree && tree.style.display === 'flex') { closeTreeModal(); handled = true; }
   if (salat && salat.classList.contains('visible')) { closeSalatWalkthrough(); handled = true; }
   if (inherit && inherit.classList.contains('visible')) { closeInheritanceOverlay(); handled = true; }
+  if (daraba && daraba.classList.contains('visible')) { closeDarabaGame(); handled = true; }
   if (handled) e.stopImmediatePropagation();
 });
 
@@ -1570,7 +1572,7 @@ document.addEventListener('keydown', function (e) {
   function defendCardHTML(card, i) {
     return '<div class="defend-card" id="defendCard' + i + '">' +
       '<div class="defend-q" onclick="toggleDefendCard(' + i + ')"><span>' + esc(card.q) + '</span><span class="defend-caret">▶</span></div>' +
-      '<div class="defend-a" id="defendA' + i + '">' + esc(card.a) + '</div>' +
+      '<div class="defend-a" id="defendA' + i + '"><div class="defend-a-inner">' + esc(card.a) + '</div></div>' +
       '</div>';
   }
 
@@ -1623,15 +1625,7 @@ document.addEventListener('keydown', function (e) {
   window.salatNav = function (dir) { showSalatScreen(salatIdx + dir); };
 
   window.toggleDefendCard = function (i) {
-    const card = document.getElementById('defendCard' + i);
-    const a = document.getElementById('defendA' + i);
-    if (card.classList.contains('open')) {
-      card.classList.remove('open');
-      a.style.maxHeight = null;
-    } else {
-      card.classList.add('open');
-      a.style.maxHeight = (a.scrollHeight + 20) + 'px';
-    }
+    document.getElementById('defendCard' + i).classList.toggle('open');
   };
 
   window.openSalatWalkthrough = function () {
@@ -1692,8 +1686,9 @@ document.addEventListener('keydown', function (e) {
     container.innerHTML = html;
     const segEls = container.querySelectorAll('.inh-bar-seg');
     segEls.forEach(function (el, i) {
-      el.style.width = '0%';
-      setTimeout(function () { el.style.width = el.getAttribute('data-w') + '%'; }, 120 + i * 160);
+      el.style.width = el.getAttribute('data-w') + '%';
+      el.style.transform = 'scaleX(0)';
+      setTimeout(function () { el.style.transform = 'scaleX(1)'; }, 120 + i * 160);
     });
   }
 
@@ -1785,7 +1780,7 @@ document.addEventListener('keydown', function (e) {
   function inhDefendCardHTML(card, i) {
     return '<div class="defend-card" id="inhDefendCard' + i + '">' +
       '<div class="defend-q" onclick="toggleInheritDefendCard(' + i + ')"><span>' + esc(card.q) + '</span><span class="defend-caret">▶</span></div>' +
-      '<div class="defend-a" id="inhDefendA' + i + '">' + esc(card.a) + '</div>' +
+      '<div class="defend-a" id="inhDefendA' + i + '"><div class="defend-a-inner">' + esc(card.a) + '</div></div>' +
       '</div>';
   }
 
@@ -1830,8 +1825,9 @@ document.addEventListener('keydown', function (e) {
       });
       container.innerHTML = html;
       container.querySelectorAll('.inh-bar-seg').forEach(function (el, i) {
-        el.style.width = '0%';
-        setTimeout(function () { el.style.width = el.getAttribute('data-w') + '%'; }, 100 + i * 140);
+        el.style.width = el.getAttribute('data-w') + '%';
+        el.style.transform = 'scaleX(0)';
+        setTimeout(function () { el.style.transform = 'scaleX(1)'; }, 100 + i * 140);
       });
     }
     tick();
@@ -1863,15 +1859,7 @@ document.addEventListener('keydown', function (e) {
   window.inhNav = function (dir) { showInhScreen(inhIdx + dir); };
 
   window.toggleInheritDefendCard = function (i) {
-    const card = document.getElementById('inhDefendCard' + i);
-    const a = document.getElementById('inhDefendA' + i);
-    if (card.classList.contains('open')) {
-      card.classList.remove('open');
-      a.style.maxHeight = null;
-    } else {
-      card.classList.add('open');
-      a.style.maxHeight = (a.scrollHeight + 20) + 'px';
-    }
+    document.getElementById('inhDefendCard' + i).classList.toggle('open');
   };
 
   window.openInheritanceOverlay = function () {
@@ -1885,5 +1873,305 @@ document.addEventListener('keydown', function (e) {
     stopScreen4Loop();
     document.getElementById('inheritOverlay').classList.remove('visible');
     document.body.style.overflow = '';
+  };
+})();
+
+(function () {
+  const DG_MUTE_KEY = 'alhaqq_dg_mute';
+
+  const DG_SCENARIO = {
+    word: "ضَرَبَ", translit: "DARABA",
+    hook: "Your own book tells men to beat their wives. 4:34. Explain that.",
+    sub: "One Arabic word decides it. Three tries.",
+    choices: [
+      { label: "TO BEAT", kind: "violation",
+        cap: "HE RAISES HIS HAND...", cap2: "THE BOOK INTERRUPTS", stamp: "VIOLATION",
+        ar: "وَلَا تُمْسِكُوهُنَّ ضِرَارًا لِّتَعْتَدُوا",
+        en: "Do not hold on to them in order to harm them.",
+        ref: "SURAH AL-BAQARAH 2:231", ref2: "AR-RUM 30:21",
+        explain: "You picked the critics' meaning. The Book itself throws the flag. It cannot command harm here and forbid harm there. Something is wrong with that translation." },
+      { label: "TO TRAVEL", kind: "misfit",
+        cap: "...AND HE LEFT THE COUNTRY", stamp: "DOES NOT FIT",
+        ar: "وَإِذَا ضَرَبْتُمْ فِي الْأَرْضِ",
+        en: "And when you travel through the land...",
+        ref: "SURAH AN-NISA 4:94",
+        explain: "Daraba really does mean travel in 4:94. But this verse is not sending anyone on a trip. Real meaning, wrong door." },
+      { label: "TO SEPARATE", kind: "win",
+        cap: "THEY PART. NO HARM. NO CONTRADICTION.", stamp: "PASSES THE BOOK",
+        ar: "أَفَنَضْرِبُ عَنكُمُ الذِّكْرَ صَفْحًا",
+        en: "Shall We then turn the Reminder away from you?",
+        ref: "SURAH AZ-ZUKHRUF 43:5",
+        explain: "Same root, and Allah uses it for turning away, not striking. And look at 4:34 itself: advise, then distance in the beds, then separate. Three steps of growing space. The Book stays consistent from the first word to the last." }
+    ],
+    reply: "Daraba has more than five meanings inside the Quran itself. Strike a rock in 2:60. Strike an example in 14:24. Travel in 4:94. Turn away in 43:5. And 2:231 already commands men never to hold wives to harm them. Allah does not command harm in one verse and forbid it in another. Pick the meaning that matches the Book, not the one that matches your accusation.",
+    verdictTitle: "HONEST TRANSLATOR"
+  };
+
+  function dgEsc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  /* ── audio ── */
+  let dgCtx = null;
+  function dgGetCtx() {
+    if (!dgCtx) { try { dgCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { dgCtx = null; } }
+    if (dgCtx && dgCtx.state === 'suspended') { dgCtx.resume().catch(() => {}); }
+    return dgCtx;
+  }
+  function dgMuted() { return localStorage.getItem(DG_MUTE_KEY) === '1'; }
+  function dgTone(freq, durMs, type, vol, delayMs) {
+    if (dgMuted()) return;
+    const ctx = dgGetCtx(); if (!ctx) return;
+    const t0 = ctx.currentTime + (delayMs || 0) / 1000;
+    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+    osc.type = type || 'sine'; osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(vol || 0.2, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + durMs / 1000);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t0); osc.stop(t0 + durMs / 1000 + 0.02);
+  }
+  function dgSThump() { dgTone(90, 160, 'sine', 0.5, 0); }
+  function dgSWin() { dgTone(523, 140, 'triangle', 0.3, 0); dgTone(659, 140, 'triangle', 0.3, 100); dgTone(784, 220, 'triangle', 0.3, 200); }
+  function dgSWomp() { dgTone(180, 220, 'sine', 0.25, 0); dgTone(90, 260, 'sine', 0.25, 120); }
+  function dgSFanfare() { dgTone(523, 160, 'triangle', 0.28, 0); dgTone(659, 160, 'triangle', 0.28, 130); dgTone(784, 160, 'triangle', 0.28, 260); dgTone(1046, 320, 'triangle', 0.3, 390); }
+
+  function dgReducedMotion() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function dgVibrate(pattern) { try { if (navigator.vibrate && !dgReducedMotion()) navigator.vibrate(pattern); } catch (e) {} }
+
+  const DG_GLYPHS = { violation: ['✕'], win: ['◈', '✦', '۞'] };
+  const DG_GLYPH_COLORS = { violation: ['#a83232'], win: ['var(--gold)', '#8a7434'] };
+  function dgSpawnGlyphs(container, kind, count) {
+    if (dgReducedMotion() || !container) return;
+    const glyphs = DG_GLYPHS[kind]; const colors = DG_GLYPH_COLORS[kind];
+    if (!glyphs) return;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('span');
+      s.className = 'dg-particle-glyph';
+      s.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      s.style.color = colors[Math.floor(Math.random() * colors.length)];
+      s.style.fontSize = (10 + Math.random() * 8) + 'px';
+      s.style.left = (10 + Math.random() * 80) + '%';
+      s.style.top = (18 + Math.random() * 55) + '%';
+      s.style.animationDelay = (Math.random() * 0.9) + 's';
+      s.style.animationDuration = (2.2 + Math.random() * 0.8) + 's';
+      container.appendChild(s);
+      setTimeout(() => s.remove(), 3200);
+    }
+  }
+
+  /* ── scene: couple ── */
+  function dgSceneHTML() {
+    return '<div class="dg-scene-wrap" id="dgSceneWrap">' +
+      '<svg viewBox="0 0 360 220">' +
+        '<rect class="dg-flash" x="0" y="0" width="360" height="220"/>' +
+        '<line class="dg-scene-divider" x1="180" y1="20" x2="180" y2="200" stroke="var(--gold)" stroke-width="1.5"/>' +
+        '<g class="dg-scene-figure dg-fig-l">' +
+          '<circle cx="120" cy="80" r="16" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+          '<path d="M100 100 Q120 96 140 100 L136 170 Q120 178 104 170 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+        '</g>' +
+        '<g class="dg-scene-figure dg-fig-r">' +
+          '<circle cx="240" cy="80" r="16" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+          '<path d="M220 100 Q240 96 260 100 L256 170 Q240 178 224 170 Z" fill="none" stroke="var(--gold)" stroke-width="2"/>' +
+          '<line class="dg-arm-r" x1="235" y1="120" x2="200" y2="120" stroke="var(--gold)" stroke-width="2"/>' +
+        '</g>' +
+      '</svg>' +
+    '</div>';
+  }
+  function dgSceneRun(kind) {
+    const wrap = document.getElementById('dgSceneWrap');
+    if (!wrap) return;
+    wrap.classList.remove('violation', 'misfit', 'win');
+    void wrap.offsetWidth;
+    wrap.classList.add(kind);
+    if (kind === 'violation') dgSpawnGlyphs(wrap, 'violation', 6);
+    if (kind === 'win') dgSpawnGlyphs(wrap, 'win', 8);
+  }
+  function dgSceneReset() {
+    const wrap = document.getElementById('dgSceneWrap');
+    if (wrap) wrap.classList.remove('violation', 'misfit', 'win');
+  }
+
+  /* ── toast ── */
+  let dgToastTimer = null;
+  function dgToast(msg) {
+    let el = document.getElementById('dgToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'dgToast';
+      el.className = 'dg-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('visible');
+    clearTimeout(dgToastTimer);
+    dgToastTimer = setTimeout(() => el.classList.remove('visible'), 2200);
+  }
+
+  /* ── stage screen ── */
+  let dgSession = null;
+
+  function dgBuildStageHTML(scenario) {
+    return '<div class="dg-tries" id="dgTries">' +
+        [0, 1, 2].map(i => '<span class="dg-try-dot" data-i="' + i + '">◈</span>').join('') +
+        '<span class="dg-tries-label" id="dgTriesLabel">THREE TRIES</span>' +
+      '</div>' +
+      '<div class="dg-word-ar">' + scenario.word + '</div>' +
+      '<div class="dg-word-translit">' + dgEsc(scenario.translit) + '</div>' +
+      '<div class="dg-hook">' + dgEsc(scenario.hook) + '</div>' +
+      '<div class="dg-sub">' + dgEsc(scenario.sub) + '</div>' +
+      dgSceneHTML() +
+      '<div class="dg-choices" id="dgChoices">' +
+        scenario.choices.map((c, i) => '<button class="dg-choice-btn" id="dgChoiceBtn' + i + '" onclick="dgChoose(' + i + ')">' + dgEsc(c.label) + '</button>').join('') +
+      '</div>' +
+      '<div id="dgResolvePanel"></div>' +
+      '<div class="dg-footer-line">Three doors. The Book only opens one.</div>';
+  }
+
+  function dgResolvePanelHTML(choice) {
+    return '<div class="dg-stamp-wrap"><div class="dg-stamp ' + choice.kind + '">' + dgEsc(choice.stamp) + '</div></div>' +
+      '<div class="dg-cap">' + dgEsc(choice.cap) + '</div>' +
+      (choice.cap2 ? '<div class="dg-cap2">' + dgEsc(choice.cap2) + '</div>' : '') +
+      '<div class="dg-verse-card">' +
+        '<div class="dg-verse-ar">' + choice.ar + '</div>' +
+        '<div class="dg-verse-en">' + dgEsc(choice.en) + '</div>' +
+        '<div class="dg-verse-ref">' + dgEsc(choice.ref) + (choice.ref2 ? ' &middot; ' + dgEsc(choice.ref2) : '') + '</div>' +
+      '</div>' +
+      '<div class="dg-explain">' + dgEsc(choice.explain) + '</div>' +
+      '<div id="dgResolveNav"></div>';
+  }
+
+  function dgRenderStage(scenario) {
+    document.getElementById('dgStage').innerHTML = dgBuildStageHTML(scenario);
+  }
+
+  window.dgChoose = function (idx) {
+    if (!dgSession || dgSession.locked) return;
+    if (!dgMuted()) dgGetCtx();
+    const scenario = dgSession.scenario;
+    const choice = scenario.choices[idx];
+    dgSession.locked = true;
+    scenario.choices.forEach((c, i) => { document.getElementById('dgChoiceBtn' + i).disabled = true; });
+
+    dgSceneRun(choice.kind);
+
+    setTimeout(function () {
+      if (choice.kind === 'violation') { dgSThump(); dgVibrate([40, 30, 40]); }
+      else if (choice.kind === 'misfit') { dgSWomp(); dgVibrate(30); }
+      else { dgSWin(); dgVibrate([20, 20, 20, 20, 60]); }
+
+      const btn = document.getElementById('dgChoiceBtn' + idx);
+      btn.classList.add(choice.kind === 'win' ? 'stamped-win' : 'stamped-wrong');
+
+      const panel = document.getElementById('dgResolvePanel');
+      panel.innerHTML = dgResolvePanelHTML(choice);
+
+      dgSession.doorHistory.push(choice.kind);
+
+      const triesUsed = dgSession.doorHistory.length;
+      const label = document.getElementById('dgTriesLabel');
+      if (choice.kind === 'win') {
+        const dot = document.querySelector('#dgTries [data-i="' + idx + '"]');
+        if (dot) { dot.textContent = '◈'; dot.className = 'dg-try-dot used-win'; }
+        document.querySelectorAll('#dgTries .dg-try-dot').forEach(d => {
+          if (d.className === 'dg-try-dot') d.className = 'dg-try-dot moot';
+        });
+        if (label) label.textContent = 'SOLVED IN ' + triesUsed;
+      } else {
+        if (label) label.textContent = (3 - triesUsed) + (3 - triesUsed === 1 ? ' TRY LEFT' : ' REMAIN');
+      }
+
+      const nav = document.getElementById('dgResolveNav');
+      if (choice.kind === 'win') {
+        nav.innerHTML = '<button class="dg-nav-btn primary" onclick="dgFinish()">See Verdict</button>';
+      } else {
+        nav.innerHTML = '<button class="dg-nav-btn primary" onclick="dgRetry(' + idx + ')">Try Again</button>';
+      }
+    }, 550);
+  };
+
+  window.dgRetry = function (idx) {
+    const scenario = dgSession.scenario;
+    dgSceneReset();
+    document.getElementById('dgResolvePanel').innerHTML = '';
+    scenario.choices.forEach((c, i) => {
+      if (i === idx) return;
+      document.getElementById('dgChoiceBtn' + i).disabled = false;
+    });
+    dgSession.locked = false;
+    const tries = document.getElementById('dgTries');
+    if (tries) {
+      const dot = tries.querySelector('[data-i="' + idx + '"]');
+      if (dot) { dot.textContent = '✕'; dot.className = 'dg-try-dot used-wrong'; }
+    }
+  };
+
+  window.dgFinish = function () {
+    const scenario = dgSession.scenario;
+    dgSFanfare();
+    dgRenderVerdict(scenario, dgSession.doorHistory);
+    dgShowScreen('dgVerdict');
+  };
+
+  /* ── verdict screen ── */
+  function dgRenderVerdict(scenario, doorHistory) {
+    const el = document.getElementById('dgVerdict');
+    const chips = doorHistory.map(k => '<span class="dg-chip ' + (k === 'win' ? 'win' : 'wrong') + '">' + (k === 'win' ? '✓' : '✗') + '</span>').join('');
+    const shareText = scenario.word + ' (' + scenario.translit + ')\n' + doorHistory.map(k => k === 'win' ? '🟡' : '🔴').join('') + '\n' + scenario.reply;
+    el.innerHTML =
+      '<div class="dg-verdict-title">' + dgEsc(scenario.verdictTitle) + '</div>' +
+      '<div class="dg-chip-row">' + chips + '</div>' +
+      '<div class="dg-reply-panel">' +
+        '<div class="dg-reply-label">Loaded Reply</div>' +
+        '<div class="dg-reply-text" id="dgReplyText">' + dgEsc(scenario.reply) + '</div>' +
+        '<div class="dg-reply-actions">' +
+          '<button class="dg-nav-btn" onclick="dgCopyReply()">Copy Reply</button>' +
+          '<button class="dg-nav-btn" onclick="dgShareVerdict()">Share Verdict</button>' +
+        '</div>' +
+      '</div>' +
+      '<button class="dg-nav-btn primary" onclick="closeDarabaGame()">Close</button>' +
+      '<div class="dg-footer-line">One word, defended.</div>';
+    el.dataset.shareText = shareText;
+  }
+
+  window.dgCopyReply = function () {
+    const t = document.getElementById('dgReplyText').textContent;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(t).then(() => dgToast('Reply copied.')).catch(() => dgToast('Reply copied.'));
+    } else { dgToast('Reply copied.'); }
+  };
+
+  window.dgShareVerdict = function () {
+    const el = document.getElementById('dgVerdict');
+    const text = el.dataset.shareText || '';
+    if (navigator.share) {
+      navigator.share({ text: text }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => dgToast('Verdict copied to share.')).catch(() => {});
+    } else { dgToast('Verdict copied to share.'); }
+  };
+
+  /* ── overlay open/close ── */
+  function dgShowScreen(id) {
+    document.querySelectorAll('#darabaGameOverlay .dg-screen').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  window.openDarabaGame = function () {
+    dgSession = { scenario: DG_SCENARIO, doorHistory: [], locked: false };
+    dgRenderStage(DG_SCENARIO);
+    dgShowScreen('dgStage');
+    document.getElementById('dgMuteBtn').textContent = dgMuted() ? '🔇' : '🔊';
+    document.getElementById('darabaGameOverlay').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeDarabaGame = function () {
+    document.getElementById('darabaGameOverlay').classList.remove('visible');
+    document.body.style.overflow = '';
+  };
+
+  window.dgToggleMute = function () {
+    const muted = dgMuted();
+    localStorage.setItem(DG_MUTE_KEY, muted ? '0' : '1');
+    document.getElementById('dgMuteBtn').textContent = muted ? '🔊' : '🔇';
   };
 })();
