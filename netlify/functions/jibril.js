@@ -416,6 +416,37 @@ exports.handler = async function(event) {
     return { statusCode: 500, body: JSON.stringify({ error: 'Jibril is not configured yet.' }) };
   }
 
+  // In local dev, prefer OmniRoute (localhost gateway with multi-provider fallback).
+  // Netlify's production servers can't reach localhost, so production always uses Groq directly.
+  const useOmniRoute = process.env.NETLIFY_DEV === 'true' && !!process.env.OMNIROUTE_API_KEY;
+
+  async function chatCompletion(payload) {
+    if (useOmniRoute) {
+      try {
+        const res = await fetch('http://localhost:20128/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.OMNIROUTE_API_KEY}`
+          },
+          body: JSON.stringify({ ...payload, model: 'auto' }),
+          signal: AbortSignal.timeout(8000)
+        });
+        if (res.ok) return res;
+      } catch {
+        // OmniRoute unreachable — fall through to direct Groq
+      }
+    }
+    return fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(payload)
+    });
+  }
+
   let body;
   try {
     body = JSON.parse(event.body);
@@ -435,25 +466,40 @@ exports.handler = async function(event) {
 
   const toolsUsed = [];
 
-  try {
-    // First Groq call — may return tool calls
-    const firstRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
+  // Groq's Llama models occasionally emit a malformed inline "<function=...>" tag
+  // instead of a proper tool_calls entry, which Groq rejects with a
+  // "tool_use_failed" error. That failure is stochastic, so retry once with
+  // tools, then fall back to a plain (toolless) completion so the user still
+  // gets an answer instead of a raw error.
+  async function getFirstCompletion() {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const res = await chatCompletion({
         model: 'llama-3.3-70b-versatile',
         messages: groqMessages,
         tools,
         tool_choice: 'auto',
+        parallel_tool_calls: false,
         max_tokens: 1500,
         temperature: 0.5
-      })
+      });
+      const data = await res.json();
+      if (res.ok || data.error?.code !== 'tool_use_failed') {
+        return { res, data };
+      }
+    }
+    // Both tool-enabled attempts failed the same way — answer without tools.
+    const res = await chatCompletion({
+      model: 'llama-3.3-70b-versatile',
+      messages: groqMessages,
+      max_tokens: 1500,
+      temperature: 0.5
     });
+    const data = await res.json();
+    return { res, data };
+  }
 
-    const firstData = await firstRes.json();
+  try {
+    const { res: firstRes, data: firstData } = await getFirstCompletion();
 
     if (!firstRes.ok) {
       return { statusCode: firstRes.status, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(firstData) };
@@ -505,19 +551,12 @@ exports.handler = async function(event) {
       });
     }));
 
-    // Second Groq call with tool results
-    const finalRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [...groqMessages, ...toolResultMessages],
-        max_tokens: 1800,
-        temperature: 0.5
-      })
+    // Second call with tool results
+    const finalRes = await chatCompletion({
+      model: 'llama-3.3-70b-versatile',
+      messages: [...groqMessages, ...toolResultMessages],
+      max_tokens: 1800,
+      temperature: 0.5
     });
 
     const finalData = await finalRes.json();
