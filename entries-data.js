@@ -77,7 +77,6 @@ The Arabic word <em>yusalli</em> operates the same way. When a human being perfo
  quickAnswer: "Daraba also means separate. 2:231 forbids harming wives. Allah does not contradict Himself.",
  reply: "Daraba has multiple meanings inside the Quran itself, including to separate and to set forth an example. 2:231 commands men not to hold wives in order to harm them. Allah does not command harm in one verse and forbid it in another. Take the meaning that matches the Book, not the one that matches your accusation.",
  locked: false,
- game: true,
  claim: "Critics cite the word 'daraba' in 4:34 as definitive proof that the Quran sanctions domestic violence, selecting the meaning 'to strike' from a word that carries over a dozen meanings in Arabic.",
  rebuttal:`This is the daraba method — and it is the same dishonest reading exposed in the entry above on yusalli. The full list of meanings the word daraba carries in Arabic and across the Quran is as follows: to travel or go out (4:101), to set forth a parable or example (14:24), to strike a coin or mint, to impose or assign, to seal or cover, to draw or trace a line, to separate or part ways, to ignore or turn away from, to condemn, to put forward. That is the range. Disbelievers reach into that list and select the most violent option — "to strike" — and apply it to a verse about marital conflict requiring careful, graduated de-escalation.<br><br>
 

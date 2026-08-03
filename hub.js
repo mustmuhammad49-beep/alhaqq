@@ -1016,6 +1016,7 @@ const tip = document.getElementById('booktip');
 const hint = document.getElementById('hint');
 const backBtn = document.getElementById('back');
 const jLabel = document.getElementById('jibrilLabel');
+const gameBubbleBtn = document.getElementById('gameBubbleBtn');
 const veil = document.getElementById('veil');
 const readVeil = document.getElementById('readveil');
 
@@ -1036,7 +1037,7 @@ function openBook(book){
   active = book; mode = 'opening'; book.phase = 0;
   book.view = 'toc'; book.page = 0; book.hover = null; book.entry = null;
   setSpread(book);
-  hint.style.opacity = 0; jLabel.style.opacity = 0; tip.style.opacity = 0;
+  hint.style.opacity = 0; jLabel.style.opacity = 0; tip.style.opacity = 0; gameBubbleBtn.style.opacity = 0;
   backBtn.classList.add('show');
 }
 function closeBook(){
@@ -1051,9 +1052,6 @@ function openReadPanel(entry, cat){
     cat.title + ' · ' + entry.difficulty.toUpperCase() + ' · ENTRY ' + String(entry.id).padStart(2, '0');
   document.getElementById('readMyth').textContent = entry.myth;
   document.getElementById('readBody').innerHTML = window.buildEntryBodyHTML(entry);
-
-  const gameBtn = document.getElementById('gameBubbleBtn');
-  if (gameBtn) gameBtn.style.display = entry.game ? 'flex' : 'none';
 
   document.getElementById('readpanel').scrollTop = 0;
   readVeil.classList.add('show');
@@ -1414,6 +1412,8 @@ function tick(){
   jLabel.style.opacity = mode === 'hub' ? 1 : 0;
   jLabel.style.pointerEvents = mode === 'hub' ? 'auto' : 'none';
   hint.style.opacity = mode === 'hub' ? 1 : 0;
+  gameBubbleBtn.style.opacity = mode === 'hub' ? 1 : 0;
+  gameBubbleBtn.style.pointerEvents = mode === 'hub' ? 'auto' : 'none';
 
   const stars = scene.getObjectByName('stars'); if (stars) stars.rotation.y = t * 0.006;
 
