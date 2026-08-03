@@ -388,6 +388,8 @@
   }
   .sign-input:focus{border-color:var(--border-strong)}
   .sign-err{color:#e05a5a;font-size:.75rem;min-height:1.2rem;margin-bottom:.5rem;line-height:1.4}
+  .sign-keep{display:flex;align-items:center;gap:.55rem;margin-bottom:1rem;text-align:left;font-size:.78rem;color:rgba(245,240,232,.65);cursor:pointer;user-select:none}
+  .sign-keep input{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex:none}
   .sign-btn{
     width:100%;padding:.85rem;background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:var(--ink);
     font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;border:none;
@@ -459,6 +461,7 @@
       <p class="sign-desc" id="signDesc">Enter the email you used to subscribe. Your access unlocks instantly.</p>
       <input class="sign-input" id="signEmail" type="email" placeholder="your@email.com">
       <div class="sign-err" id="signErr"></div>
+      <label class="sign-keep" for="signKeep"><input type="checkbox" id="signKeep" checked> Keep me signed in for future visits</label>
       <button class="sign-btn" id="signBtn">UNLOCK MY ACCESS</button>
       <p class="sign-join">Not a subscriber yet? <a href="https://alhaqq.it.com/landing.html#pricing">Join for $2.99/mo →</a></p>
     </div>

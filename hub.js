@@ -15,7 +15,7 @@ const byCat = k => ENTRIES.filter(e => e.source === k);
 const PER_PAGE = 5;
 
 function isOwner(){ try { return localStorage.getItem('alhaqq_owner') === '1'; } catch (e) { return false; } }
-function isSubscriber(){ try { return !!localStorage.getItem('alhaqq_sub_token'); } catch (e) { return false; } }
+function isSubscriber(){ try { return !!(localStorage.getItem('alhaqq_sub_token') || sessionStorage.getItem('alhaqq_sub_token')); } catch (e) { return false; } }
 function hasAccess(){ return isOwner() || isSubscriber(); }
 window.hasAccess = hasAccess;
 
@@ -1084,6 +1084,9 @@ applyTheme(document.documentElement.getAttribute('data-theme') === 'white' ? 'wh
 
 const signVeil = document.getElementById('signveil');
 const signPill = document.getElementById('signPill');
+const signClose = document.getElementById('signclose');
+const signJoin = document.querySelector('.sign-join');
+let signMandatory = false;
 
 function applyAccessState(){
   if (isOwner()) signPill.textContent = '👑 Owner';
@@ -1092,28 +1095,35 @@ function applyAccessState(){
   if (active) setSpread(active);
 }
 
-function openSignIn(){
-  if (isOwner()){
+function openSignIn(mandatory){
+  if (!mandatory && isOwner()){
     if (confirm('Signed in as site owner. Sign out?')){
       localStorage.removeItem('alhaqq_owner');
       location.reload();
     }
     return;
   }
-  if (isSubscriber()){
+  if (!mandatory && isSubscriber()){
     if (confirm('You are signed in as a subscriber. Sign out?')){
       localStorage.removeItem('alhaqq_sub_token');
+      sessionStorage.removeItem('alhaqq_sub_token');
       localStorage.removeItem('alhaqq_sub_email');
       location.reload();
     }
     return;
   }
-  document.getElementById('signTitle').textContent = 'MEMBER ACCESS';
-  document.getElementById('signDesc').textContent = 'Enter the email you used to subscribe. Your access unlocks instantly.';
+  signMandatory = !!mandatory;
+  signClose.style.display = signMandatory ? 'none' : '';
+  if (signJoin) signJoin.style.display = '';
+  document.getElementById('signTitle').textContent = signMandatory ? 'MEMBERS ONLY' : 'MEMBER ACCESS';
+  document.getElementById('signDesc').textContent = signMandatory
+    ? 'The table is for subscribers. Enter the email you used to subscribe to step inside.'
+    : 'Enter the email you used to subscribe. Your access unlocks instantly.';
   signVeil.classList.add('show');
   setTimeout(() => document.getElementById('signEmail').focus(), 150);
 }
 function closeSignIn(){
+  if (signMandatory) return;
   signVeil.classList.remove('show');
   document.getElementById('signEmail').value = '';
   document.getElementById('signErr').textContent = '';
@@ -1122,6 +1132,7 @@ function closeSignIn(){
 }
 async function submitSignIn(){
   const email = document.getElementById('signEmail').value.trim().toLowerCase();
+  const keep = document.getElementById('signKeep');
   const errEl = document.getElementById('signErr');
   const btn = document.getElementById('signBtn');
   if (!email || !email.includes('@')){ errEl.textContent = 'Please enter a valid email address.'; return; }
@@ -1133,7 +1144,14 @@ async function submitSignIn(){
     const data = await res.json();
     if (res.ok && data.access){
       if (data.access === 'owner') localStorage.setItem('alhaqq_owner', '1');
-      else { localStorage.setItem('alhaqq_sub_token', data.token); localStorage.setItem('alhaqq_sub_email', email); }
+      else if (keep && keep.checked){
+        localStorage.setItem('alhaqq_sub_token', data.token);
+        localStorage.setItem('alhaqq_sub_email', email);
+      } else {
+        sessionStorage.setItem('alhaqq_sub_token', data.token);
+        sessionStorage.setItem('alhaqq_sub_email', email);
+      }
+      signMandatory = false;
       closeSignIn();
       applyAccessState();
     } else {
@@ -1145,8 +1163,8 @@ async function submitSignIn(){
     btn.textContent = 'UNLOCK MY ACCESS'; btn.disabled = false; btn.style.opacity = '1';
   }
 }
-signPill.onclick = openSignIn;
-document.getElementById('signclose').onclick = closeSignIn;
+signPill.onclick = () => openSignIn(false);
+signClose.onclick = closeSignIn;
 signVeil.addEventListener('pointerdown', e => { if (e.target === signVeil) closeSignIn(); });
 document.getElementById('signBtn').onclick = submitSignIn;
 document.getElementById('signEmail').addEventListener('keydown', e => { if (e.key === 'Enter') submitSignIn(); });
@@ -1227,7 +1245,10 @@ el.addEventListener('pointerup', e => {
   pointerFromEvent(e);
   if (mode === 'hub' && !wasDrag){
     const b = hitBook();
-    if (b) openBook(b);
+    if (b){
+      if (!hasAccess()) openSignIn(true);
+      else openBook(b);
+    }
   } else if (mode === 'reading'){
     const r = hitSpread();
     if (!r) return;
@@ -1235,7 +1256,7 @@ el.addEventListener('pointerup', e => {
     else if (r.id === 'prev'){ active.page--; active.hover = null; flipTo(); }
     else if (r.id === 'back'){ active.view = 'toc'; active.hover = null; flipTo(); }
     else if (r.id === 'open'){
-      if (r.entry.locked && !hasAccess()) window.open('https://alhaqq.it.com/landing.html#pricing', '_blank', 'noopener');
+      if (r.entry.locked && !hasAccess()) openSignIn(true);
       else openReadPanel(r.entry, active.cat);
     }
     else if (r.entry){ active.view = 'entry'; active.entry = r.entry; active.hover = null; flipTo(); }
@@ -1427,5 +1448,11 @@ camPos.set(Math.cos(orbit) * 9.5, 6.4, Math.sin(orbit) * 9.5);
   books.forEach(b => { setSpread(b); });
   setTimeout(() => document.getElementById('loader').classList.add('gone'), 260);
   tick();
-  setTimeout(() => { checkSignInRedirect(); checkSubscribeRedirect(); }, 500);
+  setTimeout(() => {
+    const params = new URLSearchParams(location.search);
+    const hasRedirectParam = params.get('signin') === '1' || params.get('subscribed') === '1';
+    checkSignInRedirect();
+    checkSubscribeRedirect();
+    if (!hasRedirectParam && !hasAccess()) openSignIn(true);
+  }, 500);
 });
