@@ -967,7 +967,13 @@ const verseDB = {
     arabic: "بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ ۖ أَنَّىٰ يَكُونُ لَهُ وَلَدٌ وَلَمْ تَكُن لَّهُ صَاحِبَةٌ ۖ وَخَلَقَ كُلَّ شَيْءٍ",
     translation: "Originator of the heavens and the earth. How could He have a son when He does not have a companion, and He created all things?",
     ref: "Surah Al-An'am 6:101"
-  }
+  },
+  "4:79": { arabic: "مَّا أَصَابَكَ مِنْ حَسَنَةٍ فَمِنَ اللَّهِ ۖ وَمَا أَصَابَكَ مِن سَيِّئَةٍ فَمِن نَّفْسِكَ", translation: "Whatever good reaches you is from Allah, and whatever harm reaches you is from yourself.", ref: "Surah An-Nisa 4:79" },
+  "4:165": { arabic: "رُّسُلًا مُّبَشِّرِينَ وَمُنذِرِينَ لِئَلَّا يَكُونَ لِلنَّاسِ عَلَى اللَّهِ حُجَّةٌ بَعْدَ الرُّسُلِ", translation: "Messengers as bringers of good tidings and as warners, so that mankind will have no argument against Allah after the messengers.", ref: "Surah An-Nisa 4:165" },
+  "6:59": { arabic: "وَعِندَهُ مَفَاتِحُ الْغَيْبِ لَا يَعْلَمُهَا إِلَّا هُوَ ۚ وَيَعْلَمُ مَا فِي الْبَرِّ وَالْبَحْرِ ۚ وَمَا تَسْقُطُ مِن وَرَقَةٍ إِلَّا يَعْلَمُهَا", translation: "And with Him are the keys of the unseen; none knows them except Him. He knows what is on the land and in the sea. Not a leaf falls but that He knows it.", ref: "Surah Al-An'am 6:59" },
+  "7:33": { arabic: "وَأَن تَقُولُوا عَلَى اللَّهِ مَا لَا تَعْلَمُونَ", translation: "And do not say about Allah that which you do not know.", ref: "Surah Al-A'raf 7:33" },
+  "31:34": { arabic: "وَمَا تَدْرِي نَفْسٌ مَّاذَا تَكْسِبُ غَدًا ۖ وَمَا تَدْرِي نَفْسٌ بِأَيِّ أَرْضٍ تَمُوتُ", translation: "And no soul knows what it will earn tomorrow, and no soul knows in what land it will die.", ref: "Surah Luqman 31:34" },
+  "47:31": { arabic: "وَلَنَبْلُوَنَّكُمْ حَتَّىٰ نَعْلَمَ الْمُجَاهِدِينَ مِنكُمْ وَالصَّابِرِينَ", translation: "And We will surely test you until We make evident those who strive among you and the patient.", ref: "Surah Muhammad 47:31" }
 };
 
 const bibleDB = {
