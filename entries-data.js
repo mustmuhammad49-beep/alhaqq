@@ -938,6 +938,73 @@ People can reject this. Rejecting it does not make it incorrect.`,
       ref: "Surah Al-A'raf 7:33"
     }
   },
+  {
+    id: 45,
+    myth: "Allah calls Himself the First and the Last in the Quran, and Jesus calls himself the first and the last in Revelation, so they are making the same claim",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Apologists argue that since the Quran has Allah declare Himself the First and the Last, and Revelation has Jesus declare himself the first and the last, the beginning and the end, both are making the identical divine claim. Therefore, they conclude, either Jesus is God or the Quran has no grounds to deny it.",
+    rebuttal: `Grant the observation immediately, because it is true and it is also the whole of their case. Both texts use those words. Now look at the rule the argument runs on, that wearing a divine title means holding the divine identity. That rule is not a Muslim target. Their own Bible breaks it, and it breaks it in a way that hands you the method for reading Revelation.<br><br>
+
+<strong>Their own scripture gives divine titles to men who are not God, and attaches the disclaimer.</strong><br>
+God tells Moses in Exodus 7 verse 1 that He has made him as God to Pharaoh, and the next line completes the analogy by making Aaron his prophet. Psalm 82 verse 6 says of Israel's judges, I said, you are gods, and all of you are sons of the Most High. Now read the very next verse, because a sharp opponent will, and it is the best thing in the passage for this argument. Psalm 82 verse 7: nevertheless, you shall die like men, and fall like one of the princes. There is the pattern in a single stroke. Divine title granted, mortality stated in the next breath, deity denied. The psalm hands out the title and then tells you exactly how far it reaches, by pointing at death. Hold that pattern, because Revelation uses it too.<br><br>
+
+The same thing happens across the book. Human deliverers are called saviors in Nehemiah 9 verse 27, and Savior is God's own title. The Persian emperor Artaxerxes is addressed as king of kings in Ezra 7 verse 12, and King of kings is God's title too. In every case the title transfers and the identity does not.<br><br>
+
+<strong>And when Jesus is accused of claiming deity, this is the defense he picks.</strong><br>
+In John 10 verses 34 to 36, charged with blasphemy, he answers by quoting Psalm 82: is it not written in your Law, I said, you are gods? If he called them gods to whom the word of God came, and scripture cannot be broken, why do you accuse me of blasphemy? A Trinitarian will answer that this is an argument from lesser to greater, that Jesus is saying if mere judges can be called gods, how much more fitting for the one the Father sanctified and sent. Take that reading seriously, because it is a fair one, and then notice it does not help them. An argument from lesser to greater only works if the greater term is the same kind of term as the lesser one. The whole defense depends on son of God being a title that scripture can apply to those who are not God. If it necessarily meant deity, comparing himself to the judges would have made the blasphemy worse, not answered it.<br><br>
+
+So a shared title settles nothing by itself. What settles it is what each text says the title means, and both texts say, in the same sentence they use it.<br><br>
+
+<strong>What the Quran attaches to the title.</strong><br>
+Read the verse whole and do not stop at the halfway point, because the second half is the definition. Surah Al-Hadid 57:3: He is the First and the Last, the Manifest and the Hidden, and He has full knowledge of all things. The title and its grounds arrive in one breath. First, because nothing preceded Him. Last, because nothing outlasts Him. And knowledge of all things, with no gap, no limit, no exception. <a href="https://quran.com/57/3" target="_blank" rel="noopener"><em>↗ Surah Al-Hadid 57:3 in Arabic with translations</em></a><br><br>
+
+And the Quran keeps doing it. In 6:59, with Him are the keys of the unseen, and none knows them except Him. In 7:187, when people ask about the Hour, the messenger is instructed to answer that its knowledge is only with my Lord. In 42:11, there is nothing whatsoever like Him. The one who carries this title in the Quran has no beginning, no end, no equal, and no gap in His knowledge, and the text says so on the same page.<br><br>
+
+<strong>What Revelation attaches to the title.</strong><br>
+Now do exactly the same thing to the other text. Revelation 1 verses 17 and 18: I am the first and the last, and the living one. I died, and behold I am alive forever, and I have the keys of Death and Hades. Revelation 2 verse 8: the words of the first and the last, who died and came to life. <a href="https://biblehub.com/revelation/2-8.htm" target="_blank" rel="noopener"><em>↗ Revelation 2 verse 8, the first and the last, who died and came to life</em></a><br><br>
+
+There is the Psalm 82 pattern again, in the New Testament. Exalted title, and death stated in the same sentence. Be precise about what this does and does not prove, because a trained opponent will press exactly here. The clause who died and came to life is grammatically a description of the speaker, so nobody should claim it is a dictionary definition locked to the words. The argument is not grammatical, it is a pattern, and the pattern is what matters. In both places where this book explains what the title means on the lips of Jesus, the explanation it reaches for is dying and rising, not eternal being. Even the keys are held rather than owned, because someone handed them over.<br><br>
+
+Same words. Opposite grounds. One scripture qualifies the title upward by welding perfect knowledge to it. The other qualifies it downward, the way Psalm 82 did, by putting death right beside it.<br><br>
+
+<strong>The knowledge test, and the version of it that cannot be dodged.</strong><br>
+The Quran attaches omniscience to this title in the same verse. So put the question to the other text. In Mark 13 verse 32 Jesus says that concerning that day and that hour no one knows, not the angels in heaven, nor the Son, but only the Father. <a href="https://biblehub.com/mark/13-32.htm" target="_blank" rel="noopener"><em>↗ Mark 13 verse 32, not the Son, but only the Father</em></a><br><br>
+
+The standard reply is that this was the incarnate Jesus during his earthly ministry, self-limited, and that the glorified Christ of Revelation is under no such limit. So do not rest the point on Mark alone. Stay inside Revelation and watch the same subordination survive the resurrection. The book opens by saying this revelation was given to him by God, so the glorified Christ receives what he knows. In chapter 5 he must be found worthy and take the scroll from the hand of the one seated on the throne, which is knowledge handed over, not knowledge possessed. In chapter 3 verse 21 he sits on the Father's throne because he conquered. And in chapter 3 verse 12 he calls the Father my God, four times in one sentence, speaking from heaven in glory. The receiving does not stop at the resurrection. It runs through the entire book.<br><br>
+
+And if the answer is still that he did not know in his human nature while knowing in his divine nature, then one person both knows and does not know the same fact at the same moment. That is either a plain contradiction or two knowing subjects sharing one body, and the second is the position their own councils condemned as heresy.<br><br>
+
+<strong>The counter they will fire back, and it deserves a straight answer.</strong><br>
+A well-read opponent will turn this around: your own Quran gives Jesus things that belong to God. In 3:49 he says he creates from clay the form of a bird and breathes into it, that he raises the dead, and that he tells people what they eat and store in their houses. Creating, raising the dead, and hidden knowledge. Answer it with the entry's own method, which is to read what the text attaches. The Quran attaches the qualifier every single time, in the same sentence: it becomes a bird by permission of Allah, and he raises the dead by permission of Allah. In 5:110 God recounts the same events and repeats by My leave at every step. The permission clause is not a footnote a defender adds later. It is written into the verse beside each act.<br><br>
+
+That is precisely the point being made about Revelation. Both scriptures hand exalted things to Jesus. Both scriptures attach a qualifier in the same breath. The Quran attaches by God's permission. Revelation attaches who died and came to life, and my God, and the scroll received from the throne. Neither text leaves the reader to guess, and neither text produces a second God.<br><br>
+
+<strong>The entity test.</strong><br>
+A title is only as absolute as the one wearing it. In the Quran the bearer has nothing before Him, nothing after Him, nothing like Him, and no limit on His knowledge. In Revelation the bearer dies, is raised, holds keys that were given to him, receives the scroll from the hand of the one on the throne, is granted a place on the Father's throne because he conquered, and calls the Father my God from heaven. Two beings that different are not making one claim.<br><br>
+
+<strong>The fork, and be exact about what it does.</strong><br>
+This next argument does not prove there are two Gods. It proves something narrower and more useful: that the title by itself cannot establish their doctrine.<br><br>
+
+In the Quran this title belongs to Allah and to nobody else. No prophet carries it, no angel carries it, not once. In Revelation the full title is worn by two distinct figures. The one seated on the throne says it in chapter 21 verse 6. Jesus says it in chapter 22 verse 13, and chapter 22 verse 16 names him. So either the title marks exclusive divine identity, in which case two distinct figures are wearing an exclusive identity and something has to give, or it does not mark exclusive identity, in which case wearing it proves nothing. The only escape is to say that two distinct persons share one being, which is the Trinity, which is the very thing this argument was brought to prove. The title cannot carry the doctrine if the doctrine has to be assumed first to make the title work.<br><br>
+
+<strong>And Isaiah is not the rescue they think it is.</strong><br>
+They will reach for Isaiah 44 verse 6, where the LORD says I am the first and I am the last, and besides me there is no god. Notice what that verse adds that Revelation never adds: an exclusivity clause. The Quran adds one too, in 42:11, there is nothing whatsoever like Him. Revelation, on the lips of Jesus, attaches no such clause anywhere. It attaches death, and a God he calls his own. When a title comes with an exclusivity clause it fences everyone else out, and when it comes with a death clause it fences the bearer in. The two texts are doing opposite work with the same words.<br><br>
+
+<strong>One point of precision, so nobody can spring it.</strong><br>
+In Revelation chapter 22 verse 13 the titles are stacked with no death clause attached. That is true and it should be said out loud rather than hidden. It is also not a problem. In the two places where the book explains what the title means on Jesus's lips, chapter 1 and chapter 2, it explains it by dying and rising. The third occurrence assumes the meaning already established. And the speaker there is the same one who calls the Father my God and receives the scroll from a hand above his own.<br><br>
+
+<strong>So the two claims are not the same claim.</strong><br>
+One text says First and Last, explains it by uncreated priority and perfect knowledge, fences it with there is nothing like Him, and gives it to no one else, ever. The other says first and last, explains it by death and resurrection, attaches no exclusivity clause, and gives it to two distinct figures, one of whom calls the other his God. The words match. Nothing else does.<br><br>
+
+People can reject this. Rejecting it does not make it incorrect.`,
+    verse: {
+      arabic: "هُوَ الْأَوَّلُ وَالْآخِرُ وَالظَّاهِرُ وَالْبَاطِنُ ۖ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ",
+      translation: "He is the First and the Last, the Manifest and the Hidden, and He has full knowledge of all things.",
+      ref: "Surah Al-Hadid 57:3"
+    }
+  },
  {
  id: 6,
  myth: "The Quran endorses slavery — Islam is incompatible with human rights",
