@@ -1005,6 +1005,52 @@ People can reject this. Rejecting it does not make it incorrect.`,
       ref: "Surah Al-Hadid 57:3"
     }
   },
+  {
+    id: 46,
+    myth: "The Quran says the Children of Israel inherited Egypt, but the Torah says they left Egypt for Canaan, so one of the two books is wrong",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: true,
+    claim: "Apologists point to 26:57 through 26:59, where Allah removes Pharaoh's people from gardens, springs, treasures and a noble station, and then says He caused the Children of Israel to inherit it. They read this as the Quran handing Egypt itself to Israel. Since the Torah has Israel leaving Egypt and receiving Canaan instead, they argue the two books cannot both be right. Some push it further and say the Quran turns let my people go into let my people stay, and that the only Muslim escape left is to claim the Jews corrupted the Torah, which would mean Passover and the entire Exodus account were invented.",
+    rebuttal: `Concede the first point in the opening breath, because it is true and pretending otherwise costs the whole exchange. 26:59 is about Egyptian property. Gardens, springs, treasures, a noble station. Nobody needs to deny that. The argument does not turn on whether the property was Egyptian. It turns on whether taking a nation's valuables is the same thing as being given that nation's territory. It is not, and the Quran itself is the one that draws the line.<br><br>
+
+<strong>First, correct the factual error, calmly.</strong><br>
+The claim that the Quran replaces let my people go with let my people stay is simply false, and it is checkable in under a minute. Moses makes the demand in four separate places. 26:17, send with us the Children of Israel. 20:47, send with us the Children of Israel, and do not torment them. 7:105, send with me the Children of Israel. 44:18, hand over to me the servants of Allah. The Hebrew of Exodus 5 verse 1 is shalach, meaning send. The Arabic is arsil, meaning send. The English let go is a translator's choice. Same demand, same verb, four times over. Do not gloat over this. Read the verses and move on. The correction is the whole point.<br><br>
+
+<strong>Second, the Quran has a template for handing over territory, and it did not use it here.</strong><br>
+This is the centre of the whole reply. Look at 33:27, which is what territorial inheritance actually looks like in the Quran: their land, and their homes, and their properties, and a land you had not trodden. The word land appears twice in a single verse. Homes are named. Now put that beside the object list in 26:58: gardens, springs, treasures, a noble station. No land. No homes. It is an inventory of valuables, not a deed. The Quran knows how to say we gave you their country, it says it plainly in 33:27, and it does not say it in Surah Ash-Shu'ara. That is not an argument from silence about a place name. It is the Quran's own drafting pattern inside the same verb.<br><br>
+
+<strong>Third, their own Bible reports the same event.</strong><br>
+Exodus 3 verse 22 has God telling Israel they will ask the Egyptians for silver, gold and clothing, and that they will spoil the Egyptians. Exodus 12 verses 35 to 36 records it happening. Israel walked out of Egypt carrying Egyptian wealth. The Quran says Israel was made to inherit Egyptian gardens, springs, treasures and station. That is the same event described twice. What is being sold as a contradiction is a match, and the corroboration comes from the accuser's own scripture.<br><br>
+
+<strong>Fourth, the Quran's Promised Land cannot be Egypt, and this needs nothing from the Bible.</strong><br>
+Read 5:21 through 5:26 and count what the land requires. Moses says enter it, and a person only enters what he is standing outside of. 5:22 says a people of tyrannical strength already occupy it and must leave before Israel can go in. The next verse describes taking it through a gate, and says that entering the gate means victory, so it is defended ground. 5:26 says that when they refused, the land was forbidden to them for forty years while they wandered. Now hold that against Egypt at that exact moment in the Quran's own narrative. Pharaoh is drowned, his army is destroyed, and Israel has already walked out. There is no occupying force to displace, no gate to storm, and they are not standing outside it. The description does not fit Egypt at any point.<br><br>
+
+<strong>Fifth, the Quran tells the story in the Torah's order.</strong><br>
+Living in Egypt at 10:87. Leaving by night at 26:52 and 44:23. Crossing the sea while Pharaoh drowns at 10:90 and 7:138. In the wilderness with manna and quails at 2:57, and water struck from a rock into twelve springs for twelve tribes at 2:60 and 7:160. Then commanded to enter a land held by a strong people at 5:21 and 5:22. Then refusing, and forty years of wandering at 5:26. That is Exodus and Numbers in sequence, including the giants of Numbers 13 verses 32 to 33 and the forty years of Numbers 14 verses 33 to 34. A confused retelling does not land manna, quails, twelve springs, giants and forty years in the correct order. Ask the opponent to name the step that is out of place. If he cannot name one, he is not calling the account garbled, he is confirming it.<br><br>
+
+<strong>Sixth, the Surah 28 objection, which is the strongest thing they have.</strong><br>
+28:6 says Allah will establish them in the land and show Pharaoh and Haman and their soldiers what they feared, and the objection is that Pharaoh must have been alive to see it, so the establishing must have happened in Egypt. Grant that Pharaoh was alive. He was. 7:127 records exactly what he feared, which was Moses and his people slipping his control and abandoning him and his gods. What he was shown was that fear arriving. They walked out, he chased them, and he drowned in the attempt. He was alive for all of it.<br><br>
+
+But the verse is not a timeline. 28:5 opens with the words We intended that, and five things follow: favour them, make them leaders, make them inheritors, establish them, show Pharaoh. They are joined by the Arabic word wa, which means and. It is a list of intentions, not a clock. And the surah settles the meaning of the word inheritors by itself. 28:58, same surah, says of destroyed cities that their dwellings were not lived in after them except briefly, and that Allah was the inheritor. There the inheritor is Allah and the houses stand empty. If 28:5 forces Israel to occupy Egypt, then 28:58 forces Allah to occupy abandoned villages. The word does not carry that weight in this surah.<br><br>
+
+<strong>Seventh, the vocabulary test again.</strong><br>
+43:51 has Pharaoh boasting, does the kingdom of Egypt not belong to me, and these rivers flowing beneath me. The phrase kingdom of Egypt exists in the Quran, in Pharaoh's own mouth. It is never once transferred to the Children of Israel. Not in 28:5, not in 28:6, not anywhere.<br><br>
+
+<strong>Eighth, use their map, and say plainly that it is theirs.</strong><br>
+21:71 says Abraham and Lot were delivered to the land Allah blessed. The Quran does not name that place. Genesis does. Genesis 12 verse 5 has Abram entering the land of Canaan, and Genesis 13 verse 12 has Lot settling in the plain of Jordan. 7:137 then says the oppressed inherited the east and west of that same blessed land. So the opponent cannot make 7:137 mean Egypt without also making Abraham's destination Egypt, out of his own Bible. This move only works on someone who already accepts Genesis, and that should be stated out loud rather than hidden. Against a Christian it is exactly the right tool, because he brought the map himself.<br><br>
+
+<strong>What this entry does not claim.</strong><br>
+It does not claim the Quran names Canaan, Palestine or Jerusalem. It never does. It does not claim the Torah was corrupted on this point, because nothing here shows that. And it does not claim 26:59 refers to something other than Egyptian property, because it does. Those three concessions are what make the rest hold. The Muslim argument being mocked in these clips, that Egypt was the real Promised Land and the Jews edited it into Canaan, is an overreach built on an unnamed pronoun, and it deserved to lose. Do not carry it.<br><br>
+
+<strong>The close.</strong><br>
+Give the opponent everything and ask what he bought. Say that the establishing happened in Egypt while Pharaoh lived. Fine. 5:21 still sends them to a land held by a strong people. 5:22 still has them refuse it. 5:26 still gives them forty years of wandering for the refusal. All of that is in the same book. So either 28:6 was never about a permanent home in Egypt, or the Quran contradicts itself four surahs later. If that is the claim, it needs saying plainly, because the subject has just changed from the Torah to the Quran, and that is a case he would have to prove rather than assert.`,
+    verse: {
+      arabic: "يَٰقَوْمِ ٱدْخلُوا۟ ٱلْأَرْضَ ٱلْمُقَدَّسَةَ ٱلَّتِى كَتَبَ ٱللَّهُ لكُمْ وَلَا تَرْتَدُّوا۟ عَلَىٰٓ أَدْبَارِكُمْ فَتَنقَلِبُوا۟ خَٰسِرِينَ",
+      translation: "O my people, enter the Holy Land which Allah has assigned to you and do not turn back and thus become losers.",
+      ref: "Surah Al-Ma'idah 5:21"
+    }
+  },
  {
  id: 6,
  myth: "The Quran endorses slavery — Islam is incompatible with human rights",
