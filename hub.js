@@ -1263,6 +1263,25 @@ el.addEventListener('pointerup', e => {
   }
 });
 
+/* swipe prev/next entry inside reading mode */
+let touchStartX = 0, touchStartY = 0;
+el.addEventListener('touchstart', e => {
+  if (mode !== 'reading' || !active || active.view !== 'entry') return;
+  const t = e.changedTouches[0];
+  touchStartX = t.clientX; touchStartY = t.clientY;
+}, { passive: true });
+el.addEventListener('touchend', e => {
+  if (mode !== 'reading' || !active || active.view !== 'entry' || flipping) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touchStartX, dy = t.clientY - touchStartY;
+  if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+  const list = active.list;
+  const idx = list.indexOf(active.entry);
+  if (idx === -1) return;
+  const nextIdx = dx < 0 ? (idx + 1) % list.length : (idx - 1 + list.length) % list.length;
+  active.entry = list[nextIdx]; active.hover = null; flipTo();
+}, { passive: true });
+
 /* page-turn animation */
 let flip = 0, flipping = false, flipSwapped = false;
 function flipTo(){ flipping = true; flip = 0; flipSwapped = false; active.flipPivot.visible = true; }
@@ -1327,7 +1346,9 @@ function tick(){
     targetPos = tmpV.set(Math.cos(orbit) * r, 5.0, Math.sin(orbit) * r).clone();
     targetLook = new THREE.Vector3(0, TABLE_TOP + 1.05, 0);
   } else {
-    targetPos = new THREE.Vector3(0, READ_POS.y + 3.45, READ_POS.z + 1.7);
+    const aspect = innerWidth / innerHeight;
+    const mobileFactor = aspect < 0.75 ? (0.75 / aspect) : 1;
+    targetPos = new THREE.Vector3(0, READ_POS.y + 3.45 * mobileFactor, READ_POS.z + 1.7 * mobileFactor);
     targetLook = new THREE.Vector3(0, READ_POS.y + 0.28, READ_POS.z - 0.05);
   }
   const k = Math.min(1, dt * (mode === 'hub' ? 2.2 : 2.6));
