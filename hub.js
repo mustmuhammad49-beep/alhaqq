@@ -1318,10 +1318,15 @@ addEventListener('keydown', e => {
   else { veil.classList.remove('show'); if (mode === 'reading') closeBook(); }
 });
 
-addEventListener('resize', () => {
+function syncViewport(){
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
-});
+}
+addEventListener('resize', syncViewport);
+// mobile browsers (esp. iOS Safari) can report stale innerWidth/innerHeight the instant
+// 'resize' fires during a rotation, before the address-bar animation settles - re-sync
+// a beat after 'orientationchange' as well so the camera actually catches up.
+addEventListener('orientationchange', () => setTimeout(syncViewport, 300));
 
 /* ─────────────────────────── loop ─────────────────────────── */
 const clock = new THREE.Clock();
@@ -1347,7 +1352,7 @@ function tick(){
     targetLook = new THREE.Vector3(0, TABLE_TOP + 1.05, 0);
   } else {
     const aspect = innerWidth / innerHeight;
-    const mobileFactor = aspect < 0.75 ? (0.75 / aspect) : 1;
+    const mobileFactor = aspect < 0.75 ? (1.3 / aspect) : 1;
     targetPos = new THREE.Vector3(0, READ_POS.y + 3.45 * mobileFactor, READ_POS.z + 1.7 * mobileFactor);
     targetLook = new THREE.Vector3(0, READ_POS.y + 0.28, READ_POS.z - 0.05);
   }
