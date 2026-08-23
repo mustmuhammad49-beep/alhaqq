@@ -1084,6 +1084,50 @@ Give the opponent everything and ask what he bought. Say that the establishing h
  }
  },
  {
+ id: 49,
+ myth: "The Quran has thousands of differences between recitations",
+ source: "christian",
+ difficulty: "Intermediate",
+ quickAnswer: "15:9. A difference is only a contradiction if both readings can't be true at once. Run every example through that test before calling the Quran unpreserved.",
+ reply: "Most of what critics list is pronunciation only. What's left splits into same-event, who-not-whether, and two real legal cases, 5:6 and 2:222, where both readings still land on the same obligation. 3:7 already tells you the Quran holds decisive and derivable verses side by side, then 4:83 and 39:18 command believers to derive from it. 4:82 is still the open test: bring one real contradiction, not a vowel.",
+ locked: false,
+ claim: "There are thousands of differences between the accepted recitations of the Quran, the qira'at. A book that is perfectly preserved should have one reading, not many. Some of these differences change the law itself, so the claim of preservation collapses.",
+ rebuttal: `<p>Pin the word first. A <strong>contradiction</strong> is two statements that cannot both be true at the same time. If both can be true, it is variation, not contradiction. Hold the critic to that definition before going further.</p>
+
+<p><strong>Why the differences exist</strong><br>Early Arabic writing recorded consonants. Short vowels and most distinguishing dots were not on the page. The reader carried them by memory. So one written word could legitimately be voiced in more than one way. Nearly all of these differences live there: in how a word is spoken, not in what is written.</p>
+
+<p>Marijn van Putten, a non-Muslim manuscript scholar, argues the oldest surviving copies all descend from a single early written original. The manuscript record supports the Quran's own claim at 15:9.</p>
+
+<p><strong>The categories: run every example through them</strong></p>
+
+<p><strong>1. Sound only.</strong> Vowel length, softness of a letter. No meaning change. This is the majority of every list critics produce.</p>
+
+<p><strong>2. Same event, different angle.</strong> "We" vs "He," active vs passive. The event is identical either way.</p>
+
+<p><strong>3. Who, not whether.</strong> One dot turns "they do" into "you do." The action is true in both.</p>
+
+<p><strong>4. 10:16, main letters involved.</strong> One reading has God saying he would NOT have made it known to you; the other, that he WOULD have, through a different messenger. These are two statements about two different situations. Both can be true at once. Both land on the same conclusion: this man did not author it.</p>
+
+<p><strong>5. Where practice shifts, take these head on.</strong></p>
+<ul>
+<li>2:222: one reading marks purity at the end of bleeding, another at washing. Both sit inside one instruction: apart during, return after. They disagree on where the line falls, not whether there is a line. Narrower is not opposite.</li>
+<li>5:6 (wudu): the ending on "your feet" decides washing or wiping. Real difference, real consequence. But ask the critic directly: does either reading produce a person who has NOT performed wudu? No. Both name the same four limbs, in the same order, for the same purification. The disagreement is method on the final limb inside an obligation both readings command identically.</li>
+</ul>
+
+<p><strong>Their fallback, and the answer</strong><br>Once the meanings reconcile, the honest critic retreats to: "Why does a preserved text permit ANY legal variation?" That question smuggles in a definition: it assumes preservation means identical law for every reader. The Quran never claims that. 3:7 states outright that some verses are decisive and others are not. The book announces its own interpretive range before any critic arrives to find it. Then it commands the use of that range: 4:83, 39:18, 47:24.</p>
+
+<p>Derivation is the instruction, not a crack in the text.</p>
+
+<p><strong>Apply the standard evenly.</strong> Every legal document ever written, transmitted word for word, produces disagreement the moment people apply it. Two rulings from one constitution. Nobody concludes the constitution was corrupted. They conclude it was read.</p>
+
+<p><strong>The close.</strong> 4:82 gives the test. If this were from anyone other than God, you would find much contradiction in it. Not a vowel. Not a dot. Contradiction: laws that cancel each other, accounts that collapse, promises that fail. Bring one.</p>`,
+ verse: {
+ arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُۥ لَحَـٰفِظُونَ",
+ translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
+ ref: "Surah Al-Hijr 15:9"
+ }
+ },
+ {
  id: 6,
  myth: "The Quran endorses slavery — Islam is incompatible with human rights",
  source: "secular",

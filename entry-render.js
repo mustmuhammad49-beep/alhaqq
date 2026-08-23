@@ -334,6 +334,26 @@ const verseDB = {
     translation: "Do they not reflect upon the Quran? Had it been from other than Allah, they would have found within it much contradiction.",
     ref: "Surah An-Nisa 4:82"
   },
+  "4:83": {
+    arabic: "وَلَوْ رَدُّوهُ إِلَى الرَّسُولِ وَإِلَىٰٓ أُو۟لِى الْأَمْرِ مِنْهُمْ لَعَلِمَهُ الَّذِينَ يَسْتَنۢبِطُونَهُۥ مِنْهُمْ",
+    translation: "If they had referred it to the Messenger and to those of authority among them, those who draw it out would have known it.",
+    ref: "Surah An-Nisa 4:83"
+  },
+  "39:18": {
+    arabic: "الَّذِينَ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُۥٓ",
+    translation: "Those who listen to speech and follow the best of it.",
+    ref: "Surah Az-Zumar 39:18"
+  },
+  "47:24": {
+    arabic: "أَفَلَا يَتَدَبَّرُونَ الْقُرْءَانَ أَمْ عَلَىٰ قُلُوبٍ أَقْفَالُهَآ",
+    translation: "Do they not reflect upon the Quran, or are there locks upon their hearts?",
+    ref: "Surah Muhammad 47:24"
+  },
+  "10:16": {
+    arabic: "قُل لَّوْ شَآءَ اللَّهُ مَا تَلَوْتُهُۥ عَلَيْكُمْ وَلَآ أَدْرَىٰكُم بِهِۦ",
+    translation: "Say: If God had willed, I would not have recited it to you, nor would He have made it known to you.",
+    ref: "Surah Yunus 10:16"
+  },
   "4:101": {
     arabic: "وَإِذَا ضَرَبْتُمْ فِي الْأَرْضِ فَلَيْسَ عَلَيْكُمْ جُنَاحٌ أَن تَقْصُرُوا مِنَ الصَّلَاةِ",
     translation: "And when you travel throughout the land, there is no blame upon you for shortening the prayer.",
