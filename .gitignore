@@ -14,3 +14,8 @@ node_modules/
 
 # Impeccable design-hook local cache/config
 .impeccable/
+
+# Scratch/temp files — never deploy
+.extract-*.txt
+deploy-entry44.bat
+wheel-hub-prototype.html
