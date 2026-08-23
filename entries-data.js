@@ -572,16 +572,44 @@ People can reject this. Rejecting it does not make it incorrect.`,
  },
  {
  id: 31,
- myth: "The ten qira'at contradict each other, so there is no single preserved Quran",
+ myth: "The Quran has thousands of differences between recitations",
  source: "christian",
- difficulty: "Advanced",
+ difficulty: "Intermediate",
  locked: false,
- claim: "Islam has ten canonical qira'at, and they do not match each other. One recitation reads a word one way and another negates it. In Quran 10:16, one mode says God 'would not' make the revelation known, while another says He 'would.' Other readings even change rulings of law. If the Quran were genuinely preserved and authored by God, every recitation would be identical letter for letter. These differences prove either textual corruption or human authorship. And by the Quran's own standard in 4:82, a book from God should contain no contradiction at all.",
- rebuttal: `The critic wants you to hear "thousands of differences" and panic. Do not. Every single difference between the recitations fits into one of a few simple types, and not one of those types is a contradiction. There is one preserved Quran (15:9). The ten ways of reciting it are ten allowed ways of reading that one text. They are not ten different books.<br><br><strong>So why do these differences exist at all?</strong> Think of the Quran as one written text. The main letters are the same. But back then, the small vowel marks and the little dots over the letters were not written on the page. The reader knew them by heart. So the same written word could be said correctly in more than one way. That is where most of the differences come from. Just the vowels and the dots sitting on top of the same letters. A small number of differences are bigger than that. They are in the letters themselves, not just the marks. But there are only a few of these, they were known and written down openly from the very start, and even they never turn a meaning into its opposite. You will see one below, and it is still not a contradiction.<br><br><strong>And here is the part that lands hardest.</strong> This is not just Muslims saying the text was kept safe. A non-Muslim scholar named Marijn van Putten studied the oldest surviving copies of the Quran and found that they all trace back to one single early written original. A man who is not even Muslim looked at the oldest manuscripts and concluded the written text goes back to one source. That is not a believer defending his book. That is the evidence speaking on its own.<br><br><strong>Two words you should know.</strong> Scholars use two different words for the idea of difference. One is tanawwu, which means variety. The other is tadadd, which means contradiction. Every difference in the recitations is the first kind, variety. Not one of them is the second kind. Here are the only types there are.<br><br><strong>Type 1. Just the sound.</strong> No letter changes. No meaning changes. Only how the mouth says it. How long you hold a vowel, how soft a letter is. Think of the word tomato. One person says it one way, another says it a little differently. Same word on paper. Same fruit in your hand.<br><br><strong>Type 2. A small mark that changes the angle, not the fact.</strong> A tiny vowel mark can turn a word from "We" to "He," or from "he did it" to "it was done." The thing that happened stays exactly the same. It is like saying "I opened the door" or "the door was opened." Same door. Same moment. Just told from a different side. Type 1 and Type 2 together are the huge majority of all the differences.<br><br><strong>Type 3. The dots move, which changes who, not whether.</strong> In Arabic, some letters are only told apart by a dot above or below. Move the dot and "they do" becomes "you do." The action is true either way. It is like a coach saying "they played well" about his team, then turning to the players and saying "you played well." Same game. Just spoken to a different person.<br><br><strong>Type 4. One reading says out loud what the other left unsaid.</strong> This is the famous one the critics love, in 10:16. And yes, this one is a difference in the letters, not just the marks. One reading has God saying he "would not" have made it known to you. The other has God saying he "would" have made it known to you, meaning through a different messenger, not through Muhammad. Look closely. The second reading is not erasing the first. One says "not through me." The other says "God could have used someone else." Those are two different statements. They are not a yes and a no about the same thing. And both prove the very same point: Muhammad did not write the Quran, God sent it down. Think of two people describing a car. One says "it was red." The other says "it was a Toyota." That is not a clash. That is two true facts that together give you a clearer picture.<br><br><strong>Type 5. Sometimes a reading changes a small point of practice.</strong> This is the honest one, and it is still not a contradiction. In 2:222, about a husband and wife coming back together after the wife's monthly cycle, one reading says wait until the bleeding stops. Another says wait until she has fully washed. So what did the scholars do with the two readings? They kept both. One group followed the first, another followed the second, and the believer ends up with more guidance, not less. Two readings, two allowed practices, both passed down with care. A book that truly fought against itself would force you to pick one and throw the other in the bin. This one lets both stand.<br><br><strong>Five kinds of difference. Not one of them is the Quran turning against itself.</strong> And this is exactly why the Quran passes the very test the critic throws at it. 4:82 says that if this book were from anyone other than God, you would find in it a lot of contradiction. Not a different vowel. Real contradiction. Laws that cancel each other out. Stories that do not add up. Promises that fail. The recitations have none of that. They have variety, and one single author can hand you variety on purpose. A faker trips over himself a thousand times. The recitations do not trip even once.<br><br><strong>Now hold this up against the book the critic is defending.</strong> In the Bible, the differences are not little accents and vowels. Whole chunks of text are in some old copies and simply gone from others. The last twelve verses of Mark, the ones with Jesus appearing after death and the part about handling snakes, are missing from the oldest copies. The story of the woman caught in adultery in John chapter 8 is not in the earliest copies. The single clearest verse for the Trinity, First John chapter 5 verse 7, was added in centuries later and is quietly dropped from modern Bibles. Nobody says those were different intended readings. They are whole pieces added and removed by human hands. The point is not that the Bible's mess makes the Quran true. The point is the double standard. A person who accepts whole verses appearing and disappearing in his own book, and still calls it the word of God, has no ground left to attack the Quran over a single vowel that does not even change the meaning. One of these books carries variety. The other carries edits.<br><br>People can reject this. Rejecting it does not make it incorrect.`,
+ claim: `<p>There are thousands of differences between the accepted recitations of the Quran — the qira'at. A book that is perfectly preserved should have one reading, not many. Some of these differences change the law itself, so the claim of preservation collapses.</p>`,
+ rebuttal: `<p>Pin the word first. A <strong>contradiction</strong> is two statements that cannot both be true at the same time. If both can be true, it is variation — not contradiction. Hold the critic to that definition before going further.</p>
+
+<p><strong>Why the differences exist</strong><br>Early Arabic writing recorded consonants. Short vowels and most distinguishing dots were not on the page — the reader carried them by memory. So one written word could legitimately be voiced in more than one way. Nearly all of these differences live there: in how a word is spoken, not in what is written.</p>
+
+<p>Marijn van Putten — a non-Muslim manuscript scholar — argues the oldest surviving copies all descend from a single early written original. The manuscript record supports the Quran's own claim at <span class="verse-ref" data-ref="15:9">15:9</span>.</p>
+
+<p><strong>The categories — run every example through them</strong></p>
+
+<p><strong>1. Sound only.</strong> Vowel length, softness of a letter. No meaning change. This is the majority of every list critics produce.</p>
+
+<p><strong>2. Same event, different angle.</strong> "We" vs "He," active vs passive. The event is identical either way.</p>
+
+<p><strong>3. Who, not whether.</strong> One dot turns "they do" into "you do." The action is true in both.</p>
+
+<p><strong>4. <span class="verse-ref" data-ref="10:16">10:16</span> — main letters involved.</strong> One reading has God saying he would NOT have made it known to you; the other, that he WOULD have, through a different messenger. These are two statements about two different situations. Both can be true at once. Both land on the same conclusion: this man did not author it.</p>
+
+<p><strong>5. Where practice shifts — take these head on.</strong></p>
+<ul>
+<li><span class="verse-ref" data-ref="2:222">2:222</span>: one reading marks purity at the end of bleeding, another at washing. Both sit inside one instruction — apart during, return after. They disagree on where the line falls, not whether there is a line. Narrower is not opposite.</li>
+<li><span class="verse-ref" data-ref="5:6">5:6</span> (wudu): the ending on "your feet" decides washing or wiping. Real difference, real consequence. But ask the critic directly: does either reading produce a person who has NOT performed wudu? No. Both name the same four limbs, in the same order, for the same purification. The disagreement is method on the final limb inside an obligation both readings command identically.</li>
+</ul>
+
+<p><strong>Their fallback — and the answer</strong><br>Once the meanings reconcile, the honest critic retreats to: "Why does a preserved text permit ANY legal variation?" That question smuggles in a definition — it assumes preservation means identical law for every reader. The Quran never claims that. <span class="verse-ref" data-ref="3:7">3:7</span> states outright that some verses are decisive and others are not. The book announces its own interpretive range before any critic arrives to find it. Then it commands the use of that range: <span class="verse-ref" data-ref="4:83">4:83</span>, <span class="verse-ref" data-ref="39:18">39:18</span>, <span class="verse-ref" data-ref="47:24">47:24</span>.</p>
+
+<p>Derivation is not a crack in the text. It is the instruction.</p>
+
+<p><strong>Apply the standard evenly.</strong> Every legal document ever written, transmitted word for word, produces disagreement the moment people apply it. Two rulings from one constitution — nobody concludes the constitution was corrupted. They conclude it was read.</p>
+
+<p><strong>The close.</strong> <span class="verse-ref" data-ref="4:82">4:82</span> gives the test. If this were from anyone other than God, you would find much contradiction in it. Not a vowel. Not a dot. Contradiction — laws that cancel each other, accounts that collapse, promises that fail. Bring one.</p>`,
  verse: {
- arabic: "أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ ۚ وَلَوْ كَانَ مِنْ عِندِ غَيْرِ اللَّهِ لَوَجَدُوا فِيهِ اخْتِلَافًا كَثِيرًا",
- translation: "Do they not then reflect upon the Quran? Had it been from other than Allah, they would have found within it much contradiction.",
- ref: "Surah An-Nisa 4:82"
+ arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُۥ لَحَـٰفِظُونَ",
+ translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
+ ref: "Surah Al-Hijr 15:9"
  }
  },
  {
@@ -1081,50 +1109,6 @@ Give the opponent everything and ask what he bought. Say that the establishing h
  arabic: "أَمْ أَنزَلْنَا عَلَيْهِمْ سُلْطَٰنًۭا فَهُوَ يَتَكَلَّمُ بِمَا كَانُوا۟ بِهِۦ يُشْرِكُونَ",
  translation: "Or have We sent down to them an authority, and it speaks of what they were associating with Him?",
  ref: "Surah Ar-Room 30:35"
- }
- },
- {
- id: 49,
- myth: "The Quran has thousands of differences between recitations",
- source: "christian",
- difficulty: "Intermediate",
- quickAnswer: "15:9. A difference is only a contradiction if both readings can't be true at once. Run every example through that test before calling the Quran unpreserved.",
- reply: "Most of what critics list is pronunciation only. What's left splits into same-event, who-not-whether, and two real legal cases, 5:6 and 2:222, where both readings still land on the same obligation. 3:7 already tells you the Quran holds decisive and derivable verses side by side, then 4:83 and 39:18 command believers to derive from it. 4:82 is still the open test: bring one real contradiction, not a vowel.",
- locked: false,
- claim: "There are thousands of differences between the accepted recitations of the Quran, the qira'at. A book that is perfectly preserved should have one reading, not many. Some of these differences change the law itself, so the claim of preservation collapses.",
- rebuttal: `<p>Pin the word first. A <strong>contradiction</strong> is two statements that cannot both be true at the same time. If both can be true, it is variation, not contradiction. Hold the critic to that definition before going further.</p>
-
-<p><strong>Why the differences exist</strong><br>Early Arabic writing recorded consonants. Short vowels and most distinguishing dots were not on the page. The reader carried them by memory. So one written word could legitimately be voiced in more than one way. Nearly all of these differences live there: in how a word is spoken, not in what is written.</p>
-
-<p>Marijn van Putten, a non-Muslim manuscript scholar, argues the oldest surviving copies all descend from a single early written original. The manuscript record supports the Quran's own claim at 15:9.</p>
-
-<p><strong>The categories: run every example through them</strong></p>
-
-<p><strong>1. Sound only.</strong> Vowel length, softness of a letter. No meaning change. This is the majority of every list critics produce.</p>
-
-<p><strong>2. Same event, different angle.</strong> "We" vs "He," active vs passive. The event is identical either way.</p>
-
-<p><strong>3. Who, not whether.</strong> One dot turns "they do" into "you do." The action is true in both.</p>
-
-<p><strong>4. 10:16, main letters involved.</strong> One reading has God saying he would NOT have made it known to you; the other, that he WOULD have, through a different messenger. These are two statements about two different situations. Both can be true at once. Both land on the same conclusion: this man did not author it.</p>
-
-<p><strong>5. Where practice shifts, take these head on.</strong></p>
-<ul>
-<li>2:222: one reading marks purity at the end of bleeding, another at washing. Both sit inside one instruction: apart during, return after. They disagree on where the line falls, not whether there is a line. Narrower is not opposite.</li>
-<li>5:6 (wudu): the ending on "your feet" decides washing or wiping. Real difference, real consequence. But ask the critic directly: does either reading produce a person who has NOT performed wudu? No. Both name the same four limbs, in the same order, for the same purification. The disagreement is method on the final limb inside an obligation both readings command identically.</li>
-</ul>
-
-<p><strong>Their fallback, and the answer</strong><br>Once the meanings reconcile, the honest critic retreats to: "Why does a preserved text permit ANY legal variation?" That question smuggles in a definition: it assumes preservation means identical law for every reader. The Quran never claims that. 3:7 states outright that some verses are decisive and others are not. The book announces its own interpretive range before any critic arrives to find it. Then it commands the use of that range: 4:83, 39:18, 47:24.</p>
-
-<p>Derivation is the instruction, not a crack in the text.</p>
-
-<p><strong>Apply the standard evenly.</strong> Every legal document ever written, transmitted word for word, produces disagreement the moment people apply it. Two rulings from one constitution. Nobody concludes the constitution was corrupted. They conclude it was read.</p>
-
-<p><strong>The close.</strong> 4:82 gives the test. If this were from anyone other than God, you would find much contradiction in it. Not a vowel. Not a dot. Contradiction: laws that cancel each other, accounts that collapse, promises that fail. Bring one.</p>`,
- verse: {
- arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُۥ لَحَـٰفِظُونَ",
- translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
- ref: "Surah Al-Hijr 15:9"
  }
  },
  {
