@@ -74,6 +74,11 @@ const verseDB = {
   "42:13": { arabic: "۞ شَرَعَ لَكُم مِّنَ ٱلدِّينِ مَا وَصَّىٰ بِهِۦ نُوحًۭا وَٱلَّذِىٓ أَوْحَيْنَآ إِلَيْكَ وَمَا وَصَّيْنَا بِهِۦٓ إِبْرَٰهِيمَ وَمُوسَىٰ وَعِيسَىٰٓ ۖ أَنْ أَقِيمُوا۟ ٱلدِّينَ وَلَا تَتَفَرَّقُوا۟ فِيهِ ۚ كَبُرَ عَلَى ٱلْمُشْرِكِينَ مَا تَدْعُوهُمْ إِلَيْهِ ۚ ٱللَّهُ يَجْتَبِىٓ إِلَيْهِ مَن يَشَآءُ وَيَهْدِىٓ إِلَيْهِ مَن يُنِيبُ", translation: "He has ordained for you of religion what He enjoined upon Noah and that which We have revealed to you, [O Muhammad], and what We enjoined upon Abraham and Moses and Jesus - to establish the religion and not be divided therein. Difficult for those who associate others with Allah is that to which you invite them. Allah chooses for Himself whom He wills and guides to Himself whoever turns back [to Him].", ref: "Surah Ash-Shura 42:13. The delivery chain of the word: prophet to prophet, by revelation." },
   "43:63": { arabic: "وَلَمَّا جَآءَ عِيسَىٰ بِٱلْبَيِّنَٰتِ قَالَ قَدْ جِئْتُكُم بِٱلْحِكْمَةِ وَلِأُبَيِّنَ لَكُم بَعْضَ ٱلَّذِى تَخْتَلِفُونَ فِيهِ ۖ فَٱتَّقُوا۟ ٱللَّهَ وَأَطِيعُونِ", translation: "And when Jesus brought clear proofs, he said, \"I have come to you with wisdom and to make clear to you some of that over which you differ, so fear Allah and obey me.", ref: "Surah Az-Zukhruf 43:63. A clarifier is only sent to a people whose version has drifted." },
   "41:42": { arabic: "لَّا يَأْتِيهِ ٱلْبَٰطِلُ مِنۢ بَيْنِ يَدَيْهِ وَلَا مِنْ خَلْفِهِۦ ۖ تَنزِيلٌۭ مِّنْ حَكِيمٍ حَمِيدٍۢ", translation: "Falsehood cannot approach it from before it or from behind it; [it is] a revelation from a [Lord who is] Wise and Praiseworthy.", ref: "Surah Fussilat 41:42. The Quran's second guard verse, alongside 15:9." },
+  "41:41": {
+    arabic: "إِنَّ ٱلَّذِينَ كَفَرُوا۟ بِٱلذِّكْرِ لَمَّا جَآءَهُمْ ۖ وَإِنَّهُۥ لَكِتَٰبٌ عَزِيزٌۭ",
+    translation: "Indeed, those who disbelieve in the message after it has come to them... And indeed, it is a mighty Book.",
+    ref: "Surah Fussilat 41:41"
+  },
   "24:2": { arabic: "الزَّانِيَةُ وَالزَّانِي فَاجْلِدُوا كُلَّ وَاحِدٍ مِنْهُمَا مِائَةَ جَلْدَةٍ", translation: "The adulteress and the adulterer, lash each one of them one hundred lashes.", ref: "Surah An-Nur 24:2" },
   "4:25": { arabic: "فَإِذَا أُحْصِنَّ فَإِنْ أَتَيْنَ بِفَاحِشَةٍ فَعَلَيْهِنَّ نِصْفُ مَا عَلَى الْمُحْصَنَاتِ مِنَ الْعَذَابِ", translation: "Then when they are married, if they commit indecency, upon them is half the punishment of free married women.", ref: "Surah An-Nisa 4:25" },
   "75:17": { arabic: "إِنَّ عَلَيْنَا جَمْعَهُ وَقُرْآنَهُ", translation: "Surely upon Us is its collection and its recitation.", ref: "Surah Al-Qiyamah 75:17" },
@@ -283,6 +288,11 @@ const verseDB = {
     arabic: "إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ",
     translation: "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
     ref: "Surah Al-Hijr 15:9 — Allah's direct promise to preserve the Quran. Carbon-dated manuscripts, 10 million memorizers, and 160 years of non-Muslim scholarship confirm it."
+  },
+  "15:6": {
+    arabic: "وَقَالُوا۟ يَٰٓأَيُّهَا ٱلَّذِى نُزِّلَ عَلَيْهِ ٱلذِّكْرُ إِنَّكَ لَمَجْنُونٌۭ",
+    translation: "And they say, 'O you upon whom the message has been sent down, indeed you are mad.",
+    ref: "Surah Al-Hijr 15:6"
   },
   "1:4": {
     arabic: "مَالِكِ يَوْمِ الدِّينِ",
