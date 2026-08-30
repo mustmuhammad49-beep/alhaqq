@@ -13,18 +13,132 @@ window.ALHAQQ_ENTRIES = [
  },
  {
  id: 1,
- myth: "Islam was spread by the sword — Muslims forced people to convert",
- source: "christian",
+ myth: "Islam was spread by the sword — people were given the choice of conversion or death",
+ source: "secular",
  difficulty: "Common",
  quickAnswer: "There is no compulsion in religion. 2:256. Forced belief is not belief and Allah judges hearts, not armies.",
  reply: "2:256 says there is no compulsion in religion. You cannot force belief into a heart, Allah judges what is inside it. Christians and Jews lived under Muslim rule for over a thousand years and stayed Christian and Jewish. If the sword was the method it did a terrible job.",
  locked: false,
- claim: "Critics allege that Islam spread primarily through military conquest and coercion, leaving people no choice but to convert or face death.",
- rebuttal: "The Quran is explicit: there is absolutely no compulsion in the matter of faith. Belief forced at swordpoint is not belief — Allah knows what is in the heart. The historical expansion of Muslim governance and the spread of Islam as a faith are two entirely different things. Non-Muslims lived under Muslim rule for centuries without converting. If the sword was the tool, the populations would have vanished. Instead, diverse communities of Christians, Jews, and others thrived within Muslim-majority lands for generations. The Quran's position is settled: faith is a matter between a person and Allah alone — no ruler, no army, and no threat can manufacture it.",
+ claim: "Critics argue that Islam spread through military conquest and forced conversion. They point to Surah At-Tawbah 9:5, the so-called verse of the sword, which orders killing the associators wherever they are found, and to the rapid expansion of Muslim rule in the century after the Prophet's death.",
+ rebuttal: `Two claims get mixed together here. Pull them apart and the argument changes shape completely.<br><br>
+
+The first claim is that Muslim empires expanded by war. That is true, and it is not going to be denied anywhere in this answer. Armies moved into Persia and into Byzantine land within about a decade of the Prophet's death. Persia did not attack Medina first. Calling that expansion purely defensive is not honest, and the first historian who hears it will say so.<br><br>
+
+The second claim is that people were forced to become Muslim or be killed. That is the accusation being answered, and it is false.<br><br>
+
+One is about armies and borders. The other is about what happened to a family living in the conquered land the following year. Every empire in that age took land by war. The question is what the new ruler did with the people already living there.<br><br>
+
+<strong>Read the whole page, not one line.</strong><br>
+Critics quote one line from 9:5: kill the associators wherever you find them. They stop there. Read the page in order.<br><br>
+
+Verse 1 announces that a treaty is being formally ended.<br>
+Verse 2 gives the other side four months to travel freely.<br>
+Verse 4 excludes anyone who kept their treaty. Their agreement runs to its full term.<br>
+Verse 5 is the line critics quote. It opens with when the sacred months have passed, which ties it directly back to the four month notice in verse 2, given to the treaty partners named in verse 1.<br>
+Verse 6 says that if any one of them asks you for protection, you must protect him, let him hear the message, and then bring him safely to his own people.<br><br>
+
+<strong>Now the hard part, said plainly rather than smoothed over.</strong><br>
+Verse 5 is an order to fight. It is not a gentle verse and pretending otherwise is how people lose this argument. And its own escape clause reads: if they repent, and establish the prayer, and give the zakah, then let them go on their way. Prayer and zakah are Muslim practices. So for that group, in that war, the way out written into that verse is joining the Muslim community. Anyone who tells you different has not read it.<br><br>
+
+Concede that, and then look at what surrounds it.<br><br>
+
+One thing about the wording, since the phrase wherever you find them is what does the damage when it is read aloud. That phrase answers where, not who. The who was already fixed in the four verses before it: the treaty partners named in verse 1, minus the ones exempted in verse 4. Wherever you find them does not widen the group by a single person. It tells fighters that the enemy already identified may be engaged in any location rather than only on one battlefield. Every army at war says that. It is a rule about geography, and critics quote it as though it were a rule about people.<br><br>
+
+<strong>Verse 4 is the argument nobody makes, and it settles the question of belief.</strong><br>
+Verse 4 exempts associators who kept their treaty. Same beliefs. Same religion. Same idols. Different treatment, and the only thing that differs is whether they kept their word.<br><br>
+
+Think about what that means. If the trigger for fighting were unbelief, verse 4 could not exist. You cannot exempt a group for keeping a treaty if the reason you were fighting them was what they believed, because keeping a treaty does not change anyone's belief. The passage sorts people by conduct, not by creed. That is not an interpretation laid on top of the text. It is the only way verse 4 and verse 5 can both be in the same paragraph.<br><br>
+
+<strong>And the page offers a way out that is not conversion.</strong><br>
+Verse 6 gives protection to any one of them who asks for it. He is kept safe. He hears the message. He does not have to accept it. Then he is taken home safely.<br><br>
+
+Be precise about this rather than overclaiming, because a careful opponent will be. That protection is a safe conduct. It is not a permanent treaty and the war does not end for his people. What it does is guarantee that a man who listens to the message and says no is escorted home instead of killed. That is the specific thing forced conversion cannot contain. Convert or die has no procedure for the man who hears it, refuses, and walks away under guard.<br><br>
+
+<strong>The Quran gives its reason a few lines later.</strong><br>
+Verse 7 sets the rule: as long as they are true to you, be true to them.<br>
+Verse 12 names the trigger: if they break their oaths after their treaty and attack your religion, then fight.<br>
+Verse 13 says who started it: will you not fight a people who broke their oaths, and planned to drive out the messenger, and attacked you first?<br><br>
+
+They attacked you first. The Quran puts the start of the fight on the other side, in its own words.<br><br>
+
+The rule elsewhere is plain. Fight those who fight you, and do not go beyond the limits (2:190). If they lean toward peace, lean toward it too (8:61). God does not forbid you from being kind and fair to those who did not fight you and did not drive you out (60:8). And on force: there is no compulsion in religion (2:256).<br><br>
+
+<strong>Now the history, and this is where the argument is decided.</strong><br>
+If Islam was forced on people at sword point, conquered lands would have turned Muslim fast. They did not.<br><br>
+
+Richard Bulliet of Columbia measured how quickly people converted across the medieval Middle East, and Harvard University Press published it. The finding, as the historian Hugh Kennedy summarised it, is that Islam did become the majority religion, but the process took centuries. Not years. Centuries, under Muslim rule the entire time. <a href="https://archive.org/details/conversiontoisla0000bull" target="_blank" rel="noopener"><em>↗ Bulliet, Conversion to Islam in the Medieval Period, Harvard University Press</em></a><br><br>
+
+<strong>The strongest objection to that, and the answer.</strong><br>
+A sharp critic does not dispute those numbers. He reframes them. He says slow conversion does not prove freedom, it proves the pressure was slow. Non-Muslims paid a tax. They had a lower legal standing. Squeeze people for three centuries and they bend. So the slowness is the machine working, not evidence against it.<br><br>
+
+That is a serious argument. Here is the answer. If a state is running a machine to convert people, that state wants converts. This one did not want them.<br><br>
+
+Under the Umayyad rulers, non-Arabs who converted were often still taxed as though they had not converted. Officials demanded that converts keep paying, because the treasury depended on that money. When the caliph Umar the Second ruled that converting should free a person from the tax, his own governors protested that revenue would collapse, and in some provinces the tax was later put back on converts and the protests were crushed. <a href="https://www.encyclopedia.com/history/news-wires-white-papers-and-books/converts-and-social-integration" target="_blank" rel="noopener"><em>↗ On Umayyad officials demanding that converts keep paying the tax</em></a><br><br>
+
+Notice this is not a compliment to those rulers. It is the opposite. They were being unjust, and they were taxing fellow Muslims as though they were not Muslims, which their own religion forbids, and it helped bring their dynasty down. That is exactly why the point works. A greedy, self-interested government is the last one that would force conversions, because every convert cost it money. The state had a financial reason to keep people non-Muslim, and it acted on that reason. The same reference notes the result: far more people converted than ever gained anything financially by doing it.<br><br>
+
+Being honest about the rest of it: non-Muslims did pay a tax and did have a lower legal standing, and that was real. But that is not the accusation. The accusation is convert or die. A system where the ruler would rather you stayed Christian, because you are worth more to him that way, is not that system.<br><br>
+
+<strong>Egypt, honestly.</strong><br>
+Muslim armies took Egypt in the 640s. It stayed majority Christian for centuries afterward, and the Coptic Church is still there today.<br><br>
+
+Do not overstate it. The Copts went from majority to minority, and there were long periods of real pressure and real persecution. Nobody is claiming a golden age. The narrow point still holds. A power offering convert or die does not leave the national church of the country standing for fourteen centuries, with its own patriarch and its own people still in it.<br><br>
+
+<strong>The largest Muslim country on earth was never conquered.</strong><br>
+Indonesia has around two hundred and thirty million Muslims, more than any other country. No Arab army ever conquered it.<br><br>
+
+Islam arrived by trade. The Economist stated it plainly: there is no doubt that it was spread for the most part by merchants, rather than the warriors who brought it to the Middle East and North Africa. The historian Carool Kersten notes the spread through Southeast Asia did not involve a conquest, and happened gradually and surprisingly late, with the first evidence of local conversions around the thirteenth century. <a href="https://factsanddetails.com/indonesia/History_and_Religion/sub6_1a/entry-3944.html" target="_blank" rel="noopener"><em>↗ The Economist and historians on how Islam reached Indonesia</em></a><br><br>
+
+That Economist sentence admits warriors in one region while denying them in another, which is what makes it worth quoting.<br><br>
+
+Be exact about what Indonesia proves. It does not tell you what a seventh century Arabic verse means. Nothing that happened in Java settles a question about a text. What it answers is the historical claim, which was that Islam grows by conquest. The largest Muslim population on earth grew with no conquest at all.<br><br>
+
+<strong>South Asia, including the part critics use against you.</strong><br>
+Someone who knows the subject will not say India is still Hindu and leave it there. He will point out that what became Pakistan and Bangladesh turned overwhelmingly Muslim under Muslim rule. That is true and it should be met, not avoided.<br><br>
+
+So look at how it happened, because the scholarship on this is detailed. Richard Eaton of the University of Arizona wrote the standard study of the largest case, Bengal, published by the University of California Press. Bengal is now home to the second largest Muslim ethnic population in the world, so if the sword theory works anywhere it should work there. Eaton examined the conventional theories of conversion in India, including conversion by force, and found the evidence pointing somewhere else entirely. The Muslim peasantry of Bengal grew along a moving agrarian frontier, as forest was cleared for rice cultivation and village mosques and shrines were founded in newly settled land. And it grew in the outer countryside while power at the imperial centre in Delhi was weakening. <a href="https://www.ucpress.edu/books/the-rise-of-islam-and-the-bengal-frontier-1204-1760/paper" target="_blank" rel="noopener"><em>↗ Eaton, The Rise of Islam and the Bengal Frontier, University of California Press</em></a><br><br>
+
+Read what that means. If state violence made Muslims, conversion should have been heaviest where the state was strongest, at the centre, near the armies. Instead it was heaviest at the edge, on farmland being opened up, while central power was fading. And in the areas where Muslim rule was longest and hardest, around Delhi itself, the population stayed mostly Hindu. The sword theory predicts the exact opposite of what the map shows.<br><br>
+
+<strong>The comeback about cancelled verses.</strong><br>
+Someone will say Muslim scholars themselves taught that verse 5 cancelled the peaceful verses. That is the claim of abrogation.<br><br>
+
+Look at where it comes from. It rests on later scholars and on hadith reports. It is not in the Quran. The Quran never says verse 5 cancels anything, and it describes itself as consistent: if it had come from other than God, they would have found much contradiction in it (4:82).<br><br>
+
+Be straight about the history too. Plenty of classical jurists did read verse 5 broadly, and pretending they all read it narrowly is false. But they did not agree with each other. Patricia Crone, a historian of Islam at the Institute for Advanced Study in Princeton and no defender of Islam, traced how these verses were read from the earliest times to today, and found the early readings going in several directions. Some said cancelled. Some said it applied to particular people. Some said it stood as written. She also records traditional commentators saying plainly that Muslims may not convert anyone by force, because forced belief is worthless and the religion rests on its arguments. So this was a live disagreement, not a settled fact, and the narrow reading is not a modern invention. <a href="https://www.ias.edu/sites/default/files/hs/Crone_Articles/Crone_No_pressure_then_religious_freedom_in_Islam.pdf" target="_blank" rel="noopener"><em>↗ Patricia Crone on the history of readings of the no compulsion verse</em></a><br><br>
+
+<strong>The harder verse, and the harder question.</strong><br>
+A prepared critic skips verse 5 and goes to 9:29, which orders fighting certain People of the Book until they pay a tax. Face it directly. That verse ends the fighting on payment, not on belief. If the goal had been conversion, the verse would have demanded conversion. It demands money. And a tax on non-Muslims only works if non-Muslims keep existing as non-Muslims.<br><br>
+
+Then the sharpest version: no compulsion to enter, but what about leaving? The Quran prescribes no punishment in this world for someone who leaves. It says whoever wishes may believe and whoever wishes may disbelieve (18:29), and it describes people believing, then disbelieving, then believing again, with no earthly penalty ordered anywhere (4:137). The execution penalty in classical law comes from hadith reports, not from the Quran. The Quran is what is being defended here, and on this the Quran is clear.<br><br>
+
+<strong>What happens when they leave the text and start listing rulers.</strong><br>
+At some point the argument moves off the page and onto history. The wars fought right after the Prophet died against Arab tribes who wanted out. A sultan somewhere who forced a village. A massacre in some century. It comes fast and it is meant to bury you under volume.<br><br>
+
+Say what you are defending, clearly, and then it cannot be done to you. What is being defended here is what the Quran commands. Not the decision of every ruler who ever claimed the name, across fourteen centuries and three continents. Muslims are not required to defend Umayyad tax policy, and Christians are not asked to personally defend every king who marched under a cross. A text and the people who later claimed it are two different subjects.<br><br>
+
+On the wars fought after his death in particular, note two things and then move on. Those events are recorded in later histories, not in the Quran, so they are a question about early Muslim politics rather than about scripture. And the dispute was substantially about tribes refusing to pay the tax to the central authority after agreeing to it, which is a state putting down a revolt over money and allegiance. Read it however you like. It still is not a verse, and a verse is what the accusation was about.<br><br>
+
+<strong>And the argument that the conquest made everything else possible.</strong><br>
+The strongest remaining objection is this: without the conquest there would be no Muslim Egypt at all, so the sword created the conditions even if it did not hold a blade to anyone's throat.<br><br>
+
+That is worth taking seriously, and it is a different claim from the one on the table. Empire creating an environment is not the same as forcing a person to recite a creed, and the phrase spread by the sword, in the mouth of the person using it, means the second one. It also does not survive the map. The largest Muslim population on earth is in a country no Muslim army ever entered. The second largest Muslim ethnic population grew on a farming frontier while imperial power was in decline. If conquest were the necessary engine, those two places would be the emptiest on the list instead of the fullest.<br><br>
+
+<strong>And the comparison of the founders.</strong><br>
+A Christian will often move here: Jesus told Peter to put away his sword, while Muhammad led armies. Answer it without insulting anyone. Jesus never headed a state and never had a community with a border to defend. Muhammad did, after his people were driven out of their city. Those are different situations rather than necessarily different morals, and nobody can say what the first man would have done in the second man's position, because he was never in it. This entry is not a scorecard between religions. It answers one accusation.<br><br>
+
+<strong>So put the two claims back side by side.</strong><br>
+Did Muslim empires expand by war? Yes, openly, the same as every empire of that age.<br><br>
+
+Were people forced to become Muslim? The passage that critics quote exempts unbelievers who kept their word, which means belief was never the trigger. It orders that a man who hears the message and refuses be escorted home alive. Conquered lands stayed non-Muslim for centuries. The state taxed converts to slow conversion down, because it profited from non-Muslims. The largest Muslim country on earth was never conquered. The second largest Muslim ethnic population grew on a farming frontier as imperial power faded, not under the boot of it.<br><br>
+
+Those are not the marks of forced conversion. They are the marks of an empire that expanded, and a faith that spread on a different track and a much slower clock.<br><br>
+
+People can reject this. Rejecting it does not make it incorrect.`,
  verse: {
- arabic: "لَا إِكْرَاهَ فِي الدِّينِ ۖ قَد تَّبَيَّنَ الرُّشْدُ مِنَ الْغَيِّ",
- translation: "There is no compulsion in religion. The right course has become clear from the wrong.",
- ref: "Surah Al-Baqarah 2:256"
+ arabic: "وَإِنْ أَحَدٌ مِّنَ الْمُشْرِكِينَ اسْتَجَارَكَ فَأَجِرْهُ حَتَّىٰ يَسْمَعَ كَلَامَ اللَّهِ ثُمَّ أَبْلِغْهُ مَأْمَنَهُ",
+ translation: "And if any one of the associators seeks your protection, then grant him protection so that he may hear the words of Allah. Then deliver him to his place of safety.",
+ ref: "Surah At-Tawbah 9:6"
  }
  },
  {

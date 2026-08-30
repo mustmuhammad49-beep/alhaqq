@@ -139,6 +139,7 @@ const verseDB = {
     translation: "And We made the lump into bones, and We clothed the bones with flesh; then We developed him into another creation. So blessed is Allah, the best of creators.",
     ref: "Surah Al-Mu'minun 23:14"
   },
+  "18:29": { arabic: "وَقُلِ الْحَقُّ مِن رَّبِّكُمْ ۖ فَمَن شَاءَ فَلْيُؤْمِن وَمَن شَاءَ فَلْيَكْفُرْ", translation: "And say, the truth is from your Lord, so whoever wills, let him believe, and whoever wills, let him disbelieve.", ref: "Surah Al-Kahf 18:29" },
   "2:256": {
     arabic: "لَا إِكْرَاهَ فِي الدِّينِ ۖ قَد تَّبَيَّنَ الرُّشْدُ مِنَ الْغَيِّ",
     translation: "There is no compulsion in religion. The right course has become clear from the wrong.",
