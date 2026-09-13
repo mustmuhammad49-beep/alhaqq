@@ -1257,6 +1257,76 @@ Give the opponent everything and ask what he bought. Say that the establishing h
       ref: "Surah At-Tawbah 9:60"
     }
   },
+  {
+    id: 51,
+    myth: "The Prophet had knowledge of the unseen and authority beyond what was revealed to him.",
+    source: "sunni",
+    difficulty: "Advanced",
+    quickAnswer: "The Quran puts the opposite in his own mouth. Then it puts the exact same sentence in Nuh's mouth. That makes it a definition of what a messenger is, not a one-off reply to one crowd on one day.",
+    reply: `Six times across four surahs, he is told to state his own limits out loud. Not to feel them. To say them.
+
+Start with 6:50. Say: I do not say to you that with me are the treasuries of Allah, nor do I know the unseen, nor do I say to you that I am an angel. I follow only what is revealed to me.
+
+On its own, that verse gets answered easily. People say it was a reply to one demand, from one crowd, on one day. Situational. Modest phrasing. Nothing general.
+
+Then you reach 11:31.
+
+Nuh says it. Three clauses, same order. No treasuries of Allah. No knowledge of the unseen. Not an angel.
+
+The same sentence shows up in two prophets' mouths, in two surahs, separated by most of human history.
+
+A phrase that appears once can be situational. A phrase that appears twice, in two different mouths, is a formula. It's what a messenger says about himself because of what a messenger is.
+
+That's the entry. Everything below supports it.
+
+THE REST OF THE SET
+
+7:188. Say: I do not possess for myself benefit or harm, except what Allah wills. And if I knew the unseen, I would have accumulated much good, and no harm would have touched me.
+
+Look at how that verse argues. It reasons from his ordinary life. Things went wrong for him. Chances passed him by. That's offered as the evidence that he has no access to the unseen. His own biography is the proof.
+
+10:49 repeats the first half of it word for word, in a different surah.
+
+9:101 takes it out of theory. Among those around you of the desert Arabs are hypocrites, and among the people of Madinah. You do not know them. We know them.
+
+He couldn't identify them. They were in his city, in his community, in front of his face. The verse doesn't say it was difficult for him. It says he did not know.
+
+10:15 shuts the door from the other direction. When they demanded a different Qur'an, the answer was: it is not for me to change it of my own accord. I follow only what is revealed to me. He isn't refusing out of preference. The verse frames it as outside his power.
+
+11:12 catches the same pressure coming the other way. Perhaps you might leave out some of what is revealed to you. Nothing added. Nothing held back.
+
+And 6:66, 6:107 and 10:108 close it a third time. I am not a guardian over you. Two surahs, three statements.
+
+THE FORK
+
+Ask one question. Is the sentence in 6:50 situational, or is it definitional?
+
+If they say situational, they now have to explain 11:31. Two prophets, two surahs, an enormous gap in time, one sentence. Coincidence isn't available to them.
+
+If they say definitional, they've accepted that the Quran defines a messenger as someone with no independent access to the unseen. Any claim that this Prophet held that access now runs against the definition the Quran itself supplied.
+
+Both roads cost them something. That's the point of asking.
+
+WHAT THIS ENTRY DOES NOT CLAIM
+
+It doesn't say he had no role. It says nothing about teaching, explaining, or leading a community.
+
+It doesn't deal with 7:157 or 59:7. Those are different arguments and they live in other entries.
+
+The claim here is narrow on purpose. Knowledge, and independent authority. Nothing wider than that.
+
+Keep it narrow and it holds under pressure. Widen it, and somebody reads 7:157 back at you and the whole thing falls over.
+
+🛡️ People can reject this. Rejecting it does not make it incorrect.`,
+    locked: false,
+    claim: "The Prophet possessed knowledge and authority that go beyond the Quran, and that authority is what a second source of guidance rests on.",
+    rebuttal: "Six times across four surahs he is instructed to state his own limits out loud. The same three-clause formula appears again in Surah Hud, spoken by Nuh. A sentence that shows up once can be situational. A sentence that shows up in two different prophets' mouths is a formula.",
+    verse: {
+      arabic: "وَلَآ أَقُولُ لَكُمْ عِندِى خَزَآئِنُ ٱللَّهِ وَلَآ أَعْلَمُ ٱلْغَيْبَ وَلَآ أَقُولُ إِنِّى مَلَكٌۭ وَلَآ أَقُولُ لِلَّذِينَ تَزْدَرِىٓ أَعْيُنُكُمْ لَن يُؤْتِيَهُمُ ٱللَّهُ خَيْرًا ۖ ٱللَّهُ أَعْلَمُ بِمَا فِىٓ أَنفُسِهِمْ ۖ إِنِّىٓ إِذًۭا لَّمِنَ ٱلظَّٰلِمِينَ",
+      translation: "And I do not tell you that I have the depositories [containing the provision] of Allah or that I know the unseen, nor do I tell you that I am an angel, nor do I say of those upon whom your eyes look down that Allah will never grant them any good. Allah is most knowing of what is within their souls. Indeed, I would then be among the wrongdoers.",
+      ref: "Surah Hud 11:31"
+    }
+  },
  {
  id: 6,
  myth: "The Quran endorses slavery — Islam is incompatible with human rights",
