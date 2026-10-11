@@ -1320,11 +1320,85 @@ Keep it narrow and it holds under pressure. Widen it, and somebody reads 7:157 b
 🛡️ People can reject this. Rejecting it does not make it incorrect.`,
     locked: false,
     claim: "The Prophet possessed knowledge and authority that go beyond the Quran, and that authority is what a second source of guidance rests on.",
-    rebuttal: "Six times across four surahs he is instructed to state his own limits out loud. The same three-clause formula appears again in Surah Hud, spoken by Nuh. A sentence that shows up once can be situational. A sentence that shows up in two different prophets' mouths is a formula.",
+    rebuttal: `Six times across four surahs, he is told to state his own limits out loud. Not to feel them. To say them.<br><br>Start with 6:50. Say: I do not say to you that with me are the treasuries of Allah, nor do I know the unseen, nor do I say to you that I am an angel. I follow only what is revealed to me.<br><br>On its own, that verse gets answered easily. People say it was a reply to one demand, from one crowd, on one day. Situational. Modest phrasing. Nothing general.<br><br>Then you reach 11:31.<br><br>Nuh says it. Three clauses, same order. No treasuries of Allah. No knowledge of the unseen. Not an angel.<br><br>The same sentence shows up in two prophets' mouths, in two surahs, separated by most of human history.<br><br>A phrase that appears once can be situational. A phrase that appears twice, in two different mouths, is a formula. It's what a messenger says about himself because of what a messenger is.<br><br>That's the entry. Everything below supports it.<br><br><strong>The rest of the set</strong><br><br>7:188. Say: I do not possess for myself benefit or harm, except what Allah wills. And if I knew the unseen, I would have accumulated much good, and no harm would have touched me.<br><br>Look at how that verse argues. It reasons from his ordinary life. Things went wrong for him. Chances passed him by. That's offered as the evidence that he has no access to the unseen. His own biography is the proof.<br><br>10:49 repeats the first half of it word for word, in a different surah.<br><br>9:101 takes it out of theory. Among those around you of the desert Arabs are hypocrites, and among the people of Madinah. You do not know them. We know them.<br><br>He couldn't identify them. They were in his city, in his community, in front of his face. The verse doesn't say it was difficult for him. It says he did not know.<br><br>10:15 shuts the door from the other direction. When they demanded a different Qur'an, the answer was: it is not for me to change it of my own accord. I follow only what is revealed to me. He isn't refusing out of preference. The verse frames it as outside his power.<br><br>11:12 catches the same pressure coming the other way. Perhaps you might leave out some of what is revealed to you. Nothing added. Nothing held back.<br><br>And 6:66, 6:107 and 10:108 close it a third time. I am not a guardian over you. Two surahs, three statements.<br><br><strong>The fork</strong><br><br>Ask one question. Is the sentence in 6:50 situational, or is it definitional?<br><br>If they say situational, they now have to explain 11:31. Two prophets, two surahs, an enormous gap in time, one sentence. Coincidence isn't available to them.<br><br>If they say definitional, they've accepted that the Quran defines a messenger as someone with no independent access to the unseen. Any claim that this Prophet held that access now runs against the definition the Quran itself supplied.<br><br>Both roads cost them something. That's the point of asking.<br><br><strong>What this entry does not claim</strong><br><br>It doesn't say he had no role. It says nothing about teaching, explaining, or leading a community.<br><br>It doesn't deal with 7:157 or 59:7. Those are different arguments and they live in other entries.<br><br>The claim here is narrow on purpose. Knowledge, and independent authority. Nothing wider than that.<br><br>Keep it narrow and it holds under pressure. Widen it, and somebody reads 7:157 back at you and the whole thing falls over.<br><br>🛡️ People can reject this. Rejecting it does not make it incorrect.`,
     verse: {
       arabic: "وَلَآ أَقُولُ لَكُمْ عِندِى خَزَآئِنُ ٱللَّهِ وَلَآ أَعْلَمُ ٱلْغَيْبَ وَلَآ أَقُولُ إِنِّى مَلَكٌۭ وَلَآ أَقُولُ لِلَّذِينَ تَزْدَرِىٓ أَعْيُنُكُمْ لَن يُؤْتِيَهُمُ ٱللَّهُ خَيْرًا ۖ ٱللَّهُ أَعْلَمُ بِمَا فِىٓ أَنفُسِهِمْ ۖ إِنِّىٓ إِذًۭا لَّمِنَ ٱلظَّٰلِمِينَ",
       translation: "And I do not tell you that I have the depositories [containing the provision] of Allah or that I know the unseen, nor do I tell you that I am an angel, nor do I say of those upon whom your eyes look down that Allah will never grant them any good. Allah is most knowing of what is within their souls. Indeed, I would then be among the wrongdoers.",
       ref: "Surah Hud 11:31"
+    }
+  },
+  {
+    id: 52,
+    myth: "Islam blames the woman for the fall, the same as every other Abrahamic religion.",
+    source: "christian",
+    difficulty: "Advanced",
+    locked: false,
+    quickAnswer: "Arabic has a grammatical form for exactly two people. The Quran uses it nine times in four verses here. Every single act in the garden is assigned to both of them. And the one time a name does get attached to the disobedience, the name is Adam's.",
+    reply: `The objection assumes the two accounts match. They don't, and grammar is where it breaks.
+
+Arabic marks the dual. It carries a separate verb form for exactly two people, distinct from singular and from plural. So when the Quran describes two people doing something, the verb itself tells you both did it. Nothing has to be inferred.
+
+Read 7:20 through 7:23 and count.
+
+Satan whispered to them both. Waswasa lahuma.
+
+He swore to them both. Qasamahuma.
+
+He brought them both down. Dallahuma.
+
+They both tasted it. Dhaqa.
+
+Their shame became apparent to them both. Badat lahuma.
+
+They both began covering themselves. Tafiqa.
+
+Their Lord called to them both. Nadahuma.
+
+Did I not forbid you two that tree. A-lam anhakuma.
+
+They both said: our Lord, we have wronged ourselves. Qala rabbana zalamna anfusana.
+
+Nine dual forms in four verses. Not one singular among them.
+
+There is no first-deceived in the passage. Nobody is approached ahead of the other. Nobody hands anything to anybody. No blame is assigned by sex at any point. And the confession in 7:23 is joint, in one sentence, sharing one pronoun.
+
+THE PART PEOPLE DO NOT EXPECT
+
+Go to 20:120 and 20:121.
+
+Satan whispers to Adam. Singular. Then both of them eat. Then one line attaches a name to the disobedience.
+
+Wa asa Adamu rabbahu fa-ghawa. Adam disobeyed his Lord and erred.
+
+So the Quran does single someone out, once. It's him.
+
+THE FORK
+
+Ask which objection is actually being made.
+
+If the claim is that Islam borrowed the older account, then the two differ at the precise detail the claim depends on. A borrowed story doesn't quietly drop the one element the original is best known for and then attach the other party's name instead.
+
+If the claim is that Islam produced its own version, then the account isn't derivative, and the version in question is the one that assigns no blame by sex.
+
+Neither road leads back to the objection they opened with.
+
+WHAT THIS DOES NOT CLAIM
+
+It says nothing about whether the older account is right or wrong. In the Genesis 3 account the woman is approached first and the sequence runs differently. Pointing that out is not an attack on it. That comparison was raised by the objection, not by us, and the only thing being shown is that the two are not the same text.
+
+It doesn't settle every question about women in the Quran. That's separate ground, and it lives in other entries.
+
+The claim here is narrow on purpose. On this passage, about this event, the grammar hands the act to two people, and the only name later attached to it is his.
+
+That's it. Narrow, and it holds.
+
+🛡️ People can reject this. Rejecting it does not make it incorrect.`,
+    claim: "The Quranic garden account is borrowed from the earlier one, including the part where the woman is deceived first and carries the blame.",
+    rebuttal: `The two accounts differ at the exact point the objection says they match. Arabic marks the dual, so the grammar itself assigns every act to both people. Nobody is approached first. Nobody hands anything to anybody. And in Surah Ta-Ha the only person named is Adam.<br><br>Arabic carries a separate verb form for exactly two people. The Quran uses it nine times across four verses in this passage. Satan whispered to them both. He swore to them both. He brought them both down. They both tasted it. Their shame appeared to them both. They both covered themselves. Their Lord called to them both. He said did I not forbid you two. They both said our Lord we have wronged ourselves.<br><br>Nine dual forms. Not one singular among them. There is no first-deceived. Nobody is approached ahead of the other. No blame is assigned by sex at any point. The confession in 7:23 is joint, in one sentence, sharing one pronoun.<br><br><strong>The part people do not expect</strong><br><br>Go to 20:120 and 20:121. Satan whispers to Adam. Singular. Then both of them eat. Then one line attaches a name to the disobedience.<br><br>Wa asa Adamu rabbahu fa-ghawa. Adam disobeyed his Lord and erred.<br><br>So the Quran does single someone out, once. It's him.<br><br><strong>The fork</strong><br><br>Ask which objection is actually being made. If the claim is that Islam borrowed the older account, then the two differ at the precise detail the claim depends on. A borrowed story doesn't quietly drop the one element the original is best known for and then attach the other party's name instead. If the claim is that Islam produced its own version, then the account isn't derivative, and the version in question is the one that assigns no blame by sex. Neither road leads back to the objection they opened with.<br><br><strong>What this does not claim</strong><br><br>It says nothing about whether the older account is right or wrong. In the Genesis 3 account the woman is approached first and the sequence runs differently. Pointing that out is not an attack on it. That comparison was raised by the objection, not by us, and the only thing being shown is that the two are not the same text. It doesn't settle every question about women in the Quran. That's separate ground, and it lives in other entries.<br><br>The claim here is narrow on purpose. On this passage, about this event, the grammar hands the act to two people, and the only name later attached to it is his. That's it. Narrow, and it holds.<br><br>🛡️ People can reject this. Rejecting it does not make it incorrect.`,
+    verse: {
+      arabic: "قَالَا رَبَّنَا ظَلَمْنَآ أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ ٱلْخَٰسِرِينَ",
+      translation: "They said, \"Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers.\"",
+      ref: "Surah Al-A'raf 7:23"
     }
   },
  {
