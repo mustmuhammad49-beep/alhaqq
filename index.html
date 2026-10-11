@@ -413,6 +413,34 @@
   @keyframes spin{to{transform:rotate(405deg)}}
   a{color:var(--gold)}a:hover{color:var(--gold-light)}
   @media (max-width:700px){ .topnote{display:none} }
+
+  /* ── ZOOM CONTROLS ── */
+  .zoom-strip{
+    position:absolute;bottom:1.2rem;left:1.4rem;
+    display:flex;flex-direction:column;gap:.5rem;pointer-events:auto
+  }
+  .zoom-strip-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(14,12,10,.82);border:1px solid rgba(201,168,76,.5);
+    color:var(--gold-light);font-size:1.3rem;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);
+    box-shadow:0 4px 14px rgba(0,0,0,.5);line-height:1;user-select:none
+  }
+  .zoom-strip-btn:hover{background:rgba(201,168,76,.18);border-color:var(--gold);color:#fff}
+  .zoom-strip-btn:active{transform:scale(.91)}
+  @media (max-width:480px){
+    .zoom-strip{bottom:.75rem;left:.9rem}
+    .zoom-strip-btn{width:34px;height:34px;font-size:1.1rem}
+  }
+  /* ── LANDSCAPE MOBILE ── */
+  @media (orientation:landscape) and (max-height:500px){
+    .hint{bottom:.8rem;font-size:.49rem;padding:.3rem .85rem}
+    .zoom-strip{bottom:.55rem;left:.9rem;gap:.35rem}
+    .zoom-strip-btn{width:32px;height:32px;font-size:1rem}
+    .topbar{padding:.6rem 1.1rem}
+    .logo-arabic{font-size:1.2rem}
+  }
 </style>
 </head>
 <body>
@@ -430,6 +458,10 @@
   </button>
   <div class="booktip" id="booktip"></div>
   <div class="hint" id="hint">Drag to turn the table · choose a volume</div>
+  <div class="zoom-strip" id="zoomStrip">
+    <button class="zoom-strip-btn" id="zoomInBtn" title="Zoom in">＋</button>
+    <button class="zoom-strip-btn" id="zoomOutBtn" title="Zoom out">－</button>
+  </div>
   <div class="veil" id="veil">
     <div class="jpanel">
       <div class="gem"></div>

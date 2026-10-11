@@ -1010,6 +1010,10 @@ let mode = 'hub';            // 'hub' | 'opening' | 'reading' | 'closing'
 let active = null;
 let orbit = 0.6, orbitTarget = 0.6, dragging = false, lastX = 0, dragVel = 0;
 let camPitch = 0.62;
+let hubRadius = 8.4;  // hub orbit radius — user can zoom in/out
+const HUB_R_MIN = 7.0, HUB_R_MAX = 13.5;
+let readZoom = 1.0;   // book reading camera scale — 1=default, <1=zoomed in
+const ZOOM_READ_MIN = 0.60, ZOOM_READ_MAX = 1.30;
 const ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
 const el = renderer.domElement;
 const tip = document.getElementById('booktip');
@@ -1044,6 +1048,7 @@ function closeBook(){
   if (!active) return;
   mode = 'closing'; backBtn.classList.remove('show');
   hint.textContent = 'Drag to turn the table · choose a volume';
+  readZoom = 1.0;
 }
 backBtn.onclick = closeBook;
 
@@ -1304,6 +1309,22 @@ function curlPage(mesh, p){
 
 jLabel.onclick = () => veil.classList.add('show');
 window.openVolume = i => openBook(books[i]);
+
+/* ── zoom strip buttons ── */
+document.getElementById('zoomInBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  if (mode === 'hub' || mode === 'opening' || mode === 'closing')
+    hubRadius = Math.max(HUB_R_MIN, hubRadius - 1.2);
+  else
+    readZoom = Math.max(ZOOM_READ_MIN, readZoom - 0.12);
+});
+document.getElementById('zoomOutBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  if (mode === 'hub' || mode === 'opening' || mode === 'closing')
+    hubRadius = Math.min(HUB_R_MAX, hubRadius + 1.2);
+  else
+    readZoom = Math.min(ZOOM_READ_MAX, readZoom + 0.12);
+});
 window.selectRow = n => { active.view = 'entry'; active.entry = active.list[n]; active.hover = null; flipTo(); };
 document.getElementById('jclose').onclick = () => veil.classList.remove('show');
 document.getElementById('jsend').onclick = () => {
@@ -1347,12 +1368,12 @@ function tick(){
   // camera
   let targetPos, targetLook, targetPitch;
   if (mode === 'hub'){
-    const r = 8.4;
-    targetPos = tmpV.set(Math.cos(orbit) * r, 5.0, Math.sin(orbit) * r).clone();
+    const r = hubRadius;
+    targetPos = tmpV.set(Math.cos(orbit) * r, 5.0 + (r - 8.4) * 0.22, Math.sin(orbit) * r).clone();
     targetLook = new THREE.Vector3(0, TABLE_TOP + 1.05, 0);
   } else {
     const aspect = innerWidth / innerHeight;
-    const mobileFactor = aspect < 0.75 ? (1.3 / aspect) : 1;
+    const mobileFactor = (aspect < 0.75 ? (1.3 / aspect) : 1) * readZoom;
     targetPos = new THREE.Vector3(0, READ_POS.y + 3.45 * mobileFactor, READ_POS.z + 1.7 * mobileFactor);
     targetLook = new THREE.Vector3(0, READ_POS.y + 0.28, READ_POS.z - 0.05);
   }
